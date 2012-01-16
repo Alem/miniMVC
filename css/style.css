@@ -1,0 +1,21 @@
+body{
+	font-family: Verdana,Geneva,sans-serif;
+}
+#left_sidebar{
+	float:left;
+	margin: 0 10px;
+	width:150px;
+}
+#content{
+	float:left;
+	margin: 0 10px;
+	width:400px;
+}
+#right_sidebar{
+	float:left;
+	margin: 0 10px;
+	width:150px;
+}
+#footer{
+	clear:both;
+}
