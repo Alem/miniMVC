@@ -7,10 +7,11 @@
 
 <body>
 	<div id="header">
+		HEADER
 	</div>
 
 	<div id="left_sidebar">
-		test
+		LEFT SIDEBAR
 	</div>
 
 	<div id="content">
@@ -19,16 +20,16 @@
 
 	<div id="right_sidebar">
 		<div id="right_top_sidebar">
-			test
+			RIGHT - TOP SIDEBAR
 		</div>
 
 		<div id="right_bottom_sidebar">
-			test
+			RIGHT - BOTTOM SIDEBAR
 		</div>
 	</div>
 
 	<div id="footer">
-		test
+		FOOTER
 	</div>
 </body>
 <html>

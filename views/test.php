@@ -1,4 +1,4 @@
 <h1> A Test View </h1>
-<h2> A test paragraph</h2>
-<?php	echo $data;	?>
+<h2> Test Paragraph</h2>
+<?php	echo $data['content'];	?>
 

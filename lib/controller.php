@@ -4,6 +4,9 @@ class Controller{
 
 	function __construct($query){
 		$this->query = $query;
+
+		#if (!isset($query['controller']) ){ $this->query['controller'] = 'main'; }
+
 		$controller_filename = SERVER_ROOT . '/controllers/' . $this->query['controller'] . '.php';
 
 		if ( file_exists($controller_filename) ) { 
@@ -21,8 +24,7 @@ class Controller{
 		}
 	}
 
-	function useView($view, $data, $template){
-		if ( !isset($template) ){ $template = 'template'; }
+	function useView($view, $data, $template = 'template'){
 		require_once( SERVER_ROOT . '/views/' . $template . '.php');
 	}
 
