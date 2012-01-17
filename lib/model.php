@@ -3,7 +3,6 @@
 class Model{
 
 #	var $table =  STRTOLOWER(__CLASS__).'s'; 
-
 	public function db_connect(){
 		mysql_select_db($db_config['database'],
 				mysql_connect(

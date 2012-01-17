@@ -1,31 +1,27 @@
 <?php
-
+error_reporting('-1');
+ini_set('display_errors',1);
 ## 
 ## This is the main controller for the application
 ## (c) Alem
-
 # Defines path, DB configurations, etc.
 require_once('config.php');
+# Contains Controller Class
+require_once('lib/controller.php');
+require_once('lib/model.php');
 
 # Get Controller & Method from URL
 $parsedquery = explode( '/', $_SERVER['QUERY_STRING'] );
 $query['controller'] = $parsedquery[0];
-$query['method'] = $parsedquery[1];
-$query['variable'] = $parsedquery[2];
+$query_size = count($parsedquery);
+if ( $query_size > 1 ){
+	$query['method'] = $parsedquery[1];
+}
+if($query_size > 2 ){
+	$query['variable'] = $parsedquery[2];
+}
 
-# Contains Controller Class
-require_once('lib/controller.php');
-
-# Instantiate Controller class
+# Instantiate appropriate controller based on query.
 $controller = new Controller($query);
-
-# Load requested controller
-
-# Debug index 
-echo "<br/><br/><br/><br/><br/>";
-echo "<h3>Index Debug</h3>";
-echo "Controller: " . $query['controller'] . "<br/>";
-echo "Method: " . $query['method'] . "<br/>";
-echo "Variable: " . $query['variable'] . "<br/>";
 
 ?>
