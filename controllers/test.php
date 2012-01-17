@@ -6,21 +6,25 @@
 
 class Test extends Controller{
 
+	function __construct(){
+	#	$this -> useModel('test');
+	}
+	
 	function index(){
 		$data = "This is a test controller";
-		$this->useView('test',$data);
+		$this -> useView('test',$data);
 	}
 
 	function countto($num){
 		for($x=1; $x <= $num; $x++){
-			echo $x;
+			$data .= $x;
 		}
-		return $content;
+		$this -> useView('test',$data);
 	}
 	
 	function say($phrase){
 		$data = $phrase;
-		$this->useView('test',$data);
+		$this -> useView('test',$data);
 	}
 	
 }

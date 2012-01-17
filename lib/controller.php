@@ -6,12 +6,12 @@
 
 class Controller{
 
-	function __construct($uri){
-		$this->uri = $uri;
+	function __construct($query){
+		$this->query = $query;
 	}
 
 	function useController($controllerClass){
-		$controller_filename = SERVER_ROOT . '/controllers/' . $this->uri['controller'] . '.php';
+		$controller_filename = SERVER_ROOT . '/controllers/' . $this->query['controller'] . '.php';
 
 		if (file_exists($controller_filename)) { 
 			require_once($controller_filename);
@@ -19,10 +19,13 @@ class Controller{
 			echo "$controller_filename does not exist";
 		}
 
-		$controller = new $controllerClass();
-
-		if ( method_exists($controller, $this->uri['method'])) {
-			$controller->{ $this->uri['method'] }( $this->uri['var'] );
+		if ( isset ($controllerClass) ){
+			$controller = new $controllerClass;
+		}else{
+			$controller = new $this->query['controller'];
+		}
+		if ( method_exists($controller, $this->query['method'])) {
+			$controller->{ $this->query['method'] }( $this->query['variable'] );
 		}else{
 			$controller->index();
 		}

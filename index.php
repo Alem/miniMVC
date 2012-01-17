@@ -7,25 +7,26 @@
 # Defines path, DB configurations, etc.
 require_once('config.php');
 
+# Get Controller & Method from URL
+$parsedquery = explode( '/', $_SERVER['QUERY_STRING'] );
+$query['controller'] = $parsedquery[0];
+$query['method'] = $parsedquery[1];
+$query['variable'] = $parsedquery[2];
+
 # Contains Controller Class
 require_once('lib/controller.php');
 
-# Get Controller & Method from URL
-$parseduri = explode( '/', $_SERVER['QUERY_STRING'] );
-$uri['controller'] = $parseduri[0];
-$uri['method'] = $parseduri[1];
-$uri['var'] = $parseduri[2];
-
 # Instantiate Controller class
-$controller = new Controller($uri);
+$controller = new Controller($query);
 
 # Load requested controller
-$controller -> useController($uri['controller']);
+$controller -> useController();
 
-# Debug Index 
-echo "<br/><br/><br/><br/><br/><h3>Index Debug</h3>";
-echo "Controller: " . $uri['controller'] . "<br/>";
-echo "Method: " . $uri['method'] . "<br/>";
-echo "Variable: " . $uri['var'] . "<br/>";
+# Debug index 
+echo "<br/><br/><br/><br/><br/>";
+echo "<h3>Index Debug</h3>";
+echo "Controller: " . $query['controller'] . "<br/>";
+echo "Method: " . $query['method'] . "<br/>";
+echo "Variable: " . $query['variable'] . "<br/>";
 
 ?>
