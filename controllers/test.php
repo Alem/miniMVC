@@ -18,7 +18,7 @@ class TestController extends Controller{
 	}
 	
 	function say($phrase){
-		$data['content'] = $phrase;
+		$data['content'] = urldecode($phrase);
 		$this -> useView('test', $data);
 	}
 	

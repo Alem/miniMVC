@@ -1,9 +1,12 @@
 <?php
-error_reporting('-1');
-ini_set('display_errors',1);
 ## 
 ## This is the main controller for the application
 ## (c) Alem
+
+# Error reporting
+error_reporting('-1');
+ini_set('display_errors',1);
+
 # Defines path, DB configurations, etc.
 require_once('config.php');
 # Contains Controller Class
