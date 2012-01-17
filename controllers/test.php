@@ -1,13 +1,8 @@
 <?php
 
-##
-##
-##
-
-class Test extends Controller{
+class TestController extends Controller{
 
 	function __construct(){
-	#	$this -> useModel('test');
 	}
 	
 	function index(){

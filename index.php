@@ -20,7 +20,6 @@ require_once('lib/controller.php');
 $controller = new Controller($query);
 
 # Load requested controller
-$controller -> useController();
 
 # Debug index 
 echo "<br/><br/><br/><br/><br/>";

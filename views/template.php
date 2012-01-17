@@ -10,25 +10,25 @@
 	</div>
 
 	<div id="left_sidebar">
-test
+		test
 	</div>
 
 	<div id="content">
-test
+		<?php require_once( SERVER_ROOT . '/views/' . $view . '.php'); ?>
 	</div>
 
 	<div id="right_sidebar">
 		<div id="right_top_sidebar">
-test
+			test
 		</div>
 
 		<div id="right_bottom_sidebar">
-test
+			test
 		</div>
 	</div>
 
 	<div id="footer">
-test
+		test
 	</div>
 </body>
 <html>
