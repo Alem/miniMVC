@@ -1,26 +1,50 @@
 body{
-	font-family: Verdana,Geneva,sans-serif;
+	font-family: Purisa,sans-serif;
+	font-family: Helvetica,sans-serif;
 	margin:0;
 	padding:0;
+	color: #222;
+	background: url('imgs/grunge_wall.png');
+	background: url('imgs/bright_squares.png');
+	background: url('imgs/beige_paper.png');
+	background: url('imgs/whitey.png');
+	background: url('imgs/white_carbon.png');
+	background: url('imgs/cubes.png');
+	background: url('imgs/white_brick_wall.png');
+}
+#wrapper{
+	height: 600px;
+	padding: 30px;
 }
 #header,#footer{
 	background: #eee;
+	background: #afdfff; 
 	padding: 10px;
-	height: 30px;
-	margin: 0 0 20px;
+	height: 40px;
 	clear:both;
+	box-shadow: 1px 1px 2px #ccc;
+	opacity: 0.8;
+}
+#header{
+	font-size: 2em;
 }
 #left_sidebar,#right_sidebar{
 	float:left;
-	margin: 10px 5px 10px 20px;
-	padding: 5px;
-	width:200px;
-	background: #eee;
+	padding: 10px;
+	width: 200px;
+	background: #afdfff; 
 	border-radius: 5px;
+	box-shadow: 1px 1px 1px #ccc;
+	opacity: 0.8;
 }
 #content{
 	float:left;
-	margin: 5px 15px;
 	width: 400px;
 	height: 500px;
+	margin: 0px 50px;
+	padding: 10px 20px;
+	border-radius: 5px;
+	box-shadow: 1px 1px 1px #ccc;
+	background: #afdfff; 
+	opacity: 0.8;
 }

@@ -7,6 +7,7 @@ class TestController extends Controller{
 	}
 	
 	function index(){
+		$test_dbquery = $this -> model -> query("select * from test;");
 		$this -> useView('test', $this -> model -> data);
 	}
 
@@ -19,6 +20,8 @@ class TestController extends Controller{
 	
 	function say($phrase){
 		$data['content'] = urldecode($phrase);
+		$data['r_top_sidebar'] = urldecode($phrase);
+		$data['r_bot_sidebar'] = "<a href='?test/'>Back</a>";
 		$this -> useView('test', $data);
 	}
 	

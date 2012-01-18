@@ -4,22 +4,27 @@ class Controller{
 
 	function __construct($query){
 
+		/* Make request query a controller object. */
 		$this->query = $query;
 
-		if (empty($query['controller']) ){ $this->query['controller'] = 'default'; }
-
+		/* Set default query controller to 'default.php'.
+		 * Define the controller filename using the name given in the query. 
+		 */
+		if ( empty( $query['controller'] ) ) { $this -> query['controller'] = 'default'; }
 		$controller_filename = SERVER_ROOT . '/controllers/' . $this->query['controller'] . '.php';
 
+		/* If method exists execute, otherwise call index() method.
+		 * Set parameter to null if not defined in query. 
+		 */
 		if ( file_exists($controller_filename) ) { 
 			require_once($controller_filename);
 			$controllerClass = ( $this -> query['controller'] ."Controller" );
 			$controller = new $controllerClass; 
-
 			if ( isset($query['method']) && (method_exists($controller, $this -> query['method'])) ) {
-				$param = ( isset($this->query['variable']) ) ? $this->query['variable'] : ''; 
-					$controller->{ $this -> query['method'] }( $param );
+				$param = ( isset($this->query['variable']) ) ? $this -> query['variable'] : null; 
+				$controller -> { $this -> query['method'] }( $param );
 			}else{
-				$controller->index();
+				$controller -> index();
 			}
 		}else{
 			echo "$controller_filename does not exist";

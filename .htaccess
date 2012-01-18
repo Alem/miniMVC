@@ -1,5 +1,5 @@
 RewriteEngine On
-RewriteBase /srv/www/sg/
+RewriteBase /srv/www/socialgrocery/
 ReWriteCond %{REQUEST_FILENAME} !-f
 ReWriteCond %{REQUEST_FILENAME} !-d
 ReWriteRule ^(.*)$ index.php/$1 [L]

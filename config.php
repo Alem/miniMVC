@@ -1,13 +1,18 @@
 <?php
 
 # Base Path
-define("WEB_ROOT", "http://localhost");
-define("SERVER_ROOT", dirname(__FILE__));
+define('WEB_ROOT', 'http://localhost');
+define('SERVER_ROOT', dirname(__FILE__));
 
 # Database Configuration
-$db_config['server'] = 'localhost'; 
-$db_config['username'] = 'test';
-$db_config['password'] = 'test';
-$db_config['database'] = 'test';
+define('DB_SERVER', 'localhost');
+define('DB_USERNAME', 'test');
+define('DB_PASSWORD', 'test');
+define('DB_DATABASE', 'test');
+
+# Site information
+define ('SITE_NAME','Social Grocery &larr; ');
+define ('SITE_EMAIL','info@alemmedia.com');
+define ('COMPANY','ZA Framework');
 
 ?>
