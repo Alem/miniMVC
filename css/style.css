@@ -36,6 +36,7 @@ body{
 	border-radius: 5px;
 	box-shadow: 1px 1px 1px #ccc;
 	opacity: 0.8;
+	border: 1px dashed #888;
 }
 #content{
 	float:left;
