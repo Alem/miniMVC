@@ -19,7 +19,9 @@ class Model{
 	public function query( $query, $rows=1 ){
 		$this->db_connect();
 		$result = mysql_query($query);
-		$query_array = mysql_fetch_assoc($result);
+		for( $i = 0; $i <= $rows; $i ++){
+			$query_array[$i] = mysql_fetch_assoc($result);
+		}
 		$this->db_disconnect();
 		return $query_array;
 	}

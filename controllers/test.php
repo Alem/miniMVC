@@ -7,7 +7,7 @@ class TestController extends Controller{
 	}
 	
 	function index(){
-		$test_dbquery = $this -> model -> query("select * from test;");
+
 		$this -> useView('test', $this -> model -> data);
 	}
 
@@ -23,6 +23,16 @@ class TestController extends Controller{
 		$data['r_top_sidebar'] = urldecode($phrase);
 		$data['r_bot_sidebar'] = "<a href='?test/'>Back</a>";
 		$this -> useView('test', $data);
+	}
+	
+	function db( $sql_query = "select * from test;" ){
+		$sql_query = urldecode($sql_query);
+		$test_dbquery = $this -> model -> query($sql_query);
+		foreach ($test_dbquery as $row ){ 
+			echo "<h2>Row</h2>";
+			foreach ($row as $key){ echo $key ."<br/>"; }
+			
+		}
 	}
 	
 }

@@ -21,8 +21,11 @@ class Controller{
 			$controllerClass = ( $this -> query['controller'] ."Controller" );
 			$controller = new $controllerClass; 
 			if ( isset($query['method']) && (method_exists($controller, $this -> query['method'])) ) {
-				$param = ( isset($this->query['variable']) ) ? $this -> query['variable'] : null; 
-				$controller -> { $this -> query['method'] }( $param );
+				if ( isset($this->query['variable']) ) {
+					$controller -> { $this -> query['method'] }( $this -> query['variable'] );
+				}else{
+					$controller -> { $this -> query['method'] }();
+				}
 			}else{
 				$controller -> index();
 			}
