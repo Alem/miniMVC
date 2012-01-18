@@ -12,6 +12,7 @@ class TestController extends Controller{
 	}
 
 	function countto($num){
+			$data['content'] ='';
 		for($x=1; $x <= $num; $x++){
 			$data['content'] .= $x;
 		}
@@ -32,7 +33,7 @@ class TestController extends Controller{
 		foreach ($test_dbquery as $row => $num){ 
 			echo "<h2>Row $row</h2>";
 			foreach ($num as $key => $val){ 
-				echo $val . ": ". $key ."<br/>"; 
+				echo $key . ": ". $val ."<br/>"; 
 			}
 		}
 	}

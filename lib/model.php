@@ -12,15 +12,17 @@ class Model{
 					)	
 			       );
 	}
+
 	public function db_disconnect(){
 		mysql_close();
 	}
 
-	public function query( $query, $rows = 1 ){
+	public function query( $query, $row = 1 ){
 		$this->db_connect();
 		$result = mysql_query($query);
-		for( $i = 1; $i <= $rows; $i ++){
-			$query_array[$i] = mysql_fetch_assoc($result);
+		while( $query = mysql_fetch_assoc($result) or die('No match found') ) {
+			$query_array[$row] = $query;
+			$row++;
 		}
 		$this->db_disconnect();
 		return $query_array;
