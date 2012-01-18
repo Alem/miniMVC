@@ -16,10 +16,10 @@ class Model{
 		mysql_close();
 	}
 
-	public function query( $query, $rows=1 ){
+	public function query( $query, $rows = 1 ){
 		$this->db_connect();
 		$result = mysql_query($query);
-		for( $i = 0; $i <= $rows; $i ++){
+		for( $i = 1; $i <= $rows; $i ++){
 			$query_array[$i] = mysql_fetch_assoc($result);
 		}
 		$this->db_disconnect();

@@ -24,14 +24,16 @@ class TestController extends Controller{
 		$data['r_bot_sidebar'] = "<a href='?test/'>Back</a>";
 		$this -> useView('test', $data);
 	}
-	
+
+		
 	function db( $sql_query = "select * from test;" ){
 		$sql_query = urldecode($sql_query);
 		$test_dbquery = $this -> model -> query($sql_query);
-		foreach ($test_dbquery as $row ){ 
-			echo "<h2>Row</h2>";
-			foreach ($row as $key){ echo $key ."<br/>"; }
-			
+		foreach ($test_dbquery as $row => $num){ 
+			echo "<h2>Row $row</h2>";
+			foreach ($num as $key => $val){ 
+				echo $val . ": ". $key ."<br/>"; 
+			}
 		}
 	}
 	
