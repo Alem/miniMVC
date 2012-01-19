@@ -47,10 +47,10 @@ class Controller{
 	// $data: The data to send. Defaults to the controller's model's data. 
 	// $template: The template file the view will be incorporated into.
 	
-	function useView($view=null, $data='', $template = 'template'){
+	function useView($view = null, $data = null, $template = 'template'){
 		$controller_name = strtolower(str_replace('Controller','',get_class($this)));
 		$view = ( isset($view) ) ?  $view : $controller_name.'/'.'index';
-		$data = ( isset($data) ) ? $this -> model -> data : $data;
+		$data = ( isset($data) ) ?  $data : $this -> model -> data ;
 		require_once( SERVER_ROOT . '/views/tpl/' . $template . '.php');
 	}
 
