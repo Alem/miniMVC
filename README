@@ -1,0 +1,9 @@
+====CONVENTIONS=====
+Controllers:
+	Class Name: ExampleController
+	File Name: controllers/example.php
+Models:
+	Class Name: Example
+	File Name: models/example.php
+Views:
+	File Name: views/example/index.php	
