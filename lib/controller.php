@@ -26,7 +26,7 @@ class Controller{
 		if ( file_exists($controller_file) ) { 
 			require_once($controller_file);
 			$controller = new $controller_class; 
-			if ( isset($query['method']) && (method_exists($controller, $this -> query['method'])) ) {
+			if ( isset($query['method'] ) && ( method_exists($controller, $this -> query['method'])) ) {
 				if ( isset($this->query['variable']) ) {
 					$controller -> { $this -> query['method'] }( $this -> query['variable'] );
 				}else{
@@ -40,16 +40,22 @@ class Controller{
 		}
 	}
 
+	// formatted_get_class - Returns formatted class name
+
+	function formatted_get_class(){
+		$controller_name = strtolower(str_replace('Controller','',get_class($this)));
+		return $controller_name;
+	}
+
 	// useView - Displays views. 
 	//
 	// $view: The name of the view file. Defaults to the controller's class name
 	// 	(lowercase without 'Controller') as a dir and index as the view filename.
 	// $data: The data to send. Defaults to the controller's model's data. 
-	// $template: The template file the view will be incorporated into.
+	// $template: The template file the view will be incorporated into. Defaults to views/tpl/template.php
 	
 	function useView($view = null, $data = null, $template = 'template'){
-		$controller_name = strtolower(str_replace('Controller','',get_class($this)));
-		$view = ( isset($view) ) ?  $view : $controller_name.'/'.'index';
+		$view = ( isset($view) ) ?  $view : $this->formatted_get_class().'/'.'index';
 		$data = ( isset($data) ) ?  $data : $this -> model -> data ;
 		require_once( SERVER_ROOT . '/views/tpl/' . $template . '.php');
 	}
@@ -59,7 +65,8 @@ class Controller{
 	// $model: The name of the model file.
 	// Defines the model class as a property of the controller.
 
-	function useModel($model){
+	function useModel($model = null){
+		$model = ( isset($model) ) ?  $model : $this->formatted_get_class();
 		require_once( SERVER_ROOT . '/models/' . $model . '.php');
 		$this -> model = new $model;
 	}

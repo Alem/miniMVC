@@ -3,21 +3,21 @@
 class TestController extends Controller{
 
 	function __construct(){
-		$this -> useModel('test');
+		$this -> useModel();
 	}
-	
+
 	function index(){
 		$this -> useView('test/add');
 	}
 
-	function countto($num){
+	function countto( $num ){
 		for($x=1; $x <= $num; $x++){
 			$this -> model -> data['content'] .= $x;
 		}
 		$this -> useView();
 	}
-	
-	function say($phrase){
+
+	function say($phrase = 'You said nothing' ){
 		$this -> model -> data['content'] = urldecode($phrase);
 		$this -> model -> data['r_bot_sidebar'] = "<a href='?test/'>Back</a>";
 		$this -> useView();
@@ -25,36 +25,34 @@ class TestController extends Controller{
 
 	function add(){
 		$item = $_POST['item'];
-		$this -> model -> query("insert into test (item) values('$item');");
+		$this -> model -> insert($item,'item');
 		$this -> model -> data['content'] = "$item Added.";
-		$this->show();
+		$this -> show();
 	}
 
 	function del($id){
-		$this -> model -> query("delete from test (item) where id='$id';");
+		$this -> model -> remove($id,'id');
 		$this -> model -> data['content'] = "$id Deleted.";
-		$this->show();
+		$this -> show();
 	}
-		
-	function show( $sql_query = "select * from test;" ){
-		$sql_query = urldecode($sql_query);
-		$test_dbquery = $this -> model -> query($sql_query);
-		foreach ($test_dbquery as $row => $num){ 
-			$this-> model -> data['content'] .= "<h2>Row $row</h2>";
-			foreach ($num as $id => $item){ 
-				$this-> model -> data['content'] .= $id . ": ". $item ."<br/>"; 
-				$this-> model -> data['content'] .= "<a href='?test/del/$item/'> Delete</a><br/>"; 
+
+	function show(){
+		$test_dbquery = $this -> model -> select('*');
+		if ( isset ($test_dbquery)){
+			foreach ($test_dbquery as $row){ 
+				$this-> model -> data['content'] .= "<p>ID: ". $row['id'] . "<br/> Item: ". $row['item'] ."<br/>"; 
+				$this-> model -> data['content'] .= "<a href='?test/del/" . $row['id'] . "/'> Delete</a></p>"; 
 			}
 		}
 		$this -> useView();
 	}
-	
+
 	function db( $sql_query = "select * from test;" ){
 		$sql_query = urldecode($sql_query);
 		$test_dbquery = $this -> model -> query($sql_query);
-		echo "<pre>" . print_r($test_dbquery,true). "</pre>";
+		echo "<pre>" . print_r($test_dbquery, true). "</pre>";
 	}
-	
+
 }
 
 ?>
