@@ -3,11 +3,11 @@
 class TestController extends Controller{
 
 	function __construct(){
-		$this -> useModel();
+		// Is assigned name,classname,filename, and model after instantiation.
 	}
 
 	function index(){
-		$this -> useView('test/add');
+		$this -> useView('test/form');
 	}
 
 	function countto( $num ){
@@ -23,27 +23,32 @@ class TestController extends Controller{
 		$this -> useView();
 	}
 
-	function add(){
+	function form(){
 		$item = $_POST['item'];
-		$this -> model -> insert($item,'item');
+		$this -> model -> insert($item);
+		$this -> model -> data['content'] = "$item Added.";
+		$this -> show();
+	}
+
+	function add($item){
+		$this -> model -> insert($item);
 		$this -> model -> data['content'] = "$item Added.";
 		$this -> show();
 	}
 
 	function del($id){
-		$this -> model -> remove($id,'id');
+		$this -> model -> remove($id);
 		$this -> model -> data['content'] = "$id Deleted.";
 		$this -> show();
 	}
 
 	function show(){
-		$test_dbquery = $this -> model -> select('*');
-		if ( isset ($test_dbquery)){
-			foreach ($test_dbquery as $row){ 
-				$this-> model -> data['content'] .= "<p>ID: ". $row['id'] . "<br/> Item: ". $row['item'] ."<br/>"; 
+		$query_result = $this -> model -> select ('*');
+		$this -> model -> data['content'] = Array("show" => $query_result);
+			foreach ($this -> model -> data['content']['show'] as $row){ 
+				$this-> model -> data['content'] .= "<p>ID: ". $row['id'] . "<br/> Item: ". $row['test'] ."<br/>"; 
 				$this-> model -> data['content'] .= "<a href='?test/del/" . $row['id'] . "/'> Delete</a></p>"; 
 			}
-		}
 		$this -> useView();
 	}
 

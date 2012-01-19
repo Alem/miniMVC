@@ -9,7 +9,7 @@ function controller($name) {
 
 class $name extends Controller{
 	function __construct(){
-		\$this -> useModel();
+		// Is assigned name,classname,filename, and model after instantiation.
 	}
 	
 	function index(){
@@ -19,6 +19,21 @@ class $name extends Controller{
 }
 ?>
 CONT;
+
+	$crud = <<<CRUD
+
+	function add(){
+		\$item = \$_POST['item'];
+		\$this -> model -> insert(\$item,'test');
+		\$this -> model -> data['content'] = "\$item Added.";
+		\$this -> show();
+	}
+
+	function del($id){
+		\$this -> model -> remove($id,'id');
+		\$this -> model -> data['content'] = "\$id Deleted.";
+	}
+CRUD;
 	return $controller;
 }
 
@@ -58,13 +73,14 @@ function create($file,$data){
 function makeTable($name){
 	$link = mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);	
 	mysql_select_db(DB_DATABASE, $link);
+	$names = $name.'s';
 	$query = <<<QUERY
-create table $name (
+create table $names (
 	id integer not null primary key auto_increment, 
 	$name varchar(128) not null  
 );
 QUERY;
-	mysql_query($query) or die('MySQL query failed');
+	mysql_query($query) or die("Query failed: $query");
 	mysql_close($link);
 	echo "Created $name table!\n";
 }

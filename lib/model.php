@@ -3,8 +3,10 @@
 class Model{
 
 	function __construct(){
-		$table = strtolower(get_class($this));
+		$column =  strtolower(get_class($this));
+		$table = $column . 's';
 		$this -> table = $table;
+		$this -> column = $column;
 	}
 
 	public function db_connect(){
@@ -17,7 +19,7 @@ class Model{
 
 	public function query( $query, $row = 1 ){
 		$this -> db_connect();
-		$result = mysql_query($query) or die('Query failed :(');
+		$result = mysql_query($query) or die("Query failed : $query");
 		if ( preg_match('/select/', $query) ){
 			while( $query = mysql_fetch_assoc($result) ) {
 				$query_array[$row] = $query;
@@ -40,15 +42,18 @@ class Model{
 		}
 	}
 
-	function insert($item, $column){
+	function insert($item, $column = null ){
 		$table = $this -> table;
+		$column = ( isset($column) ) ?  $column : $this -> column;
 		$this -> query ("insert into $table ($column) values('$item');");
 	}
 
-	function remove($item, $column){
+	function remove($item, $column = null ){
 		$table = $this -> table;
+		$column = ( isset($column) ) ?  $column : 'id';
 		$this -> query("delete from $table where $column='$item';");
 	}
+
 }
 
 ?>

@@ -29,6 +29,7 @@ if( $query_size > 2 ){
 }
 
 // Instantiate appropriate controller based on query.
-$application = new Controller($query);
+$application = new Controller();
+$application -> useController($query);
 
 ?>
