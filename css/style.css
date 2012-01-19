@@ -48,4 +48,5 @@ body{
 	box-shadow: 1px 1px 1px #ccc;
 	background: #afdfff; 
 	opacity: 0.8;
+	overflow:auto;
 }
