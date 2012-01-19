@@ -13,8 +13,8 @@ class Controller{
 		// Make request query a controller object.
 		$this->query = $query;
 
-		// Set default query controller to 'default.php'.
-		$this -> query['controller'] = ( empty( $query['controller'] ) ) ? 'default' : $query['controller'];
+		// Set default query controller to 'home.php'.
+		$this -> query['controller'] = ( empty( $query['controller'] ) ) ? 'home' : $query['controller'];
 
 		// Define the controller filename and classname using the name given in the query. 
 		// If method exists execute, otherwise call index() method.

@@ -107,7 +107,7 @@ function undo($name){
 	rmdir($dir);
 	echo "Removed $name directory\n";
 }
-$args = getopt("c:m:v:p:u:",array('mvc:'));
+$args = getopt("c:m:v:p:u:",array('mvc:','undo:'));
 
 $mvc['c'] = isset($args['c']) ? $args['c'] : null;
 $mvc['m'] = isset($args['m']) ? $args['m'] : null;
@@ -124,8 +124,8 @@ if ($check){
 	}
 	echo "Generation Complete. \n";
 }
-if( isset($args['u']) ){
-	undo($args['u']);
+if( isset($args['undo']) ){
+	undo($args['undo']);
 }
 
 ?>
