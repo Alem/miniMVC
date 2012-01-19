@@ -59,13 +59,25 @@ function makeTable($name){
 	$link = mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);	
 	mysql_select_db(DB_DATABASE, $link);
 	$query = <<<QUERY
-"create table $name (
+create table $name (
 	id integer not null primary key auto_increment, 
 	$name varchar(128) not null  
-);"
+);
 QUERY;
 	mysql_query($query) or die('MySQL query failed');
 	mysql_close($link);
+	echo "Created $name table!\n";
+}
+
+function deleteTable($name){
+	if( ($name !='') && ($name != '*') ){
+		$link = mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);	
+		mysql_select_db(DB_DATABASE, $link);
+		$query = "drop table $name"; 
+		mysql_query($query) or die('MySQL query failed');
+		mysql_close($link);
+		echo "Deleted $name table! \n";
+	}
 }
 
 function generate($name,$type){
@@ -107,7 +119,7 @@ function undo($name){
 	rmdir($dir);
 	echo "Removed $name directory\n";
 }
-$args = getopt("c:m:v:p:u:",array('mvc:','undo:'));
+$args = getopt("c:m:v:p:u:",array('mvc:','undo:','table:','undotable:'));
 
 $mvc['c'] = isset($args['c']) ? $args['c'] : null;
 $mvc['m'] = isset($args['m']) ? $args['m'] : null;
@@ -126,6 +138,14 @@ if ($check){
 }
 if( isset($args['undo']) ){
 	undo($args['undo']);
+}
+
+if( isset($args['table']) ){
+	makeTable($args['table']);
+}
+
+if( isset($args['undotable']) ){
+	deleteTable($args['undotable']);
 }
 
 ?>
