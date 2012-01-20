@@ -11,8 +11,8 @@ define('DB_PASSWORD', 'test');
 define('DB_DATABASE', 'test');
 
 # Site information
-define ('SITE_NAME','Social Grocery &larr; ');
+define ('SITE_NAME','miniMVC &larr; ');
 define ('SITE_EMAIL','info@alemmedia.com');
-define ('COMPANY','ZA Framework');
+define ('COMPANY','Alemmedia');
 
 ?>
