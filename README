@@ -4,11 +4,19 @@ miniMVC - A super light-weight PHP MVC framework.
 
 
 README Contents
-= Setup
-= Conventions
-= File System
+# Description
+# Setup
+# Conventions
+# File System
 
-=== SETUP ====
+### DESCRIPTION ###
+
+miniMVC is a simple MVC framework for PHP - about as simple as you can get. 
+It is designed to provide a minimalist, bare-bones base for your own specific application/framework 
+and to allow you the freedom to hack your way to the rest. 
+
+
+### SETUP ####
 
 1. Create the database for the application.
 
@@ -23,7 +31,7 @@ README Contents
 5. Hack away.
 
 
-=== CONVENTIONS === 
+### CONVENTIONS ### 
 
 To make the best use of automatic loading of methods and pre-defined parameters, 
 it is highly recommended to adhere to these conventions.

@@ -14,5 +14,9 @@ define('DB_DATABASE', 'test');
 define ('SITE_NAME','miniMVC &larr; ');
 define ('SITE_EMAIL','info@alemmedia.com');
 define ('COMPANY','Alemmedia');
+define ('COMPANY_WEBSITE','http://Alemmedia.com');
+
+# Application defaults
+define('DEFAULT_CONTROLLER', 'test');
 
 ?>

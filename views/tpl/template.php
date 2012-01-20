@@ -44,7 +44,7 @@
 	</div>
 
 	<div id="footer">
-		(c) <?php echo COMPANY . ' - ' . date("Y"); ?>
+		(c) <a href='<?php echo COMPANY_WEBSITE; ?>'><?php echo COMPANY . ' - ' . date("Y"); ?></a>
 	</div>
 </body>
 <html>
