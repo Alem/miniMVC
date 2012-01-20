@@ -4,6 +4,42 @@
 require_once('config.php');
 
 function controller($name) {
+
+	$crud = <<<CRUD
+
+	function form(){
+		\$item = \$_POST['item'];
+		\$this -> model -> insert(\$item);
+		\$this -> model -> data['content'] = "\$item Added.";
+		\$this -> show();
+	}
+
+	function add(\$item){
+		\$this -> model -> insert(\$item);
+		\$this -> model -> data['content'] = "\$item Added.";
+		\$this -> show();
+	}
+
+	function del(\$id){
+		\$this -> model -> remove(\$id);
+		\$this -> model -> data['content'] = "\$id Deleted.";
+		\$this -> show();
+	}
+	
+	function set(\$old, \$new, \$column_old = null, \$column_new = null){
+		\$this -> model -> update(\$old,\$new,\$column_old,\$column_new);
+		\$this -> model -> data['content'] = "\$old changed to \$new.";
+		\$this -> show();
+	}
+
+	function show(){
+		\$query_result = \$this -> model -> select ('*');
+		\$this -> model -> data["show"] = \$query_result;
+		\$this -> useView();
+	}
+
+CRUD;
+
 	$controller = <<<CONT
 <?php
 
@@ -15,44 +51,12 @@ class $name extends Controller{
 	function index(){
 		\$this -> useView(); 
 	}
-
+	
+	$crud
 }
 ?>
 CONT;
 
-	$crud = <<<CRUD
-
-	function form(){
-		$item = $_POST['item'];
-		$this -> model -> insert($item);
-		$this -> model -> data['content'] = "$item Added.";
-		$this -> show();
-	}
-
-	function add($item){
-		$this -> model -> insert($item);
-		$this -> model -> data['content'] = "$item Added.";
-		$this -> show();
-	}
-
-	function del($id){
-		$this -> model -> remove($id);
-		$this -> model -> data['content'] = "$id Deleted.";
-		$this -> show();
-	}
-
-	function show(){
-		$query_result = $this -> model -> select ('*');
-		$this -> model -> data['content'] = Array("show" => $query_result);
-			foreach ($this -> model -> data['content']['show'] as $row){ 
-				$this-> model -> data['content'] .= "<p>ID: ". $row['id'] . "<br/> Item: ". $row['test'] ."<br/>"; 
-				$this-> model -> data['content'] .= "<a href='?test/del/" . $row['id'] . "/'> Delete</a></p>"; 
-			}
-		$this -> useView();
-	}
-
-
-CRUD;
 	return $controller;
 }
 
@@ -65,6 +69,7 @@ class $name extends Model{
 	function __construct(){
 		parent::__construct();
 		\$data['content'] = "This is a filler text for $name";
+		\$data['l_sidebar'] = "<a href ='?test'>Index </a><br/><br/>";
 		\$this -> data = \$data;
 	}
 }
@@ -78,6 +83,18 @@ function view() {
 	$view = <<<VIEW
 <h1>Title</h1>
 <?php echo \$data['content']; ?>
+
+<?php	if( isset( \$data['show']) ):	?>
+	<h2>List</h2>
+	<?php foreach( \$data['show'] as \$row) :	?>
+		<?php foreach( \$row as \$column => \$value) :	?>
+			<b> <?php echo \$column; ?> :  <?php echo \$value; ?> </b>
+			<br/>
+		<?php endforeach; ?>
+		<a href='?test/del/<?php echo \$row['id'] ?>/'> Delete</a></p> 
+	<?php endforeach; ?>
+<?php endif; ?>
+
 VIEW;
 	return $view;
 }
@@ -99,7 +116,7 @@ create table $names (
 	$name varchar(128) not null  
 );
 QUERY;
-	mysql_query($query) or die("Query failed: $query");
+	mysql_query($query) or die("Query failed: $query. <br/> Reason:".mysql_error());
 	mysql_close($link);
 	echo "Created $name table!\n";
 }
@@ -108,8 +125,8 @@ function deleteTable($name){
 	if( ($name !='') && ($name != '*') ){
 		$link = mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);	
 		mysql_select_db(DB_DATABASE, $link);
-		$query = "drop table $name"; 
-		mysql_query($query) or die('MySQL query failed');
+		$query = "drop table $name".'s'; 
+		mysql_query($query) or die("Query failed: $query. <br/> Reason:".mysql_error());
 		mysql_close($link);
 		echo "Deleted $name table! \n";
 	}
@@ -154,7 +171,9 @@ function undo($name){
 	rmdir($dir);
 	echo "Removed $name directory\n";
 }
-$args = getopt("c:m:v:p:u:",array('mvc:','undo:','table:','undotable:'));
+
+
+$args = getopt("c:m:v:p:u:", array('mvc:','undo:','table:','undotable:','crud'));
 
 $mvc['c'] = isset($args['c']) ? $args['c'] : null;
 $mvc['m'] = isset($args['m']) ? $args['m'] : null;
@@ -182,5 +201,6 @@ if( isset($args['table']) ){
 if( isset($args['undotable']) ){
 	deleteTable($args['undotable']);
 }
+
 
 ?>

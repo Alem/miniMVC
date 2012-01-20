@@ -50,11 +50,7 @@ class TestController extends Controller{
 
 	function show(){
 		$query_result = $this -> model -> select ('*');
-		$this -> model -> data['content'] = Array("show" => $query_result);
-			foreach ($this -> model -> data['content']['show'] as $row){ 
-				$this-> model -> data['content'] .= "<p>ID: ". $row['id'] . "<br/> test: ". $row['test'] ."<br/>"; 
-				$this-> model -> data['content'] .= "<a href='?test/del/" . $row['id'] . "/'> Delete</a></p>"; 
-			}
+		$this -> model -> data["show"] = $query_result;
 		$this -> useView();
 	}
 

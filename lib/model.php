@@ -52,7 +52,6 @@ class Model{
 		$table = $this -> table;
 		$column_old = ( isset($column_old) ) ?  $column_old :  'id';
 		$column_new = ( isset($column_new) ) ?  $column_new :	$column_old;
-		#echo ("update $table set $column_new = '$new' where $column_old = '$old';");
 		$this -> query("update $table set $column_new = '$new' where $column_old = '$old';");
 	}
 
