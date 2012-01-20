@@ -19,7 +19,7 @@ class Model{
 
 	public function query( $query, $row = 1 ){
 		$this -> db_connect();
-		$result = mysql_query($query) or die("Query failed : $query");
+		$result = mysql_query($query) or die("Query failed : $query. <br/><br/>Reason: ".mysql_error());
 		if ( preg_match('/select/', $query) ){
 			while( $query = mysql_fetch_assoc($result) ) {
 				$query_array[$row] = $query;
@@ -46,6 +46,14 @@ class Model{
 		$table = $this -> table;
 		$column = ( isset($column) ) ?  $column : $this -> column;
 		$this -> query ("insert into $table ($column) values('$item');");
+	}
+
+	function update($old, $new, $column_old = null, $column_new = null ){
+		$table = $this -> table;
+		$column_old = ( isset($column_old) ) ?  $column_old :  'id';
+		$column_new = ( isset($column_new) ) ?  $column_new :	$column_old;
+		#echo ("update $table set $column_new = '$new' where $column_old = '$old';");
+		$this -> query("update $table set $column_new = '$new' where $column_old = '$old';");
 	}
 
 	function remove($item, $column = null ){

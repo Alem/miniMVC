@@ -23,6 +23,8 @@ class Controller{
 		// If method exists execute, otherwise call index() method.
 		// Set parameter to null if not defined in query. 
 		// Set controller properties and assign default model;
+		// If query['variable'] has a + sign in it, treat as paramaters seperated by +'s
+		// and pass to function using call_user_func_array
 
 		$controller_file = SERVER_ROOT . '/controllers/' . $this -> query['controller'] . '.php';
 		$controller_class = ( $this -> query['controller'] ."Controller" );
@@ -38,8 +40,15 @@ class Controller{
 			$controller -> useModel();
 
 			if ( isset($query['method'] ) && ( method_exists($controller, $this -> query['method'])) ) {
-				if ( isset($this->query['variable']) ) {
-					$controller -> { $this -> query['method'] }( $this -> query['variable'] );
+				if ( isset($this -> query['variable']) ) {
+					if ( preg_match('/\+/', $this -> query['variable'] ) ) {
+						call_user_func_array( 
+								Array($controller,$query['method']) , 
+								explode('+', $query['variable'] )
+								);
+					}else{
+						$controller -> { $this -> query['method'] }( $this -> query['variable'] );
+					}
 				} else {
 					$controller -> { $this -> query['method'] }();
 				}
@@ -50,14 +59,14 @@ class Controller{
 			echo "$controller_file does not exist";
 		}
 	}
-	
+
 	// useView - Displays views. 
 	//
 	// $view: The name of the view file. Defaults to the controller's class name
 	// 	(lowercase without 'Controller') as a dir and index as the view filename.
 	// $data: The data to send. Defaults to the controller's model's data. 
 	// $template: The template file the view will be incorporated into. Defaults to views/tpl/template.php
-	
+
 	function useView($view = null, $data = null, $template = 'template'){
 		$view = ( isset($view) ) ?  $view : $this-> name . '/' . 'index';
 		$data = ( isset($data) ) ?  $data : $this -> model -> data ;

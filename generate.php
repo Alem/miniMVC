@@ -22,17 +22,36 @@ CONT;
 
 	$crud = <<<CRUD
 
-	function add(){
-		\$item = \$_POST['item'];
-		\$this -> model -> insert(\$item,'test');
-		\$this -> model -> data['content'] = "\$item Added.";
-		\$this -> show();
+	function form(){
+		$item = $_POST['item'];
+		$this -> model -> insert($item);
+		$this -> model -> data['content'] = "$item Added.";
+		$this -> show();
+	}
+
+	function add($item){
+		$this -> model -> insert($item);
+		$this -> model -> data['content'] = "$item Added.";
+		$this -> show();
 	}
 
 	function del($id){
-		\$this -> model -> remove($id,'id');
-		\$this -> model -> data['content'] = "\$id Deleted.";
+		$this -> model -> remove($id);
+		$this -> model -> data['content'] = "$id Deleted.";
+		$this -> show();
 	}
+
+	function show(){
+		$query_result = $this -> model -> select ('*');
+		$this -> model -> data['content'] = Array("show" => $query_result);
+			foreach ($this -> model -> data['content']['show'] as $row){ 
+				$this-> model -> data['content'] .= "<p>ID: ". $row['id'] . "<br/> Item: ". $row['test'] ."<br/>"; 
+				$this-> model -> data['content'] .= "<a href='?test/del/" . $row['id'] . "/'> Delete</a></p>"; 
+			}
+		$this -> useView();
+	}
+
+
 CRUD;
 	return $controller;
 }

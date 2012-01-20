@@ -41,12 +41,18 @@ class TestController extends Controller{
 		$this -> model -> data['content'] = "$id Deleted.";
 		$this -> show();
 	}
+	
+	function set($old, $new, $column_old = null, $column_new = null){
+		$this -> model -> update($old,$new,$column_old,$column_new);
+		$this -> model -> data['content'] = "$old changed to $new.";
+		$this -> show();
+	}
 
 	function show(){
 		$query_result = $this -> model -> select ('*');
 		$this -> model -> data['content'] = Array("show" => $query_result);
 			foreach ($this -> model -> data['content']['show'] as $row){ 
-				$this-> model -> data['content'] .= "<p>ID: ". $row['id'] . "<br/> Item: ". $row['test'] ."<br/>"; 
+				$this-> model -> data['content'] .= "<p>ID: ". $row['id'] . "<br/> test: ". $row['test'] ."<br/>"; 
 				$this-> model -> data['content'] .= "<a href='?test/del/" . $row['id'] . "/'> Delete</a></p>"; 
 			}
 		$this -> useView();
