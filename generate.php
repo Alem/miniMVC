@@ -173,7 +173,7 @@ function undo($name){
 }
 
 
-$args = getopt("c:m:v:p:u:", array('mvc:','undo:','table:','undotable:','crud'));
+$args = getopt("c:m:v:p:u:h", array('mvc:','undo:','table:','undotable:','crud','help'));
 
 $mvc['c'] = isset($args['c']) ? $args['c'] : null;
 $mvc['m'] = isset($args['m']) ? $args['m'] : null;
@@ -202,5 +202,26 @@ if( isset($args['undotable']) ){
 	deleteTable($args['undotable']);
 }
 
+if( isset($args['h']) or  isset($args['help'])  ){
+	$help = <<<HELP
+	Generate.php - Automatic MVC scaffold generator for miniMVC
+	usage: ./generate.php [option] [name]	
+
+	Commands: 
+	--mvc "blah"		: Create model,view and controller for blah.
+	-m "blah"		: Create model for blah.
+	-c "blah"		: Create controller for blah.
+	-v "blah"		: Create view for blah.
+	--table "blah"		: Generate table and column for blah.
+				 * Requires database settings to be configured in config.php.
+	--undo "blah"		: Delete MVC scaffold for blah. 
+	--undotable "blah"	: Delete database and column for blah. 
+				 * Requires database settings to be configured in config.php.
+	-h or --help 		: Displays this help text.
+
+
+HELP;
+	echo $help;
+}
 
 ?>

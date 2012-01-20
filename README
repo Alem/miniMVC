@@ -1,4 +1,33 @@
-====CONVENTIONS=====
+
+miniMVC - A super light-weight PHP MVC framework.
+(c) Alemmedia - Alemmedia.com
+
+
+README Contents
+= Setup
+= Conventions
+= File System
+
+=== SETUP ====
+
+1. Create the database for the application.
+
+2. Define the relevant information in config.php
+
+3. Generate a controller, model and view with generate.php
+	ex. ./generate.php --mvc example --table example
+
+4. Use controller by visiting http://localhost/YOURAPP/controller/method/variable
+	ex. http://localhost/miniMVC/test/show/
+
+5. Hack away.
+
+
+=== CONVENTIONS === 
+
+To make the best use of automatic loading of methods and pre-defined parameters, 
+it is highly recommended to adhere to these conventions.
+
 Controllers:
 	Class Name: ExampleController
 	File Name: controllers/example.php
@@ -7,3 +36,20 @@ Models:
 	File Name: models/example.php
 Views:
 	File Name: views/example/index.php	
+
+Database:
+	Table: examples
+	Column:	example
+
+
+=== FILE SYSTEM ===
+
+config.php  	- Single configuration file for application.
+controllers 	- Holds created controllers.
+css        	- Holds css files and imgs in css/imgs
+generate.php 	- Generates MVC scaffolds
+index.php 	- The "boot up" script
+lib 		- Contains essential parent classes.
+models 		- Holds created models.
+README 		- You're reading it.
+views 		- Holds created views
