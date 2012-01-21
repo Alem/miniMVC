@@ -18,25 +18,10 @@ class TestController extends Controller{
 		$this -> useView('test/mform');
 	}
 
-	// post - inserts POST data
-	//
-	// If POST contains multiple keys then insert as string of multiple values 1','2','3
-	// and multiple columns defined as string. Could use POST keys but those can be tampered.
-	// Otherwise insert directly. 
-	// NOTE: Implement data sanitization. 
-
 	function post(){
-		// $multi = Array( 'id' => $_POST['id'], 'test' => $_POST['item'] );
-		if( count($_POST) > 1 ){
-			$multi = implode("','", $_POST);
-			$multi_column = 'id,test';
-			$this -> model -> insert($multi, $multi_column);
-			$this -> model -> data['content'] = "Values Added.";
-		}else{
-			$item = $_POST['item'];
-			$this -> model -> insert($item);
-			$this -> model -> data['content'] = "$item Added.";
-		}
+		$form_fields = "id,test";
+		$this -> model -> form($form_fields);
+		$this -> model -> data['content'] = "$form_fields Added.";
 		$this -> show();
 	}
 

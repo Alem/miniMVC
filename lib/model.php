@@ -55,6 +55,9 @@ class Model{
 	function insert($item, $column = null ){
 		$table = $this -> table;
 		$column = ( isset($column) ) ?  $column : $this -> column;
+	
+		// for array $item, with seperate row insertion for each value 
+		// ie. $item = Array( 'id' => $_POST['id'], 'test' => $_POST['item'] );
 		if ( is_array($item) ){
 			foreach ($item as $column => $value){
 				$this -> insert($value,$column);	
@@ -63,19 +66,26 @@ class Model{
 			$this -> query ("insert into $table ($column) values('$item');");
 		}
 	}
+
 	// form - manages insertion of POST data into single row
+	//
+	// If POST contains multiple keys then insert as string of multiple values 1','2','3
+	// and multiple columns defined as string. Could use POST keys but those can be tampered.
+	// Otherwise insert directly. 
 	//
 	// $form_fields - Either a single field (ex. username) or multiple comma-seperated 
 	// 		fields in same order as HTML form (ex. username,password,type). 
-	//		Conventions: html field names (POST key names) = column names	
+	//
+	// ASSUMPTIONS - html field names (POST key names) = column names	
+	// NOTE - Implement data sanitization. 
 
 	function form($form_fields){
 		if( count($_POST) > 1 ){
 			$multi = implode("','", $_POST);
-			$this -> model -> insert($multi, $form_fields);
+			$this -> insert($multi, $form_fields);
 		}elseif(!preg_match ( ',', $form_fields) ){
 			$single = $_POST[$form_fields];
-			$this -> model -> insert($single);
+			$this -> insert($single);
 		}else{
 			echo "Could only find one field";
 		}
