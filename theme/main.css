@@ -3,8 +3,8 @@ body{
 	font-family: Helvetica,sans-serif;
 	margin:0;
 	padding:0;
-	color: #222;
 	color: white;
+	color: #000;
 	font-weight:600;
 	background: url('imgs/grunge_wall.png');
 	background: url('imgs/bright_squares.png');
@@ -21,14 +21,14 @@ body{
 }
 #header,#footer{
 	background: #afdfff; 
-	background: #aaa; 
+	background: #eee; 
 	padding: 10px;
 	height: 40px;
 	clear:both;
-	box-shadow: 1px 1px 2px #aaa;
+	box-shadow: 1px 1px 2px #eee;
 	opacity: 0.8;
 }
-#header a, #footer a { color: #F0Ffff; }
+#header a, #footer a { color: #F0Ffff; color: #000; }
 #header{
 	font-size: 2em;
 }
@@ -37,9 +37,9 @@ body{
 	padding: 10px;
 	width: 200px;
 	background: #afdfff; 
-	background: #aaa; 
+	background: #eee; 
 	border-radius: 5px;
-	box-shadow: 1px 1px 1px #aaa;
+	box-shadow: 1px 1px 1px #eee;
 	opacity: 0.8;
 	border: 1px dashed #888;
 }
@@ -50,9 +50,9 @@ body{
 	margin: 0px 50px;
 	padding: 10px 20px;
 	border-radius: 5px;
-	box-shadow: 1px 1px 1px #aaa;
+	box-shadow: 1px 1px 1px #eee;
 	background: #afdfff; 
-	background: #aaa; 
+	background: #eee; 
 	opacity: 0.8;
 	overflow:auto;
 }
