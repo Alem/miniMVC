@@ -7,7 +7,7 @@
 
 <body>
 	<div id="header">
-		<?php echo SITE_NAME; ?>
+		<a href="?"><?php echo SITE_NAME; ?></a>
 	</div>
 
 	<div id="wrapper">

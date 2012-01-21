@@ -26,7 +26,8 @@ and to allow you the freedom to hack your way to the rest.
 	ex. ./generate.php --mvc example --table example
 
 4. Use controller by visiting http://localhost/YOURAPP/controller/method/variable
-	ex. http://localhost/miniMVC/test/show/
+	ex. http://localhost/miniMVC/test/index
+	ex. http://localhost/miniMVC/test/add/testentry
 
 5. Hack away.
 
@@ -56,8 +57,9 @@ config.php  	- Single configuration file for application.
 controllers 	- Holds created controllers.
 theme        	- Holds css files and imgs.
 generate.php 	- Generates MVC scaffolds
-index.php 	- The "boot up" script
+index.php 	- The "boot strapping" script
 lib 		- Contains essential parent classes.
 models 		- Holds created models.
 README 		- You're reading it.
 views 		- Holds created views
+.htaccess 	- Rewrites the url.

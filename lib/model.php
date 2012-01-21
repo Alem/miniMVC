@@ -33,12 +33,17 @@ class Model{
 		$this -> db_disconnect();
 	}
 
-	function select($item, $column = 'id', $row = 1 ){
+	function select( $item = '*', $column = 'id', $orderby = array( 'col' => null, 'sort' => null ), $row = 1 ){
 		$table = $this -> table;
-		if ($item == '*'){
-			return $result = $this -> query("select * from $table;");
+		if ( isset($orderby) ){
+			$orderby = 'order by ' . $orderby['col'] . ' ' . $orderby['sort'];
 		}else{
-			return $result = $this -> query("select from $table where $column='$item');");
+			$orderby = '';	
+		}
+		if ($item == '*'){
+			return $result = $this -> query("select * from $table $orderby;");
+		}else{
+			return $result = $this -> query("select $column from $table where $column='$item' $orderby);");
 		}
 	}
 
@@ -59,6 +64,24 @@ class Model{
 		$table = $this -> table;
 		$column = ( isset($column) ) ?  $column : 'id';
 		$this -> query("delete from $table where $column='$item';");
+	}
+
+	function sanitize(&$data, $isHTML = false ){
+		if (empty($str)) break;
+		
+		if (is_array($data)) {
+			foreach($data as $key => $value) $data[$key] = clean($value, $html);
+		} else {
+			if (get_magic_quotes_gpc()) $data = stripslashes($data);
+
+			if (is_array($html)) $data = strip_tags($data, implode('', $html));
+			elseif (preg_match('|<([a-z]+)>|i', $html)) $data = strip_tags($data, $html);
+			elseif ($html !== true) $data = strip_tags($data);
+
+			$data = trim($data);
+		}
+
+		return $data;
 	}
 
 }
