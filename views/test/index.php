@@ -5,15 +5,11 @@
 	by its controller and was generated/retrieved by its model.
 </p>
 
+<h3>ADD AN ITEM: </h3> 
 <form action = "?test/post/" method="post">
-<label>ADD AN ITEM: </label> <br/>
 <input id = "item" name = "item" type="text" />
 <input type = "submit" value = "Add"/>
 </form>
-
-<p>
-	<?php	echo $data['content'];	?>
-</p>
 
 <?php	if( isset( $data['show']) ):	?>
 <h2>List</h2>
@@ -30,9 +26,9 @@
 </ul>
 
 <?php else: ?>
-<br/>
 <p>
-	The database is empty. <a href="?test/form">Click here</a>  to add items.
+	The database is empty. <br/> <a href="?test/form">Click here</a>  to add items.
 </p>
 <?php endif; ?>
 
+<?php	echo $data['content'];	?>

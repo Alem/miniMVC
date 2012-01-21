@@ -47,10 +47,21 @@ class Model{
 		}
 	}
 
+	// insert - uses query to insert into table
+	//
+	// $item - the item to be inserted. Can accept an array which defines both column => item
+	// $column - the column to be inserted into
+
 	function insert($item, $column = null ){
 		$table = $this -> table;
 		$column = ( isset($column) ) ?  $column : $this -> column;
-		$this -> query ("insert into $table ($column) values('$item');");
+		if ( is_array($item) ){
+			foreach ($item as $column => $value){
+				$this -> insert($value,$column);	
+			}
+		}else{
+			$this -> query ("insert into $table ($column) values('$item');");
+		}
 	}
 
 	function update($old, $new, $column_old = null, $column_new = null ){

@@ -87,21 +87,16 @@ function view($name,$u_name) {
 	$view = <<<VIEW
 <h1> $u_name View </h1>
 <h2> Welcome to <?php echo SITE_NAME; ?> </h2>
-
 <p>
 	This data below has been passed to this view 
 	by its controller and was generated/retrieved by its model.
 </p>
 
-<form action = "?test/post/" method="post">
-<label>ADD AN ITEM: </label> <br/>
+<h3>ADD AN ITEM: </h3> 
+<form action = "?$name/post/" method="post">
 <input id = "item" name = "item" type="text" />
 <input type = "submit" value = "Add"/>
 </form>
-
-<p>
-	<?php	echo \$data['content'];	?>
-</p>
 
 <?php	if( isset( \$data['show']) ):	?>
 <h2>List</h2>
@@ -118,12 +113,12 @@ function view($name,$u_name) {
 </ul>
 
 <?php else: ?>
-<br/>
 <p>
-	The database is empty. Try adding items.
+	The database is empty. Try to adding items.
 </p>
 <?php endif; ?>
 
+<?php	echo \$data['content'];	?>
 VIEW;
 	return $view;
 }
