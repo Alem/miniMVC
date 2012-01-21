@@ -7,7 +7,7 @@ function controller($name) {
 
 	$crud = <<<CRUD
 
-	function form(){
+	function post(){
 		\$item = \$_POST['item'];
 		\$this -> model -> insert(\$item);
 		\$this -> model -> data['content'] = "\$item Added.";
@@ -27,13 +27,13 @@ function controller($name) {
 	}
 	
 	function set(\$old, \$new, \$column_old = null, \$column_new = null){
-		\$this -> model -> update(\$old,\$new,\$column_old,\$column_new);
+		\$this -> model -> update( \$old, \$new, \$column_old, \$column_new);
 		\$this -> model -> data['content'] = "\$old changed to \$new.";
 		\$this -> show();
 	}
 
 	function show(){
-		\$query_result = \$this -> model -> select ('*');
+		\$query_result = \$this -> model -> select ('*', 'id', array( 'col'=>'id','sort' => 'DESC') );
 		\$this -> model -> data["show"] = \$query_result;
 		\$this -> useView();
 	}
@@ -61,17 +61,21 @@ CONT;
 }
 
 
-function model($name){
+function model($name,$l_name){
 	$model =  <<<MODEL
 <?php
 
 class $name extends Model{
+
 	function __construct(){
 		parent::__construct();
-		\$data['content'] = "This is a filler text for $name";
-		\$data['l_sidebar'] = "<a href ='?test'>Index </a><br/><br/>";
+		\$data['content'] = "This is test controller model data<br/>";
+		\$data['l_sidebar'] = "<a href ='?$l_name'>Index </a><br/><br/>";
+		\$data['r_top_sidebar'] =  "Placeholder text";
+		\$data['r_bot_sidebar'] = "Another Placeholder";
 		\$this -> data = \$data;
 	}
+
 }
 ?>
 MODEL;
@@ -79,20 +83,45 @@ MODEL;
 }
 
 
-function view() {
+function view($name,$u_name) {
 	$view = <<<VIEW
-<h1>Title</h1>
-<?php echo \$data['content']; ?>
+<h1> $u_name View </h1>
+<h2> Welcome to <?php echo SITE_NAME; ?> </h2>
+
+<p>
+	This data below has been passed to this view 
+	by its controller and was generated/retrieved by its model.
+</p>
+
+<form action = "?test/post/" method="post">
+<label>ADD AN ITEM: </label> <br/>
+<input id = "item" name = "item" type="text" />
+<input type = "submit" value = "Add"/>
+</form>
+
+<p>
+	<?php	echo \$data['content'];	?>
+</p>
 
 <?php	if( isset( \$data['show']) ):	?>
-	<h2>List</h2>
-	<?php foreach( \$data['show'] as \$row) :	?>
-		<?php foreach( \$row as \$column => \$value) :	?>
-			<b> <?php echo \$column; ?> :  <?php echo \$value; ?> </b>
-			<br/>
-		<?php endforeach; ?>
-		<a href='?test/del/<?php echo \$row['id'] ?>/'> Delete</a></p> 
+<h2>List</h2>
+<ul>
+<?php foreach( \$data['show'] as \$row) :	?>
+	<li>
+	<?php foreach( \$row as \$column => \$value) :	?>
+	<b> <?php echo \$column; ?>:  <?php echo \$value; ?> </b>
 	<?php endforeach; ?>
+	<br/>
+	<a href='?$name/del/<?php echo \$row['id'] ?>/'> Delete</a></p> 
+	</li>
+<?php endforeach; ?>
+</ul>
+
+<?php else: ?>
+<br/>
+<p>
+	The database is empty. Try adding items.
+</p>
 <?php endif; ?>
 
 VIEW;
@@ -143,13 +172,13 @@ function generate($name,$type){
 
 	if ($type == 'm'){
 		echo "Creating model for $name...\n";
-		$template = model(ucwords($name));
+		$template = model(ucwords($name),$name);
 		$path =  SERVER_ROOT . '/models/' . $name . '.php';
 	}
 
 	if ($type == 'v'){
 		echo "Creating view for $name...\n";
-		$template = view();
+		$template = view( $name, ucwords($name) );
 		$dir =  SERVER_ROOT . '/views/' . $name . '/';
 		mkdir( $dir , 0755 ) or die("Couldn't create directory");
 		$path =  $dir . 'index.php';

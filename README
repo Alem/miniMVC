@@ -12,8 +12,8 @@ README Contents
 ### DESCRIPTION ###
 
 miniMVC is a simple MVC framework for PHP - about as simple as you can get. 
-It is designed to provide a minimalist, bare-bones base for your own specific application/framework 
-and to allow you the freedom to hack your way to the rest. 
+It is designed to provide a minimalist, bare-bones base for your own specific 
+application/framework and to allow you the freedom to hack your way to the rest. 
 
 
 ### SETUP ####

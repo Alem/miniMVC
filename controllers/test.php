@@ -11,7 +11,7 @@ class TestController extends Controller{
 	}
 
 	function form(){
-		$this -> useView('test/l_form');
+		$this -> useView('test/form');
 	}
 
 	function post(){
@@ -52,6 +52,7 @@ class TestController extends Controller{
 	}
 
 	function countto( $num ){
+			$this -> model -> data['content'] = null;
 		for($x=1; $x <= $num; $x++){
 			$this -> model -> data['content'] .= $x;
 		}
