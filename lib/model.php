@@ -63,6 +63,23 @@ class Model{
 			$this -> query ("insert into $table ($column) values('$item');");
 		}
 	}
+	// form - manages insertion of POST data into single row
+	//
+	// $form_fields - Either a single field (ex. username) or multiple comma-seperated 
+	// 		fields in same order as HTML form (ex. username,password,type). 
+	//		Conventions: html field names (POST key names) = column names	
+
+	function form($form_fields){
+		if( count($_POST) > 1 ){
+			$multi = implode("','", $_POST);
+			$this -> model -> insert($multi, $form_fields);
+		}elseif(!preg_match ( ',', $form_fields) ){
+			$single = $_POST[$form_fields];
+			$this -> model -> insert($single);
+		}else{
+			echo "Could only find one field";
+		}
+	}
 
 	function update($old, $new, $column_old = null, $column_new = null ){
 		$table = $this -> table;
