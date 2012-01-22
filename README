@@ -51,7 +51,7 @@ Database:
 	Column:	example
 
 
-=== FILE SYSTEM ===
+### FILE SYSTEM ###
 
 config.php  	- Single configuration file for application.
 controllers 	- Holds created controllers.
