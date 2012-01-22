@@ -80,21 +80,15 @@ class Model{
 	// insert - uses query to insert into table
 	//
 	// $value - the value to be inserted. Can accept multiple values to be inserted into multiple columns by passing it 
-	// a string of comma seperated $value and $column. Can also accept an array which takes the form 
-	// column(s) => value(s) wher eeach column-value pair is inserted into its own row.
+	// an $value array and $column array. 
 	// $column - the  table column to be inserted into. Defaults to model -> column, the lower-case name of controller.
 
 	function insert($value, $column = null ){
 		$table = $this -> table;
 		$column = ( isset($column) ) ?  $column : $this -> column;
-	
-		if ( is_array($value) ){
-			foreach ($value as $array_column => $array_value){
-				$this -> insert($array_value,$array_column);	
-			}
-		}elseif( preg_match( '/,/', $value ) && preg_match( '/,/', $column) ){
-			$values = $value;
-			$columns = $column;
+		if ( is_array($value) && is_array($column) ){
+			$values = implode("','", $value);
+			$columns = implode(",", $column);
 			$this -> query ("insert into $table ($columns) values('$values');");
 		}else{
 			$this -> query ("insert into $table ($column) values('$value');");
@@ -117,12 +111,15 @@ class Model{
 	function form($form_fields){
 		$this -> sanitize($_POST);
 		if( count($_POST) > 1 ){
+			$this -> insert($_POST, $form_fields);
+		/*
 			$multi = implode("','", $_POST);
 			$post_order = implode(",", array_keys($_POST) );
 			if ( $post_order == $form_fields)
 				$this -> insert($multi, $form_fields);
 			else
 				echo "Specified form fields do not match POST data";
+		*/
 		}elseif(!preg_match ( '/,/', $form_fields) ){
 			$single = current( $_POST );
 			$this -> insert($single, $form_fields);

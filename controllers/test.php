@@ -21,10 +21,10 @@ class TestController extends Controller{
 	function post(){
 		$form_fields = "test";
 		if( count($_POST) > 1 ){
-			$form_fields = "id,test";
+			$form_fields = array('id','test');
 		}
 		$this -> model -> form($form_fields);
-		$this -> model -> data['content'] = "$form_fields Added.";
+		$this -> model -> data['content'] = "Post Added.";
 		$this -> show();
 	}
 
