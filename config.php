@@ -18,5 +18,6 @@ define ('COMPANY_WEBSITE','http://Alemmedia.com');
 
 # Application defaults
 define('DEFAULT_CONTROLLER', 'test');
+define('DEFAULT_TEMPLATE', 'template');
 
 ?>

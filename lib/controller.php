@@ -5,7 +5,15 @@ class Controller{
 	function __construct(){
 	}
 
-	// useController - Setup controller
+	// useController - Process request and setup controller 
+	//
+	// Recieves URL request, constructs the appropriate controller and calls appropriate method.
+	//
+	// The default/fallback controller is config constant DEFAULT_CONTROLLER, the default/fallback method is 'index()', 
+	// and the parameter is simply not passed to the method if not set. If the supplied variable has '+' signs 
+	// then it is treated as multiple '+' seperated parameters and passed as an array using call_user_func_array.
+	//
+	// This defines the child controller's name, classname, filename properties and assigns its model.
 	//
 	// $request: The Request URI passed from index.php
 	// This loads the controller, its method and inputs the variables 
@@ -13,19 +21,8 @@ class Controller{
 
 	function useController($request){
 
-		// Make request request a controller object.
 		$this -> request = $request;
-
-		// Set default request controller to default controller set in config.php 
 		$this -> request['controller'] = ( empty( $request['controller'] ) ) ? DEFAULT_CONTROLLER : $request['controller'];
-
-		// Define the controller filename and classname using the name given in the request. 
-		// If method exists execute, otherwise call index() method.
-		// Set parameter to null if not defined in request. 
-		// Set controller properties and assign default model;
-		// If request['variable'] has a + sign in it, treat as paramaters seperated by +'s
-		// and pass to function using call_user_func_array
-
 		$controller_file = SERVER_ROOT . '/controllers/' . $this -> request['controller'] . '.php';
 		$controller_class = ( $this -> request['controller'] ."Controller" );
 		$controller_name = strtolower($this -> request['controller']);
@@ -62,21 +59,29 @@ class Controller{
 
 	// useView - Displays views. 
 	//
+	// This method is used by controllers to output specified html files with any included data.
+	//
+	// The default view is the controller's index view (ex. views/example/index.php), the default data
+	// is the controller's model's data. The default template is views/tpl/"DEFAULT_TEMPLATE".php,
+	// where DEFAULT_TEMPLATE is a config.php constant.
+	//
 	// $view: The name of the view file. Defaults to the controller's class name
 	// 	(lowercase without 'Controller') as a dir and index as the view filename.
 	// $data: The data to send. Defaults to the controller's model's data. 
-	// $template: The template file the view will be incorporated into. Defaults to views/tpl/template.php
+	// $template: The template file the view will be incorporated into. Defaults to DEFAULT_TEMPLATE.
 
 	function useView($view = null, $data = null, $template = 'template'){
 		$view = ( isset($view) ) ?  $view : $this-> name . '/' . 'index';
 		$data = ( isset($data) ) ?  $data : $this -> model -> data ;
-		require_once( SERVER_ROOT . '/views/tpl/' . $template . '.php');
+		require_once( SERVER_ROOT . '/views/tpl/' . DEFAULT_TEMPLATE . '.php');
 	}
 
 	// useModel - Defines model.
 	//
+	// This method is used by controllers to set the appropriate model as the object property 'model'.
+	// The model defaults to the model file matching the controller class' name.
+	//
 	// $model: The name of the model file.
-	// Defines a model object as a property of the controller.
 
 	function useModel($model = null){
 		$model = ( isset($model) ) ?  $model : $this -> name;

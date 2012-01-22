@@ -140,7 +140,7 @@ create table $names (
 	$name varchar(128) not null  
 );
 QUERY;
-	mysql_query($query) or die("Query failed: $query. <br/> Reason:".mysql_error());
+	mysql_query($query) or die("Query failed: $query \nReason: " . mysql_error() ." \n" );
 	mysql_close($link);
 	echo "Created $name table!\n";
 }
@@ -150,10 +150,21 @@ function deleteTable($name){
 		$link = mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);	
 		mysql_select_db(DB_DATABASE, $link);
 		$query = "drop table $name".'s'; 
-		mysql_query($query) or die("Query failed: $query. <br/> Reason:".mysql_error());
+		mysql_query($query) or die("Query failed: $query \nReason: " . mysql_error() ." \n" );
 		mysql_close($link);
 		echo "Deleted $name table! \n";
 	}
+}
+
+function openDB(){
+	$link = mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);	
+	mysql_select_db(DB_DATABASE, $link);
+	echo "Connected to database: ". DB_DATABASE;
+	echo "\nEnter a Query: \n";
+	$query = fgets(STDIN);	
+	mysql_query($query) or die("Query failed: $query \nReason: " . mysql_error() ." \n" );
+	echo "Query sucessfully executed.\n";
+	mysql_close($link);
 }
 
 function generate($name,$type){
@@ -197,7 +208,7 @@ function undo($name){
 }
 
 
-$args = getopt("c:m:v:p:u:h", array('mvc:','undo:','table:','undotable:','crud','help'));
+$args = getopt("c:m:v:p:u:h", array('mvc:','undo:','table:','undotable:','crud','help','opendb'));
 
 $mvc['c'] = isset($args['c']) ? $args['c'] : null;
 $mvc['m'] = isset($args['m']) ? $args['m'] : null;
@@ -224,6 +235,10 @@ if( isset($args['table']) ){
 
 if( isset($args['undotable']) ){
 	deleteTable($args['undotable']);
+}
+
+if( isset($args['opendb']) ){
+	openDB();
 }
 
 if( isset($args['h']) or  isset($args['help'])  ){
