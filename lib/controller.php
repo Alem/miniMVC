@@ -23,7 +23,7 @@ class Controller{
 
 		$this -> request = $request;
 		$this -> request['controller'] = ( empty( $request['controller'] ) ) ? DEFAULT_CONTROLLER : $request['controller'];
-		$controller_file = SERVER_ROOT . '/controllers/' . $this -> request['controller'] . '.php';
+		$controller_file = SERVER_ROOT . DEFAULT_CONTROLLER_PATH . $this -> request['controller'] . '.php';
 		$controller_class = ( $this -> request['controller'] ."Controller" );
 		$controller_name = strtolower($this -> request['controller']);
 
@@ -61,19 +61,17 @@ class Controller{
 	//
 	// This method is used by controllers to output specified html files with any included data.
 	//
-	// The default view is the controller's index view (ex. views/example/index.php), the default data
-	// is the controller's model's data. The default template is views/tpl/"DEFAULT_TEMPLATE".php,
-	// where DEFAULT_TEMPLATE is a config.php constant.
+	// The default view is the controller's index view (ex. views/example/index.php),
+	// the default template is views/tpl/"DEFAULT_TEMPLATE".php, where DEFAULT_TEMPLATE 
+	// is a config.php constant.
 	//
 	// $view: The name of the view file. Defaults to the controller's class name
 	// 	(lowercase without 'Controller') as a dir and index as the view filename.
-	// $data: The data to send. Defaults to the controller's model's data. 
 	// $template: The template file the view will be incorporated into. Defaults to DEFAULT_TEMPLATE.
 
-	function useView($view = null, $data = null, $template = 'template'){
+	function useView($view = null, $template = 'template'){
 		$view = ( isset($view) ) ?  $view : $this-> name . '/' . 'index';
-		$data = ( isset($data) ) ?  $data : $this -> model -> data ;
-		require_once( SERVER_ROOT . '/views/tpl/' . DEFAULT_TEMPLATE . '.php');
+		require_once( SERVER_ROOT . DEFAULT_TEMPLATE_PATH . DEFAULT_TEMPLATE . '.php');
 	}
 
 	// useModel - Defines model.
@@ -85,7 +83,7 @@ class Controller{
 
 	function useModel($model = null){
 		$model = ( isset($model) ) ?  $model : $this -> name;
-		require_once( SERVER_ROOT . '/models/' . $model . '.php');
+		require_once( SERVER_ROOT . DEFAULT_MODEL_PATH . $model . '.php');
 		$this -> model = new $model;
 	}
 }

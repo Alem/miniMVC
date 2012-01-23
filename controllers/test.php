@@ -24,13 +24,13 @@ class TestController extends Controller{
 
 
 	function post(){
-		if( count( $_POST ) > 1 ){
-			$form_fields = array('id','test');
-		}else{
-			$form_fields = array('test');
+		$form_fields = ( count( $_POST ) > 1 ) ? $form_fields = array('id','test') : $form_fields = array('test');
+		$this -> user = new User;
+		if ( $this -> user -> recency('post', 10) ){
+			$this -> user -> recency('post'); 
+			$this -> model -> insert( $_POST, $form_fields);
+			$this -> model -> data['content'] = "Post Added.";
 		}
-		$this -> model -> form($form_fields);
-		$this -> model -> data['content'] = "Post Added.";
 		$this -> show();
 	}
 

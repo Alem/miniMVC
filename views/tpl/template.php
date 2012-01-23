@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title><?php echo SITE_NAME ?> <?php if( isset($data['title'])) echo " - " . $data['title']; ?> </title> 
+	<title><?php echo SITE_NAME ?> <?php if( isset($this -> model -> data['title'])) echo " - " . $this -> model -> data['title']; ?> </title> 
 	<link type="text/css" rel="stylesheet" href="theme/main.css"/>
 </head>
 
@@ -12,32 +12,31 @@
 
 	<div id="wrapper">
 
-		<?php if((isset($data['l_sidebar']) )): ?>
+		<?php if((isset($this -> model -> data['l_sidebar']) )): ?>
 		<div id="left_sidebar">
 			<h4>NAVIGATION</h4>
-			<? echo $data['l_sidebar']; ?>
+			<? echo $this -> model -> data['l_sidebar']; ?>
 		</div>
 		<? endif;?>
 	
 
 		<div id="content">
-			<?php require_once( SERVER_ROOT . '/views/' . $view . '.php'); ?>
+			<?php require_once( SERVER_ROOT . DEFAULT_VIEW_PATH . $view . '.php'); ?>
 		</div>
 
 		<div id="right_sidebar">
 
-			<?php if((isset($data['r_top_sidebar']) )): ?>
+			<?php if((isset($this -> model -> data['r_top_sidebar']) )): ?>
 			<div id="right_top_sidebar">
 				<h4>TOP SIDEBAR</h4>
-				<?php echo $data['r_top_sidebar']; ?>
+				<?php echo $this -> model -> data['r_top_sidebar']; ?>
 			</div>
 			<? endif;?>
 
-			<?php if((isset($data['r_bot_sidebar']) )): ?>
+			<?php if((isset($this -> model -> data['r_bot_sidebar']) )): ?>
 			<div id="right_bottom_sidebar">
 				<h4>BOTTOM SIDEBAR</h4>
-				<?php echo $data['r_bot_sidebar']; ?>
-				<?php #echo $this->model->data['r_bot_sidebar']; ?>
+				<?php echo $this -> model -> data['r_bot_sidebar']; ?>
 			</div>
 			<? endif;?>
 		</div>

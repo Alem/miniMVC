@@ -11,10 +11,10 @@
 <input type = "submit" value = "Add"/>
 </form>
 
-<?php	if( isset( $data['show']) ):	?>
+<?php	if( isset( $this -> model -> data['show']) ):	?>
 <h2>List</h2>
 <ul>
-<?php foreach( $data['show'] as $row) :	?>
+<?php foreach( $this -> model -> data['show'] as $row) :	?>
 	<li>
 	<?php foreach( $row as $column => $value) :	?>
 	<b> <?php echo $column; ?>:  <?php echo $value; ?> </b>
@@ -31,4 +31,4 @@
 </p>
 <?php endif; ?>
 
-<?php	echo $data['content'];	?>
+<?php	echo $this -> model -> data['content'];	?>
