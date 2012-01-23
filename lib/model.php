@@ -106,23 +106,6 @@ class Model{
 	}
 
 
-	// form - manages insertion of POST data into single row
-	//
-	// Inserts POST data from form into their corresponding columns defined by the $form_fields array. 
-	// Could use POST keys but those can be tampered. Otherwise insert directly. 
-	//
-	// $form_fields - An array with a single field (ex. array('username') ) or multiple fields same order as 
-	// 		HTML form (ex. array('username','password','type'). 
-	//
-	// CRITICAL ASSUMPTIONS - form_fields names = column names, html fields order (POST key order) = $form_fields order.
-	// OBSOLETE/PENDING
-
-	function form($form_fields){
-		$this -> sanitize($_POST);
-		$this -> insert($_POST, $form_fields);
-	}
-
-
 	// update - uses query to update table
 	//
 	// $ref - Reference value 
@@ -153,9 +136,12 @@ class Model{
 	// sanitize - Sanitizes any user data.
 	//
 	// Borrowed heavily from some blog, source later.
+	//
+	// $data - Data.
+	// $html - Either an html tag, or a boolean indicating the data contains html.
 
 	function sanitize($data, $html = false ){
-		if (empty($data)){
+		if ( empty($data) ) {
 			return $data;
 		} elseif (is_array($data)) {
 			foreach($data as $key => $value)
