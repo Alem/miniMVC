@@ -66,9 +66,9 @@ class Model{
 	// $orderby - The type of ordering, column and sort. (ex. date, DESC)
 	// $limit - Number of rows to return
 
-	function select( $value = '*', $column = 'id', $orderby = array( null, null ), $limit = null ){
+	function select( $value = '*', $column = 'id', $orderby = array( 'col' => null,  'sort'=>null ), $limit = null ){
 		$table = $this -> table;
-		$orderby = ( isset($orderby) ) ? 'order by ' . $orderby[0] . ' ' . $orderby[1] : $orderby;
+		$orderby = ( isset($orderby) ) ? 'order by ' . $orderby['col'] . ' ' . $orderby['sort'] : $orderby;
 		$limit = ( isset($limit) ) ? "limit $limit" : $limit;	
 		if ($value == '*'){
 			return $result = $this -> query("select * from $table $orderby $limit;");

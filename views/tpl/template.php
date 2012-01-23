@@ -37,6 +37,7 @@
 			<div id="right_bottom_sidebar">
 				<h4>BOTTOM SIDEBAR</h4>
 				<?php echo $data['r_bot_sidebar']; ?>
+				<?php #echo $this->model->data['r_bot_sidebar']; ?>
 			</div>
 			<? endif;?>
 		</div>
