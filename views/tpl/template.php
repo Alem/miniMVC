@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title> </title>
+	<title><?php echo SITE_NAME ?> <?php if( isset($data['title'])) echo " - " . $data['title']; ?> </title> 
 	<link type="text/css" rel="stylesheet" href="theme/main.css"/>
 </head>
 

@@ -42,9 +42,9 @@ class TestController extends Controller{
 	}
 
 
-	function del($id){
-		$this -> model -> remove($id);
-		$this -> model -> data['content'] = "$id Deleted.";
+	function del($value, $column = null){
+		$this -> model -> remove($value,$column);
+		$this -> model -> data['content'] = "$value Deleted.";
 		$this -> show();
 	}
 	

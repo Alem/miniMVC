@@ -18,7 +18,7 @@ application/framework and to allow you the freedom to hack your way to the rest.
 
 ### SETUP ####
 
-1. Create the database for the application.
+1. Create the MYSQL database for the application.
 
 2. Define the relevant information in config.php
 

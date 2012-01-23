@@ -165,6 +165,8 @@ function openDB(){
 	mysql_query($query) or die("Query failed: $query \nReason: " . mysql_error() ." \n" );
 	echo "Query sucessfully executed.\n";
 	mysql_close($link);
+	#$command =  ("mysql -u" . DB_USERNAME . " -p" . DB_PASSWORD. " -D ". DB_DATABASE); 
+	#echo ( $command );
 }
 
 function generate($name,$type){

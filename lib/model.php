@@ -6,7 +6,7 @@ class Model{
 	// __construct 
 	//
 	// Assigns the model the 'table' property, lowercase pluralized name of the controller class
-	// and the table's main/first column the lowercase singular name of the controller class.
+	// and the table's main column the lowercase singular name of the controller class.
 
 	function __construct(){
 		$main_column =  strtolower(get_class($this));
@@ -84,6 +84,9 @@ class Model{
 
 	// insert - uses query to insert into table
 	//
+	// Note: If using two insert a forms POST data, ensure the order of $_POST array keys (order in HTML form)
+	//  match the order of the specified columns.
+	//
 	// $value - the value to be inserted. Can accept multiple values to be inserted into multiple columns by passing it 
 	// an $value array and $column array. 
 	// $column - the  table column to be inserted into. Defaults to model -> column, the lower-case name of controller.
@@ -109,14 +112,14 @@ class Model{
 
 	// form - manages insertion of POST data into single row
 	//
-	// If POST contains multiple keys then inserts as string of multiple values (done by insert() )
-	// and their corresponding columns defined by an array. Could use POST keys but those can be tampered.
-	// Otherwise insert directly. 
+	// Inserts POST data from form into their corresponding columns defined by the $form_fields array. 
+	// Could use POST keys but those can be tampered. Otherwise insert directly. 
 	//
 	// $form_fields - An array with a single field (ex. array('username') ) or multiple fields same order as 
 	// 		HTML form (ex. array('username','password','type'). 
 	//
-	// CRITICAL ASSUMPTIONS -  form_fields names = column names, html fields order (POST key order) = $form_fields order.
+	// CRITICAL ASSUMPTIONS - form_fields names = column names, html fields order (POST key order) = $form_fields order.
+	// OBSOLETE/PENDING
 
 	function form($form_fields){
 		$this -> sanitize($_POST);

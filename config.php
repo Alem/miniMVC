@@ -1,5 +1,9 @@
 <?php
 
+# Error reporting
+error_reporting('-1');
+ini_set('display_errors',1);
+
 # Base Path
 define('WEB_ROOT', 'http://localhost');
 define('SERVER_ROOT', dirname(__FILE__));

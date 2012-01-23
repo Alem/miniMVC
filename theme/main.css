@@ -11,8 +11,8 @@ body{
 	background: url('imgs/beige_paper.png');
 	background: url('imgs/whitey.png');
 	background: url('imgs/white_carbon.png');
-	background: url('imgs/white_brick_wall.png');
 	background: url('imgs/cubes.png');
+	background: url('imgs/white_brick_wall.png');
 }
 
 #wrapper{
@@ -20,8 +20,8 @@ body{
 	padding: 30px;
 }
 #header,#footer{
-	background: #afdfff; 
 	background: #eee; 
+	background: #afdfff; 
 	padding: 10px;
 	height: 40px;
 	clear:both;
@@ -36,8 +36,8 @@ body{
 	float:left;
 	padding: 10px;
 	width: 200px;
-	background: #afdfff; 
 	background: #eee; 
+	background: #afdfff; 
 	border-radius: 5px;
 	box-shadow: 1px 1px 1px #eee;
 	opacity: 0.8;
@@ -51,8 +51,8 @@ body{
 	padding: 10px 20px;
 	border-radius: 5px;
 	box-shadow: 1px 1px 1px #eee;
-	background: #afdfff; 
 	background: #eee; 
+	background: #afdfff; 
 	opacity: 0.8;
 	overflow:auto;
 }
