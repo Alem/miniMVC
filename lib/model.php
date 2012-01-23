@@ -32,17 +32,16 @@ class Model{
 
 	// query() - Basic database query wrapper
 	//	
-	// Simplifies database queries by provide a single method that recieves the query, 
-	// and the number of rows to return ( *** the $row param actually defines what the query_array's first index key is.)
+	// Simplifies database queries by provide a single method that recieves the query.
 	// If the query is a select statement then it returns the results as an array.
 	//
 	// $query - Regular database query statement.
-	// $row - ***
 
-	public function query( $query, $row = 1 ){
+	public function query( $query ){
 		$this -> db_connect();
 		$result = mysql_query($query) or die("Query failed : $query. <br/><br/>Reason: ".mysql_error());
 		if ( preg_match('/select/', $query) ){
+			$row = 1;
 			while( $query = mysql_fetch_assoc($result) ) {
 				$query_array[$row] = $query;
 				$row++;
@@ -60,24 +59,21 @@ class Model{
 	//
 	// Recieves the value to select, the column it belongs to, the order to display them and the ***
 	// and returns the results as an array. The value defaults to * which then directs to a query that 
-	// excludes the column, table is by default the model's table property, and orderby defaults to null.
+	// excludes the column, table is by default the model's table property, orderby defaults to null as does limit.
 	//
 	// $value - Value to select for
 	// $column - The column the value belongs to
 	// $orderby - The type of ordering, column and sort. (ex. date, DESC)
-	// $row - ***
+	// $limit - Number of rows to return
 
-	function select( $value = '*', $column = 'id', $orderby = array( 'col' => null, 'sort' => null ), $row = 1 ){
+	function select( $value = '*', $column = 'id', $orderby = array( null, null ), $limit = null ){
 		$table = $this -> table;
-		if ( isset($orderby) ){
-			$orderby = 'order by ' . $orderby['col'] . ' ' . $orderby['sort'];
-		}else{
-			$orderby = '';	
-		}
+		$orderby = ( isset($orderby) ) ? 'order by ' . $orderby[0] . ' ' . $orderby[1] : $orderby;
+		$limit = ( isset($limit) ) ? "limit $limit" : $limit;	
 		if ($value == '*'){
-			return $result = $this -> query("select * from $table $orderby;");
+			return $result = $this -> query("select * from $table $orderby $limit;");
 		}else{
-			return $result = $this -> query("select $column from $table where $column='$value' $orderby);");
+			return $result = $this -> query("select $column from $table where $column='$value' $orderby $limit);");
 		}
 	}
 
