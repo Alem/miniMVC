@@ -23,4 +23,6 @@
 
 </tr>
 </table>
+<?php else: ?>
+	No results!
 <?php endif; ?>
