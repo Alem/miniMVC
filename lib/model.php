@@ -73,6 +73,7 @@ class Model{
 		if ($value == '*'){
 			return $result = $this -> query("select * from $table $orderby $limit;");
 		}else{
+			$this -> sanitize($value);
 			return $result = $this -> query("select $column from $table where $column='$value' $orderby $limit);");
 		}
 	}
@@ -92,20 +93,18 @@ class Model{
 		$column = ( isset($column) ) ?  $column : $this -> column;
 		if ( is_array($value) ){
 			if ( ( count($value) > 1) && (count($column) > 1) ){
-				#$values = implode("','", $value);
-				#$values = implode("','",  $this -> sanitize($value) );
-				# FIX THIS
-				$values = implode("SEPERATOR", $value);
-			 	$values = $this -> sanitize( $values);
-				$values = preg_replace( "/SEPERATOR/", "','",$values);
 				$columns = implode(",", $column);
+				$this -> sanitize($value);
+				$values = implode("','", $value);
 				$this -> query ("insert into $table ($columns) values('$values');");
 			}else{
 				$value = current($value);
 				$column = current($column);
+				$this -> sanitize($value);
 				$this -> query ("insert into $table ($column) values('$value');");
 			}
 		}else{
+			$this -> sanitize($value);
 			$this -> query ("insert into $table ($column) values('$value');");
 		}
 	}
@@ -122,6 +121,7 @@ class Model{
 		$table = $this -> table;
 		$column_ref = ( isset($column_ref) ) ?  $column_ref :  'id';
 		$column_new = ( isset($column_new) ) ?  $column_new :	$column_old;
+		$this -> sanitize($ref);
 		$this -> query("update $table set $column_new = '$new' where $column_ref = '$ref';");
 	}
 
@@ -134,6 +134,7 @@ class Model{
 	function remove($value, $column = null ){
 		$table = $this -> table;
 		$column = ( isset($column) ) ?  $column : 'id';
+		$this -> sanitize($value);
 		$this -> query("delete from $table where $column='$value';");
 	}
 
@@ -143,12 +144,11 @@ class Model{
 	//
 	// $data - Data.
 
-	function sanitize( $data ){
-		if ( empty($data) ) {
-			return $data;
-		} elseif (is_array($data)) {
-			foreach($data as $key => $value)
-				$this -> sanitize( $data[$key]);
+	function sanitize( &$data ){
+		if (is_array($data)) {
+			foreach($data as $key => $value){
+				$this -> sanitize( $data[$key] );
+			}
 		} else {
 			$this -> db_connect();
 			$data = strip_tags($data);

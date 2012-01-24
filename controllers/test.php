@@ -9,24 +9,24 @@ class TestController extends Controller{
 
 
 	function index(){
-		$this -> show();
+		$this -> useView();
 	}
 
 
 	function form(){
-		$this -> useView('test/form');
+		$this -> useView('form');
 	}
 
 
 	function mform(){
-		$this -> useView('test/mform');
+		$this -> useView('mform');
 	}
 
 
 	function post(){
 		$form_fields = ( count( $_POST ) > 1 ) ? $form_fields = array('id','test') : $form_fields = array('test');
 		$this -> user = new User;
-		if ( $this -> user -> timeSince('post', 10) ){
+		if ( $this -> user -> timeSince('post', 5) ){
 			$this -> user -> timeSince('post'); 
 			$this -> model -> insert( $_POST, $form_fields);
 			$this -> model -> data['content'] = "Post Added.";
@@ -59,7 +59,7 @@ class TestController extends Controller{
 	function show(){
 		$query_result = $this -> model -> select ('*', 'id', array( 'col'=>'id','sort' => 'DESC') );
 		$this -> model -> data["show"] = $query_result;
-		$this -> useView();
+		$this -> useView('gallery');
 	}
 
 
