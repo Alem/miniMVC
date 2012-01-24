@@ -22,14 +22,19 @@ class User{
 	function get($property){
 		if ( isset( $_SESSION[$property] ) )
 			return $_SESSION[$property];
+		else 
+			return false;
 	}
 
-	function recency($action, $difference = false ){
-		if ( $difference != false ){
-			if ( ( time() - $this -> get($action) ) > $difference )
+	function timeSince($action, $difference = null, $true_if_unset = true ){
+		$time_set = $this -> get($action);
+		if ( ( $time_set != false ) && ( isset( $difference ) ) && ( ( time() - $time_set ) > $difference ) ) {
 				return true;
-		}else{
+		} elseif( !isset($difference) ) {
 			$this -> set( $action, time() );
+			return false;
+		} elseif( ($time_set == false ) && ( $true_if_unset == true) ) {
+			return true;
 		}
 	}
 }

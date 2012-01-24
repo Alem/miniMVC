@@ -5,11 +5,15 @@
 	by its controller and was generated/retrieved by its model.
 </p>
 
+<br/>
+
+<p>
 <h3>ADD AN ITEM: </h3> 
 <form action = "?test/post/" method="post">
 <input id = "item" name = "item" type="text" />
 <input type = "submit" value = "Add"/>
 </form>
+</p>
 
 <?php	if( isset( $this -> model -> data['show']) ):	?>
 <h2>List</h2>
@@ -31,4 +35,4 @@
 </p>
 <?php endif; ?>
 
-<?php	echo $this -> model -> data['content'];	?>
+<?php	echo ( isset( $this -> model -> data['content'] ) ) ? $this -> model -> data['content'] : "";	?>

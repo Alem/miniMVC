@@ -1,6 +1,6 @@
 body{
-	font-family: Purisa,sans-serif;
 	font-family: Helvetica,sans-serif;
+	font-family: Purisa,sans-serif;
 	margin:0;
 	padding:0;
 	color: white;
@@ -10,34 +10,32 @@ body{
 	background: url('imgs/bright_squares.png');
 	background: url('imgs/beige_paper.png');
 	background: url('imgs/whitey.png');
-	background: url('imgs/white_carbon.png');
-	background: url('imgs/cubes.png');
-	background: url('imgs/white_brick_wall.png');
 }
 
 #wrapper{
-	height: 650px;
 	padding: 30px;
+	min-width: 1000px;
 }
 #header,#footer{
 	background: #eee; 
 	background: #afdfff; 
+	background: url('imgs/black-Linen.png');
 	padding: 10px;
 	height: 40px;
 	clear:both;
 	box-shadow: 1px 1px 2px #eee;
 	opacity: 0.8;
+	color:white;
 }
-#header a, #footer a { color: #F0Ffff; color: #000; }
+#header a, #footer a { color: #F0Ffff; }
 #header{
 	font-size: 2em;
 }
 #left_sidebar,#right_sidebar{
 	float:left;
 	padding: 10px;
-	width: 200px;
+	width: 175px;
 	background: #eee; 
-	background: #afdfff; 
 	border-radius: 5px;
 	box-shadow: 1px 1px 1px #eee;
 	opacity: 0.8;
@@ -45,14 +43,12 @@ body{
 }
 #content{
 	float:left;
-	width: 400px;
-	height: 600px;
-	margin: 0px 50px;
+	max-width: 500px;
+	min-height: 600px;
+	margin: 0px 30px 50px;
 	padding: 10px 20px;
 	border-radius: 5px;
 	box-shadow: 1px 1px 1px #eee;
-	background: #eee; 
-	background: #afdfff; 
 	opacity: 0.8;
 	overflow:auto;
 }

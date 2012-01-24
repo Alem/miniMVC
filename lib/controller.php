@@ -86,6 +86,18 @@ class Controller{
 		require_once( SERVER_ROOT . DEFAULT_MODEL_PATH . $model . '.php');
 		$this -> model = new $model;
 	}
+
+	// prg - Post Redirect Get
+	//
+	// A simple fix for prevent Database modification re-send on a browser 'back' or 'refresh'
+	//
+	// $method - The controller method to call AKA the page to redirect to (ex. index)
+	// $controller - The controller the method belongs to. Defaults to the current controller.
+
+	function prg( $method, $controller = null ){
+		$controller = ( isset($controller) ) ?  $controller : $this -> name;
+		header("Location: ?" . $controller . '/' . $method, 303);
+	}
 }
 
 ?>

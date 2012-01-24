@@ -92,7 +92,12 @@ class Model{
 		$column = ( isset($column) ) ?  $column : $this -> column;
 		if ( is_array($value) ){
 			if ( ( count($value) > 1) && (count($column) > 1) ){
-				$values = implode("','", $value);
+				#$values = implode("','", $value);
+				#$values = implode("','",  $this -> sanitize($value) );
+				# FIX THIS
+				$values = implode("SEPERATOR", $value);
+			 	$values = $this -> sanitize( $values);
+				$values = preg_replace( "/SEPERATOR/", "','",$values);
 				$columns = implode(",", $column);
 				$this -> query ("insert into $table ($columns) values('$values');");
 			}else{
@@ -135,25 +140,19 @@ class Model{
 
 	// sanitize - Sanitizes any user data.
 	//
-	// Borrowed heavily from some blog, source later.
 	//
 	// $data - Data.
-	// $html - Either an html tag, or a boolean indicating the data contains html.
 
-	function sanitize($data, $html = false ){
+	function sanitize( $data ){
 		if ( empty($data) ) {
 			return $data;
 		} elseif (is_array($data)) {
 			foreach($data as $key => $value)
-				$this -> sanitize( $data[$key], $html);
+				$this -> sanitize( $data[$key]);
 		} else {
-			$data = stripslashes($data);
-			if (is_array($html)) 
-				$data = strip_tags($data, implode('', $html));
-			elseif (preg_match('|<([a-z]+)>|i', $html)) 
-				$data = strip_tags($data, $html);
-			elseif ($html !== true) 
-				$data = strip_tags($data);
+			$this -> db_connect();
+			$data = strip_tags($data);
+			$data = mysql_real_escape_string($data);
 			$data = trim($data);
 		}
 		return $data;

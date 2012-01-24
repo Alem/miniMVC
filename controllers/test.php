@@ -26,12 +26,12 @@ class TestController extends Controller{
 	function post(){
 		$form_fields = ( count( $_POST ) > 1 ) ? $form_fields = array('id','test') : $form_fields = array('test');
 		$this -> user = new User;
-		if ( $this -> user -> recency('post', 10) ){
-			$this -> user -> recency('post'); 
+		if ( $this -> user -> timeSince('post', 10) ){
+			$this -> user -> timeSince('post'); 
 			$this -> model -> insert( $_POST, $form_fields);
 			$this -> model -> data['content'] = "Post Added.";
 		}
-		$this -> show();
+		$this -> prg('show');
 	}
 
 
@@ -45,7 +45,7 @@ class TestController extends Controller{
 	function del($value, $column = null){
 		$this -> model -> remove($value,$column);
 		$this -> model -> data['content'] = "$value Deleted.";
-		$this -> show();
+		$this -> prg('show');
 	}
 	
 
