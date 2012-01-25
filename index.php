@@ -11,9 +11,6 @@ require_once('config.php');
 require_once('lib/controller.php');
 require_once('lib/model.php');
 
-// Include user class
-require_once('lib/user.php');
-
 // Get the controller, method and variable from URL
 // each delimited by the forward slash '/'
 $parsed_request = explode( '/', $_SERVER['QUERY_STRING'] );

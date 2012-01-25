@@ -2,6 +2,10 @@
 
 class Controller{
 
+	public $name;
+	public $classname;
+	public $filename;
+	
 	function __construct(){
 	}
 
@@ -18,8 +22,9 @@ class Controller{
 	// $request: The Request URI passed from index.php
 	// This loads the controller, its method and inputs the variables 
 	// if they have been set in the request.  
+	// $assign: If set to true, will assign the newly created controller as a property of the controller that called it.
 
-	function useController($request){
+	function useController($request, $assign = null){
 
 		$this -> request = $request;
 		$this -> request['controller'] = ( empty( $request['controller'] ) ) ? DEFAULT_CONTROLLER : $request['controller'];
@@ -51,6 +56,10 @@ class Controller{
 				}
 			} else {
 				$controller -> index();
+			}
+
+			if ( $assign === true ){
+				$this -> $controller_name = $controller;
 			}
 		} else {
 			echo "$controller_file does not exist";

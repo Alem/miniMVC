@@ -25,7 +25,7 @@ class TestController extends Controller{
 
 	function post(){
 		$form_fields = ( count( $_POST ) > 1 ) ? $form_fields = array('id','test') : $form_fields = array('test');
-		$this -> user = new User;
+		$this -> useController( array( 'controller' => 'user', 'method' => 'session'), true );
 		if ( $this -> user -> timeSince('post', 5) ){
 			$this -> user -> timeSince('post'); 
 			$this -> model -> insert( $_POST, $form_fields);

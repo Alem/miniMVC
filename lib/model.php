@@ -2,6 +2,8 @@
 
 class Model{
 
+	public $table;
+	public $column;
 
 	// __construct 
 	//
@@ -40,15 +42,13 @@ class Model{
 	public function query( $query ){
 		$this -> db_connect();
 		$result = mysql_query( $query ) or die("Query failed : $query. <br/><br/>Reason: ".mysql_error());
+		$this -> db_disconnect();
 		if ( preg_match('/select/', $query) ){
-			while( $query = mysql_fetch_assoc($result) ) {
+			while( $query = mysql_fetch_assoc($result) ) 
 				$query_array[] = $query;
-			}
-			$this -> db_disconnect();
 			if ( isset($query_array))
 				return $query_array;
 		}
-		$this -> db_disconnect();
 	}
 
 
@@ -150,6 +150,7 @@ class Model{
 			$data = strip_tags($data);
 			$this -> db_connect();
 			$data = mysql_real_escape_string($data);
+			$this -> db_disconnect();
 			$data = trim($data);
 		}
 		return $data;
