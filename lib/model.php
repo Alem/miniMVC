@@ -39,7 +39,7 @@ class Model{
 	//
 	// $query - Regular database query statement.
 
-	public function query( $query ){
+	private function query( $query ){
 		$this -> db_connect();
 		$result = mysql_query( $query ) or die("Query failed : $query. <br/><br/>Reason: ".mysql_error());
 		$this -> db_disconnect();
@@ -63,7 +63,7 @@ class Model{
 	// $orderby - The type of ordering, column and sort. (ex. date, DESC)
 	// $limit - Number of rows to return
 
-	function select( $value = '*', $column = 'id', $orderby = array(), $limit = null ){
+	function select( $value = '*', $column = 'id', $orderby = null, $limit = null ){
 		$table = $this -> table;
 		$orderby = ( ($orderby) ) ? 'order by ' . $orderby['0'] . ' ' . $orderby['1'] : $orderby;
 		$limit = ( isset($limit) ) ? "limit $limit" : $limit;	

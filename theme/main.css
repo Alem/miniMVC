@@ -1,20 +1,16 @@
 body{
-	font-family: Helvetica,sans-serif;
-	font-family: Purisa,sans-serif;
+	font-family: monospace, sans-serif;
+	font-family: Purisa, sans-serif;
+	font-family: Helvetica, sans-serif;
 	margin:0;
 	padding:0;
 	color: white;
-	color: #000;
+	color: #222;
 	font-weight:600;
-	background: url('imgs/grunge_wall.png');
 	background: url('imgs/bright_squares.png');
 	background: url('imgs/beige_paper.png');
+	background: url('imgs/grunge_wall.png');
 	background: url('imgs/whitey.png');
-}
-table{
-
-	border-spacing: 20px;
-
 }
 td{
 	border: 2px solid #eee;
@@ -23,8 +19,8 @@ td{
 }
 
 #wrapper{
-	padding: 50px 30px;
-	min-width: 1100px;
+	padding: 30px;
+	min-width: 1200px;
 }
 #header,#footer{
 	background: #eee; 
@@ -41,11 +37,16 @@ td{
 #header{
 	font-size: 2em;
 }
+#left_sidebar a,#right_sidebar a{
+	color:white;
+}
 #left_sidebar,#right_sidebar{
 	float:left;
 	padding: 10px;
 	width: 170px;
 	background: #eee; 
+	background: url('imgs/black-Linen.png');
+	color:white;
 	border-radius: 5px;
 	box-shadow: 1px 1px 1px #eee;
 	opacity: 0.8;
@@ -53,12 +54,14 @@ td{
 }
 #content{
 	float:left;
-	width: 550px;
+	width: 575px;
 	min-height: 600px;
 	margin: 0px 100px 50px;
-	padding: 10px 20px;
-	border-radius: 5px;
-	box-shadow: 1px 1px 1px #eee;
+	padding: 0px 20px;
+	text-shadow: 0px 1px 2px #555;
+	color:#fff;
+	text-shadow: 0px 1px 2px #eee;
+	color:#333;
 	opacity: 0.8;
 	overflow:auto;
 }

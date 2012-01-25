@@ -24,6 +24,7 @@
 			<?php require_once( SERVER_ROOT . DEFAULT_VIEW_PATH . $view . '.php'); ?>
 		</div>
 
+		<?php if( (isset($this -> model -> data['r_top_sidebar']) ) || (isset($this -> model -> data['r_bot_sidebar']) ) ): ?>
 		<div id="right_sidebar">
 
 			<?php if((isset($this -> model -> data['r_top_sidebar']) )): ?>
@@ -40,6 +41,7 @@
 			</div>
 			<? endif;?>
 		</div>
+		<? endif;?>
 
 	</div>
 
