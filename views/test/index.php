@@ -1,4 +1,3 @@
-<h1> Test View </h1>
 <h2> Welcome to <?php echo SITE_NAME; ?> </h2>
 <p>
 	This data below has been passed to this view 

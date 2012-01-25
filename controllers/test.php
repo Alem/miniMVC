@@ -57,11 +57,16 @@ class TestController extends Controller{
 
 
 	function show(){
-		$query_result = $this -> model -> select ('*', 'id', array( 'col'=>'id','sort' => 'DESC') );
+		$query_result = $this -> model -> select ('*');
 		$this -> model -> data["show"] = $query_result;
 		$this -> useView('gallery');
 	}
 
+	function order($column, $sort = null){
+		$query_result = $this -> model -> select ('*', null, array('id', 'DESC') );
+		$this -> model -> data["show"] = $query_result;
+		$this -> useView('gallery');
+	}
 
 	function db( $sql_query = "select * from test;" ){
 		$sql_query = urldecode($sql_query);

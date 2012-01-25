@@ -11,16 +11,26 @@ body{
 	background: url('imgs/beige_paper.png');
 	background: url('imgs/whitey.png');
 }
+table{
+
+	border-spacing: 20px;
+
+}
+td{
+	border: 2px solid #eee;
+	border-radius: 12px;
+	padding: 15px;
+}
 
 #wrapper{
-	padding: 30px;
-	min-width: 1000px;
+	padding: 50px 30px;
+	min-width: 1100px;
 }
 #header,#footer{
 	background: #eee; 
 	background: #afdfff; 
 	background: url('imgs/black-Linen.png');
-	padding: 10px;
+	padding: 0.5% 1.5% 1.5%;
 	height: 40px;
 	clear:both;
 	box-shadow: 1px 1px 2px #eee;
@@ -34,7 +44,7 @@ body{
 #left_sidebar,#right_sidebar{
 	float:left;
 	padding: 10px;
-	width: 175px;
+	width: 170px;
 	background: #eee; 
 	border-radius: 5px;
 	box-shadow: 1px 1px 1px #eee;
@@ -43,12 +53,14 @@ body{
 }
 #content{
 	float:left;
-	width: 500px;
+	width: 600px;
 	min-height: 600px;
-	margin: 0px 30px 50px;
+	margin: 0px 100px 50px;
 	padding: 10px 20px;
 	border-radius: 5px;
 	box-shadow: 1px 1px 1px #eee;
 	opacity: 0.8;
 	overflow:auto;
+}
+#footer{
 }

@@ -9,7 +9,7 @@ class Model{
 	// and the table's main column the lowercase singular name of the controller class.
 
 	function __construct(){
-		$main_column =  strtolower(get_class($this));
+		$main_column =  strtolower( get_class($this) );
 		$table = $main_column . 's';
 		$this -> table = $table;
 		$this -> column = $main_column;
@@ -39,17 +39,14 @@ class Model{
 
 	public function query( $query ){
 		$this -> db_connect();
-		$result = mysql_query($query) or die("Query failed : $query. <br/><br/>Reason: ".mysql_error());
+		$result = mysql_query( $query ) or die("Query failed : $query. <br/><br/>Reason: ".mysql_error());
 		if ( preg_match('/select/', $query) ){
-			$row = 1;
 			while( $query = mysql_fetch_assoc($result) ) {
-				$query_array[$row] = $query;
-				$row++;
+				$query_array[] = $query;
 			}
 			$this -> db_disconnect();
-			if ( isset($query_array)){
+			if ( isset($query_array))
 				return $query_array;
-			}
 		}
 		$this -> db_disconnect();
 	}
@@ -66,13 +63,13 @@ class Model{
 	// $orderby - The type of ordering, column and sort. (ex. date, DESC)
 	// $limit - Number of rows to return
 
-	function select( $value = '*', $column = 'id', $orderby = array( 'col' => null,  'sort'=>null ), $limit = null ){
+	function select( $value = '*', $column = 'id', $orderby = array(), $limit = null ){
 		$table = $this -> table;
-		$orderby = ( isset($orderby) ) ? 'order by ' . $orderby['col'] . ' ' . $orderby['sort'] : $orderby;
+		$orderby = ( ($orderby) ) ? 'order by ' . $orderby['0'] . ' ' . $orderby['1'] : $orderby;
 		$limit = ( isset($limit) ) ? "limit $limit" : $limit;	
-		if ($value == '*'){
+		if ($value == '*')
 			return $result = $this -> query("select * from $table $orderby $limit;");
-		}else{
+		else{
 			$this -> sanitize($value);
 			return $result = $this -> query("select $column from $table where $column='$value' $orderby $limit);");
 		}
@@ -142,7 +139,7 @@ class Model{
 	// sanitize - Sanitizes any user data.
 	//
 	//
-	// $data - Data.
+	// &$data - Data.
 
 	function sanitize( &$data ){
 		if (is_array($data)) {
@@ -150,8 +147,8 @@ class Model{
 				$this -> sanitize( $data[$key] );
 			}
 		} else {
-			$this -> db_connect();
 			$data = strip_tags($data);
+			$this -> db_connect();
 			$data = mysql_real_escape_string($data);
 			$data = trim($data);
 		}
