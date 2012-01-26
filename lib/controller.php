@@ -78,10 +78,10 @@ class Controller{
 	// 	(lowercase without 'Controller') as a dir and index as the view filename.
 	// $template: The template file the view will be incorporated into. Defaults to DEFAULT_TEMPLATE.
 
-	function useView($view = null, $controller = null, $template = 'template'){
+	function useView($view = null, $controller = null, $template = DEFAULT_TEMPLATE){
 		$controller = ( isset($controller) ) ?  $controller : $this -> name;
 		$view = ( isset($view) ) ?  $controller.'/'.$view : $this-> name . '/' . 'index';
-		require_once( SERVER_ROOT . DEFAULT_TEMPLATE_PATH . DEFAULT_TEMPLATE . '.php');
+		require_once( SERVER_ROOT . DEFAULT_TEMPLATE_PATH . $template . '.php');
 	}
 
 	// useModel - Defines model.

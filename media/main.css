@@ -1,16 +1,16 @@
 body{
 	font-family: monospace, sans-serif;
-	font-family: Purisa, sans-serif;
 	font-family: Helvetica, sans-serif;
+	font-family: Purisa, sans-serif;
 	margin:0;
 	padding:0;
 	color: white;
 	color: #222;
 	font-weight:600;
-	background: url('imgs/bright_squares.png');
-	background: url('imgs/beige_paper.png');
-	background: url('imgs/grunge_wall.png');
-	background: url('imgs/whitey.png');
+	background: url('imgs/pats/bright_squares.png');
+	background: url('imgs/pats/beige_paper.png');
+	background: url('imgs/pats/grunge_wall.png');
+	background: url('imgs/pats/whitey.png');
 }
 td{
 	border: 2px solid #eee;
@@ -25,7 +25,7 @@ td{
 #header,#footer{
 	background: #eee; 
 	background: #afdfff; 
-	background: url('imgs/black-Linen.png');
+	background: url('imgs/pats/black-Linen.png');
 	padding: 0.5% 1.5% 1.5%;
 	height: 40px;
 	clear:both;
@@ -37,6 +37,9 @@ td{
 #header{
 	font-size: 2em;
 }
+#header a{
+	text-decoration:none;
+}
 #left_sidebar a,#right_sidebar a{
 	color:white;
 }
@@ -45,12 +48,13 @@ td{
 	padding: 10px;
 	width: 170px;
 	background: #eee; 
-	background: url('imgs/black-Linen.png');
+	background: url('imgs/pats/black-Linen.png');
 	color:white;
 	border-radius: 5px;
 	box-shadow: 1px 1px 1px #eee;
 	opacity: 0.8;
-	border: 1px dashed #888;
+	border: 1px solid #888;
+	line-height:1.5em;
 }
 #content{
 	float:left;

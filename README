@@ -55,7 +55,7 @@ Database:
 
 config.php  	- Single configuration file for application.
 controllers 	- Holds created controllers.
-theme        	- Holds css files and imgs.
+media        	- Holds css files and imgs.
 generate.php 	- Generates MVC scaffolds
 index.php 	- The "boot strapping" script
 lib 		- Contains essential parent classes.

@@ -1,7 +1,12 @@
 #!/usr/bin/php
 <?
-
 require_once('config.php');
+
+
+// MVC TEMPLATE GENERATION FUNCTION
+// controller()
+// model()
+// view()
 
 function controller($name) {
 
@@ -25,7 +30,7 @@ function controller($name) {
 		\$this -> model -> data['content'] = "\$id Deleted.";
 		\$this -> show();
 	}
-	
+
 	function set(\$old, \$new, \$column_old = null, \$column_new = null){
 		\$this -> model -> update( \$old, \$new, \$column_old, \$column_new);
 		\$this -> model -> data['content'] = "\$old changed to \$new.";
@@ -47,11 +52,11 @@ class $name extends Controller{
 	function __construct(){
 		// Is assigned name,classname,filename, and model after instantiation.
 	}
-	
+
 	function index(){
 		\$this -> useView(); 
 	}
-	
+
 	$crud
 }
 ?>
@@ -124,49 +129,63 @@ VIEW;
 }
 
 
-function create($file,$data){
-	$handle = fopen($file,'w') or die ("Can't open file.");
-	fwrite($handle,$data);
-	fclose($handle);
+// DATABASE MODIFYING FUNCTIONS
+// 
+//  db_connect()
+//  db_disconnect()
+//  makeTable()
+//  deleteTable()
+//  openDB()
+
+function db_connect(){
+	$link = mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);	
+	mysql_select_db(DB_DATABASE, $link);
+}
+
+function db_disconnect(){
+	$link = mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);	
+	mysql_close($link);
 }
 
 function makeTable($name){
-	$link = mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);	
-	mysql_select_db(DB_DATABASE, $link);
-	$names = $name.'s';
-	$query = <<<QUERY
-create table $names (
-	id integer not null primary key auto_increment, 
-	$name varchar(128) not null  
-);
-QUERY;
+	$names = $name . 's';
+	$query = "create table $names (	id integer not null primary key auto_increment, $name varchar(128) not null );";
+	db_connect();
 	mysql_query($query) or die("Query failed: $query \nReason: " . mysql_error() ." \n" );
-	mysql_close($link);
 	echo "Created $name table!\n";
+	db_disconnect();
 }
 
 function deleteTable($name){
 	if( ($name !='') && ($name != '*') ){
-		$link = mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);	
-		mysql_select_db(DB_DATABASE, $link);
 		$query = "drop table $name".'s'; 
+		db_connect();
 		mysql_query($query) or die("Query failed: $query \nReason: " . mysql_error() ." \n" );
-		mysql_close($link);
+		db_disconnect();
 		echo "Deleted $name table! \n";
 	}
 }
 
 function openDB(){
-	$link = mysql_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);	
-	mysql_select_db(DB_DATABASE, $link);
-	echo "Connected to database: ". DB_DATABASE;
-	echo "\nEnter a Query: \n";
+	db_connect();
+	echo "Connected to database: " . DB_DATABASE . "\n";
+	echo "Enter a Query: \n";
 	$query = fgets(STDIN);	
 	mysql_query($query) or die("Query failed: $query \nReason: " . mysql_error() ." \n" );
+	db_disconnect();
 	echo "Query sucessfully executed.\n";
-	mysql_close($link);
-	#$command =  ("mysql -u" . DB_USERNAME . " -p" . DB_PASSWORD. " -D ". DB_DATABASE); 
-	#echo ( $command );
+}
+
+// FILE CREATION FUNCTIONS
+//
+// create()
+// generate()
+// undo()
+
+function create($file,$data){
+	$handle = fopen($file,'w') or die ("Can't open file.");
+	fwrite($handle,$data);
+	fclose($handle);
 }
 
 function generate($name,$type){
@@ -209,19 +228,54 @@ function undo($name){
 	echo "Removed $name directory\n";
 }
 
+// ARGUMENT PROCESSING  
+// mvc()
+
+function mvc($args){
+	foreach ( $args as $arg => $value) {
+		if ($arg == 'c' || $arg == 'm' || $arg == 'v') 
+			$mvc[$arg] = $value; 
+		elseif ($arg =='mvc')
+			foreach( array('m','v','c') as $value)
+				$mvc[$value] = $args[$arg];
+	}
+	return $mvc;
+}
+
+
+// PRINT MESSAGES
+// 
+// printHelp()
+
+function printHelp(){
+	$help = <<<HELP
+	Generate.php - Automatic MVC scaffold generator for miniMVC
+	usage: ./generate.php [option] [name]	
+
+	Commands: 
+	--mvc "blah"		: Create model,view and controller for blah.
+	-m "blah"		: Create model for blah.
+	-c "blah"		: Create controller for blah.
+	-v "blah"		: Create view for blah.
+	--table "blah"		: Generate table and column for blah.
+				 * Requires database settings to be configured in config.php.
+	--undo "blah"		: Delete MVC scaffold for blah. 
+	--undotable "blah"	: Delete database and column for blah. 
+				 * Requires database settings to be configured in config.php.
+	-h or --help 		: Displays this help text.
+
+
+HELP;
+	echo $help;
+}
+
+// Running Script
+//
 
 $args = getopt("c:m:v:p:u:h", array('mvc:','undo:','table:','undotable:','crud','help','opendb'));
 
-$mvc['c'] = isset($args['c']) ? $args['c'] : null;
-$mvc['m'] = isset($args['m']) ? $args['m'] : null;
-$mvc['v'] = isset($args['v']) ? $args['v'] : null;
-if ( isset($args['mvc']) ){
-	$mvc['c'] =  $args['mvc'];
-	$mvc['m'] =  $args['mvc'];
-	$mvc['v'] =  $args['mvc'];
-}
-$check = count(array_filter($mvc));
-if ($check){ 
+if( isset($args['mvc']) ||  isset($args['m'])  ||  isset($args['v'])  || isset($args['c'])   ){
+	$mvc = mvc($args);
 	foreach ( $mvc as $type => $value) {
 		generate($value,$type);
 	}
@@ -244,25 +298,7 @@ if( isset($args['opendb']) ){
 }
 
 if( isset($args['h']) or  isset($args['help'])  ){
-	$help = <<<HELP
-	Generate.php - Automatic MVC scaffold generator for miniMVC
-	usage: ./generate.php [option] [name]	
-
-	Commands: 
-	--mvc "blah"		: Create model,view and controller for blah.
-	-m "blah"		: Create model for blah.
-	-c "blah"		: Create controller for blah.
-	-v "blah"		: Create view for blah.
-	--table "blah"		: Generate table and column for blah.
-				 * Requires database settings to be configured in config.php.
-	--undo "blah"		: Delete MVC scaffold for blah. 
-	--undotable "blah"	: Delete database and column for blah. 
-				 * Requires database settings to be configured in config.php.
-	-h or --help 		: Displays this help text.
-
-
-HELP;
-	echo $help;
+	printHelp();
 }
 
 ?>

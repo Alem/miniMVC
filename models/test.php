@@ -4,13 +4,23 @@ class Test extends Model{
 
 	function __construct(){
 		parent::__construct();
-		$data['l_sidebar'] = "<a href ='?test'>Index </a><br/><br/>";
-		$data['r_top_sidebar'] =  "<a href='?test/form' > Form</a> <br/>";
-		$data['r_bot_sidebar'] =  "<a href='?test/mform' > Multi Form</a> <br/>";
-		$data['r_bot_sidebar'] .=  "<a href='?test/show' > Gallery</a>";
-		$this -> data = $data;
+		$this -> nav();
+		$this -> sidebar();
 	}
 
+	function nav(){
+		$this -> data['nav']['Form'] = "test/form";
+		$this -> data['nav']['Multi-Form'] = "test/mform";
+		$this -> data['nav']['Gallery'] = "test/show";
+	}
+
+	function sidebar(){
+		$this -> data['l_sidebar']['Form'] = "test/form";
+		$this -> data['l_sidebar']['Multi-Form'] = "test/mform";
+		$this -> data['l_sidebar']['Gallery'] = "test/show";
+		$this -> data['l_sidebar']['Say 123'] = "test/say/123";
+		$this -> data['l_sidebar']['DB Test'] = "test/db/select * from tests";
+	}
 }
 
 ?>

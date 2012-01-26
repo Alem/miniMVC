@@ -39,7 +39,7 @@ class Model{
 	//
 	// $query - Regular database query statement.
 
-	private function query( $query ){
+	public function query( $query ){
 		$this -> db_connect();
 		$result = mysql_query( $query ) or die("Query failed : $query. <br/><br/>Reason: ".mysql_error());
 		$this -> db_disconnect();
@@ -58,20 +58,23 @@ class Model{
 	// and returns the results as an array. The value defaults to * which then directs to a query that 
 	// excludes the column, table is by default the model's table property, orderby defaults to null as does limit.
 	//
-	// $value - Value to select for
-	// $column - The column the value belongs to
+	// $column - Column of interest
+	// $ref - Reference value 
+	// $ref_column - The column the value belongs to
 	// $orderby - The type of ordering, column and sort. (ex. date, DESC)
 	// $limit - Number of rows to return
 
-	function select( $value = '*', $column = 'id', $orderby = null, $limit = null ){
-		$table = $this -> table;
-		$orderby = ( ($orderby) ) ? 'order by ' . $orderby['0'] . ' ' . $orderby['1'] : $orderby;
-		$limit = ( isset($limit) ) ? "limit $limit" : $limit;	
-		if ($value == '*')
-			return $result = $this -> query("select * from $table $orderby $limit;");
+	function select( $column = null, $ref = null, $ref_column = null, $order = null, $limit = null ){
+		$table 	= $this -> table;
+		$column = ( isset($column) ) ?  $column : '*';
+		$ref_column = ( isset($ref_column) ) ?  $ref_column : 'id';
+		$order 	= ( ($order) ) ? 'order by ' . $order['0'] . ' ' . $order['1'] : $order;
+		$limit 	= ( isset($limit) ) ? "limit $limit" : $limit;	
+		if ( !isset( $ref ) ) 
+			return $result = $this -> query("select $column from $table $order $limit;");
 		else{
-			$this -> sanitize($value);
-			return $result = $this -> query("select $column from $table where $column='$value' $orderby $limit);");
+			$this -> sanitize($ref);
+			return $result = $this -> query("select $column from $table where $ref_column='$ref' $order $limit;");
 		}
 	}
 
@@ -111,15 +114,15 @@ class Model{
 	//
 	// $ref - Reference value 
 	// $new - New value to replace an existing value
-	// $column_ref - The columnn of the reference value
-	// $column_new - The columnn of for the new value
+	// $ref_column - The columnn of the reference value
+	// $new_column - The columnn of for the new value
 
-	function update($ref, $new, $column_ref = null, $column_new = null ){
+	function update($ref, $new, $ref_column = null, $new_column = null ){
 		$table = $this -> table;
-		$column_ref = ( isset($column_ref) ) ?  $column_ref :  'id';
-		$column_new = ( isset($column_new) ) ?  $column_new :	$column_old;
+		$ref_column = ( isset($ref_column) ) ?  $ref_column :  'id';
+		$new_column = ( isset($new_column) ) ?  $new_column :	$column_old;
 		$this -> sanitize($ref);
-		$this -> query("update $table set $column_new = '$new' where $column_ref = '$ref';");
+		$this -> query("update $table set $new_column = '$new' where $ref_column = '$ref';");
 	}
 
 

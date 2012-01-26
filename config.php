@@ -15,14 +15,15 @@ define('DB_PASSWORD', 'test');
 define('DB_DATABASE', 'test');
 
 # Site information
-define ('SITE_NAME','miniMVC &larr; ');
+define ('SITE_NAME','miniMVC');
+define ('SITE_TAG','An Upstart App-Starter');
 define ('SITE_EMAIL','info@alemmedia.com');
 define ('COMPANY','Alemmedia');
 define ('COMPANY_WEBSITE','http://Alemmedia.com');
 
 # Application defaults
 define('DEFAULT_CONTROLLER', 'test');
-define('DEFAULT_TEMPLATE', 'template');
+define('DEFAULT_TEMPLATE', 'bootstrap-fluid');
 
 # Path defaults
 define('DEFAULT_CONTROLLER_PATH', 'controllers/');
