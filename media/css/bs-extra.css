@@ -1,0 +1,17 @@
+body{
+	background: url('../imgs/pats/xv.png');
+	background: url('../imgs/pats/white_brick_wall.png');
+	background: url('../imgs/pats/bright_squares.png');
+	background: url('../imgs/pats/whitey.png');
+	background: url('../imgs/pats/exclusive_paper.png');
+	background: url('../imgs/pats/washi.png');
+	background: url('../imgs/pats/handmadepaper.png');
+	background: url('../imgs/pats/roughcloth.png');
+}
+.topbar .fill, .topbar-inner{
+	background: url('../imgs/pats/45degreee_fabric.png');
+	background: url('../imgs/pats/vichy.png');
+	background: url('../imgs/pats/always_grey.png');
+	background: url('../imgs/pats/black_denim.png');
+	background: url('../imgs/pats/black-Linen.png');
+}

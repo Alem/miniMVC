@@ -53,12 +53,14 @@ class TestController extends Controller{
 	function show(){
 		$query_result = $this -> model -> select ('*');
 		$this -> model -> data["show"] = $query_result;
+		$this -> model -> orderOpts(); 
 		$this -> useView('gallery');
 	}
 
-	function order($column, $sort = null){
-		$query_result = $this -> model -> select ('*', null,null, array('id', 'DESC') );
+	function order($column, $sort = 'DESC' ){
+		$query_result = $this -> model -> select ('*', null, null, array( $column, $sort) );
 		$this -> model -> data["show"] = $query_result;
+		$this -> model -> orderOpts(); 
 		$this -> useView('gallery');
 	}
 

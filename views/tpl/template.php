@@ -2,9 +2,9 @@
 <html>
 <head>
 	<title><?php echo SITE_NAME ?> <?php if( isset($this -> model -> data['title'])) echo " - " . $this -> model -> data['title']; ?> </title> 
-	<link type="text/css" rel="stylesheet" href="media/bootstrap.css"/>
-	<link type="text/css" rel="stylesheet" href="media/html5.css"/>
-	<link type="text/css" rel="stylesheet" href="media/main.css"/>
+	<link type="text/css" rel="stylesheet" href="media/css/bootstrap.css"/>
+	<link type="text/css" rel="stylesheet" href="media/css/html5.css"/>
+	<link type="text/css" rel="stylesheet" href="media/css/main.css"/>
 </head>
 
 <body>

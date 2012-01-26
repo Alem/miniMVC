@@ -12,8 +12,8 @@
 		<![endif]-->
 
 		<!-- Le styles -->
-		<link type="text/css" rel="stylesheet" href="media/bootstrap.css"/>
-		<link type="text/css" rel="stylesheet" href="media/bs-extra.css"/>
+		<link type="text/css" rel="stylesheet" href="media/css/bootstrap.css"/>
+		<link type="text/css" rel="stylesheet" href="media/css/bs-extra.css"/>
 		<style type="text/css">
 			/* Override some defaults */
 			html, body {

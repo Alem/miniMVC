@@ -10,8 +10,8 @@
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
 
-		<link href="media/bootstrap.css" rel="stylesheet">
-		<link href="media/bs-extra.css" rel="stylesheet">
+		<link href="media/css/bootstrap.css" rel="stylesheet">
+		<link href="media/css/bs-extra.css" rel="stylesheet">
 		<style type="text/css">
 			body {
 				padding-top: 60px;

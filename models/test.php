@@ -21,6 +21,11 @@ class Test extends Model{
 		$this -> data['l_sidebar']['Say 123'] = "test/say/123";
 		$this -> data['l_sidebar']['DB Test'] = "test/db/select * from tests";
 	}
+
+	function orderOpts(){
+		$this -> data['order_opts']['Id'] = "test/order/id+ASC";
+		$this -> data['order_opts']['Test'] = "test/order/test+ASC";
+	}
 }
 
 ?>

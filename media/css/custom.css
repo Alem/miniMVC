@@ -7,10 +7,10 @@ body{
 	color: white;
 	color: #222;
 	font-weight:600;
-	background: url('imgs/pats/bright_squares.png');
-	background: url('imgs/pats/beige_paper.png');
-	background: url('imgs/pats/grunge_wall.png');
-	background: url('imgs/pats/whitey.png');
+	background: url('../imgs/pats/bright_squares.png');
+	background: url('../imgs/pats/beige_paper.png');
+	background: url('../imgs/pats/grunge_wall.png');
+	background: url('../imgs/pats/whitey.png');
 }
 td{
 	border: 2px solid #eee;
@@ -25,7 +25,7 @@ td{
 #header,#footer{
 	background: #eee; 
 	background: #afdfff; 
-	background: url('imgs/pats/black-Linen.png');
+	background: url('../imgs/pats/black-Linen.png');
 	padding: 0.5% 1.5% 1.5%;
 	height: 40px;
 	clear:both;
@@ -48,7 +48,7 @@ td{
 	padding: 10px;
 	width: 170px;
 	background: #eee; 
-	background: url('imgs/pats/black-Linen.png');
+	background: url('../imgs/pats/black-Linen.png');
 	color:white;
 	border-radius: 5px;
 	box-shadow: 1px 1px 1px #eee;

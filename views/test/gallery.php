@@ -1,4 +1,15 @@
-<h1> Gallery</h1>
+<h2> Gallery</h2>
+
+<?php if((isset($this -> model -> data['order_opts']) )): ?>
+<?php $max = count($this -> model -> data['order_opts']); ?>
+<?php $i = 0; ?>
+<?php foreach( $this -> model -> data['order_opts'] as $type => $href ): ?>
+<?php $i++; ?>
+
+<a href='?<?php echo $href?>'> Order by <?php echo $type ?></a> <?php if ( $i != $max ): ?> | <?php endif; ?>
+
+<?php endforeach;?>
+<? endif;?>
 
 <?php	if( isset( $this -> model -> data['show']) ):	?>
 <table>
