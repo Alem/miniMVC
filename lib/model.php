@@ -70,12 +70,19 @@ class Model{
 		$ref_column = ( isset($ref_column) ) ?  $ref_column : 'id';
 		$order 	= ( ($order) ) ? 'order by ' . $order['0'] . ' ' . $order['1'] : $order;
 		$limit 	= ( isset($limit) ) ? "limit $limit" : $limit;	
-		if ( !isset( $ref ) ) 
-			return $result = $this -> query("select $column from $table $order $limit;");
-		else{
-			$this -> sanitize($ref);
-			return $result = $this -> query("select $column from $table where $ref_column='$ref' $order $limit;");
+		$where 	= ( isset($ref) && !is_array($ref) ) ? "where $ref_column='$ref'" : null;
+		if ( is_array($ref) ){
+			foreach ($ref as $key => $singleref){
+				if( $key > 0 )
+					$where .= " and ";
+				else
+					$where = "where ";
+				$where .= $ref_column[$key] . "='$singleref'";
+			}
 		}
+		if ( !isset( $ref ) ) 
+			$this -> sanitize($ref);
+		return $result = $this -> query("select $column from $table $where $order $limit;");
 	}
 
 

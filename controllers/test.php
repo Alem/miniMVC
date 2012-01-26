@@ -64,6 +64,10 @@ class TestController extends Controller{
 		$this -> useView('gallery');
 	}
 
+	function about(){
+		$this -> useView('about');
+	}
+
 	function db( $sql_query = "select * from test;" ){
 		$sql_query = urldecode($sql_query);
 		$test_dbquery = $this -> model -> query($sql_query);

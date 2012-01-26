@@ -12,6 +12,7 @@ class Test extends Model{
 		$this -> data['nav']['Form'] = "test/form";
 		$this -> data['nav']['Multi-Form'] = "test/mform";
 		$this -> data['nav']['Gallery'] = "test/show";
+		$this -> data['nav']['About'] = "test/about";
 	}
 
 	function sidebar(){

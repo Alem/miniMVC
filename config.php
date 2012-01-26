@@ -23,7 +23,7 @@ define ('COMPANY_WEBSITE','http://Alemmedia.com');
 
 # Application defaults
 define('DEFAULT_CONTROLLER', 'test');
-define('DEFAULT_TEMPLATE', 'bootstrap-fluid');
+define('DEFAULT_TEMPLATE', 'bootstrap');
 
 # Path defaults
 define('DEFAULT_CONTROLLER_PATH', 'controllers/');

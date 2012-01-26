@@ -6,22 +6,31 @@ class UserController extends Controller{
 	public $logged_in;
 	public $username;
 	public $email;
-	
+
 	function __construct(){
 	}
-	
+
 	function start(){
 		session_start();
 		$this -> user_id = session_id();
 	}
 
-	function login($username,$password){
-		// Check table for match Use Session?
-		$this -> logged_in = true;	
+	function login(){
+		$username = $_POST['username'];
+		$password = md5( $_POST['password'] );
+		if ( ( isset($username) && isset($password) ) )
+			$valid = $this -> model -> select('*', array( $username, $password), array('user','password'));
+		if($valid)
+			$this -> logged_in = true;	
 	}
-	
-	function register($username, $password, $password_repeat, $email){
 
+	function register(){
+		$username = $_POST['username'];
+		$password = md5( $_POST['password'] );
+		$password_repeat = md5( $_POST['password_repeat'] );
+		$email 	= $_POST['email'];
+		if ( ( isset($username) && isset($password) && isset($password_repeat) && isset($email)) && ($password == $password_repeat) )
+			$this -> model -> insert(array($username, $password), array('user', 'password') );
 	}
 
 	function logout(){
