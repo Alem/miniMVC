@@ -8,6 +8,14 @@ class UserController extends Controller{
 	public $email;
 
 	function __construct(){
+		$this -> start();
+	}
+
+	function index(){
+		if( $this -> get('logged_in'))
+			$this -> useView();
+		else
+			$this -> useView('login');
 	}
 
 	function start(){
@@ -22,15 +30,24 @@ class UserController extends Controller{
 			$valid = $this -> model -> select('*', array( $username, $password), array('user','password'));
 		if($valid)
 			$this -> logged_in = true;	
+		$this -> set('logged_in', $this -> logged_in);
+		$this->index();
 	}
 
 	function register(){
 		$username = $_POST['username'];
 		$password = md5( $_POST['password'] );
-		$password_repeat = md5( $_POST['password_repeat'] );
+		$password_repeat = md5( $_POST['verify_password'] );
 		$email 	= $_POST['email'];
 		if ( ( isset($username) && isset($password) && isset($password_repeat) && isset($email)) && ($password == $password_repeat) )
-			$this -> model -> insert(array($username, $password), array('user', 'password') );
+			if ($this -> model -> insert(array($username, $password,$email), array('user', 'password','email') ) )
+				$this -> logged_in = true;	
+		$this -> set('logged_in', $this -> logged_in);
+		$this->index();
+	}
+
+	function members(){
+			$data = $this -> model -> select('*');
 	}
 
 	function logout(){
