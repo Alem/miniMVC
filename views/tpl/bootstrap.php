@@ -87,11 +87,16 @@
 						<?php endforeach; ?>
 						<?php endif; ?>
 					</ul>
-					<form action="" class="pull-right">
-						<input class="input-small" type="text" placeholder="Username">
-						<input class="input-small" type="password" placeholder="Password">
+
+					<?php if ( !isset( $_SESSION['logged_in'] ) ): ?>
+					<form action="?user/login" method = "post" class="pull-right">
+						<input name = "username" class="input-small" type="text" placeholder="Username">
+						<input name = "password" class="input-small" type="password" placeholder="Password">
 						<button class="btn" type="submit">Sign in</button>
 					</form>
+					<?php else: ?>
+						<a class="pull-right btn danger" href="?user/logout">Log Out</a>
+					<?php endif; ?>
 				</div>
 			</div>
 		</div>

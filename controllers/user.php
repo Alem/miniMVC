@@ -12,7 +12,7 @@ class UserController extends Controller{
 	}
 
 	function index(){
-		if( $this -> get('logged_in'))
+		if( $this -> get('logged_in') )
 			$this -> useView();
 		else
 			$this -> useView('login');
@@ -26,12 +26,16 @@ class UserController extends Controller{
 	function login(){
 		$username = $_POST['username'];
 		$password = md5( $_POST['password'] );
-		if ( ( isset($username) && isset($password) ) )
-			$valid = $this -> model -> select('*', array( $username, $password), array('user','password'));
-		if($valid)
-			$this -> logged_in = true;	
+		if ( ( isset( $username ) && isset( $password ) ) )
+			$user = $this -> model -> select('*', array($username, $password), array('user','password'));
+		if($user){
+			$this -> logged_in = true;
+			$this -> set('username', $username);
+		}
 		$this -> set('logged_in', $this -> logged_in);
-		$this->index();
+		$this -> set('username', $username);
+		$this -> set('email', $user[0]['email']);
+		$this -> prg('index');
 	}
 
 	function register(){
@@ -53,9 +57,9 @@ class UserController extends Controller{
 	}
 
 	function logout(){
-		$this -> set('logged_in', false);
+		$this -> set('logged_in', null);
 		session_destroy();
-		$this -> index();
+		$this -> prg('index',DEFAULT_CONTROLLER);
 	}
 
 	function set($property,$value){
@@ -79,6 +83,7 @@ class UserController extends Controller{
 		} elseif( ($time_set == false ) && ( $true_if_unset == true) ) 
 			return true;
 	}
+
 }
 
 ?>

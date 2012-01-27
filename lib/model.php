@@ -15,6 +15,9 @@ class Model{
 		$table = $main_column . 's';
 		$this -> table = $table;
 		$this -> column = $main_column;
+
+		$this -> data['nav'] = unserialize(DEFAULT_NAV); 
+		$this -> data['l_sidebar'] = unserialize(DEFAULT_SIDEBAR); 
 	}
 	
 

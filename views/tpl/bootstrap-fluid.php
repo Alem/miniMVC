@@ -38,7 +38,9 @@
 						<?php endforeach; ?>
 						<?php endif; ?>
 					</ul>
-					<p class="pull-right">Logged in as <a href="#">username</a></p>
+					<?php if ( isset( $_SESSION['logged_in'] ) ): ?>
+					<p class="pull-right">Logged in as <a href="?user"><?php echo $_SESSION['username'] ?></a></p>
+					<?php endif; ?>
 				</div>
 			</div>
 		</div>

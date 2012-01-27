@@ -1,3 +1,5 @@
+<div class = "row" >
+<div class = "span4">
 <h2> Login </h2>
 <form class = "form-stacked" action = "?user/login" method = "post">
 <label>User:</label>
@@ -5,12 +7,15 @@
 <label>Password:</label>
 <input name = "password" type = "password" />  <br/><br/>
 <p> <input class = "btn success Large" type = "submit" value = "Login"/> </p>
+<span class = "help-block"> Cause we really miss you. </span>
 </form>
+</div>
 
-<blockquote>
-<h1> Or </h1>
-</blockquote>
+<div class = "span1">
+<h1>  </h1>
+</div>
 
+<div class = "span4">
 <h2> Register </h2>
 <form class = "form-stacked" action = "?user/register" method = "post">
 <label>User:</label>
@@ -22,4 +27,7 @@
 <label>E-mail:</label>
 <input name = "email" type = "email" />  <br/><br/>
 <p> <input class = "btn success Large" type = "submit" value = "Register"/> </p>
+<span class = "help-block"> Quick &amp; easy, no verification required. </span>
 </form>
+</div>
+</div>
