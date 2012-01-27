@@ -81,8 +81,8 @@
 					<a class="brand" href="?<?php echo DEFAULT_CONTROLLER?>"><?php echo SITE_NAME; ?></a>
 					<ul class="nav">
 						<li class="active"><a href="?<?php echo DEFAULT_CONTROLLER?>">Home</a></li>
-						<?php if ( isset( $this -> model -> data['nav'] ) ): ?>
-						<?php foreach( $this -> model -> data['nav'] as $name => $href): ?>
+						<?php if ( ( $this -> menu -> nav() ) ): ?>
+						<?php foreach( $this -> menu -> nav() as $name => $href): ?>
 						<li><a href="?<?php echo $href ?>"><?php echo $name ?></a></li>
 						<?php endforeach; ?>
 						<?php endif; ?>
@@ -112,9 +112,9 @@
 						<?php require_once( SERVER_ROOT . DEFAULT_VIEW_PATH . $view . '.php'); ?>
 					</div>
 					<div class="span4">
-						<?php if((isset($this -> model -> data['l_sidebar']) )): ?>
+						<?php if((($this -> menu -> sidebar()) )): ?>
 						<h5>NAVIGATION</h5>
-						<?php foreach( $this -> model -> data['l_sidebar'] as $name => $href): ?>
+						<?php foreach( $this -> menu -> sidebar() as $name => $href): ?>
 						<a href="?<?php echo $href ?>"><?php echo $name ?></a> <br/>
 						<?php endforeach; ?>
 						<? endif;?>

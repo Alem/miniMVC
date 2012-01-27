@@ -24,13 +24,13 @@ define ('COMPANY_WEBSITE','http://Alemmedia.com');
 # Application defaults
 define('DEFAULT_CONTROLLER', 'test');
 define('DEFAULT_TEMPLATE', 'bootstrap');
-define('DEFAULT_NAV', serialize(array("Home"=>"test","Form"=>"test/form","Gallery"=>"test/gallery","About"=>"test/about")));
-define('DEFAULT_SIDEBAR', serialize(array("Home"=>"test","Form"=>"test/form","Gallery"=>"test/gallery")));
+define('DEFAULT_MODULES', 'menu');
 
 # Path defaults
 define('DEFAULT_CONTROLLER_PATH', 'controllers/');
 define('DEFAULT_MODEL_PATH', 'models/');
 define('DEFAULT_VIEW_PATH', 'views/');
 define('DEFAULT_TEMPLATE_PATH', 'views/tpl/');
+define('DEFAULT_MODULE_PATH', 'modules/');
 
 ?>

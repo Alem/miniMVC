@@ -40,6 +40,7 @@ class Controller{
 			$controller -> classname = $controller_class;
 			$controller -> filename = $controller_file;
 			$controller -> useModel();
+			$controller -> useModule();
 
 			if ( isset($request['method'] ) && ( method_exists($controller, $this -> request['method'])) ) {
 				if ( isset($this -> request['variable']) ) {
@@ -97,6 +98,26 @@ class Controller{
 		$this -> model = new $model;
 	}
 
+	// useModule - Defines module.
+	//
+	// This method is used by controllers to load the modules as an object property.
+	// The module defaults to the list DEFAULT_MODULES from config.php, 
+	// additional modules can be added by supplying their names.
+	//
+	// $module: An array containing the names of any additional module.
+
+	function useModule($modules = null){
+		if (DEFAULT_MODULES == null)
+			return false;
+		$defaults = explode(",", DEFAULT_MODULES);
+		$modules = isset($modules) ? array_merge($modules, $defaults) : $defaults;
+		foreach( $modules as $module ){
+			require_once( SERVER_ROOT . DEFAULT_MODULE_PATH . $module . '.php');
+			$this -> $module = new $module;
+		}
+	}
+
+
 	// prg - Post Redirect Get
 	//
 	// A simple fix for prevent Database modification re-send on a browser 'back' or 'refresh'
@@ -108,6 +129,8 @@ class Controller{
 		$controller = ( isset($controller) ) ?  $controller : $this -> name;
 		header("Location: ?" . $controller . '/' . $method, 303);
 	}
+
+
 }
 
 ?>

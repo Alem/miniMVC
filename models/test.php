@@ -15,12 +15,12 @@ class Test extends Model{
 	}
 
 	function sidebar(){
-		$this -> data['l_sidebar']['Login'] = "user";
-		$this -> data['l_sidebar']['Form'] = "test/form";
-		$this -> data['l_sidebar']['Multi-Form'] = "test/mform";
-		$this -> data['l_sidebar']['Gallery'] = "test/show";
-		$this -> data['l_sidebar']['Say 123'] = "test/say/123";
-		$this -> data['l_sidebar']['DB Test'] = "test/db/select * from tests";
+		$this -> data['sidebar']['Login'] = "user";
+		$this -> data['sidebar']['Form'] = "test/form";
+		$this -> data['sidebar']['Multi-Form'] = "test/mform";
+		$this -> data['sidebar']['Gallery'] = "test/show";
+		$this -> data['sidebar']['Say 123'] = "test/say/123";
+		$this -> data['sidebar']['DB Test'] = "test/db/select * from tests";
 	}
 
 	function orderOpts(){

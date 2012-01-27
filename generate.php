@@ -75,7 +75,7 @@ class $name extends Model{
 	function __construct(){
 		parent::__construct();
 		\$data['content'] = "This is test controller model data<br/>";
-		\$data['l_sidebar'] = "<a href ='?$l_name'>Index </a><br/><br/>";
+		\$data['sidebar'] = "<a href ='?$l_name'>Index </a><br/><br/>";
 		\$data['r_top_sidebar'] =  "Placeholder text";
 		\$data['r_bot_sidebar'] = "Another Placeholder";
 		\$this -> data = \$data;

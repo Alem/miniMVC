@@ -26,8 +26,8 @@
 					<a href="?<?php echo DEFAULT_CONTROLLER?>" class="brand"><?php echo SITE_NAME; ?></a>
 					<ul class="nav">
 						<li class="active"><a href="?<?php echo DEFAULT_CONTROLLER?>">Home</a></li>
-						<?php if ( isset( $this -> model -> data['nav'] ) ): ?>
-						<?php foreach( $this -> model -> data['nav'] as $name => $href): ?>
+						<?php if ( ( $this -> menu -> nav() ) ): ?>
+						<?php foreach( $this -> menu -> nav() as $name => $href): ?>
 						<li><a href="?<?php echo $href ?>"><?php echo $name ?></a></li>
 						<?php endforeach; ?>
 						<?php endif; ?>

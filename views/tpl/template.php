@@ -14,10 +14,10 @@
 
 	<div id="wrapper">
 
-		<?php if((isset($this -> model -> data['l_sidebar']) )): ?>
+		<?php if((isset($this -> model -> data['sidebar']) )): ?>
 		<div id="left_sidebar">
 			<h4>NAVIGATION</h4>
-			<? echo $this -> model -> data['l_sidebar']; ?>
+			<? echo $this -> model -> data['sidebar']; ?>
 		</div>
 		<? endif;?>
 	
