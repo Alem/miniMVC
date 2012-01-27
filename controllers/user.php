@@ -43,15 +43,19 @@ class UserController extends Controller{
 			if ($this -> model -> insert(array($username, $password,$email), array('user', 'password','email') ) )
 				$this -> logged_in = true;	
 		$this -> set('logged_in', $this -> logged_in);
-		$this->index();
+		$this -> login();
 	}
 
-	function members(){
-			$data = $this -> model -> select('*');
+	function listing(){
+			$data = $this -> model -> select('user,email');
+			$this -> model -> data['show'] = $data;
+			$this -> useView('gallery','test');
 	}
 
 	function logout(){
+		$this -> set('logged_in', false);
 		session_destroy();
+		$this -> index();
 	}
 
 	function set($property,$value){
