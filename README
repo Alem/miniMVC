@@ -55,11 +55,12 @@ Database:
 
 config.php  	- Single configuration file for application.
 controllers 	- Holds created controllers.
-media        	- Holds css files and imgs.
 generate.php 	- Generates MVC scaffolds
 index.php 	- The "boot strapping" script
 lib 		- Contains essential parent classes.
+media        	- Holds css files and imgs.
 models 		- Holds created models.
+modules 	- Holds module classes
 README 		- You're reading it.
 views 		- Holds created views
 .htaccess 	- Rewrites the url.

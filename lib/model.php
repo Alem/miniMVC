@@ -17,7 +17,7 @@ class Model{
 		$this -> table = $table;
 		$this -> column = $main_column;
 	}
-	
+
 
 	// db_connect() - Establishes database connection
 
@@ -69,7 +69,7 @@ class Model{
 		$table 	= $this -> table;
 		$column = ( isset($column) ) ?  $column : '*';
 		$ref_column = ( isset($ref_column) ) ?  $ref_column : 'id';
-		$order 	= ( ($order) ) ? 'order by ' . $order['0'] . ' ' . $order['1'] : $order;
+		$order 	= ( ($order) && ($order[0]) ) ? 'order by ' . $order['0'] . ' ' . $order['1'] : $order;
 		$limit 	= ( isset($limit) ) ? "limit $limit" : $limit;	
 		$where 	= ( isset($ref) && !is_array($ref) ) ? "where $ref_column='$ref'" : null;
 		if ( is_array($ref) ){
@@ -86,6 +86,25 @@ class Model{
 		return $result = $this -> query("select $column from $table $where $order $limit;");
 	}
 
+
+	function paged_select($column = null,$page = 1,$limit = null, $order = null){
+		$limit = ( isset($limit) ) ? $limit : 4;
+		$first_row = ($page != 1) ? (($page - 1) * $limit) : ($page -1);
+		$total_result = count( $this -> select ('*'));
+		$query_result = $this -> select($column, null,null,$order,$first_row.','.$limit);
+		if ($query_result){
+			foreach ( $query_result as $key => $row){
+				$query_result[$key+$limit] = $row;
+				unset( $query_result[$key] );
+			}
+		}
+		$result = array (
+				'pages' => ceil($total_result/$limit), 
+				'paged' => $query_result, 
+				'total' => $total_result
+			);
+		return $result;
+	}
 
 	// insert - uses query to insert into table
 	//

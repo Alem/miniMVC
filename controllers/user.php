@@ -11,15 +11,21 @@ class UserController extends Controller{
 		$this -> start();
 	}
 
-	function index(){
-		if( $this -> get('logged_in') )
+	function index($message = null){
+		if( $message == 'goodbye' )
+			$this -> model -> goodbye();
+		if( $this -> get('logged_in') ){
+			if ( $message == 'welcome' )
+				$this -> model -> welcome();
 			$this -> useView();
+		}
 		else
 			$this -> useView('login');
 	}
 
 	function start(){
-		session_start();
+		if (!isset($_SESSION))
+			session_start();
 		$this -> user_id = session_id();
 	}
 
@@ -35,7 +41,7 @@ class UserController extends Controller{
 		$this -> set('logged_in', $this -> logged_in);
 		$this -> set('username', $username);
 		$this -> set('email', $user[0]['email']);
-		$this -> prg('index');
+		$this -> prg('index/welcome');
 	}
 
 	function register(){
@@ -59,7 +65,7 @@ class UserController extends Controller{
 	function logout(){
 		$this -> set('logged_in', null);
 		session_destroy();
-		$this -> prg('index',DEFAULT_CONTROLLER);
+		$this -> prg('index/goodbye');
 	}
 
 	function set($property,$value){

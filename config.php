@@ -22,8 +22,8 @@ define ('COMPANY','Alemmedia');
 define ('COMPANY_WEBSITE','http://Alemmedia.com');
 
 # Application defaults
-define('DEFAULT_CONTROLLER', 'test');
-define('DEFAULT_TEMPLATE', 'bootstrap');
+define('DEFAULT_CONTROLLER', 'clip');
+define('DEFAULT_TEMPLATE', 'bootstrap-single');
 define('DEFAULT_MODULES', 'menu');
 
 # Path defaults

@@ -3,26 +3,33 @@
 
 class Menu {
 
+	function __construct(){
+		if (!isset($_SESSION))
+			session_start();
+	}
+
 	function nav(){
-		$nav['Home'] = 'test';
-		$nav['Gallery'] = 'test/show';
+		#$nav['Home'] = DEFAULT_CONTROLLER;
+		$nav['Gallery'] = DEFAULT_CONTROLLER . '/show';
 		if ( !isset( $_SESSION['logged_in'] ))
 			$nav['Login'] = 'user';
 		else
-			$nav['Logout'] = 'user/logout';
-		$nav['About'] = 'test/about';
+			$nav['Profile'] = 'user';
+		$nav['About'] = DEFAULT_CONTROLLER . '/about';
 		return $nav;
 	}
 
 	function sidebar(){
-		$sidebar['Home'] = 'test';
-		$sidebar['Gallery'] = 'test/show';
-		if ( !isset( $_SESSION['logged_in'] ))
-			$sidebar['Login'] = 'user';
-		else
-			$sidebar['Logout'] = 'user/logout';
-		$sidebar['About'] = 'test/about';
-		return $sidebar;
+		#if ( $_SERVER['QUERY_STRING'] != 'user'){
+			$sidebar['Home'] = DEFAULT_CONTROLLER;
+			$sidebar['Gallery'] = DEFAULT_CONTROLLER . '/show';
+			if ( !isset( $_SESSION['logged_in'] ))
+				$sidebar['Login'] = 'user';
+			else
+				$sidebar['Logout'] = 'user/logout';
+			$sidebar['About'] = DEFAULT_CONTROLLER . '/about';
+			return $sidebar;
+		#}
 	}
 
 }

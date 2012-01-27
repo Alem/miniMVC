@@ -7,7 +7,7 @@
 <label>Password:</label>
 <input name = "password" type = "password" />  <br/><br/>
 <p> <input class = "btn success Large" type = "submit" value = "Login"/> </p>
-<span class = "help-block"> Cause we really miss you. </span>
+<span class = "help-block"> Cause we really missed you. </span>
 </form>
 </div>
 
@@ -27,7 +27,8 @@
 <label>E-mail:</label>
 <input name = "email" type = "email" />  <br/><br/>
 <p> <input class = "btn success Large" type = "submit" value = "Register"/> </p>
-<span class = "help-block"> Quick &amp; easy, no verification required. </span>
+<span class = "help-block"> Quick &amp; easy, <br/>
+No e-mail verification required. </span>
 </form>
 </div>
 </div>

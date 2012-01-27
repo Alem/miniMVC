@@ -4,9 +4,9 @@ body{
 	background: url('../imgs/pats/bright_squares.png');
 	background: url('../imgs/pats/whitey.png');
 	background: url('../imgs/pats/exclusive_paper.png');
-	background: url('../imgs/pats/washi.png');
 	background: url('../imgs/pats/handmadepaper.png');
 	background: url('../imgs/pats/roughcloth.png');
+	background: url('../imgs/pats/washi.png');
 }
 .topbar .fill, .topbar-inner{
 	background: url('../imgs/pats/45degreee_fabric.png');
