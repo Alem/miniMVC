@@ -5,7 +5,7 @@ class Controller{
 	public $name;
 	public $classname;
 	public $filename;
-	
+
 	function __construct(){
 	}
 
@@ -14,8 +14,9 @@ class Controller{
 	// Recieves URL request, constructs the appropriate controller and calls appropriate method.
 	//
 	// The default/fallback controller is config constant DEFAULT_CONTROLLER, the default/fallback method is 'index()', 
-	// and the parameter is simply not passed to the method if not set. If the supplied variable has '+' signs 
-	// then it is treated as multiple '+' seperated parameters and passed as an array using call_user_func_array.
+	// and the parameter is simply not passed to the method if not set. 
+	// If the supplied variable contains the VARIABLE_SEPARATOR then it is treated as multiple
+	// seperated parameters and passed as an array using call_user_func_array.
 	//
 	// This defines the child controller's name, classname, filename properties and assigns its model.
 	//
@@ -44,11 +45,11 @@ class Controller{
 
 			if ( isset($request['method'] ) && ( method_exists($controller, $this -> request['method'])) ) {
 				if ( isset($this -> request['variable']) ) {
-					if ( preg_match('/\+/', $this -> request['variable'] ) ) {
+					if ( strpos($this -> request['variable'], VARIABLE_SEPARATOR ) !== false ) {
 						call_user_func_array( 
-								Array($controller,$request['method']) , 
-								explode('+', $request['variable'] )
-								);
+							Array($controller,$request['method']) , 
+							explode( VARIABLE_SEPARATOR , $request['variable'] )
+						);
 					}else{
 						$controller -> { $this -> request['method'] }( $this -> request['variable'] );
 					}

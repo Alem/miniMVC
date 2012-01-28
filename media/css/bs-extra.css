@@ -15,3 +15,7 @@ body{
 	background: url('../imgs/pats/black_denim.png');
 	background: url('../imgs/pats/black-Linen.png');
 }
+
+iframe{
+	border:none;
+}

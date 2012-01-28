@@ -14,6 +14,8 @@ class UserController extends Controller{
 	function index($message = null){
 		if( $message == 'goodbye' )
 			$this -> model -> goodbye();
+		elseif( $message == 'failure' )
+			$this -> model -> fail();
 		if( $this -> get('logged_in') ){
 			if ( $message == 'welcome' )
 				$this -> model -> welcome();
@@ -41,7 +43,10 @@ class UserController extends Controller{
 		$this -> set('logged_in', $this -> logged_in);
 		$this -> set('username', $username);
 		$this -> set('email', $user[0]['email']);
-		$this -> prg('index/welcome');
+		if ( $this -> logged_in )
+			$this -> prg('index/welcome');
+		else
+			$this -> prg('index/failure');
 	}
 
 	function register(){

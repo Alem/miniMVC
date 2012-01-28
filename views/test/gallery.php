@@ -21,7 +21,7 @@
 	<?php foreach( $row as $column => $value) :	?>
 		<?php echo $column ?>:  <?php echo $value ?> 
 	<?php endforeach; ?>
-	<br/> <a href='?<? echo $this -> name ?>/del/<?php echo $row['id'] ?>/'> Delete</a></p> 
+	<br/> <a href='?<? echo $this -> name ?>/del/<?php echo $row['id'] ?>'> Delete</a></p> 
 	</td>
 
 	<?php $i++; ?>

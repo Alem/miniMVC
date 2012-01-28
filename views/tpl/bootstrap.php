@@ -14,6 +14,7 @@
 		<!-- Le styles -->
 		<link type="text/css" rel="stylesheet" href="media/css/bootstrap.css"/>
 		<link type="text/css" rel="stylesheet" href="media/css/bs-extra.css"/>
+		<script type = "text/javascript" src = "media/js/jquery.js" /> </script>
 		<style type="text/css">
 			/* Override some defaults */
 			html, body {

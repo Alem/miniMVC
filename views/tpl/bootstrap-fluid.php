@@ -12,6 +12,7 @@
 
 		<link href="media/css/bootstrap.css" rel="stylesheet">
 		<link href="media/css/bs-extra.css" rel="stylesheet">
+		<script type = "text/javascript" src = "media/js/jquery.js" /> </script>
 		<style type="text/css">
 			body {
 				padding-top: 60px;

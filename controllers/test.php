@@ -25,7 +25,7 @@ class TestController extends Controller{
 			$this -> model -> insert( $_POST, $form_fields);
 			$this -> model -> data['content'] = "Post Added.";
 		}
-		$this -> prg('show');
+		$this -> prg('gallery');
 	}
 
 
@@ -39,9 +39,9 @@ class TestController extends Controller{
 	function del($value, $column = null){
 		$this -> model -> remove($value,$column);
 		$this -> model -> data['content'] = "$value Deleted.";
-		$this -> prg('show');
+		$this -> prg('gallery');
 	}
-	
+
 
 	function set($old, $new, $column_old = null, $column_new = null){
 		$this -> model -> update( $old, $new, $column_old, $column_new);
@@ -57,10 +57,10 @@ class TestController extends Controller{
 	}
 
 	function gallery($page = 1, $order_col = null, $order_sort = null){
-		$result = $this -> model -> paged_select('*', $page, 2 ,array($order_col,$order_sort));
+		$result = $this -> model -> paged_select('*', $page, 6 ,array($order_col,$order_sort));
 		$this -> model -> data["show"] = $result['paged'];
 		$this -> model -> page = $page;
-		$this -> model -> order = '+'.$order_col;
+		$this -> model -> order =  VARIABLE_SEPARATOR .$order_col;
 		$this -> model -> lastpage = $result['pages']; 
 		$this -> model -> orderOpts(); 
 		$this -> model -> data['show_clips'] = false; 

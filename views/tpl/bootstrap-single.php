@@ -13,6 +13,7 @@
 				padding-top: 60px;
 			}
 		</style>
+		<script type = "text/javascript" src = "media/js/jquery.js" /> </script>
 		<!-- Le fav and touch icons -->
 		<link href="images/favicon.ico" rel="shortcut icon">
 		<link href="images/apple-touch-icon.png" rel="apple-touch-icon">

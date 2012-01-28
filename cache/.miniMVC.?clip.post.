@@ -1,0 +1,7 @@
+		<style> 
+		#exArray{ 
+			background:blue;
+color:white;
+		} 
+		</style>
+		<a id="exArray">Sample</a> 

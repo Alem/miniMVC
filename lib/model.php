@@ -32,7 +32,6 @@ class Model{
 		mysql_close( mysql_connect( DB_SERVER, DB_USERNAME, DB_PASSWORD	) );
 	}
 
-
 	// query() - Basic database query wrapper
 	//	
 	// Simplifies database queries by provide a single method that recieves the query.
@@ -66,6 +65,8 @@ class Model{
 	// $limit - Number of rows to return
 
 	function select( $column = null, $ref = null, $ref_column = null, $order = null, $limit = null ){
+		if ( isset( $ref ) ) 
+			$this -> sanitize($ref);
 		$table 	= $this -> table;
 		$column = ( isset($column) ) ?  $column : '*';
 		$ref_column = ( isset($ref_column) ) ?  $ref_column : 'id';
@@ -73,19 +74,19 @@ class Model{
 		$limit 	= ( isset($limit) ) ? "limit $limit" : $limit;	
 		$where 	= ( isset($ref) && !is_array($ref) ) ? "where $ref_column='$ref'" : null;
 		if ( is_array($ref) ){
+			$first_value = reset($ref);
+			$i = 0;
 			foreach ($ref as $key => $singleref){
-				if( $key > 0 )
+				if( $singleref != $first_value )
 					$where .= " and ";
 				else
 					$where = "where ";
-				$where .= $ref_column[$key] . "='$singleref'";
+				$where .= $ref_column[$i] . "='$singleref'";
+				$i++;
 			}
 		}
-		if ( !isset( $ref ) ) 
-			$this -> sanitize($ref);
 		return $result = $this -> query("select $column from $table $where $order $limit;");
 	}
-
 
 	function paged_select($column = null,$page = 1,$limit = null, $order = null){
 		$limit = ( isset($limit) ) ? $limit : 4;
@@ -99,10 +100,10 @@ class Model{
 			}
 		}
 		$result = array (
-				'pages' => ceil($total_result/$limit), 
-				'paged' => $query_result, 
-				'total' => $total_result
-			);
+			'pages' => ceil($total_result/$limit), 
+			'paged' => $query_result, 
+			'total' => $total_result
+		);
 		return $result;
 	}
 
@@ -173,8 +174,8 @@ class Model{
 
 	function sanitize( &$data ){
 		if (is_array($data)) {
-			foreach($data as $key => $value){
-				$this -> sanitize( $data[$key] );
+			foreach($data as &$value){
+				$this -> sanitize( $value );
 			}
 		} else {
 			$data = strip_tags($data);
