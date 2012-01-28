@@ -53,7 +53,17 @@ class TestController extends Controller{
 	function show(){
 		$result = $this -> model -> select ('*');
 		$this -> model -> data["show"] = $result;
+		$this -> useView('gallery');
+	}
+
+	function gallery($page = 1, $order_col = null, $order_sort = null){
+		$result = $this -> model -> paged_select('*', $page, 2 ,array($order_col,$order_sort));
+		$this -> model -> data["show"] = $result['paged'];
+		$this -> model -> page = $page;
+		$this -> model -> order = '+'.$order_col;
+		$this -> model -> lastpage = $result['pages']; 
 		$this -> model -> orderOpts(); 
+		$this -> model -> data['show_clips'] = false; 
 		$this -> useView('gallery');
 	}
 

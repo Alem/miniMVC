@@ -7,8 +7,8 @@ class Test extends Model{
 	}
 
 	function orderOpts(){
-		$this -> data['order_opts']['Id'] = "test/order/id+ASC";
-		$this -> data['order_opts']['Test'] = "test/order/test+ASC";
+		$this -> data['order_opts']['Id'] = "test/gallery/" . $this->page . "+id+ASC";
+		$this -> data['order_opts']['Test'] = "test/gallery/" . $this->page . "+test+ASC";
 	}
 }
 

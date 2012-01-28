@@ -34,6 +34,24 @@
 
 </tr>
 </table>
+
+<div class="pagination">
+  <ul>
+	<?php if( isset(  $this->model->page )): ?>
+	<?php $count = count($this -> model -> data['show']); ?>
+		<?php if($this -> model -> page != 1): ?>
+		<li class="prev"><a href="?<?php echo $this -> name ?>/gallery/<?php echo ($this->model->page - 1).($this->model->order) ?>">&larr; Previous</a></li>
+		<?php endif; ?>
+		<?php for( $i = $this->model->page; $i <= $this -> model -> lastpage; $i++) : ?>
+		<li><a href="?<?php echo $this -> name ?>/gallery/<?php echo $i.($this->model->order)  ?>"><?php echo $i ?></a></li>
+		<?php endfor; ?>
+		<?php if($this -> model -> page != $this -> model -> lastpage): ?>
+		<li class="next"><a href="?<?php echo $this -> name ?>/gallery/<?php echo ($this->model->page + 1).($this->model->order) ?>">Next &rarr;</a></li>
+		<?php endif; ?>
+	<?php endif; ?>
+  </ul>
+</div>
+
 <?php else: ?>
-	No results!
+No results!
 <?php endif; ?>
