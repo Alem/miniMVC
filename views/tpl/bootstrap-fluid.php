@@ -31,7 +31,7 @@
 			<?php endforeach; ?>
 		<?php endif; ?>
 
-		<?php if($this -> analytics -> piwik() )  echo ($this -> analytics -> piwik()); ?>
+		<?php if( isset( $this -> analytics) )  echo ($this -> analytics -> track()); ?>
 
 		<style type="text/css">
 			body {
