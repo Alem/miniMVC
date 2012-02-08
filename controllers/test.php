@@ -2,91 +2,95 @@
 
 class TestController extends Controller{
 
+
 	function __construct(){
+		parent::__construct();
+		$this -> model -> nav = $this -> menu -> nav();
+		$this -> model -> sidebar = $this -> menu -> sidebar();
 	}
+
 
 	function index(){
 		$this -> useView();
 	}
 
+
 	function form(){
 		$this -> useView('form');
 	}
 
-	function mform(){
-		$this -> useView('mform');
-	}
 
 	function post(){
-		$form_fields = ( count( $_POST ) > 1 ) ? $form_fields = array('id','test') : $form_fields = array('test');
+		$form_fields = array_keys($_POST);
 		$this -> useController( array( 'controller' => 'user', 'method' => 'start'), true );
-		if ( $this -> user -> timeSince('post', 5) ){
-			$this -> user -> timeSince('post'); 
-			$this -> model -> insert( $_POST, $form_fields);
-			$this -> model -> data['content'] = "Post Added.";
+		$num_posts  = $this -> user -> sessionGet('num_posts');
+		if ( $num_posts < 15 ){
+			$this -> user -> sessionSet('num_posts', ($num_posts+1) );
+			$this -> model -> insert( $_POST, $form_fields) -> run();
+			$this -> prg('gallery');
 		}
-		$this -> prg('gallery');
+		$this -> model -> data['content'] = "Already posted $num_posts times";
+		$this -> useView();
 	}
 
 
 	function add($item){
-		$this -> model -> insert($item);
-		$this -> model -> data['content'] = "$item Added.";
+		$this -> model -> insert($item) -> run();
 		$this -> show();
 	}
 
 
 	function del($value, $column = null){
-		$this -> model -> remove($value,$column);
-		$this -> model -> data['content'] = "$value Deleted.";
+		$this -> model -> remove( $value, $column ) -> run();
 		$this -> prg('gallery');
 	}
 
 
 	function set($old, $new, $column_old = null, $column_new = null){
-		$this -> model -> update( $old, $new, $column_old, $column_new);
-		$this -> model -> data['content'] = "$old changed to $new.";
+		$this -> model -> update( $old, $new, $column_old, $column_new) -> run();
 		$this -> show();
 	}
 
 
 	function show(){
-		$result = $this -> model -> select ('*');
-		$this -> model -> data["show"] = $result;
+		$result = $this -> model -> select ('*') -> run();
+		$this -> model -> data = $result;
 		$this -> useView('gallery');
 	}
+
 
 	function gallery($page = 1, $order_col = null, $order_sort = null){
-		$result = $this -> model -> paged_select('*', $page, 6 ,array($order_col,$order_sort));
-		$this -> model -> data["show"] = $result['paged'];
-		$this -> model -> page = $page;
-		$this -> model -> order =  VARIABLE_SEPARATOR .$order_col;
-		$this -> model -> lastpage = $result['pages']; 
+		$result = $this -> model -> select('*') -> order( $order_col, $order_sort) -> page($page, 6);
+		$order_string = VAR_SEPARATOR . implode( VAR_SEPARATOR, array_filter(array( $order_col, $order_sort )));
+		$this -> model -> set( 
+			array( 
+				'page' => $page, 
+				'order' => $order_string,
+				'lastpage' => $result['pages'], 
+				'data' => $result['paged'],
+			)
+		);
 		$this -> model -> orderOpts(); 
-		$this -> model -> data['show_clips'] = false; 
 		$this -> useView('gallery');
 	}
 
-	function order($column, $sort = 'DESC' ){
-		$result = $this -> model -> select ('*', null, null, array( $column, $sort) );
-		$this -> model -> data["show"] = $result;
-		$this -> model -> orderOpts(); 
-		$this -> useView('gallery');
-	}
 
 	function about(){
 		$this -> useView('about');
 	}
 
-	function db( $sql_query = "select * from test;" ){
+
+	function db( $sql_query = "select * from test" ){
 		$sql_query = urldecode($sql_query);
-		$test_dbquery = $this -> model -> query($sql_query);
-		echo "<a href='?'>Back</a><pre>" . print_r($test_dbquery, true). "</pre>";
+		$this -> model -> query = ($sql_query);
+		$result = $this -> model -> run();
+		$this -> model -> data['content'] =  "<pre>" . print_r($result, true). "</pre>";
+		$this -> useView();
 	}
+
 
 	function say($phrase = 'You said nothing' ){
 		$this -> model -> data['content'] = urldecode($phrase);
-		$this -> model -> data['r_bot_sidebar'] = "<a href='?test/'>Back</a>";
 		$this -> useView();
 	}
 }

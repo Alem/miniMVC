@@ -13,33 +13,29 @@ function controller($name) {
 	$crud = <<<CRUD
 
 	function post(){
-		\$item = \$_POST['item'];
-		\$this -> model -> insert(\$item);
-		\$this -> model -> data['content'] = "\$item Added.";
-		\$this -> show();
+		\$form_fields = array_keys(\$_POST);
+		\$this -> model -> insert( \$_POST, \$form_fields) -> run();
+		\$this -> prg('show');
 	}
 
 	function add(\$item){
-		\$this -> model -> insert(\$item);
-		\$this -> model -> data['content'] = "\$item Added.";
-		\$this -> show();
+		\$this -> model -> insert(\$item) -> run();
+		\$this -> prg('show');
 	}
 
-	function del(\$id){
-		\$this -> model -> remove(\$id);
-		\$this -> model -> data['content'] = "\$id Deleted.";
-		\$this -> show();
+	function del(\$value, \$column = null){
+		\$this -> model -> remove( \$value, \$column ) -> run();
+		\$this -> prg('show');
 	}
 
 	function set(\$old, \$new, \$column_old = null, \$column_new = null){
-		\$this -> model -> update( \$old, \$new, \$column_old, \$column_new);
-		\$this -> model -> data['content'] = "\$old changed to \$new.";
+		\$this -> model -> update( \$old, \$new, \$column_old, \$column_new) -> run();
 		\$this -> show();
 	}
 
 	function show(){
-		\$query_result = \$this -> model -> select ('*', 'id', array( 'col'=>'id','sort' => 'DESC') );
-		\$this -> model -> data["show"] = \$query_result;
+		\$result = \$this -> model -> select ('*') -> run();
+		\$this -> model -> data = \$result;
 		\$this -> useView();
 	}
 
@@ -50,7 +46,9 @@ CRUD;
 
 class $name extends Controller{
 	function __construct(){
-		// Is assigned name,classname,filename, and model after instantiation.
+		parent::__construct();
+		\$this -> model -> nav = \$this -> menu -> nav();
+		\$this -> model -> sidebar = \$this -> menu -> sidebar();
 	}
 
 	function index(){
@@ -74,11 +72,6 @@ class $name extends Model{
 
 	function __construct(){
 		parent::__construct();
-		\$data['content'] = "This is test controller model data<br/>";
-		\$data['sidebar'] = "<a href ='?$l_name'>Index </a><br/><br/>";
-		\$data['r_top_sidebar'] =  "Placeholder text";
-		\$data['r_bot_sidebar'] = "Another Placeholder";
-		\$this -> data = \$data;
 	}
 
 }
@@ -90,40 +83,42 @@ MODEL;
 
 function view($name,$u_name) {
 	$view = <<<VIEW
-<h1> $u_name View </h1>
-<h2> Welcome to <?php echo SITE_NAME; ?> </h2>
+<h3> Main view for $u_name </h3>
 <p>
 	This data below has been passed to this view 
 	by its controller and was generated/retrieved by its model.
 </p>
 
+<div class='row'>
+<div class='span5'>
 <h3>ADD AN ITEM: </h3> 
 <form action = "?$name/post/" method="post">
-<input id = "item" name = "item" type="text" />
+<input id = "$name" name = "$name" type="text" />
 <input type = "submit" value = "Add"/>
 </form>
+</div>
 
-<?php	if( isset( \$data['show']) ):	?>
+<?php	if( isset( \$this -> model -> data) ):	?>
+<div class='span5'>
 <h2>List</h2>
 <ul>
-<?php foreach( \$data['show'] as \$row) :	?>
+<?php foreach( \$this -> model -> data as \$row) :	?>
 	<li>
 	<?php foreach( \$row as \$column => \$value) :	?>
 	<b> <?php echo \$column; ?>:  <?php echo \$value; ?> </b>
 	<?php endforeach; ?>
 	<br/>
-	<a href='?$name/del/<?php echo \$row['id'] ?>/'> Delete</a></p> 
+	<a href='?$name/del/<?php echo \$row['id'] ?>'> Delete</a></p> 
 	</li>
 <?php endforeach; ?>
 </ul>
-
+</div>
 <?php else: ?>
 <p>
 	The database is empty. Try to adding items.
 </p>
 <?php endif; ?>
-
-<?php	echo \$data['content'];	?>
+</div>
 VIEW;
 	return $view;
 }

@@ -6,7 +6,16 @@ class Controller{
 	public $classname;
 	public $filename;
 
+	// Constructor
+	//
+	// Auto-loads the appropriate model and module, determines and assigns the base name for the controller as the
+	// class property 'name'. Only executes for extended/non-root controllers, not for the application controller.
 	function __construct(){
+		if (get_parent_class($this)){
+			$this -> name = strtolower(str_replace('Controller','',get_class($this)));
+			$this -> useModel();
+			$this -> useModule();
+		}
 	}
 
 	// useController - Process request and setup controller 
@@ -15,7 +24,7 @@ class Controller{
 	//
 	// The default/fallback controller is config constant DEFAULT_CONTROLLER, the default/fallback method is 'index()', 
 	// and the parameter is simply not passed to the method if not set. 
-	// If the supplied variable contains the VARIABLE_SEPARATOR then it is treated as multiple
+	// If the supplied variable contains the VAR_SEPARATOR then it is treated as multiple
 	// seperated parameters and passed as an array using call_user_func_array.
 	//
 	// This defines the child controller's name, classname, filename properties and assigns its model.
@@ -35,37 +44,25 @@ class Controller{
 
 		if ( file_exists($controller_file) ) { 
 			require_once($controller_file);
-
 			$controller = new $controller_class; 
-			$controller -> name = $controller_name;
-			$controller -> classname = $controller_class;
-			$controller -> filename = $controller_file;
-			$controller -> useModel();
-			$controller -> useModule();
+			if ( $assign === true )
+				$this -> $controller_name = $controller;
 
 			if ( isset($request['method'] ) && ( method_exists($controller, $this -> request['method'])) ) {
 				if ( isset($this -> request['variable']) ) {
-					if ( strpos($this -> request['variable'], VARIABLE_SEPARATOR ) !== false ) {
+					if ( strpos($this -> request['variable'], VAR_SEPARATOR ) !== false ) {
 						call_user_func_array( 
 							Array($controller,$request['method']) , 
-							explode( VARIABLE_SEPARATOR , $request['variable'] )
+							explode( VAR_SEPARATOR , $request['variable'] )
 						);
-					}else{
+					}else
 						$controller -> { $this -> request['method'] }( $this -> request['variable'] );
-					}
-				} else {
+				} else 
 					$controller -> { $this -> request['method'] }();
-				}
-			} else {
-				$controller -> index();
-			}
-
-			if ( $assign === true ){
-				$this -> $controller_name = $controller;
-			}
-		} else {
+			} elseif ($assign !== true) 
+				$controller -> { DEFAULT_METHOD }();
+		} else 
 			echo "$controller_file does not exist";
-		}
 	}
 
 	// useView - Displays views. 
@@ -105,13 +102,21 @@ class Controller{
 	// The module defaults to the list DEFAULT_MODULES from config.php, 
 	// additional modules can be added by supplying their names.
 	//
-	// $module: An array containing the names of any additional module.
+	// $module: An string or array containing the name/names of any additional module.
 
 	function useModule($modules = null){
 		if (DEFAULT_MODULES == null)
 			return false;
 		$defaults = explode(",", DEFAULT_MODULES);
-		$modules = isset($modules) ? array_merge($modules, $defaults) : $defaults;
+		if( isset($modules) ){
+			if (is_array($modules) )
+				array_merge($modules, $defaults); 
+			else{
+				$defaults[] = $modules; 
+				$modules = $defaults;
+			}
+		}else
+			$modules =  $defaults;
 		foreach( $modules as $module ){
 			require_once( SERVER_ROOT . DEFAULT_MODULE_PATH . $module . '.php');
 			$this -> $module = new $module;
@@ -121,12 +126,12 @@ class Controller{
 
 	// prg - Post Redirect Get
 	//
-	// A simple fix for prevent Database modification re-send on a browser 'back' or 'refresh'
+	// A simple fix for prevent Database modification by re-send on a browser 'back' or 'refresh'
 	//
 	// $method - The controller method to call AKA the page to redirect to (ex. index)
 	// $controller - The controller the method belongs to. Defaults to the current controller.
 
-	function prg( $method, $controller = null ){
+	function prg( $method = null, $controller = null ){
 		$controller = ( isset($controller) ) ?  $controller : $this -> name;
 		header("Location: ?" . $controller . '/' . $method, 303);
 	}

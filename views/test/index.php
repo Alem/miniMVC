@@ -9,7 +9,7 @@
 <p>
 <h3>ADD AN ITEM: </h3> 
 <form action = "?test/post/" method="post">
-<input id = "item" name = "item" type="text" />
+<input name = "<?php echo $this -> name ?>" type="text" />
 <input type = "submit" value = "Add"/>
 </form>
 </p>

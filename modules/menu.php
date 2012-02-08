@@ -8,8 +8,9 @@ class Menu {
 			session_start();
 	}
 
+	// Returns navigation hrefs and names as an array.
 	function nav(){
-		#$nav['Home'] = DEFAULT_CONTROLLER;
+		$nav['Home'] = '';
 		$nav['Gallery'] = DEFAULT_CONTROLLER . '/gallery';
 		$nav['Submit'] = DEFAULT_CONTROLLER . '/form';
 		if ( !isset( $_SESSION['logged_in'] ))
@@ -20,9 +21,9 @@ class Menu {
 		return $nav;
 	}
 
+	// Returns sidebar hrefs and names as an array.
 	function sidebar(){
-		#if ( $_SERVER['QUERY_STRING'] != 'user'){
-		$sidebar['Home'] = DEFAULT_CONTROLLER;
+		$sidebar['Home'] = '';
 		$sidebar['Gallery'] = DEFAULT_CONTROLLER . '/gallery';
 		if ( !isset( $_SESSION['logged_in'] ))
 			$sidebar['Login'] = 'user';
@@ -30,7 +31,6 @@ class Menu {
 			$sidebar['Logout'] = 'user/logout';
 		$sidebar['About'] = DEFAULT_CONTROLLER . '/about';
 		return $sidebar;
-		#}
 	}
 
 }

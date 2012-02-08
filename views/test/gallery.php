@@ -1,9 +1,9 @@
 <h2> Gallery</h2>
 
-<?php if((isset($this -> model -> data['order_opts']) )): ?>
-<?php $max = count($this -> model -> data['order_opts']); ?>
+<?php if((isset($this -> model -> order_opts) )): ?>
+<?php $max = count($this -> model -> order_opts); ?>
 <?php $i = 0; ?>
-<?php foreach( $this -> model -> data['order_opts'] as $type => $href ): ?>
+<?php foreach( $this -> model -> order_opts as $type => $href ): ?>
 <?php $i++; ?>
 
 <a href='?<?php echo $href?>'> Order by <?php echo $type ?></a> <?php if ( $i != $max ): ?> | <?php endif; ?>
@@ -11,12 +11,12 @@
 <?php endforeach;?>
 <? endif;?>
 
-<?php	if( isset( $this -> model -> data['show']) ):	?>
+<?php	if( isset( $this -> model -> data) ):	?>
 <table>
 <tr>
 
 <?php $i = 0; ?>
-<?php foreach( $this -> model -> data['show'] as $row) :	?>
+<?php foreach( $this -> model -> data as $row) :	?>
 	<td>
 	<?php foreach( $row as $column => $value) :	?>
 		<?php echo $column ?>:  <?php echo $value ?> 
@@ -38,7 +38,7 @@
 <div class="pagination">
   <ul>
 	<?php if( isset(  $this->model->page )): ?>
-	<?php $count = count($this -> model -> data['show']); ?>
+	<?php $count = count($this -> model -> data); ?>
 		<?php if($this -> model -> page != 1): ?>
 		<li class="prev"><a href="?<?php echo $this -> name ?>/gallery/<?php echo ($this->model->page - 1).($this->model->order) ?>">&larr; Previous</a></li>
 		<?php endif; ?>

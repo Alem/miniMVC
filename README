@@ -22,12 +22,11 @@ application/framework and to allow you the freedom to hack your way to the rest.
 
 2. Define the relevant information in config.php
 
-3. Generate a controller, model and view with generate.php
+3. Generate a basic scaffold controller, model and view with generate.php
 	ex. ./generate.php --mvc example --table example
 
-4. Use controller by visiting http://localhost/YOURAPP/controller/method/variable
-	ex. http://localhost/miniMVC/test/index
-	ex. http://localhost/miniMVC/test/add/testentry
+4. Use controller by visiting http://localhost/YOURAPP/public_html/?controller/method/variable
+	ex. http://localhost/miniMVC/public_html/?test/index
 
 5. Hack away.
 
@@ -53,14 +52,19 @@ Database:
 
 ### FILE SYSTEM ###
 
-config.php  	- Single configuration file for application.
-controllers 	- Holds created controllers.
-generate.php 	- Generates MVC scaffolds
-index.php 	- The "boot strapping" script
-lib 		- Contains essential parent classes.
-media        	- Holds css files and imgs.
-models 		- Holds created models.
-modules 	- Holds module classes
-README 		- You're reading it.
-views 		- Holds created views
-.htaccess 	- Rewrites the url.
+* controllers/ 		- Holds created controllers.
+* lib/ 			- Contains essential parent classes.
+* models/			- Holds created models.
+* modules/ 		- Holds module classes
+* views/ 			- Holds created views
+* public_html/		- Holds publicly-viewable files
+* public_html/media/      - Holds css, js, and imgs.
+* public_html/index.php	- The "boot strapping" script
+* config.php  		- Single configuration file for application.
+* generate.php 		- Generates MVC scaffolds
+* README 			- You're reading it.
+* .htaccess 		- Rewrites the url.
+
+
+
+

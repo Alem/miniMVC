@@ -7,8 +7,8 @@ class Test extends Model{
 	}
 
 	function orderOpts(){
-		$this -> data['order_opts']['Id'] = "test/gallery/" . $this->page .  VARIABLE_SEPARATOR . "id" . VARIABLE_SEPARATOR . "ASC";
-		$this -> data['order_opts']['Test'] = "test/gallery/" . $this->page .  VARIABLE_SEPARATOR . "test" . VARIABLE_SEPARATOR . "ASC";
+		$this -> order_opts['Id'] = "test/gallery/" . $this->page .  VAR_SEPARATOR . "id" . VAR_SEPARATOR . "ASC";
+		$this -> order_opts['Test'] = "test/gallery/" . $this->page .  VAR_SEPARATOR . "test" . VAR_SEPARATOR . "ASC";
 	}
 }
 
