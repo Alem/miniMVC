@@ -40,7 +40,7 @@ define('DEFAULT_CSS', 'bootstrap');
 define ('SITE_NAME','miniMVC');
 define ('SITE_TAG','An Upstart App-starter');
 define ('SITE_EMAIL','info@alemmedia.com');
-define ('DEFAULT_LOGO_PATH', 'media/img/logo.png');
+#define ('DEFAULT_LOGO_PATH', 'media/img/logo.png');
 define ('META_DESCRIPTION','miniMVC is a super lightweight MVC framework written in PHP.');
 define ('META_KEYWORDS','miniMVC, PHP MVC');
 define ('COMPANY','Alemmedia');
