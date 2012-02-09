@@ -37,6 +37,7 @@ class Model{
 		elseif( preg_match('/insert/', $this -> query) )
 			$this -> last_insert_id = $db_link -> lastInsertId();
 		$this -> query = null;
+		$this -> query_data = array();
 		$db_link = null;
 	}
 

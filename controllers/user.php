@@ -69,10 +69,11 @@ class UserController extends Controller{
 		$password = md5( $_POST['password'] );
 		$password_repeat = md5( $_POST['verify_password'] );
 		$email 	= $_POST['email'];
-		if ( ( isset($username) && isset($password) && isset($password_repeat) && isset($email)) && ($password == $password_repeat) )
+		if ( ( isset($username) && isset($password) && isset($password_repeat) && isset($email)) && ($password == $password_repeat) ){
 			if ($this->model->insert(array($username, $password,$email), array('user', 'password','email'))->run() )
 				$this -> logged_in = true;	
-		$this -> set('logged_in', $this -> logged_in);
+		}
+		$this -> sessionSet('logged_in', $this -> logged_in);
 		$this -> login();
 	}
 
