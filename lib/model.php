@@ -28,10 +28,10 @@ class Model{
 
 	public function run(){
 		$db_link = new PDO('mysql:host=' . DB_SERVER . ';dbname=' . DB_DATABASE,DB_USERNAME,DB_PASSWORD );
-		if (DB_DEBUG) echo "<pre>" . $this->query . " <br/> Parameters: ". print_r($this->query_data,true)."<br/>";
+		Logger::instantiate() -> message .= '<pre><h4>PDO</h4>' . $this->query . ' <br/>Parameters: '. print_r($this->query_data,true).'<br/>';
 		$statement = $db_link -> prepare($this -> query);
 		$statement -> execute($this -> query_data);
-		if (DB_DEBUG) echo "<p><b>Errors</b><br/>" . print_r($statement -> errorInfo(),true) . "</pre></p>";
+		Logger::instantiate() -> message .= '<p><b>Errors</b><br/>' . print_r($statement -> errorInfo(),true) . '</pre></p>';
 		if ( preg_match('/select/', $this -> query) )
 			return  $statement -> fetchall(PDO::FETCH_ASSOC);
 		elseif( preg_match('/insert/', $this -> query) )
@@ -50,7 +50,7 @@ class Model{
 	// $column - Column of interest
 
 	function select( $column=null){
-		$column = (isset($column)) ? $this -> sanitize($column) : '*';
+		$column = (isset($column)) ? $this -> clean($column) : '*';
 		if(is_array($column))
 			$column =  implode($column, ',');
 		$this -> query = ("select $column from {$this -> table}");
@@ -69,8 +69,8 @@ class Model{
 
 	function insert($value, $column = null ){
 		$table = $this -> table;
-		$this -> sanitize($value);
-		$column = ( isset($column) ) ?  $this -> sanitize($column) : $this -> column;
+		$this -> clean($value);
+		$column = ( isset($column) ) ?  $this -> clean($column) : $this -> column;
 		if ( is_array($value) ){
 			$columns = implode(",", $column );
 			for ($i = 1; $i <= count($value); $i ++){
@@ -97,10 +97,10 @@ class Model{
 	// $new_column - The columnn of for the new value
 
 	function update($ref, $new, $ref_column = null, $new_column = null ){
-		$this -> sanitize($ref);
-		$this -> sanitize($new);
-		$ref_column = ( isset($ref_column) ) ?  $this -> sanitize($ref_column) :  'id';
-		$new_column = ( isset($new_column) ) ?  $this -> sanitize($new_column) : $this -> sanitize($column_old);
+		$this -> clean($ref);
+		$this -> clean($new);
+		$ref_column = ( isset($ref_column) ) ?  $this -> clean($ref_column) :  'id';
+		$new_column = ( isset($new_column) ) ?  $this -> clean($new_column) : $this -> clean($column_old);
 		$this -> query = ("update {$this->table} set $new_column=? where $ref_column = ?");
 		$this -> query_data[] = $new;
 		$this -> query_data[] = $ref;
@@ -115,8 +115,8 @@ class Model{
 
 	function remove($value, $column = null ){
 		$table = $this -> table;
-		$column = ( isset($column) ) ?  $this -> sanitize($column) : 'id';
-		$this -> sanitize($value);
+		$column = ( isset($column) ) ?  $this -> clean($column) : 'id';
+		$this -> clean($value);
 		$this -> query = ("delete from $table where $column = ?");
 		$this -> query_data[] = $value;
 		return $this;
@@ -131,10 +131,10 @@ class Model{
 
 	function where($ref, $ref_column ){
 		if ( isset( $ref ) ) 
-			$this -> sanitize($ref);
-		$ref_column = ( isset($ref_column) ) ? $this -> sanitize($ref_column) : 'id';
+			$this -> clean($ref);
+		$ref_column = ( isset($ref_column) ) ? $this -> clean($ref_column) : 'id';
 		if ( isset($ref) && !is_array($ref) ) {
-			$where = ' where ' . $this -> sanitize($ref_column) . "= ?";
+			$where = ' where ' . $this -> clean($ref_column) . "= ?";
 			$this -> query_data[] = $ref;
 		} elseif ( is_array($ref) && ($ref = array_values($ref) ) && (!empty($ref[0]) )){
 			for( $i = 0; $i < count($ref); $i++ ){
@@ -161,7 +161,7 @@ class Model{
 	// $orderby - The column used for ordering
 	// $sort - The type of sort (ex. DESC)
 	function order($orderby, $sort){
-		$order = ( ($orderby) && ($sort) ) ?  ' order by ' . $this -> sanitize($orderby) . ' ' . $this -> sanitize($sort) : null;
+		$order = ( ($orderby) && ($sort) ) ?  ' order by ' . $this -> clean($orderby) . ' ' . $this -> clean($sort) : null;
 		$this -> query .= $order; 
 		return $this;
 	}
@@ -172,7 +172,7 @@ class Model{
 	//
 	// $limit - Number of rows to return
 	function limit($limit){
-		$limit 	= ( isset($limit) ) ? ' limit ' . $this -> sanitize($limit) : $this -> sanitize($limit);
+		$limit 	= ( isset($limit) ) ? ' limit ' . $this -> clean($limit) : $this -> clean($limit);
 		$this -> query .= $limit; 
 		return $this;
 	}
@@ -185,7 +185,7 @@ class Model{
 	// $page - Set when paged results are required. Returns a pagination friendly array: 
 	//  pages ( the total # of pages), paged ( the page-limited result), total (the total # of rows in the column)
 	function page($page, $limit){
-		$this -> sanitize($page);
+		$this -> clean($page);
 		$original_query = $this -> query;
 		$total_result = count( $this -> run() );
 		$this -> query = $original_query;
@@ -225,27 +225,41 @@ class Model{
 		return $this -> $property;
 	}
 
-	// sanitize - Sanitizes any user data.
+	// clean - Cleans any user data.
 	//
-	// Simple function, does not secure data completely, simply escapes MySQL spechars and strips html.
+	// Simple function, does not secure data, simply escapes MySQL spechars and strips html.
 	//
 	// &$data - Data.
 
-	function sanitize( &$data ){
+	function clean( &$data ){
 		if (is_array($data)) {
 			foreach($data as &$value){
-				$this -> sanitize( $value );
+				$this -> clean( $value );
 			}
 		} else {
 			$data = strip_tags($data);
-			mysql_select_db( DB_DATABASE, mysql_connect( DB_SERVER, DB_USERNAME, DB_PASSWORD ));
-			$data = mysql_real_escape_string($data);
-			mysql_close( mysql_connect( DB_SERVER, DB_USERNAME, DB_PASSWORD	) );
+			$data = addslashes($data);
+			# TOO SLOW
+			#mysql_select_db( DB_DATABASE, mysql_connect( DB_SERVER, DB_USERNAME, DB_PASSWORD ));
+			#$data = mysql_real_escape_string($data);
+			#mysql_close( mysql_connect( DB_SERVER, DB_USERNAME, DB_PASSWORD	) );
 			$data = trim($data);
 		}
 		return $data;
 	}
 
+	function whitelist( $value, $list ){
+		if ( is_array ( $value ) ) {
+			foreach ($value as $single_value)
+				$this -> whitelist($single_value,$list);
+		}
+		if ( in_array ( $value, $list) )
+			return true;
+		else {
+			return false;
+			break;
+		}
+	}
 	
 }
 

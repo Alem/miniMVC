@@ -1,9 +1,9 @@
 <?php
 
 // Error reporting
-error_reporting('-1');
-ini_set('display_errors',1);
-define('DB_DEBUG', false);
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 1);
+define('DB_DEBUG', true);
 
 //// Base Path
 define('WEB_ROOT', 'http://localhost');
@@ -17,6 +17,7 @@ define('DEFAULT_MODEL_PATH', 'models/');
 define('DEFAULT_VIEW_PATH', 'views/');
 define('DEFAULT_TEMPLATE_PATH', 'views/tpl/');
 define('DEFAULT_MODULE_PATH', 'modules/');
+define('DEFAULT_LOG_PATH', 'logs/');
 // Public: found in DEFAULT_PUBLIC_PATH
 define('DEFAULT_CACHE_PATH', 'cache/');
 define('DEFAULT_MEDIA_PATH', 'media/');
@@ -40,6 +41,7 @@ define('DEFAULT_CSS', 'bootstrap');
 define ('SITE_NAME','miniMVC');
 define ('SITE_TAG','An Upstart App-starter');
 define ('SITE_EMAIL','info@alemmedia.com');
+define ('SITE_ADMIN','admin');
 #define ('DEFAULT_LOGO_PATH', 'media/img/logo.png');
 define ('META_DESCRIPTION','miniMVC is a super lightweight MVC framework written in PHP.');
 define ('META_KEYWORDS','miniMVC, PHP MVC');

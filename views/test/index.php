@@ -1,5 +1,4 @@
 <h2> Welcome to <?php echo SITE_NAME; ?> </h2>
-<img alt='miniMVC chart' src = 'media/img/miniMVC.png'/>
 <p>
 	This data below has been passed to this view 
 	by its controller and was generated/retrieved by its model.

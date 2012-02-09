@@ -10,11 +10,18 @@ class Controller{
 	//
 	// Auto-loads the appropriate model and module, determines and assigns the base name for the controller as the
 	// class property 'name'. Only executes for extended/non-root controllers, not for the application controller.
-	function __construct(){
-		if (get_parent_class($this)){
+	// Can be disabled by false set $autoload
+	//
+	// $model: If false, prevents automatic loading of a matching model 
+	// $module: If false, prevents automatic loading of default modules
+
+	function __construct( $model = true, $module = true ){
+		if ( get_parent_class($this)){
 			$this -> name = strtolower(str_replace('Controller','',get_class($this)));
-			$this -> useModel();
-			$this -> useModule();
+			if ( ($model === true) ) 
+				$this -> useModel();
+			if ( ($module === true) ) 
+				$this -> useModule();
 		}
 	}
 
