@@ -1,4 +1,5 @@
 <h2> Welcome to <?php echo SITE_NAME; ?> </h2>
+<img src='<?php echo DEFAULT_MEDIA_PATH .'img/miniMVC.png'?>' />
 <p>
 	This data below has been passed to this view 
 	by its controller and was generated/retrieved by its model.
