@@ -31,7 +31,7 @@ $application -> useController($request);
 // Script-timing completion
 $time_end = microtime(true);
 $time = $time_end - $time_start;
-Logger::instantiate() -> message .= "<pre> Script execution time: {$time} seconds</pre>";
+Logger::instantiate() -> record['Script_Time'] = $time;
 
 //Logging Output
 Logger::instantiate() -> display();

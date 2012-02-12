@@ -12,15 +12,11 @@ class Controller{
 	// class property 'name'. Only executes for extended/non-root controllers, not for the application controller.
 	// Can be disabled by false set $autoload
 	//
-	// $model: If false, prevents automatic loading of a matching model 
-	// $module: If false, prevents automatic loading of default modules
 
 	function __construct( $model = true, $module = true ){
 		if ( get_parent_class($this)){
 			$this -> name = strtolower(str_replace('Controller','',get_class($this)));
-			if ( ($model === true) ) 
 				$this -> useModel();
-			if ( ($module === true) ) 
 				$this -> useModule();
 		}
 	}
@@ -29,7 +25,7 @@ class Controller{
 	//
 	// Recieves URL request, constructs the appropriate controller and calls appropriate method.
 	//
-	// The default/fallback controller is config constant DEFAULT_CONTROLLER, the default/fallback method is 'index()', 
+	// The default/fallback controller is config constant DEFAULT_CONTROLLER, the default/fallback method is 'index()',
 	// and the parameter is simply not passed to the method if not set. 
 	// If the supplied variable contains the VAR_SEPARATOR then it is treated as multiple
 	// seperated parameters and passed as an array using call_user_func_array.
@@ -39,12 +35,15 @@ class Controller{
 	// $request: The Request URI passed from index.php
 	// This loads the controller, its method and inputs the variables 
 	// if they have been set in the request.  
-	// $assign: If set to true, will assign the newly created controller as a property of the controller that called it.
+	//
+	// $assign: If set to true, will assign the newly created controller 
+	// 		as a property of the controller that called it.
 
 	function useController($request, $assign = null){
 
 		$this -> request = $request;
-		$this -> request['controller'] = ( empty( $request['controller'] ) ) ? DEFAULT_CONTROLLER : $request['controller'];
+		$this -> request['controller'] = ( empty( $request['controller'] ) ) ? 
+			DEFAULT_CONTROLLER : $request['controller'];
 		$controller_file = SERVER_ROOT . DEFAULT_CONTROLLER_PATH . $this -> request['controller'] . '.php';
 		$controller_class = ( $this -> request['controller'] ."Controller" );
 		$controller_name = strtolower($this -> request['controller']);

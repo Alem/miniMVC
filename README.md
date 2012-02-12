@@ -65,9 +65,9 @@ Database:
 * models/		- Holds created models.
 * modules/ 		- Holds module classes
 * views/ 		- Holds created views
-* public_html/		- Holds publicly-viewable files and the boot-script index.php 
-* public_html/media/    - Holds css, js, and imgs.
-* public_html/index.php	- The "boot strapping" script
+* public_html/		- Holds publicly-viewable files.
+* 	media/  	- Holds css, js, and imgs.
+*	index.php	- The "boot strapping" script
 * config.php  		- Single configuration file for application.
 * generate.php 		- Generates MVC scaffolds
 * README.md 		- You're reading it.

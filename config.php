@@ -3,7 +3,7 @@
 // Error reporting
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 1);
-define('DB_DEBUG', true);
+define('DEBUG', true);
 
 //// Base Path
 define('WEB_ROOT', 'http://localhost');

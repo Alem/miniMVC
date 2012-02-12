@@ -7,11 +7,19 @@ class UserController extends Controller{
 	public $username;
 	public $email;
 
+
 	function __construct(){
 		parent::__construct();
 		$this -> model -> nav = $this -> menu -> nav();
 		$this -> start();
 	}
+
+
+	// index() - Displays login form or profile page depending on login status
+	//
+	// Shows welcome, goodbye and failure message depending on flags set by user::login() 
+	//
+	// $message - If set displays appropriate message, set by user::login()
 
 	function index($message = null){
 		if( $message == 'goodbye' )
@@ -27,11 +35,22 @@ class UserController extends Controller{
 			$this -> useView('login');
 	}
 
+
+	// start() - Starts user session and stores session_id()
+
 	function start(){
 		if (!isset($_SESSION))
 			session_start();
 		$this -> user_id = session_id();
 	}
+
+
+	// getIp - Gets the user's IP address
+	//
+	// Grab users IP using any set $_SERVER variable (found in HTTP request header).
+	// Can optionally return SQL formatted long Int IP address
+	//
+	// $int - Flag, if set returns long-int sql-formatted IP number.
 
 	function getIp($int = false){
 		if (!empty($_SERVER['HTTP_CLIENT_IP']))
@@ -46,61 +65,99 @@ class UserController extends Controller{
 			return $ip;
 	}
 
+
+	// login () - Logs user in on successful credentials
+	//
+	// Recieves $_POST from login or registration form.
+	// If successfull logs user in, sets logged_in as true and directs to index() with welcome flag set
+	// If failure, directs to index() with failure flag set.
+
 	function login(){
 		$username = $_POST['username'];
 		$password = md5( $_POST['password'] );
-		if ( ( isset( $username ) && isset( $password ) ) )
-			$user = $this -> model -> select('*') -> where( array($username, $password), array('user','password'))->run();
-		if($user){
+
+		if ( isset( $username ) && isset( $password ) ){
+			$user = $this -> model 
+			-> select('*') 
+			-> where( array($username, $password), array('user','password'))
+			-> run();
+		}
+
+		if( isset( $user ) ){
 			$this -> logged_in = true;
 			$this -> sessionSet('username', $username);
+			$this -> sessionSet('email', $user[0]['email']);
+			$this -> sessionSet('logged_in', $this -> logged_in);
 		}
-		$this -> sessionSet('logged_in', $this -> logged_in);
-		$this -> sessionSet('username', $username);
-		$this -> sessionSet('email', $user[0]['email']);
+
 		if ( $this -> logged_in )
 			$this -> prg('index/welcome');
 		else
 			$this -> prg('index/failure');
 	}
 
+
+	// register() - Registers and logs in user if information valid
+	// 
+	// Gets $_POST from registration HTML form and verifies standards met.
+	// If successfull insert sets logged_in to true and runs user::login()
+	// If fails, directs to index with failure flag
+
 	function register(){
 		$username = $_POST['username'];
 		$password = md5( $_POST['password'] );
 		$password_repeat = md5( $_POST['verify_password'] );
 		$email 	= $_POST['email'];
-		if ( ( isset($username) && isset($password) && isset($password_repeat) && isset($email)) && ($password == $password_repeat) ){
-			if ($this->model->insert(array($username, $password,$email), array('user', 'password','email'))->run() )
+		if (	isset($username) 
+			&& isset($password) 
+			&& isset($password_repeat) 
+			&& isset($email)  
+			&& ( $password == $password_repeat ) 
+			&& empty( $_POST['address'])
+		){
+			$insert = $this -> model 
+				-> insert( array($username, $password,$email), array('user', 'password','email') )
+				-> run();
+			if ( $insert )
 				$this -> logged_in = true;	
-		}
-		$this -> sessionSet('logged_in', $this -> logged_in);
-		$this -> login();
+			$this -> sessionSet('logged_in', $this -> logged_in);
+			$this -> login();
+		}else
+			$this -> prg('index/failure');
 	}
 
-	function listing(){
-			$data = $this -> model -> select('user,email')->run();
-			$this -> model -> data['show'] = $data;
-			$this -> useView('gallery','test');
-	}
 
+	// logout() - Logs user out
+	//
+	
 	function logout(){
 		$this -> sessionSet('logged_in', null);
 		session_destroy();
 		$this -> prg('index/goodbye');
 	}
 
-	function sessionSet($property, $value = null,$clear = false){
+	// sessionSet - Recieves variables to set to $_SESSION array, or clear.
+	//
+	
+	function sessionSet($property, $value = null, $clear = false, $make_array = false){
 		if ( is_array( $property) ){
 			foreach($property as $key => $single_property)
 				$this -> sessionSet($key, $single_property,$clear);
 		}else{
-			if ($clear == false)
-				$_SESSION[$property] = $value;
+			if ($clear == false){
+				if ($make_array == false)
+					$_SESSION[$property] = $value;
+				else
+					$_SESSION[$property][] = $value;
+			}
 			else
 				unset($_SESSION[$property]);
 		}
 	}
 
+
+	// sessionGet - Returns variables from $_SESSION array.
+	//
 	function sessionGet($property){
 		if ( isset( $_SESSION[$property] ) )
 			return $_SESSION[$property];
@@ -108,6 +165,10 @@ class UserController extends Controller{
 			return false;
 	}
 
+	// timeSince() 
+	//
+	// Returns time since action
+	
 	function timeSince($action, $difference = null, $true_if_unset = true ){
 		$time_set = $this -> sessionGet($action);
 		if ( ( $time_set != false ) && ( isset( $difference ) ) && ( ( time() - $time_set ) > $difference ) ) 
@@ -118,6 +179,17 @@ class UserController extends Controller{
 		} elseif( ($time_set == false ) && ( $true_if_unset == true) ) 
 			return true;
 	}
+
+
+	function listing(){
+		$data = $this -> model 
+			-> select('user,email')
+			-> run();
+		echo '<pre>', print_r($data,true),'</pre>';
+		#$this -> model -> data['show'] = $data;
+		#$this -> useView('gallery','test');
+	}
+
 
 }
 

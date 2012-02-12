@@ -1,5 +1,12 @@
 <h2> Welcome to <?php echo SITE_NAME; ?> </h2>
+
+<br/>
+
+<p>
+<h3> How miniMVC Works</h3>
 <img src='<?php echo DEFAULT_MEDIA_PATH .'img/miniMVC.png'?>' />
+</p>
+
 <p>
 	This data below has been passed to this view 
 	by its controller and was generated/retrieved by its model.
@@ -8,7 +15,7 @@
 <br/>
 
 <p>
-<h3>ADD AN ITEM: </h3> 
+<h3>Add An Item</h3> 
 <form action = "?test/post/" method="post">
 <input name = "<?php echo $this -> name ?>" type="text" />
 <input type = "submit" value = "Add"/>

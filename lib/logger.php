@@ -2,7 +2,7 @@
 
 class Logger{
 
-	public $message = null;
+	public $record = null;
 	private static $instance = null;
 
 	private function __construct(){
@@ -16,15 +16,10 @@ class Logger{
 	}
 
 	public function display(){
-		if (DB_DEBUG && ( isset($_SESSION['username']) && $_SESSION['username'] == SITE_ADMIN) ) {
-			$error = print_r(error_get_last(),true);
-			$display = <<<display
-			 <pre><h3>DEBUGGING</h3>  
-			{$this -> message}<br/>
-			<h4>Last PHP Error</h4> $error
-			</pre>
-display;
-			echo $display;
+		if (DEBUG && ( isset($_SESSION['username']) && $_SESSION['username'] == SITE_ADMIN) ) {
+			$this -> record['Error'] = print_r( error_get_last(), true);
+			$this -> record['Session'] = print_r( $_SESSION, true);
+			echo '<pre><h3>DEBUGGING</h3>' . print_r(array_filter( $this -> record), true) . '</pre>';
 		}
 	}
 

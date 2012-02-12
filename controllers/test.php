@@ -41,13 +41,13 @@ class TestController extends Controller{
 
 
 	function del($value, $column = null){
-		$this -> model -> remove( $value, $column ) -> run();
+		$this -> model -> remove() -> where ( $value, $column ) -> run();
 		$this -> prg('gallery');
 	}
 
 
 	function set($old, $new, $column_old = null, $column_new = null){
-		$this -> model -> update( $old, $new, $column_old, $column_new) -> run();
+		$this -> model -> update( $new, $column_new) -> where($old, $column_old) -> run();
 		$this -> show();
 	}
 

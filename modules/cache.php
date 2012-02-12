@@ -33,11 +33,11 @@ class Cache{
 		      $filename = $this -> path . $filename;
 		}else
 		       	$this -> path .preg_replace( '/\//', '.', $_SERVER['REQUEST_URI'] ); 
-		if ( $this -> recency( $filename ) === false ){
-			$file = fopen($filename,"w") or die("Couldn't Open"); 
+		#if ( $this -> recency( $filename ) === false ){
+			$file = fopen($filename, 'w+') or die("Couldn't Open"); 
 			fwrite($file,$output) or die ("Couldn't write");
 			fclose($file);
-		}
+		#}
 	}
 
 	// get: returns if exists otherwise creates it.

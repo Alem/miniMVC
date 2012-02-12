@@ -26,6 +26,12 @@
 <input name = "verify_password" type = "password" />  <br/><br/>
 <label>E-mail:</label>
 <input name = "email" type = "email" />  <br/><br/>
+
+<span id = 'human' style ='display:none' > 
+	Don't fill, robots only: 
+	<input type = "text" name ="address"/>
+</span>
+
 <p> <input class = "btn success Large" type = "submit" value = "Register"/> </p>
 <span class = "help-block"> Quick &amp; easy, <br/>
 No e-mail verification required. </span>
