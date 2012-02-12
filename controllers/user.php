@@ -136,25 +136,32 @@ class UserController extends Controller{
 		$this -> prg('index/goodbye');
 	}
 
-	// sessionSet - Recieves variables to set to $_SESSION array, or clear.
+	// sessionSet - Recieves variables to set to $_SESSION array
 	//
 	
-	function sessionSet($property, $value = null, $clear = false, $make_array = false){
+	function sessionSet($property, $value = null, $make_array = false){
 		if ( is_array( $property) ){
 			foreach($property as $key => $single_property)
-				$this -> sessionSet($key, $single_property,$clear);
+				$this -> sessionSet($key, $single_property);
 		}else{
-			if ($clear == false){
 				if ($make_array == false)
 					$_SESSION[$property] = $value;
 				else
 					$_SESSION[$property][] = $value;
-			}
-			else
-				unset($_SESSION[$property]);
 		}
 	}
 
+
+	// sessionDel - Recieves variables to delete in $_SESSION array
+
+	function sessionDel($property){
+		if ( is_array( $property) ){
+			foreach($property as $key => $single_property)
+				$this -> sessionDel($key);
+		}else{
+				unset($_SESSION[$property]);
+		}
+	}
 
 	// sessionGet - Returns variables from $_SESSION array.
 	//

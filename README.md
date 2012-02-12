@@ -44,11 +44,11 @@ it is highly recommended to adhere to these conventions.
 
 For the MVC scaffold 'foo': 
 ###### Controllers
-* Class Name: ExampleController
+* Class Name: FooController
 * File Name: controllers/foo.php
 
 ###### Models
-* Class Name: Example
+* Class Name: Foo
 * File Name: models/foo.php
 
 ###### Views
