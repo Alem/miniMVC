@@ -3,7 +3,7 @@
 require_once('config.php');
 
 
-// MVC TEMPLATE GENERATION FUNCTION
+// MVC TEMPLATE GENERATION FUNCTIONS
 // controller()
 // model()
 // view()
@@ -12,31 +12,57 @@ function controller($name) {
 
 	$crud = <<<CRUD
 
+	// post() - Recieves POST data and hands it to model for database insertion
+	
 	function post(){
 		\$form_fields = array_keys(\$_POST);
-		\$this -> model -> insert( \$_POST, \$form_fields) -> run();
+		\$this -> model 
+			-> insert( \$_POST, \$form_fields) 
+			-> run();
 		\$this -> prg('show');
 	}
 
+
+	// add() - Directly insert data from URL. TEST ONLY
+
 	function add(\$item){
 		\$this -> model -> insert(\$item) -> run();
-		\$this -> prg('show');
+		\$this -> show();
 	}
+
+
+	// del() - Directly remove database data from URL. TEST ONLY
 
 	function del(\$value, \$column = null){
 		\$this -> model -> remove() -> where ( \$value, \$column ) -> run();
 		\$this -> prg('show');
 	}
 
-	function set(\$old, \$new, \$column_old = null, \$column_new = null){
-		\$this -> model -> update( \$new, \$column_new) -> where(\$old, \$column_old) -> run();
+
+	// edit() - Updates specified values
+	//
+	// \$ref - Reference value
+	// \$new - New value to be set
+	// \$ref_column - Reference column 
+	// \$new_column - Column of new value
+
+	function edit(\$ref, \$new, \$column_ref = null, \$column_new = null){
+		\$this -> model -> update( \$new, \$new_column) -> where(\$ref, \$ref_column) -> run();
 		\$this -> show();
 	}
 
+	
+	// show() - Display all information 
+	//
+	// Retrieves all data and passes it to 'index' view
+
 	function show(){
-		\$result = \$this -> model -> select ('*') -> run();
+		\$result = \$this -> model 
+			-> select ('*') 
+			-> run();
+
 		\$this -> model -> data = \$result;
-		\$this -> useView();
+		\$this -> useView(); 
 	}
 
 CRUD;

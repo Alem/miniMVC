@@ -10,29 +10,32 @@ class TestController extends Controller{
 	}
 
 
+	// index() - Loads default 'index' view
+	
 	function index(){
 		$this -> useView();
 	}
 
+
+	// form() - Loads 'form' view
 
 	function form(){
 		$this -> useView('form');
 	}
 
 
+	// post() - Recieves POST data and hands it to model for database insertion
+	
 	function post(){
 		$form_fields = array_keys($_POST);
-		$this -> useController( array( 'controller' => 'user', 'method' => 'start'), true );
-		$num_posts  = $this -> user -> sessionGet('num_posts');
-		if ( $num_posts < 15 ){
-			$this -> user -> sessionSet('num_posts', ($num_posts+1) );
-			$this -> model -> insert( $_POST, $form_fields) -> run();
-			$this -> prg('gallery');
-		}
-		$this -> model -> data['content'] = "Already posted $num_posts times";
-		$this -> useView();
+		$this -> model 
+			-> insert( $_POST, $form_fields) 
+			-> run();
+		$this -> prg('gallery');
 	}
 
+
+	// add() - Directly insert data from URL. TEST ONLY
 
 	function add($item){
 		$this -> model -> insert($item) -> run();
@@ -40,28 +43,58 @@ class TestController extends Controller{
 	}
 
 
+	// del() - Directly remove database data from URL. TEST ONLY
+
 	function del($value, $column = null){
 		$this -> model -> remove() -> where ( $value, $column ) -> run();
 		$this -> prg('gallery');
 	}
 
 
-	function set($old, $new, $column_old = null, $column_new = null){
-		$this -> model -> update( $new, $column_new) -> where($old, $column_old) -> run();
+	// edit() - Updates specified values
+	//
+	// $ref - Reference value
+	// $new - New value to be set
+	// $ref_column - Reference column 
+	// $new_column - Column of new value
+
+	function edit($ref, $new, $column_ref = null, $column_new = null){
+		$this -> model -> update( $new, $new_column) -> where($ref, $ref_column) -> run();
 		$this -> show();
 	}
 
+	
+	// show() - Display all information for specifed primary Id
+	//
+	// Retrieves all data for specified id and passes it to 'gallery' view
 
-	function show(){
-		$result = $this -> model -> select ('*') -> run();
+	function show( $id ){
+		$result = $this -> model 
+			-> select ('*') 
+			-> where($id,'id') 
+			-> run();
+
 		$this -> model -> data = $result;
 		$this -> useView('gallery');
 	}
 
 
+	// gallery() - A gallery of items
+	//
+	// Displays items 'tests' in gallery form.
+	//
+	// $page - Current page, defaults to 1
+	// $order_col 	- The column to order by
+	// $order_sort 	- The sort to use
+
 	function gallery($page = 1, $order_col = null, $order_sort = null){
-		$result = $this -> model -> select('*') -> order( $order_col, $order_sort) -> page($page, 6);
+		$result = $this -> model 
+			-> select('*') 
+			-> order( $order_col, $order_sort) 
+			-> page($page, 6);
+
 		$order_string = VAR_SEPARATOR . implode( VAR_SEPARATOR, array_filter(array( $order_col, $order_sort )));
+
 		$this -> model -> set( 
 			array( 
 				'page' => $page, 
@@ -70,29 +103,17 @@ class TestController extends Controller{
 				'data' => $result['paged'],
 			)
 		);
-		$this -> model -> orderOpts(); 
+
 		$this -> useView('gallery');
 	}
 
+
+	// about() - Run of the mill 'about' page
 
 	function about(){
 		$this -> useView('about');
 	}
 
-
-	function db( $sql_query = "select * from test" ){
-		$sql_query = urldecode($sql_query);
-		$this -> model -> query = ($sql_query);
-		$result = $this -> model -> run();
-		$this -> model -> data['content'] =  "<pre>" . print_r($result, true). "</pre>";
-		$this -> useView();
-	}
-
-
-	function say($phrase = 'You said nothing' ){
-		$this -> model -> data['content'] = urldecode($phrase);
-		$this -> useView();
-	}
 }
 
 ?>
