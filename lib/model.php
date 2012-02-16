@@ -75,6 +75,7 @@ class Model{
 	function query($fragment){
 		if($fragment)
 			$this -> query .= $fragment;
+		return $this;
 	}
 
 
@@ -103,7 +104,6 @@ class Model{
 				$this -> clean( $value );
 			}
 		} else {
-			$data = strip_tags($data);
 			$data = addslashes($data);
 			$data = trim($data);
 		}
@@ -111,17 +111,33 @@ class Model{
 	}
 
 	// whitelist () - in the works...
+	function whitelist( $value, $table = null, $list = null ){
 
-	function whitelist( $value, $list ){
+		$table = ($table == null) ? $this -> table : $table;
+
+		if ( !isset( $this -> table_columns ) ){
+			$saved_partial_query = $this -> query;
+			$this -> query = null;
+			$this -> table_info = $this -> query("show columns from $table") -> run();
+			$this -> query = $saved_partial_query;
+			foreach( $this -> table_info as $row => $column)
+				$this -> table_columns[] = $column['Field'];
+		}
+
+		$list = ($list == null) ? $this -> table_columns : $list;
+
 		if ( is_array ( $value ) ) {
 			foreach ($value as $single_value)
-				$this -> whitelist($single_value,$list);
-		}
-		if ( in_array ( $value, $list) )
-			return true;
-		else {
-			return false;
-			break;
+				$this -> whitelist( $single_value, $list);
+		}else{
+
+			if ( in_array ( $value, $list) || ( $value = '*') ){
+				return true;
+			} else {
+				$error =  '<pre> Begin value: '. print_r($value,true) . '</pre> <pre>Begin List: ' . print_r($list,true) . '</pre>';
+				Logger::instantiate() -> record['whitelist_error'][] = $error;
+				exit;
+			}
 		}
 	}
 
@@ -129,15 +145,15 @@ class Model{
 	// arrayToQuery - Generates a partial query construct from arrays
 	//
 	// Generates a query for multiple columns
-	// and returns parameters that paired non-empty columns.
+	// and returns constructed query
 	//
 	// Only used by where() and update(), needs to be improved for others.
 	//
-	// $columns - array of columns
-	// $parameters - array of paramters
+	// &$columns - array of columns
+	// &$parameters - array of paramters
 	// $seperator - the string that seperates the 'column = ?' statements
 
-	function arrayToQuery( $columns, $parameters, $seperator){
+	function arrayToQuery( &$columns, &$parameters, $seperator){
 		$parameters = array_values($parameters);
 		for( $i = 0, $j = count($parameters), $construct = null; $i < $j ; $i++ ){
 			if( !empty($columns[$i]) ) {
@@ -145,13 +161,13 @@ class Model{
 					$construct .= $seperator;
 				$construct .= $columns[$i] . " = ? ";
 				$paired_parameters[] = $parameters[$i];
+				$paired_columns[]= $columns[$i];
 			}
 		}
 		if (isset($construct) ) {
-			return array(
-				'construct' => $construct,
-				'paired_parameters' => $paired_parameters
-			);
+			$parameters = $paired_parameters;
+			$columns = $paired_columns;
+			return $construct;
 		} else
 			return null;
 	}
@@ -168,6 +184,7 @@ class Model{
 	function select( $column=null, $table = null, $distinct = false){
 		$table = (isset($table)) ? $this -> clean ($table) : $this -> table;
 		$column = (isset($column)) ? $this -> clean($column) : '*';
+		$this -> whitelist($column, $table);
 		$distinct = ( $distinct ) ? 'distinct' : null ;
 		if(is_array($column))
 			$column =  implode($column, ',');
@@ -190,8 +207,7 @@ class Model{
 
 	function insert($value, $column = null, $table =  null){
 		$table = ( isset ($table) ) ? $this -> clean($table) : $this -> table;
-		$this -> clean($value);
-		$column = ( isset($column) ) ?  $this -> clean($column) : $this -> column;
+		$this -> whitelist($column, $table);
 		if ( is_array($value) ){
 			for ($i = 1, $j = count($value), $values = null; $i <= $j ; $i ++){
 				if ($i >  1)		
@@ -211,22 +227,13 @@ class Model{
 	// $new_column - The columnn of for the new value
 
 	function update($new, $new_column = null, $table = null ){
-		$this -> clean($new);
-		$this -> clean($new_column);
 		$table = (isset($table)) ? $this -> clean ($table) : $this -> table;
+		$this -> whitelist($new_column, $table);
 
-		if ( is_array($new) && ($new = array_values($new) ) && (!empty($new[0]) )){
-			$generated_query = $this -> arrayToQuery( $new_column, $new, ' , ');
-			if ($generated_query){
-				$values = $generated_query['construct'];
-				$valid_news = $generated_query['paired_parameters'];
-			}
-		}else{
-			$values = $new;
-			$valid_news = $new;
-		}
+		if ( is_array($new) && ($new = array_values($new) ) && (!empty($new[0]) ))
+			$values = $this -> arrayToQuery( $new_column, $new, ' , ');
 		$this -> query ("update $table set $values");
-		$this -> query_data( $valid_news );
+		$this -> query_data( $new );
 		return $this;
 	}
 
@@ -238,7 +245,6 @@ class Model{
 	function remove($table = null ){
 		$table = (isset($table)) ? $this -> clean ($table) : $this -> table;
 		$column = ( isset($column) ) ?  $this -> clean($column) : 'id';
-		$this -> clean($value);
 		$this -> query ("delete from $table");
 		return $this;
 	}
@@ -250,22 +256,18 @@ class Model{
 	//
 	// $ref - Reference value 
 	// $ref_column - The column the value belongs to
+	// $table - The table to whitelist the columns against
 
-	function where($ref, $ref_column = null ){
-		if ( isset( $ref ) ) 
-			$this -> clean($ref);
+	function where($ref, $ref_column = null , $table = null){
 		$ref_column = ( isset($ref_column) ) ? $this -> clean($ref_column) : 'id';
 		$where = null;
 		if ( isset($ref) && !is_array($ref) ) {
 			$where = $this -> clean($ref_column) . " = ? ";
 		} elseif ( is_array($ref) ){
-			$generated_query = $this -> arrayToQuery( $ref_column, $ref, ' and ');
-			if ($generated_query){
-				$where = $generated_query['construct'];
-				$ref = $generated_query['paired_parameters'];
-			}
+			$where = $this -> arrayToQuery( $ref_column, $ref, ' and ');
 		} 
 		if ($where){
+			$this -> whitelist($ref_column, $table );
 			$this -> query ( ' where ' . $where );
 			$this -> query_data ($ref);
 		}
@@ -279,11 +281,15 @@ class Model{
 	//
 	// $orderby - The column used for ordering
 	// $sort - The type of sort (ex. DESC)
+	// $table - The table to whitelist the columns against
 
-	function order($orderby, $sort){
-		$order = ( ($orderby) && ($sort) ) ? 
-			' order by ' . $this -> clean($orderby) . ' ' . $this -> clean($sort) : null;
-		$this -> query .= $order; 
+	function order($orderby, $sort, $table = null){
+		if ( ($orderby) && ($sort) ){
+			$this -> whitelist($orderby,$table);
+			$this -> whitelist($sort,$table, array('ASC','DESC'));
+			$order = " order by $orderby $sort";
+			$this -> query .= $order; 
+		}
 		return $this;
 	}
 
@@ -295,8 +301,9 @@ class Model{
 	// $limit - Number of rows to return
 
 	function limit($limit, $offset = null){
-		$limit 	= ( isset($limit) ) ? ' limit ' . $this -> clean($limit) : $this -> clean($limit);
-		if ( isset( $offset) )
+		if ( isset( $limit) )
+			$limit = " limit $limit";
+		if ( isset( $offset) && isset($limit) )
 			$limit .= ',' . $offset;
 		$this -> query .= $limit; 
 		return $this;
@@ -311,17 +318,20 @@ class Model{
 
 	public function run(){
 		$db_link = $this -> db();
+
 		Logger::instantiate() -> record['PDO_Query'][] = $this -> query;
 		Logger::instantiate() -> record['PDO_Data'][] = print_r($this -> query_data,true);
+
 		$statement = $db_link -> prepare($this -> query);
 		$statement -> execute($this -> query_data);
+
 		Logger::instantiate() -> record['PDO_Errors'][] = print_r($statement -> errorInfo(), true);
-		if ( preg_match('/select/', $this -> query) )
-			return  $statement -> fetchall(PDO::FETCH_ASSOC);
-		elseif( preg_match('/insert/', $this -> query) )
+
+		if( preg_match('/insert/', $this -> query) )
 			$this -> last_insert_id = $db_link -> lastInsertId();
 		$this -> query = null;
-		$this -> query_data = array();
+		#	$this -> query_data = array();
+		return  $statement -> fetchall(PDO::FETCH_ASSOC);
 	}
 
 
@@ -338,7 +348,7 @@ class Model{
 		$original_query = $this -> query;
 		$total_result = count( $this -> run() );
 		$this -> query = $original_query;
-		$first_row = ($page != 1) ? (($page - 1) * $limit) : ($page - 1);
+		$first_row = ($page != 1) ? (($page - 1) * $items_per_page) : ($page - 1);
 		$this -> limit($first_row,$items_per_page);
 		$query_result = $this -> run();
 		return array(

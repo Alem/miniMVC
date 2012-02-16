@@ -10,7 +10,6 @@ class UserController extends Controller{
 
 	function __construct(){
 		parent::__construct();
-		$this -> model -> nav = $this -> menu -> nav();
 		$this -> start();
 	}
 

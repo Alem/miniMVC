@@ -111,19 +111,24 @@ class Controller{
 	// $module: An string or array containing the name/names of any additional module.
 
 	function useModule($modules = null){
-		if (DEFAULT_MODULES == null)
+		if ( $modules == null && DEFAULT_MODULES == null)
 			return false;
-		$defaults = explode(",", DEFAULT_MODULES);
+
+		$loadable_modules = array();
+
+		if ( defined('DEFAULT_MODULES') ){
+			$defaults = explode(",", DEFAULT_MODULES);
+			$loadable_modules = array_merge($loadable_modules, $defaults); 
+		}
+
 		if( isset($modules) ){
 			if (is_array($modules) )
-				array_merge($modules, $defaults); 
-			else{
-				$defaults[] = $modules; 
-				$modules = $defaults;
-			}
-		}else
-			$modules =  $defaults;
-		foreach( $modules as $module ){
+				$loadable_modules = array_merge($loadable_modules, $modules); 
+			else
+				$loadable_modules[] = $modules;
+		}
+
+		foreach( $loadable_modules as $module ){
 			require_once( SERVER_ROOT . DEFAULT_MODULE_PATH . $module . '.php');
 			$this -> $module = new $module;
 		}

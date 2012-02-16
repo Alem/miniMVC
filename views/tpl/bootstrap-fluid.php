@@ -1,23 +1,18 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-		<meta charset="utf-8">
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
 		<title><?php echo SITE_NAME ?> <?php if( defined('SITE_TAG') ) echo ": " . SITE_TAG; ?> </title> 
 
 		<?php if( defined('META_DESCRIPTION') ): ?>
-		<meta name="description" content="<?php echo META_DESCRIPTION?>">
+		<meta name="description" content="<?php echo META_DESCRIPTION?>"/>
 		<?php endif; ?>
 
 		<?php if( defined('META_KEYWORDS') ): ?>
-		<meta name="keywords" content="<?php echo META_KEYWORDS ?>">
+		<meta name="keywords" content="<?php echo META_KEYWORDS ?>"/>
 		<?php endif; ?>
 
 		<meta name="author" content="">
-
-		<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-		<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-
 
 		<?php if( defined('DEFAULT_CSS')  ): ?>
 		<?php foreach( explode( ",", DEFAULT_CSS ) as $src ): ?>
@@ -26,12 +21,18 @@
 		<?php endif; ?>
 
 		<?php if( defined('DEFAULT_JAVASCRIPT')  ): ?>
-			<?php foreach( explode( ",", DEFAULT_JAVASCRIPT ) as $src ): ?>
-			<script type = "text/javascript" src ='<?php echo DEFAULT_MEDIA_PATH . 'js/' . $src . '.js'; ?>' /> </script>
-			<?php endforeach; ?>
+		<?php foreach( explode( ",", DEFAULT_JAVASCRIPT ) as $src ): ?>
+		<script type = "text/javascript" src ='<?php echo DEFAULT_MEDIA_PATH . 'js/' . $src . '.js'; ?>'> 
+		</script>
+		<?php endforeach; ?>
 		<?php endif; ?>
 
 		<?php if( isset( $this -> analytics) )  echo ($this -> analytics -> track()); ?>
+
+		<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+		<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
 
 		<style type="text/css">
 			body {
@@ -55,8 +56,8 @@
 					<?php endif; ?>
 					<a class="brand" href="?<?php echo DEFAULT_CONTROLLER?>"><?php echo SITE_NAME; ?></a>
 					<ul class="nav">
-						<?php if ( isset( $this -> model -> nav ) ): ?>
-						<?php foreach( $this -> model -> nav as $name => $href): ?>
+						<?php if ( isset( $this -> menu -> nav ) ): ?>
+						<?php foreach( $this -> menu -> nav as $name => $href): ?>
 						<li class ="<?php if($href == $_SERVER['QUERY_STRING']) echo 'active';?>">
 						<a href="?<?php echo $href ?>"><?php echo $name ?></a>
 						</li>
@@ -71,30 +72,30 @@
 		</div>
 
 		<div class="container-fluid">
-						<?php if((isset($this -> model -> sidebar) )): ?>
+			<?php if((isset($this -> menu -> sidebar) )): ?>
 			<div class="sidebar">
 				<div class="well">
 					<ul>
 						<h5>NAVIGATION</h5>
-						<?php foreach( $this -> model -> sidebar as $name => $href): ?>
+						<?php foreach( $this -> menu -> sidebar as $name => $href): ?>
 						<a href="?<?php echo $href ?>"><?php echo $name ?></a> <br/>
 						<?php endforeach; ?>
 					</ul>
 				</div>
-						<? endif;?>
+				<? endif;?>
 			</div>
 
 			<div class="content">
 				<!-- Main hero unit for a primary marketing message or call to action -->
 				<div class="hero-unit">
-<!--
+					<!--
 					<h1><?php echo SITE_NAME; ?> <small><?php echo SITE_TAG; ?></small></h1>
--->
+					-->
 					<br/>
 					<?php require_once( SERVER_ROOT . DEFAULT_VIEW_PATH . $view . '.php'); ?>
 				</div>
-<!--
-					<p><a class="btn primary large">Learn more »</a></p>
+				<!--
+				<p><a class="btn primary large">Learn more »</a></p>
 				<div class="row">
 					<div class="span6">
 						<h2>Heading</h2>
@@ -112,13 +113,12 @@
 
 				<hr>
 
--->
+				-->
 
 				<footer>
 				<p>(c) <a href='<?php echo COMPANY_WEBSITE; ?>'><?php echo COMPANY . ' - ' . date("Y"); ?></a></p>
 				</footer>
 			</div>
 		</div>
-
-
-</body><link rel="stylesheet" type="text/css" href="data:text/css,"></html>
+	</body>
+</html>

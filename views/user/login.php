@@ -6,7 +6,7 @@
 <input name = "username" type = "text" /> <br/>
 <label>Password:</label>
 <input name = "password" type = "password" />  <br/><br/>
-<p> <input class = "btn success Large" type = "submit" value = "Login"/> </p>
+<p> <input class = "btn primary Large" type = "submit" value = "Login"/> </p>
 <span class = "help-block"> Cause we really missed you. </span>
 </form>
 </div>

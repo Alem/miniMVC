@@ -1,8 +1,8 @@
 <h2> Gallery</h2>
 
 <?php if( isset(  $this->model->page )): ?>
-<a href='?<?php echo 'test/gallery/' . $this->page .  VAR_SEPARATOR . 'id' . VAR_SEPARATOR . 'ASC' ?>'>Order by ID</a> |
-<a href='?<?php echo 'test/gallery/' . $this->page .  VAR_SEPARATOR . 'test' . VAR_SEPARATOR . 'ASC' ?>'>Order by Name</a>
+<a href='?<?php echo 'test/gallery/' . $this-> model -> page .  VAR_SEPARATOR . 'id' . VAR_SEPARATOR . 'ASC' ?>'>Order by ID</a> |
+<a href='?<?php echo 'test/gallery/' . $this-> model -> page .  VAR_SEPARATOR . 'test' . VAR_SEPARATOR . 'ASC' ?>'>Order by Name</a>
 <?php endif; ?>
 
 <?php	if( isset( $this -> model -> data) ):	?>

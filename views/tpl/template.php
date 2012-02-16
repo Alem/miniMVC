@@ -1,10 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title><?php echo SITE_NAME ?> <?php if( isset($this -> model -> data['title'])) echo " - " . $this -> model -> data['title']; ?> </title> 
-	<link type="text/css" rel="stylesheet" href="media/css/bootstrap.css"/>
-	<link type="text/css" rel="stylesheet" href="media/css/html5.css"/>
-	<link type="text/css" rel="stylesheet" href="media/css/main.css"/>
+		<meta charset="utf-8">
+		<title><?php echo SITE_NAME ?> <?php if( defined('SITE_TAG') ) echo ": " . SITE_TAG; ?> </title> 
+
+		<?php if( defined('META_DESCRIPTION') ): ?>
+		<meta name="description" content="<?php echo META_DESCRIPTION?>">
+		<?php endif; ?>
+
+		<?php if( defined('META_KEYWORDS') ): ?>
+		<meta name="keywords" content="<?php echo META_KEYWORDS ?>">
+		<?php endif; ?>
+
+		<meta name="author" content="">
+
+		<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+		<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+
+		<?php if( defined('DEFAULT_CSS')  ): ?>
+		<?php foreach( explode( ",", DEFAULT_CSS ) as $src ): ?>
+		<link type="text/css" rel="stylesheet" href="<?php echo DEFAULT_MEDIA_PATH . 'css/' . $src . '.css'; ?>"/>
+		<?php endforeach; ?>
+		<?php endif; ?>
+
+		<?php if( defined('DEFAULT_JAVASCRIPT')  ): ?>
+			<?php foreach( explode( ",", DEFAULT_JAVASCRIPT ) as $src ): ?>
+			<script type = "text/javascript" src ='<?php echo DEFAULT_MEDIA_PATH . 'js/' . $src . '.js'; ?>' /> </script>
+			<?php endforeach; ?>
+		<?php endif; ?>
+
+		<?php if( isset( $this -> analytics) )  echo ($this -> analytics -> track()); ?>
 </head>
 
 <body>
@@ -14,10 +42,12 @@
 
 	<div id="wrapper">
 
-		<?php if((isset($this -> model -> data['sidebar']) )): ?>
+		<?php if ( isset( $this -> menu -> nav ) ): ?>
 		<div id="left_sidebar">
 			<h4>NAVIGATION</h4>
-			<? echo $this -> model -> data['sidebar']; ?>
+			<?php foreach( $this -> menu -> nav as $name => $href): ?>
+			<a href="?<?php echo $href ?>"><?php echo $name ?></a>
+			<?php endforeach; ?>
 		</div>
 		<? endif;?>
 	
@@ -26,22 +56,14 @@
 			<?php require_once( SERVER_ROOT . DEFAULT_VIEW_PATH . $view . '.php'); ?>
 		</div>
 
-		<?php if( (isset($this -> model -> data['r_top_sidebar']) ) || (isset($this -> model -> data['r_bot_sidebar']) ) ): ?>
+		<?php if ( isset( $this -> menu -> sidebar ) ): ?>
 		<div id="right_sidebar">
-
-			<?php if((isset($this -> model -> data['r_top_sidebar']) )): ?>
 			<div id="right_top_sidebar">
 				<h4>TOP SIDEBAR</h4>
-				<?php echo $this -> model -> data['r_top_sidebar']; ?>
+				<?php foreach( $this -> menu -> sidebar as $name => $href): ?>
+				<a href="?<?php echo $href ?>"><?php echo $name ?></a> <br/>
+				<?php endforeach; ?>
 			</div>
-			<? endif;?>
-
-			<?php if((isset($this -> model -> data['r_bot_sidebar']) )): ?>
-			<div id="right_bottom_sidebar">
-				<h4>BOTTOM SIDEBAR</h4>
-				<?php echo $this -> model -> data['r_bot_sidebar']; ?>
-			</div>
-			<? endif;?>
 		</div>
 		<? endif;?>
 

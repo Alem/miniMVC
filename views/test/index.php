@@ -3,13 +3,14 @@
 <br/>
 
 <p>
-<h3> How miniMVC Works</h3>
 <img src='<?php echo DEFAULT_MEDIA_PATH .'img/miniMVC.png'?>' />
 </p>
 
+<h3> How miniMVC Works</h3>
 <p>
-	This data below has been passed to this view 
-	by its controller and was generated/retrieved by its model.
+User requests are recieved by index.php and routed to the correct controller and method along with any variables. <br/>
+Data is then requested by the controller, which is retrieved and returned by the model, and passed through the view by the controller
+to the end user. The controller or its view my incorporate the usage of the controllers/applications modules.
 </p>
 
 <br/>
