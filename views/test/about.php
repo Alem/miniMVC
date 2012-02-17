@@ -1,4 +1,5 @@
-<h2> About <?php echo SITE_NAME; ?> </h2>
+<h1> About</h1>
+<hr>
 <br/>
 <p>
 <?php echo SITE_NAME ?> is a tiny framework created to make the web developers life easier. <br/>
