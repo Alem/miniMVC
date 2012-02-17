@@ -62,7 +62,7 @@ For the MVC scaffold 'foo':
 ### FILE SYSTEM
 
 * controllers/ 		- Holds created controllers.
-* lib/ 			- Contains essential parent classes.
+* lib/ 			- Contains essential system classes.
 * models/		- Holds created models.
 * modules/ 		- Holds module classes
 * views/ 		- Holds created views

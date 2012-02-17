@@ -16,8 +16,8 @@ class Controller{
 	function __construct( $model = true, $module = true ){
 		if ( get_parent_class($this)){
 			$this -> name = strtolower(str_replace('Controller','',get_class($this)));
-				$this -> useModel();
-				$this -> useModule();
+			$this -> useModel();
+			$this -> useModule();
 		}
 	}
 
@@ -32,43 +32,47 @@ class Controller{
 	//
 	// This defines the child controller's name, classname, filename properties and assigns its model.
 	//
-	// $request: The Request URI passed from index.php
-	// This loads the controller, its method and inputs the variables 
-	// if they have been set in the request.  
+	// $request: The Request URI array passed from index.php or a string naming the controller to be loaded 
 	//
 	// $assign: If set to true, will assign the newly created controller 
 	// 		as a property of the controller that called it.
 
 	function useController($request, $assign = null){
 
-		$this -> request = $request;
-		$this -> request['controller'] = ( empty( $request['controller'] ) ) ? 
-			DEFAULT_CONTROLLER : $request['controller'];
-		$controller_file = SERVER_ROOT . DEFAULT_CONTROLLER_PATH . $this -> request['controller'] . '.php';
-		$controller_class = ( $this -> request['controller'] ."Controller" );
-		$controller_name = strtolower($this -> request['controller']);
+		if ( !is_array( $request ) )
+			$request = array( 'controller' => $request );
+		elseif( empty( $request['controller'] ) ) {
+			$request['controller'] = DEFAULT_CONTROLLER;
+		}
 
-		if ( file_exists($controller_file) ) { 
-			require_once($controller_file);
+		$controller_name = strtolower( $request['controller'] );
+		$controller_class = $controller_name . "Controller";
+		$controller_file = SERVER_ROOT . DEFAULT_CONTROLLER_PATH . $controller_name . '.php';
+
+		if ( file_exists( $controller_file ) ) { 
+			require_once( $controller_file );
 			$controller = new $controller_class; 
 			if ( $assign === true )
 				$this -> $controller_name = $controller;
 
-			if ( isset($request['method'] ) && ( method_exists($controller, $this -> request['method'])) ) {
-				if ( isset($this -> request['variable']) ) {
-					if ( strpos($this -> request['variable'], VAR_SEPARATOR ) !== false ) {
-						call_user_func_array( 
-							Array($controller,$request['method']) , 
+			if ( isset( $request['method'] ) 
+				&& ( method_exists( $controller, $request['method'] ) ) 
+			) {
+				if ( isset( $request['variable'] ) ) {
+					if ( strpos( $request['variable'] , VAR_SEPARATOR ) !== false ) {
+						call_user_func_array( array(
+							$controller, 
+							$request['method']) , 
 							explode( VAR_SEPARATOR , $request['variable'] )
 						);
 					}else
-						$controller -> { $this -> request['method'] }( $this -> request['variable'] );
+						$controller -> { $request['method'] }( $request['variable'] );
 				} else 
-					$controller -> { $this -> request['method'] }();
+					$controller -> { $request['method'] }();
 			} elseif ($assign !== true) 
 				$controller -> { DEFAULT_METHOD }();
 		} else 
-			echo "$controller_file does not exist";
+			$this -> prg();
 	}
 
 	// useView - Displays views. 
@@ -144,7 +148,11 @@ class Controller{
 
 	function prg( $method = null, $controller = null ){
 		$controller = ( isset($controller) ) ?  $controller : $this -> name;
-		header("Location: ?" . $controller . '/' . $method, 303);
+		if ($method)
+			$location = $controller . '/' . $method;
+		else
+			$location = $controller;
+		header("Location: ?" . $location, 303);
 	}
 
 

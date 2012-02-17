@@ -3,7 +3,7 @@
 class Logger{
 
 	public $record = null;
-	private static $instance = null;
+	private static $instance;
 
 	private function __construct(){
 	}
@@ -16,6 +16,7 @@ class Logger{
 	}
 
 	public function display(){
+		Session::open();
 		if (DEBUG && ( isset($_SESSION['username']) && $_SESSION['username'] == SITE_ADMIN) ) {
 			$this -> record['Error'] = print_r( error_get_last(), true);
 

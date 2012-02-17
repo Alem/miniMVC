@@ -1,6 +1,6 @@
 <?php
-// 
-// This is the main controller for the application
+//
+// index.php - The bootup script for the application
 // (c) Alem
 
 // Script-timing
@@ -9,10 +9,10 @@ $time_start = microtime(true);
 // Defines path, DB configurations, etc.
 require_once('../config.php');
 
-// Contains essential controller and model classes
-require_once( SERVER_ROOT . 'lib/controller.php');
-require_once( SERVER_ROOT . 'lib/model.php');
-require_once( SERVER_ROOT . 'lib/logger.php');
+// Require all lib/ files
+foreach ( glob( SERVER_ROOT . DEFAULT_LIBRARY_PATH . '/*.php' ) as $filename){
+	require_once( $filename );
+}
 
 // Get the controller, method and variable from URL
 // each delimited by the forward slash '/'

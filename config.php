@@ -12,6 +12,7 @@ define('DEFAULT_PUBLIC_PATH','public_html/');
 
 //// Path Defaults
 // Framework: found in SERVER_ROOT
+define('DEFAULT_LIBRARY_PATH', 'lib/');
 define('DEFAULT_CONTROLLER_PATH', 'controllers/');
 define('DEFAULT_MODEL_PATH', 'models/');
 define('DEFAULT_VIEW_PATH', 'views/');
