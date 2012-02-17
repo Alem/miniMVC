@@ -88,32 +88,11 @@
 			<div class="content">
 				<!-- Main hero unit for a primary marketing message or call to action -->
 				<div class="hero-unit">
-					<!--
-					<h1><?php echo SITE_NAME; ?> <small><?php echo SITE_TAG; ?></small></h1>
-					-->
 					<br/>
 					<?php require_once( SERVER_ROOT . DEFAULT_VIEW_PATH . $view . '.php'); ?>
 				</div>
-				<!--
-				<p><a class="btn primary large">Learn more »</a></p>
-				<div class="row">
-					<div class="span6">
-						<h2>Heading</h2>
-						<p><a class="btn" href="#">View details »</a></p>
-					</div>
-					<div class="span5">
-						<h2>Heading</h2>
-						<p><a class="btn" href="#">View details »</a></p>
-					</div>
-					<div class="span5">
-						<h2>Heading</h2>
-						<p><a class="btn" href="#">View details »</a></p>
-					</div>
-				</div>
 
 				<hr>
-
-				-->
 
 				<footer>
 				<p>(c) <a href='<?php echo COMPANY_WEBSITE; ?>'><?php echo COMPANY . ' - ' . date("Y"); ?></a></p>

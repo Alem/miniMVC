@@ -1,5 +1,5 @@
 <div class = "row" >
-	<div class = "span6">
+	<div class = "span5">
 		<h2> Login </h2>
 		<br/>
 		<form class = "form-stacked" action = "?user/login" method = "post">
@@ -12,7 +12,7 @@
 		</form>
 	</div>
 
-	<div class = "span3">
+	<div class = "span2">
 		<br/>
 		<br/>
 		<br/>
