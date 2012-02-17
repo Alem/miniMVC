@@ -33,10 +33,10 @@ define('DB_DATABASE', 'test');
 define('VAR_SEPARATOR','/');
 define('DEFAULT_CONTROLLER', 'test');
 define('DEFAULT_METHOD', 'index');
-define('DEFAULT_TEMPLATE', 'bootstrap-single');
+define('DEFAULT_TEMPLATE', 'bootstrap-single2');
 define('DEFAULT_MODULES', 'menu,cache');
 define('DEFAULT_JAVASCRIPT', 'jquery,bootstrap');
-define('DEFAULT_CSS', 'bootstrap');
+define('DEFAULT_CSS', 'bootstrap-cerulean');
 
 //// Site information
 define ('SITE_NAME','miniMVC');
