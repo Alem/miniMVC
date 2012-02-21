@@ -29,75 +29,85 @@
 
 		<?php if( isset( $this -> analytics) )  echo ($this -> analytics -> track()); ?>
 
-		<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-		<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-
 		<style type="text/css">
 			body {
 				padding-top: 60px;
+				padding-bottom: 40px;
+			}
+			.sidebar-nav {
+				padding: 9px 0;
 			}
 		</style>
 
-		<link rel="shortcut icon" href="media/img/favicon.ico">
-		<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-		<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-		<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+		<!-- Le fav and touch icons -->
+		<link href="images/favicon.ico" rel="shortcut icon">
+		<link href="images/apple-touch-icon.png" rel="apple-touch-icon">
+		<link href="images/apple-touch-icon-72x72.png" sizes="72x72" rel="apple-touch-icon">
+		<link href="images/apple-touch-icon-114x114.png" sizes="114x114" rel="apple-touch-icon">
 	</head>
 
 	<body>
 
-		<div class="topbar">
-			<div class="topbar-inner">
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
 				<div class="container-fluid">
+					<a data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</a>
 					<?php if ( defined('DEFAULT_LOGO_PATH') ): ?>
 					<img class="brand" src="<?php echo DEFAULT_LOGO_PATH?>"/>
 					<?php endif; ?>
 					<a class="brand" href="?<?php echo DEFAULT_CONTROLLER?>"><?php echo SITE_NAME; ?></a>
-					<ul class="nav">
-						<?php if ( isset( $this -> menu -> nav ) ): ?>
-						<?php foreach( $this -> menu -> nav as $name => $href): ?>
-						<li class ="<?php if($href == URI) echo 'active';?>">
-						<a href="?<?php echo $href ?>"><?php echo $name ?></a>
-						</li>
-						<?php endforeach; ?>
+					<div class="nav-collapse">
+						<ul class="nav">
+							<?php if ( isset( $this -> menu -> nav ) ): ?>
+							<?php foreach( $this -> menu -> nav as $name => $href): ?>
+							<li class ="<?php if($href == URI) echo 'active';?>">
+							<a href="?<?php echo $href ?>"><?php echo $name ?></a>
+							</li>
+							<?php endforeach; ?>
+							<?php endif; ?>
+						</ul>
+						<?php if ( isset( $_SESSION['logged_in'] ) ): ?>
+						<p class="navbar-text pull-right">Logged in as <a href="?user"><?php echo $_SESSION['username'] ?></a></p>
 						<?php endif; ?>
-					</ul>
-					<?php if ( isset( $_SESSION['logged_in'] ) ): ?>
-					<p class="pull-right">Logged in as <a href="?user"><?php echo $_SESSION['username'] ?></a></p>
-					<?php endif; ?>
+					</div><!--/.nav-collapse -->
 				</div>
 			</div>
 		</div>
 
 		<div class="container-fluid">
-			<?php if((isset($this -> menu -> sidebar) )): ?>
-			<div class="sidebar">
-				<div class="well">
-					<ul>
-						<h5>NAVIGATION</h5>
+			<div class="row-fluid">
+				<?php if((isset($this -> menu -> sidebar) )): ?>
+				<div class="span3">
+					<div class="well sidebar-nav">
+						<ul class="nav nav-list">
 						<?php foreach( $this -> menu -> sidebar as $name => $href): ?>
-						<a href="?<?php echo $href ?>"><?php echo $name ?></a> <br/>
+						<li  class="<?php if($href == URI) echo 'active';?>">
+							<a href="?<?php echo $href ?>"><?php echo $name ?></a> <br/>
+						</li>
 						<?php endforeach; ?>
-					</ul>
-				</div>
+						</ul>
+					</div><!--/.well -->
+				</div><!--/span-->
 				<? endif;?>
-			</div>
+				<div class="<?php echo ((isset($this -> menu -> sidebar) )) ? 'span9' : 'span12' ?>"> 
+					<div class="hero-unit">
+						<br/>
+						<?php require_once( SERVER_ROOT . DEFAULT_VIEW_PATH . $view . '.php'); ?>
+					</div><!--/row-->
+				</div><!--/span-->
+			</div><!--/row-->
 
-			<div class="content">
-				<!-- Main hero unit for a primary marketing message or call to action -->
-				<div class="hero-unit">
-					<br/>
-					<?php require_once( SERVER_ROOT . DEFAULT_VIEW_PATH . $view . '.php'); ?>
-				</div>
+			<hr>
+			<footer>
+			<p>(c) <a href='<?php echo COMPANY_WEBSITE; ?>'><?php echo COMPANY . ' - ' . date("Y"); ?></a></p>
+			</footer>
 
-				<hr>
 
-				<footer>
-				<p>(c) <a href='<?php echo COMPANY_WEBSITE; ?>'><?php echo COMPANY . ' - ' . date("Y"); ?></a></p>
-				</footer>
-			</div>
-		</div>
-	</body>
-</html>
+		</div><!--/.fluid-container-->
+
+
+</body></html>

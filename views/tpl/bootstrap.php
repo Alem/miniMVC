@@ -29,6 +29,7 @@
 
 		<?php if( isset( $this -> analytics) )  echo ($this -> analytics -> track()); ?>
 
+
 		<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
 		<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -89,32 +90,33 @@
 		<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
 	</head>
 	<body>
-		<div class="topbar">
-			<div class="fill">
-				<div class="container">
+
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container-fluid">
+					<a data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</a>
 					<?php if ( defined('DEFAULT_LOGO_PATH') ): ?>
 					<img class="brand" src="<?php echo DEFAULT_LOGO_PATH?>"/>
 					<?php endif; ?>
 					<a class="brand" href="?<?php echo DEFAULT_CONTROLLER?>"><?php echo SITE_NAME; ?></a>
-					<ul class="nav">
-						<?php if ( isset( $this -> menu -> nav ) ): ?>
-						<?php foreach( $this -> menu -> nav as $name => $href): ?>
-						<li class ="<?php if($href == URI) echo 'active';?>">
-						<a href="?<?php echo $href ?>"><?php echo $name ?></a>
-						</li>
-						<?php endforeach; ?>
+					<div class="nav-collapse">
+						<ul class="nav">
+							<?php if ( isset( $this -> menu -> nav ) ): ?>
+							<?php foreach( $this -> menu -> nav as $name => $href): ?>
+							<li class ="<?php if($href == URI) echo 'active';?>">
+							<a href="?<?php echo $href ?>"><?php echo $name ?></a>
+							</li>
+							<?php endforeach; ?>
+							<?php endif; ?>
+						</ul>
+						<?php if ( isset( $_SESSION['logged_in'] ) ): ?>
+						<p class="navbar-text pull-right">Logged in as <a href="?user"><?php echo $_SESSION['username'] ?></a></p>
 						<?php endif; ?>
-					</ul>
-
-					<?php if ( !isset( $_SESSION['logged_in'] ) ): ?>
-					<form action="?user/login" method = "post" class="pull-right">
-						<input name = "username" class="input-small" type="text" placeholder="Username">
-						<input name = "password" class="input-small" type="password" placeholder="Password">
-						<button class="btn" type="submit">Sign in</button>
-					</form>
-					<?php else: ?>
-					<a class="pull-right btn danger" href="?user/logout">Log Out</a>
-					<?php endif; ?>
+					</div><!--/.nav-collapse -->
 				</div>
 			</div>
 		</div>
