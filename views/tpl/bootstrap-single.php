@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8"/>
-		<title><?php echo SITE_NAME ?> <?php if( defined('SITE_TAG') ) echo ": " . SITE_TAG; ?> </title> 
+		<title><?php echo SITE_NAME ?> - <?php echo ( isset($this -> model -> title ) ) ? $this -> model -> title : SITE_TAG; ?> </title> 
 
 		<?php if( defined('META_DESCRIPTION') ): ?>
 		<meta name="description" content="<?php echo META_DESCRIPTION?>"/>
@@ -83,16 +83,14 @@
 			<div class="hero-unit">
 				<?php require_once( SERVER_ROOT . DEFAULT_VIEW_PATH . $view . '.php'); ?>
 			</div><!--/row-->
-		</div><!--/row-->
 
-		<hr>
-		<footer>
-		<p>(c) <a href='<?php echo COMPANY_WEBSITE; ?>'><?php echo COMPANY . ' - ' . date("Y"); ?></a></p>
-		</footer>
+			<hr>
+			<footer>
+			<p>(c) <a href='<?php echo COMPANY_WEBSITE; ?>'><?php echo COMPANY . ' - ' . date("Y"); ?></a></p>
+			</footer>
 
+		</div><!--/.container-->
 
-	</div><!--/.container-->
-
-
-</body></html>
+	</body>
+</html>
 

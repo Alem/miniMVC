@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8"/>
-		<title><?php echo SITE_NAME ?> <?php if( defined('SITE_TAG') ) echo ": " . SITE_TAG; ?> </title> 
+		<title><?php echo SITE_NAME ?> - <?php echo ( isset($this -> model -> title ) ) ? $this -> model -> title : SITE_TAG; ?> </title> 
 
 		<?php if( defined('META_DESCRIPTION') ): ?>
 		<meta name="description" content="<?php echo META_DESCRIPTION?>"/>
@@ -81,14 +81,14 @@
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<?php if((isset($this -> menu -> sidebar) )): ?>
-				<div class="span3">
+				<div class="span2">
 					<div class="well sidebar-nav">
 						<ul class="nav nav-list">
-						<?php foreach( $this -> menu -> sidebar as $name => $href): ?>
-						<li  class="<?php if($href == URI) echo 'active';?>">
-							<a href="?<?php echo $href ?>"><?php echo $name ?></a> <br/>
-						</li>
-						<?php endforeach; ?>
+							<?php foreach( $this -> menu -> sidebar as $name => $href): ?>
+							<li  class="<?php if($href == URI) echo 'active';?>">
+							<a href="?<?php echo $href ?>"><?php echo $name ?></a> 
+							</li>
+							<?php endforeach; ?>
 						</ul>
 					</div><!--/.well -->
 				</div><!--/span-->
@@ -106,8 +106,6 @@
 			<p>(c) <a href='<?php echo COMPANY_WEBSITE; ?>'><?php echo COMPANY . ' - ' . date("Y"); ?></a></p>
 			</footer>
 
-
 		</div><!--/.fluid-container-->
-
-
-</body></html>
+	</body>
+</html>

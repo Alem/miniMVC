@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8"/>
-		<title><?php echo SITE_NAME ?> <?php if( defined('SITE_TAG') ) echo ": " . SITE_TAG; ?> </title> 
+		<title><?php echo SITE_NAME ?> - <?php echo ( isset($this -> model -> title ) ) ? $this -> model -> title : SITE_TAG; ?> </title> 
 
 		<?php if( defined('META_DESCRIPTION') ): ?>
 		<meta name="description" content="<?php echo META_DESCRIPTION?>"/>
@@ -131,15 +131,18 @@
 				</div>
 				<div class="row">
 
-					<div class="<?php echo(isset($this -> menu -> sidebar)) ? 'span10' : 'span16' ?>">
+					<div class="<?php echo(isset($this -> menu -> sidebar)) ? 'span8' : 'span16' ?>">
 						<?php require_once( SERVER_ROOT . DEFAULT_VIEW_PATH . $view . '.php'); ?>
 					</div>
 
 					<?php if((isset($this -> menu -> sidebar) )): ?>
-					<div class="span4">
+					<div class="span2">
 						<h5>NAVIGATION</h5>
+						<ul class="nav nav-list">
 						<?php foreach( $this -> menu -> sidebar as $name => $href): ?>
-						<a href="?<?php echo $href ?>"><?php echo $name ?></a> <br/>
+						<li  class="<?php if($href == URI) echo 'active';?>">
+							<a href="?<?php echo $href ?>"><?php echo $name ?></a>
+						</li>
 						<?php endforeach; ?>
 					</div>
 					<? endif;?>
