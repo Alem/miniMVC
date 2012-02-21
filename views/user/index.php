@@ -1,3 +1,10 @@
+<?php if ( isset( $this -> model -> welcomeMsg ) ): ?>
+		<div class="alert-message success"> 
+		<a class="close" href="?user">×</a>
+		<p><strong>Welcome!</strong> You are now logged in as <?php echo $this -> model -> welcomeMsg ?>.</p>
+		</div>
+<?php endif; ?>
+
 <div class = "row" >
 	<h2> User Profile </h2>
 	<br/>

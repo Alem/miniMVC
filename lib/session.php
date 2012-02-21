@@ -57,6 +57,11 @@ class Session{
 			return false;
 	}
 
+	function getThenDel($property){
+		$result = $this -> get ($property);
+		$this -> del ($property);
+		return $result;
+	}
 
 	// timeSince() 
 	//

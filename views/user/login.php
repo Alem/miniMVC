@@ -1,3 +1,15 @@
+<?php if ( isset( $this -> model -> failMsg ) ): ?>
+		<div class="alert-message danger"> 
+		<a class="close" href="?user">×</a>
+		<p><strong>Nope!</strong> Wrong, wrong wrong. Do it again.</p>
+		</div>
+<?php elseif ( isset( $this -> model -> goodbyeMsg ) ): ?>
+		<div class="alert-message info"> 
+		<a class="close" href="?user">×</a>
+		<p>You successfully logged out. <strong>Seeya!</strong></p>
+		</div>
+<?php endif; ?>
+
 <div class = "row" >
 	<div class = "span5">
 		<h2> Login </h2>

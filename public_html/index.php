@@ -16,9 +16,14 @@ foreach ( glob( SERVER_ROOT . DEFAULT_LIBRARY_PATH . '/*.php' ) as $filename){
 
 // Get the controller, method and variable from URL
 // each delimited by the forward slash '/'
-$parsed_request = explode( '/', $_SERVER['QUERY_STRING'], 3);
-$request['controller'] = $parsed_request[0];
+if ( isset($argv[1]) )
+	define('URI', $argv[1]);
+else
+	define('URI', $_SERVER['QUERY_STRING']);
+
+$parsed_request = explode( '/', URI, 3);
 $request_size = count( $parsed_request );
+$request['controller'] = $parsed_request[0];
 if ( $request_size > 1 )
 	$request['method'] = $parsed_request[1];
 if( $request_size > 2 )

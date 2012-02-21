@@ -146,11 +146,15 @@ class Controller{
 	// $method - The controller method to call AKA the page to redirect to (ex. index)
 	// $controller - The controller the method belongs to. Defaults to the current controller.
 
-	function prg( $method = null, $controller = null ){
+	function prg( $method = null, $variables = null, $controller = null ){
 		$controller = ( isset($controller) ) ?  $controller : $this -> name;
-		if ($method)
+		if ($method){
 			$location = $controller . '/' . $method;
-		else
+			if (is_array($variables))
+				$location .= '/' . implode( VAR_SEPARATOR, $variables);
+			elseif ($variables)
+				$location .= '/' . $variables;
+		}else
 			$location = $controller;
 		header("Location: ?" . $location, 303);
 	}

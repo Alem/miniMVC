@@ -58,7 +58,7 @@
 					<ul class="nav">
 						<?php if ( isset( $this -> menu -> nav ) ): ?>
 						<?php foreach( $this -> menu -> nav as $name => $href): ?>
-						<li class ="<?php if($href == $_SERVER['QUERY_STRING']) echo 'active';?>">
+						<li class ="<?php if($href == URI) echo 'active';?>">
 						<a href="?<?php echo $href ?>"><?php echo $name ?></a>
 						</li>
 						<?php endforeach; ?>

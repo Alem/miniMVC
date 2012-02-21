@@ -22,12 +22,12 @@ class UserController extends Controller{
 
 	function index($message = null){
 		if( $message == 'goodbye' )
-			echo $this -> model -> goodbye();
+			$this -> model -> goodbyeMsg = true;
 		elseif( $message == 'failure' )
-			echo $this -> model -> fail();
+			$this -> model -> failMsg = true;
+		elseif ( $message == 'welcome' )
+			$this -> model -> welcomeMsg = Session::open() -> get('username');
 		if( Session::open() -> get('logged_in') ){
-			if ( $message == 'welcome' )
-				echo $this -> model -> welcome();
 			$this -> useView();
 		}
 		else
