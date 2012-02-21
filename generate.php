@@ -8,17 +8,21 @@ require_once('config.php');
 // model()
 // view()
 
-function controller($name) {
+function controller($name, $short_name) {
 
 	$crud = <<<CRUD
+
+	// form() - Loads 'form' view
+
+	function form(){
+		\$this -> useView('form');
+	}
+
 
 	// post() - Recieves POST data and hands it to model for database insertion
 	
 	function post(){
-		\$form_fields = array_keys(\$_POST);
-		\$this -> model 
-			-> insert( \$_POST, \$form_fields) 
-			-> run();
+		\$this -> model -> insertPOST();
 		\$this -> prg('show');
 	}
 
@@ -34,7 +38,7 @@ function controller($name) {
 	// del() - Directly remove database data from URL. TEST ONLY
 
 	function del(\$value, \$column = null){
-		\$this -> model -> remove() -> where ( \$value, \$column ) -> run();
+		\$this -> model -> delete$short_name ( \$value, \$column );
 		\$this -> prg('show');
 	}
 
@@ -47,23 +51,20 @@ function controller($name) {
 	// \$new_column - Column of new value
 
 	function edit(\$ref, \$new, \$column_ref = null, \$column_new = null){
-		\$this -> model -> update( \$new, \$new_column) -> where(\$ref, \$ref_column) -> run();
+		\$this -> model -> edit$short_name(\$new, \$new_column, \$ref, \$ref_column );
 		\$this -> show();
 	}
 
 	
-	// show() - Display all information 
+	// show() - Display all information for specifed primary Id
 	//
-	// Retrieves all data and passes it to 'index' view
+	// Retrieves all data for specified id and passes it to 'index' view
 
-	function show(){
-		\$result = \$this -> model 
-			-> select ('*') 
-			-> run();
-
-		\$this -> model -> data = \$result;
-		\$this -> useView(); 
+	function show( ){
+		\$this -> model -> get$short_name();
+		\$this -> useView();
 	}
+
 
 CRUD;
 
@@ -73,8 +74,6 @@ CRUD;
 class $name extends Controller{
 	function __construct(){
 		parent::__construct();
-		\$this -> model -> nav = \$this -> menu -> nav();
-		\$this -> model -> sidebar = \$this -> menu -> sidebar();
 	}
 
 	function index(){
@@ -99,6 +98,29 @@ class $name extends Model{
 	function __construct(){
 		parent::__construct();
 	}
+
+	function insertPOST(){
+		\$form_fields = array_keys(\$_POST);
+		\$this	-> insert( \$_POST, \$form_fields) 
+			-> run();
+	}
+
+	function delete$name ( \$value, \$column ) {
+		\$this  -> remove() -> where ( \$value, \$column ) -> run();
+	}
+
+	function edit$name(\$new, \$new_column, \$ref, \$ref_column ) {
+		\$this  -> update( \$new, \$new_column) -> where(\$ref, \$ref_column) -> run();
+	}
+
+	function get$name( ) {
+		\$result = \$this -> select ('*') 
+			-> run();
+		\$this  -> set( 'data',  \$result);
+
+		return \$result;
+	}
+
 
 }
 ?>
@@ -214,7 +236,7 @@ function generate($name,$type){
 	if ($type == 'c'){
 		echo "Creating controller for $name...\n";
 		$class = $name . 'Controller';
-		$template = controller(ucwords($class));
+		$template = controller(ucwords($class), ucwords($name) );
 		$path =  SERVER_ROOT . '/controllers/' . $name . '.php';
 	}
 
