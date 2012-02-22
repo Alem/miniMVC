@@ -28,6 +28,7 @@ class UserController extends Controller{
 		elseif ( $message == 'welcome' )
 			$this -> model -> welcomeMsg = Session::open() -> get('username');
 		if( Session::open() -> get('logged_in') ){
+			$this -> model -> title = Session::open() -> get('username');
 			$this -> useView();
 		}
 		else

@@ -60,7 +60,7 @@
 					<?php if ( defined('DEFAULT_LOGO_PATH') ): ?>
 					<img class="brand" src="<?php echo DEFAULT_LOGO_PATH?>"/>
 					<?php endif; ?>
-					<a class="brand" href="?<?php echo DEFAULT_CONTROLLER?>"><?php echo SITE_NAME; ?></a>
+					<a class="brand" href="?"><?php echo SITE_NAME; ?></a>
 					<div class="nav-collapse">
 						<ul class="nav">
 							<?php if ( isset( $this -> menu -> nav ) ): ?>
