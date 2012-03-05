@@ -2,7 +2,6 @@
 
 class UserController extends Controller{
 
-	public $id;
 	public $logged_in;
 	public $username;
 	public $email;
@@ -54,6 +53,7 @@ class UserController extends Controller{
 			$this -> logged_in = true;
 			Session::open() -> set('username', $username);
 			Session::open() -> set('email', $user[0]['email']);
+			Session::open() -> set('user_id', $user[0]['id']);
 			Session::open() -> set('logged_in', $this -> logged_in);
 		}
 

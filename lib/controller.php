@@ -114,27 +114,30 @@ class Controller{
 	//
 	// $module: An string or array containing the name/names of any additional module.
 
-	function useModule($modules = null){
+	function useModule( $modules = null, $assign = true ){
+
 		if ( $modules == null && DEFAULT_MODULES == null)
 			return false;
 
 		$loadable_modules = array();
 
-		if ( defined('DEFAULT_MODULES') ){
-			$defaults = explode(",", DEFAULT_MODULES);
-			$loadable_modules = array_merge($loadable_modules, $defaults); 
+		if ( defined( 'DEFAULT_MODULES' ) ){
+			$defaults = explode( ",", DEFAULT_MODULES );
+			$loadable_modules = array_merge( $loadable_modules, $defaults); 
 		}
 
-		if( isset($modules) ){
-			if (is_array($modules) )
+		if( isset( $modules) ){
+			if ( is_array($modules) )
 				$loadable_modules = array_merge($loadable_modules, $modules); 
 			else
 				$loadable_modules[] = $modules;
 		}
 
-		foreach( $loadable_modules as $module ){
-			require_once( SERVER_ROOT . DEFAULT_MODULE_PATH . $module . '.php');
-			$this -> $module = new $module;
+		foreach( $loadable_modules as $module_path ){
+			require_once( SERVER_ROOT . DEFAULT_MODULE_PATH . $module_path . '.php');
+			$sub_path = explode('/', $module_path);
+			if ( $assign == true )
+				$this -> $sub_path[1] = new $sub_path[1];
 		}
 	}
 

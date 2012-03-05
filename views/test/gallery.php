@@ -40,6 +40,7 @@
 
 </table>
 
+<?php if( (  $this -> model -> lastpage != 0 )): ?>
 <div class="pagination">
 	<ul>
 		<?php if( isset(  $this->model->page )): ?>
@@ -56,6 +57,7 @@
 		<?php endif; ?>
 	</ul>
 </div>
+<?php endif; ?>
 
 <?php else: ?>
 No results!

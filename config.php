@@ -34,7 +34,7 @@ define('VAR_SEPARATOR','/');
 define('DEFAULT_CONTROLLER', 'test');
 define('DEFAULT_METHOD', 'index');
 define('DEFAULT_TEMPLATE', 'bootstrap-single');
-define('DEFAULT_MODULES', 'menu,cache');
+define('DEFAULT_MODULES', 'base/menu,base/cache');
 define('DEFAULT_JAVASCRIPT', 'jquery,bootstrap');
 define('DEFAULT_CSS', 'bootstrap-cerulean');
 

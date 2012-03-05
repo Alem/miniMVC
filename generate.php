@@ -1,5 +1,8 @@
 #!/usr/bin/php
 <?
+
+// Hideous, gets job done.
+
 require_once('config.php');
 
 
@@ -10,7 +13,22 @@ require_once('config.php');
 
 function controller($name, $short_name) {
 
-	$crud = <<<CRUD
+	$controller = <<<CONT
+<?php
+
+class $name extends Controller{
+
+	function __construct(){
+		parent::__construct();
+	}
+
+
+	// index() - Loads default 'index' view
+	
+	function index(){
+		\$this -> useView();
+	}
+
 
 	// form() - Loads 'form' view
 
@@ -23,11 +41,11 @@ function controller($name, $short_name) {
 	
 	function post(){
 		\$this -> model -> insertPOST();
-		\$this -> prg('show');
+		\$this -> prg('gallery');
 	}
 
 
-	// add() - Directly insert data from URL. TEST ONLY
+	// add() - Directly insert data from URL. $short_name ONLY
 
 	function add(\$item){
 		\$this -> model -> insert(\$item) -> run();
@@ -35,11 +53,11 @@ function controller($name, $short_name) {
 	}
 
 
-	// del() - Directly remove database data from URL. TEST ONLY
+	// del() - Directly remove database data from URL. $short_name ONLY
 
 	function del(\$value, \$column = null){
 		\$this -> model -> delete$short_name ( \$value, \$column );
-		\$this -> prg('show');
+		\$this -> prg('gallery');
 	}
 
 
@@ -58,29 +76,35 @@ function controller($name, $short_name) {
 	
 	// show() - Display all information for specifed primary Id
 	//
-	// Retrieves all data for specified id and passes it to 'index' view
+	// Retrieves all data for specified id and passes it to 'gallery' view
 
-	function show( ){
-		\$this -> model -> get$short_name();
-		\$this -> useView();
+	function show( \$id ){
+		\$this -> model -> get$short_name(\$id);
+		\$this -> useView('gallery');
 	}
 
 
-CRUD;
+	// gallery() - A gallery of items
+	//
+	// Displays items '{$short_name}s' in gallery form.
+	//
+	// \$page - Current page, defaults to 1
+	// \$order_col 	- The column to order by
+	// \$order_sort 	- The sort to use
 
-	$controller = <<<CONT
-<?php
-
-class $name extends Controller{
-	function __construct(){
-		parent::__construct();
+	function gallery(\$page = 1, \$order_col = null, \$order_sort = null){
+		\$this -> model -> gallery$short_name( \$order_col, \$order_sort, \$page  );
+		\$this -> useView('gallery');
 	}
 
-	function index(){
-		\$this -> useView(); 
+
+	// about() - Run of the mill 'about' page
+
+	function about(){
+		\$this -> useView('about');
 	}
 
-	$crud
+
 }
 ?>
 CONT;
@@ -113,14 +137,33 @@ class $name extends Model{
 		\$this  -> update( \$new, \$new_column) -> where(\$ref, \$ref_column) -> run();
 	}
 
-	function get$name( ) {
+	function get$name(\$id ) {
 		\$result = \$this -> select ('*') 
+			-> where(\$id,'id') 
 			-> run();
 		\$this  -> set( 'data',  \$result);
 
 		return \$result;
 	}
 
+	function gallery$name( \$order_col, \$order_sort, \$page){
+		\$result = \$this -> select('*') 
+			-> order( \$order_col, \$order_sort) 
+			-> page(\$page, 6);
+
+		\$order_string = VAR_SEPARATOR . implode( VAR_SEPARATOR, array_filter(array( \$order_col, \$order_sort )));
+
+		\$this  -> set( 
+			array( 
+				'page' => \$page, 
+				'order' => \$order_string,
+				'lastpage' => \$result['pages'], 
+				'data' => \$result['paged'],
+			)
+		);
+
+		return \$result;
+	}
 
 }
 ?>
@@ -129,46 +172,183 @@ MODEL;
 }
 
 
-function view($name,$u_name) {
-	$view = <<<VIEW
-<h3> Main view for $u_name </h3>
-<p>
-	This data below has been passed to this view 
-	by its controller and was generated/retrieved by its model.
-</p>
+function view($name,$u_name, $return) {
+	$index = <<<VIEW
+<h1><?php echo SITE_NAME; ?> <small><?php echo SITE_TAG; ?></small></h1>
+<hr>
 
-<div class='row'>
-<div class='span5'>
-<h3>ADD AN ITEM: </h3> 
-<form action = "?$name/post/" method="post">
-<input id = "$name" name = "$name" type="text" />
-<input type = "submit" value = "Add"/>
-</form>
+<br/>
+
+<div class ='row'>
+	<div class ='span7'>
+
+		<h2> How It Works</h2>
+		<br/>
+		<p>
+		<ol>
+			<li>User requests are recieved by index.php and routed to the correct controller and method along with any variables. </li>
+			<br/>
+			<li>Database data is then requested by the controller, which is retrieved and returned by the model, and passed through the view by the controller to the end user.</li>
+			<br/>
+			<li>The controller or its view may incorporate the use of the controllers/applications modules.</li>
+		</ol>
+		</p>
+
+		<br/>
+
+	</div>
+	<div class ='span4'>
+		<blockquote>
+			<p>
+			<h3>Add An Item</h3> 
+			<br/>
+			<form action = "?$name/post/" method="post">
+				<input name = "<?php echo \$this -> name ?>" type="text" />
+				<input type = "submit" value = "Add"/>
+			</form>
+			</p>
+
+			<?php	if( isset( \$this -> model -> data['show']) ):	?>
+			<h2>List</h2>
+			<ul>
+				<?php foreach( \$this -> model -> data['show'] as \$row) :	?>
+				<li>
+				<?php foreach( \$row as \$column => \$value) :	?>
+				<b> <?php echo \$column; ?>:  <?php echo \$value; ?> </b>
+				<?php endforeach; ?>
+				<br/>
+				<a href='?$name/del/<?php echo \$row['id'] ?>/'> Delete</a></p> 
+				</li>
+				<?php endforeach; ?>
+			</ul>
+
+			<?php else: ?>
+			<p>
+			The database is empty. <br/> <a href="?$name/form">Click here</a>  to add items.
+			</p>
+			<?php endif; ?>
+
+			<?php	echo ( isset( \$this -> model -> data['content'] ) ) ? \$this -> model -> data['content'] : "";	?>
+		</blockquote>
+	</div>
 </div>
 
-<?php	if( isset( \$this -> model -> data) ):	?>
-<div class='span5'>
-<h2>List</h2>
-<ul>
-<?php foreach( \$this -> model -> data as \$row) :	?>
-	<li>
-	<?php foreach( \$row as \$column => \$value) :	?>
-	<b> <?php echo \$column; ?>:  <?php echo \$value; ?> </b>
-	<?php endforeach; ?>
-	<br/>
-	<a href='?$name/del/<?php echo \$row['id'] ?>'> Delete</a></p> 
-	</li>
-<?php endforeach; ?>
-</ul>
-</div>
-<?php else: ?>
+
 <p>
-	The database is empty. Try to adding items.
+<img src='<?php echo DEFAULT_MEDIA_PATH .'img/miniMVC.png'?>' />
 </p>
-<?php endif; ?>
+VIEW;
+
+	$form = <<<VIEW
+<div class = 'row' >
+	<div class = 'span4' >
+		<form class = "form-stacked" action = "?<?php echo \$this -> name ?>/post/" method = "post">
+			<label>ID: </label>  <input id = "id" name = "id" type="text"> <br/>
+			<label>Entry: </label> <br/>
+			<textarea id = "<?php echo \$this -> name ?>-field" name = "<?php echo \$this -> name ?>" type="text" rows="10" cols="50" ></textarea>
+			<p>
+			<input class = "Primary btn large btn-primary btn-large" type = "submit" value = "Submit"/>
+			</p>
+		</form>
+	</div>
+	<div class = 'span5' >
+		<h1>Add</h1>
+		<hr>
+		<br/>
+		<p>
+		The content you enter here is added directly to the database.
+		</p>
+		<p>
+		The data is parameterized and the columns are whitelisted to match valid table columns.
+		</p>
+
+	</div>
 </div>
 VIEW;
-	return $view;
+
+	$gallery = <<<VIEW
+<div class = 'row'>
+	<div class = 'span5'>
+		<h1> View</h1>
+		<hr>
+		<br/>
+	</div>
+
+	<div class = 'span6'>
+		<br/>
+		<br/>
+		<?php if( isset(  \$this->model->page )): ?>
+		<a class = 'btn btn-info' href='?<?php echo '$name/gallery/' . \$this-> model -> page .  VAR_SEPARATOR . 'id' . VAR_SEPARATOR . 'ASC' ?>'>Order by ID</a> 
+		<a class = 'btn btn-info' href='?<?php echo '$name/gallery/' . \$this-> model -> page .  VAR_SEPARATOR . '$name' . VAR_SEPARATOR . 'ASC' ?>'>Order by Name</a>
+		<?php endif; ?>
+
+		<?php	if( isset( \$this -> model -> data) ):	?>
+	</div>
+</div>
+<br/>
+<br/>
+<table class ='table table-striped'>
+	<tr>
+		<th> Id </th>
+		<th> Item </th>
+		<th> Action </th>
+	</tr>
+	<?php foreach( \$this -> model -> data as \$row) :	?>
+	<tr>
+		<td>
+			<?php foreach( \$row as \$column => \$value) :	?>
+			<?php echo \$value ?> 
+		</td>
+		<td>
+			<?php endforeach; ?>
+			<br/> <a class ='btn btn-danger' href='?<? echo \$this -> name ?>/del/<?php echo \$row['id'] ?>'> Delete</a></p> 
+		</td>
+
+	</tr>
+	<?php endforeach; ?>
+
+</table>
+
+<div class="pagination">
+	<ul>
+		<?php if( isset(  \$this->model->page )): ?>
+		<?php \$count = count(\$this -> model -> data); ?>
+		<?php if(\$this -> model -> page != 1): ?>
+		<li class="prev"><a href="?<?php echo \$this -> name ?>/gallery/<?php echo (\$this->model->page - 1).(\$this->model->order) ?>">&larr; Previous</a></li>
+		<?php endif; ?>
+		<?php for( \$i = \$this->model->page; \$i <= \$this -> model -> lastpage; \$i++) : ?>
+		<li><a href="?<?php echo \$this -> name ?>/gallery/<?php echo \$i.(\$this->model->order)  ?>"><?php echo \$i ?></a></li>
+		<?php endfor; ?>
+		<?php if(\$this -> model -> page != \$this -> model -> lastpage): ?>
+		<li class="next"><a href="?<?php echo \$this -> name ?>/gallery/<?php echo (\$this->model->page + 1).(\$this->model->order) ?>">Next &rarr;</a></li>
+		<?php endif; ?>
+		<?php endif; ?>
+	</ul>
+</div>
+
+<?php else: ?>
+No results!
+<?php endif; ?>
+VIEW;
+
+	$about = <<<VIEW
+<h1> About</h1>
+<hr>
+<br/>
+<p>
+<?php echo SITE_NAME ?> is a tiny framework created to make the web developers life easier. <br/>
+In contrast to the popular large frameworks, <?php echo SITE_NAME; ?> is very tiny and includes only 
+a bare-bones MVC structure with supplementary media.<br/> 
+</p>
+<p>
+With its small size, <?php echo SITE_NAME; ?> doesn't get in your way and lets you <em>swiftly hack your way</em> to a new app.
+</p>
+<p>
+If you notice any bugs or leaky faucets let us know at <a href = "mailto:<?php echo SITE_EMAIL ?>"> <?php echo SITE_EMAIL ?></a>.
+</p>
+VIEW;
+
+	return $$return;
 }
 
 
@@ -238,30 +418,36 @@ function generate($name,$type){
 		$class = $name . 'Controller';
 		$template = controller(ucwords($class), ucwords($name) );
 		$path =  SERVER_ROOT . '/controllers/' . $name . '.php';
+		create($path, $template);
 	}
 
 	if ($type == 'm'){
 		echo "Creating model for $name...\n";
 		$template = model(ucwords($name),$name);
 		$path =  SERVER_ROOT . '/models/' . $name . '.php';
+		create($path, $template);
 	}
 
 	if ($type == 'v'){
 		echo "Creating view for $name...\n";
-		$template = view( $name, ucwords($name) );
 		$dir =  SERVER_ROOT . '/views/' . $name . '/';
 		mkdir( $dir , 0755 ) or die("Couldn't create directory");
-		$path =  $dir . 'index.php';
+		create($dir . 'index.php' , view( $name, ucwords($name), 'index' ) );
+		create($dir . 'form.php' , view( $name, ucwords($name), 'form' ) );
+		create($dir . 'gallery.php' , view( $name, ucwords($name), 'gallery' ) );
+		create($dir . 'about.php' , view( $name, ucwords($name), 'about' ) );
 	}
 
-	create($path, $template);
 	echo "Completed \n";
 }
 
 function undo($name){
 	$paths['c'] =  SERVER_ROOT . '/controllers/' . $name . '.php';
 	$paths['m'] =  SERVER_ROOT . '/models/' . $name . '.php';
-	$paths['v'] =  SERVER_ROOT . '/views/' . $name . '/' . 'index.php';
+	$paths['vi'] =  SERVER_ROOT . '/views/' . $name . '/' . 'index.php';
+	$paths['vg'] =  SERVER_ROOT . '/views/' . $name . '/' . 'gallery.php';
+	$paths['vf'] =  SERVER_ROOT . '/views/' . $name . '/' . 'form.php';
+	$paths['va'] =  SERVER_ROOT . '/views/' . $name . '/' . 'about.php';
 	$dir =  SERVER_ROOT . '/views/' . $name;
 	foreach ($paths as $path){
 		unlink($path);
