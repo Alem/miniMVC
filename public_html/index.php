@@ -4,7 +4,7 @@
 // (c) Alem
 
 // Script-timing
-$time_start = microtime(true);
+$timer_start = microtime(true);
 
 // Defines path, DB configurations, etc.
 require_once('../config.php');
@@ -16,10 +16,10 @@ foreach ( glob( SERVER_ROOT . DEFAULT_LIBRARY_PATH . '/*.php' ) as $filename){
 
 // Get the controller, method and variable from URL
 // each delimited by the forward slash '/'
-if ( isset($argv[1]) )
-	define('URI', $argv[1]);
+if ( isset( $argv[1] ) )
+	define( 'URI', $argv[1] );
 else
-	define('URI', $_SERVER['QUERY_STRING']);
+	define( 'URI', $_SERVER['QUERY_STRING'] );
 
 $parsed_request = explode( '/', URI, 3);
 $request_size = count( $parsed_request );
@@ -34,9 +34,12 @@ $application = new Controller();
 $application -> useController($request);
 
 // Script-timing completion
-$time_end = microtime(true);
-$time = $time_end - $time_start;
-Logger::instantiate() -> record['Script_Time'] = $time;
+$timer_end = microtime(true);
+$time = $timer_end - $timer_start;
+Logger::instantiate() -> record['Script Time'] = $time;
+Logger::instantiate() -> record['Memory Usage'] = ( memory_get_usage() / 1000 ) . ' kb';
+Logger::instantiate() -> record['Memory Peak Usage'] = ( memory_get_peak_usage() / 1000 ) . ' kb';
+Logger::instantiate() -> record['CPU Usage'] = getrusage(); 
 
 //Logging Output
 Logger::instantiate() -> display();
