@@ -1,11 +1,11 @@
 <?php if ( isset( $this -> model -> failMsg ) ): ?>
 		<div class="alert alert-danger"> 
-		<a class="close" href="?user">×</a>
+		<a class="close" href="user">×</a>
 		<strong>Nope!</strong> Wrong, wrong wrong. Do it again.
 		</div>
 <?php elseif ( isset( $this -> model -> goodbyeMsg ) ): ?>
 		<div class="alert alert-info"> 
-		<a class="close" href="?user">×</a>
+		<a class="close" href="user">×</a>
 		You successfully logged out. <strong>Seeya!</strong>
 		</div>
 <?php endif; ?>

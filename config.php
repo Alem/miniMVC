@@ -6,9 +6,10 @@ ini_set('display_errors', 1);
 define('DEBUG', true);
 
 //// Base Path
-define('WEB_ROOT', 'http://localhost');
+define('WEB_ROOT', 'http://localhost/miniMVC/public_html/');
 define('SERVER_ROOT', dirname(__FILE__) .'/');
 define('DEFAULT_PUBLIC_PATH','public_html/');
+define('BASE_HREF', 'http://localhost/miniMVC/public_html/');
 
 //// Path Defaults
 // Framework: found in SERVER_ROOT

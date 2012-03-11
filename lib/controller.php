@@ -87,10 +87,16 @@ class Controller{
 	// 	(lowercase without 'Controller') as a dir and index as the view filename.
 	// $template: The template file the view will be incorporated into. Defaults to DEFAULT_TEMPLATE.
 
-	function useView($view = null, $controller = null, $template = DEFAULT_TEMPLATE){
+	function useView($view = null, $controller = null, $template = DEFAULT_TEMPLATE, $model = null){
 		$controller = ( isset($controller) ) ?  $controller : $this -> name;
 		$view = ( isset($view) ) ?  $controller.'/'.$view : $this-> name . '/' . 'index';
-		require_once( SERVER_ROOT . DEFAULT_TEMPLATE_PATH . $template . '.php');
+		if ( !isset($model) && isset ( $this -> model ) )  
+			$model = $this -> model;
+
+		if ( $template )
+			require_once( SERVER_ROOT . DEFAULT_TEMPLATE_PATH . $template . '.php');
+		else
+			require( SERVER_ROOT . DEFAULT_VIEW_PATH . $view . '.php');
 	}
 
 	// useModel - Defines model.
@@ -102,8 +108,10 @@ class Controller{
 
 	function useModel($model = null){
 		$model = ( isset($model) ) ?  $model : $this -> name;
-		require_once( SERVER_ROOT . DEFAULT_MODEL_PATH . $model . '.php');
-		$this -> model = new $model;
+		if ( file_exists(  SERVER_ROOT . DEFAULT_MODEL_PATH . $model . '.php')){
+			require_once( SERVER_ROOT . DEFAULT_MODEL_PATH . $model . '.php');
+			$this -> model = new $model;
+		}
 	}
 
 	// useModule - Defines module.
@@ -159,7 +167,7 @@ class Controller{
 				$location .= '/' . $variables;
 		}else
 			$location = $controller;
-		header("Location: ?" . $location, 303);
+		header("Location: " . WEB_ROOT . $location, 303);
 	}
 
 

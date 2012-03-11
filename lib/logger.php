@@ -17,11 +17,25 @@ class Logger{
 
 	public function display(){
 		Session::open();
-		if (DEBUG && ( isset($_SESSION['username']) && $_SESSION['username'] == SITE_ADMIN) ) {
+		if ( DEBUG && ( isset($_SESSION['username']) && $_SESSION['username'] == SITE_ADMIN ) ) {
 			$this -> record['Error'] = print_r( error_get_last(), true);
 
-			echo '<pre><h3>DEBUGGING</h3>' .  $this -> formatArray($this -> record) . '</pre>';
-			echo '<pre><h3>SESSION</h3>' .  $this -> formatArray($_SESSION) . '</pre>';
+			$table = <<<TABLE
+			<br/>
+			<table class="table table-bordered">
+				<thead>
+					<th><h3>Debug</h3></th>
+					<th><h3>Session</h3></th>
+				</thead>
+				<tbody>
+				<tr>
+					<td><pre>{$this -> formatArray( $this -> record )}</pre></td>
+					<td><pre>{$this -> formatArray( $_SESSION )}</pre></td>
+				</tr>
+				</tbody>
+			</table>
+TABLE;
+			echo $table;
 			$_SESSION['last_logger'] = $this -> record;
 		}
 	}

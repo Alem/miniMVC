@@ -23,11 +23,17 @@ else
 
 $parsed_request = explode( '/', URI, 3);
 $request_size = count( $parsed_request );
-$request['controller'] = $parsed_request[0];
-if ( $request_size > 1 )
-	$request['method'] = $parsed_request[1];
-if( $request_size > 2 )
-	$request['variable'] = $parsed_request[2];
+
+define( 'CONTROLLER' ,  $parsed_request[0] );
+$request['controller'] = CONTROLLER;
+if ( $request_size > 1 ){
+	define( 'METHOD' ,  $parsed_request[1] );
+	$request['method'] = METHOD;
+}
+if( $request_size > 2 ) {
+	define( 'VARIABLE' ,  $parsed_request[2] );
+	$request['variable'] = VARIABLE;
+}
 
 // Instantiate appropriate controller based on request.
 $application = new Controller();

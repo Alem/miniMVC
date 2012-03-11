@@ -1,6 +1,6 @@
 <?php if ( isset( $this -> model -> welcomeMsg ) ): ?>
 		<div class="alert alert-success"> 
-		<a class="close" href="?user">×</a>
+		<a class="close" href="user">×</a>
 		<strong>Welcome!</strong> You are now logged in as <?php echo $this -> model -> welcomeMsg ?>.
 		</div>
 <?php endif; ?>
@@ -21,6 +21,6 @@
 	</div>
 
 	<div class = "span4">
-		<a href = "?user/logout" class = "btn-danger btn-large" >Logout </a>
+		<a href = "user/logout" class = "btn-danger btn-large" >Logout </a>
 	</div>
 </div>

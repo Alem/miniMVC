@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<?php if( defined('BASE_HREF') ): ?>
+		<base href = '<?php echo BASE_HREF ?>'>
+		<?php endif; ?>
+
 		<meta charset="utf-8"/>
 		<title><?php echo SITE_NAME ?> - <?php echo ( isset($this -> model -> title ) ) ? $this -> model -> title : SITE_TAG; ?> </title> 
 
@@ -37,6 +41,12 @@
 			.sidebar-nav {
 				padding: 9px 0;
 			}
+
+			.logo-small {
+				max-width: 20px;
+				max-height: 20px;
+			}
+				
 		</style>
 
 		<!-- Le fav and touch icons -->
@@ -57,36 +67,56 @@
 						<span class="icon-bar"></span>
 					</a>
 					<?php if ( defined('DEFAULT_LOGO_PATH') ): ?>
-					<img class="brand" src="<?php echo DEFAULT_LOGO_PATH?>"/>
+					<img class="logo-small brand" src="<?php echo DEFAULT_LOGO_PATH?>"/>
 					<?php endif; ?>
-					<a class="brand" href="?"><?php echo SITE_NAME; ?></a>
+					<a class="brand" href="<?php echo DEFAULT_CONTROLLER?>"><?php echo SITE_NAME; ?></a>
 					<div class="nav-collapse">
 						<ul class="nav">
 							<?php if ( isset( $this -> menu -> nav ) ): ?>
-							<?php foreach( $this -> menu -> nav as $name => $href): ?>
-							<li class ="<?php if($href == URI) echo 'active';?>">
-							<a href="?<?php echo $href ?>"><?php echo $name ?></a>
+							<?php foreach( $this -> menu -> nav as $name => $href ): ?>
+							<li class = "<?php if( $name == $this -> menu -> nav_active ) echo "active" ?>">
+							<a href= "<?php echo $href ?>"><?php echo $name ?></a>
 							</li>
 							<?php endforeach; ?>
 							<?php endif; ?>
 						</ul>
-						<?php if ( isset( $_SESSION['logged_in'] ) ): ?>
-						<p class="navbar-text pull-right">Logged in as <a href="?user"><?php echo $_SESSION['username'] ?></a></p>
+						<?php if ( Session::open() -> get('logged_in') ): ?>
+						<p class="navbar-text pull-right">
+						Logged in as <a href="?user"><?php echo  Session::open() -> get('username') ?></a>
+						</p>
 						<?php endif; ?>
 					</div><!--/.nav-collapse -->
 				</div>
 			</div>
+
+			<?php if ( isset( $this -> menu -> sec_nav ) ): ?>
+			<div class="navbar-inner"  >
+				<div class="container-fluid" style ='background-color: rgba(0, 0, 0, 0.45)'>
+					<div class="nav-collapse">
+						<ul class="nav">
+							<?php foreach( $this -> menu -> sec_nav as $name => $href): ?>
+							<li class ="<?php if( $name == $this -> menu -> sec_nav_active ) echo 'active';?>">
+							<a href="<?php echo $href ?>"><?php echo $name ?></a>
+							</li>
+							<?php endforeach; ?>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<?php endif; ?>
 		</div>
 
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<?php if((isset($this -> menu -> sidebar) )): ?>
 				<div class="span2">
+					<br/>
 					<div class="well sidebar-nav">
 						<ul class="nav nav-list">
+						<li class="nav-header"> Navigation </li>
 							<?php foreach( $this -> menu -> sidebar as $name => $href): ?>
 							<li  class="<?php if($href == URI) echo 'active';?>">
-							<a href="?<?php echo $href ?>"><?php echo $name ?></a> 
+							<a href="<?php echo $href ?>"><?php echo $name ?></a> 
 							</li>
 							<?php endforeach; ?>
 						</ul>

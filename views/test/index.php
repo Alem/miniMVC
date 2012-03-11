@@ -41,14 +41,14 @@
 				<b> <?php echo $column; ?>:  <?php echo $value; ?> </b>
 				<?php endforeach; ?>
 				<br/>
-				<a href='?test/del/<?php echo $row['id'] ?>/'> Delete</a></p> 
+				<a href='test/del/<?php echo $row['id'] ?>/'> Delete</a></p> 
 				</li>
 				<?php endforeach; ?>
 			</ul>
 
 			<?php else: ?>
 			<p>
-			The database is empty. <br/> <a href="?test/form">Click here</a>  to add items.
+			The database is empty. <br/> <a href="test/form">Click here</a>  to add items.
 			</p>
 			<?php endif; ?>
 
