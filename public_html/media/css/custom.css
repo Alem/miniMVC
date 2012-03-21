@@ -1,0 +1,73 @@
+body{
+	font-family: monospace, sans-serif;
+	font-family: Helvetica, sans-serif;
+	font-family: Purisa, sans-serif;
+	margin:0;
+	padding:0;
+	color: white;
+	color: #222;
+	font-weight:600;
+	background: url('../img/pats/bright_squares.png');
+	background: url('../img/pats/beige_paper.png');
+	background: url('../img/pats/grunge_wall.png');
+	background: url('../img/pats/whitey.png');
+}
+td{
+	border: 2px solid #eee;
+	border-radius: 12px;
+	padding: 15px;
+}
+
+#wrapper{
+	padding: 30px;
+	min-width: 1200px;
+}
+#header,#footer{
+	background: #eee; 
+	background: #afdfff; 
+	background: url('../img/pats/black-Linen.png');
+	padding: 0.5% 1.5% 1.5%;
+	height: 40px;
+	clear:both;
+	box-shadow: 1px 1px 2px #eee;
+	opacity: 0.8;
+	color:white;
+}
+#header a, #footer a { color: #F0Ffff; }
+#header{
+	font-size: 2em;
+}
+#header a{
+	text-decoration:none;
+}
+#left_sidebar a,#right_sidebar a{
+	color:white;
+}
+#left_sidebar,#right_sidebar{
+	float:left;
+	padding: 10px;
+	width: 170px;
+	background: #eee; 
+	background: url('../img/pats/black-Linen.png');
+	color:white;
+	border-radius: 5px;
+	box-shadow: 1px 1px 1px #eee;
+	opacity: 0.8;
+	border: 1px solid #888;
+	line-height:1.5em;
+}
+#content{
+	float:left;
+	width: 575px;
+	min-height: 600px;
+	margin: 0px 100px 50px;
+	padding: 0px 20px;
+	text-shadow: 0px 1px 2px #555;
+	color:#fff;
+	text-shadow: 0px 1px 2px #eee;
+	color:#333;
+	opacity: 0.8;
+	overflow:auto;
+}
+#footer{
+}

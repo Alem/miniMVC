@@ -7,11 +7,11 @@
 $timer_start = microtime(true);
 
 // Defines path, DB configurations, etc.
-require_once('../config.php');
+require_once('../config/main.php');
 
 // Require all lib/ files
-foreach ( glob( SERVER_ROOT . DEFAULT_LIBRARY_PATH . '/*.php' ) as $filename){
-	require_once( $filename );
+foreach ( array( 'database', 'query','model','controller','debugger','session' ) as $classname ){
+	require_once( SERVER_ROOT . DEFAULT_LIBRARY_PATH . $classname  . '.php' );
 }
 
 // Get the controller, method and variable from URL
@@ -42,12 +42,12 @@ $application -> useController($request);
 // Script-timing completion
 $timer_end = microtime(true);
 $time = $timer_end - $timer_start;
-Logger::instantiate() -> record['Script Time'] = $time;
-Logger::instantiate() -> record['Memory Usage'] = ( memory_get_usage() / 1000 ) . ' kb';
-Logger::instantiate() -> record['Memory Peak Usage'] = ( memory_get_peak_usage() / 1000 ) . ' kb';
-Logger::instantiate() -> record['CPU Usage'] = getrusage(); 
+Debugger::instantiate() -> record['Script Time'] = $time;
+Debugger::instantiate() -> record['Memory Usage'] = ( memory_get_usage() / 1000 ) . ' kb';
+Debugger::instantiate() -> record['Memory Peak Usage'] = ( memory_get_peak_usage() / 1000 ) . ' kb';
+Debugger::instantiate() -> record['CPU Usage'] = getrusage(); 
 
 //Logging Output
-Logger::instantiate() -> display();
+Debugger::instantiate() -> display();
 
 ?>

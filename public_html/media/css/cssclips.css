@@ -1,0 +1,177 @@
+body{
+	background: url('../img/pats/cork_1.png');
+	background: url('../img/pats/crissXcross.png');
+	background: url('../img/pats/crossed_stripes.png');
+	background: url('../img/pats/crosses.png');
+	background: url('../img/pats/cubes.png');
+	background: url('../img/pats/dark_brick_wall.png');
+	background: url('../img/pats/dark_circles.png');
+	background: url('../img/pats/dark_leather.png');
+	background: url('../img/pats/dark_mosaic.png');
+	background: url('../img/pats/dark_stripes.png');
+	background: url('../img/pats/darth_stripe.png');
+	background: url('../img/pats/diagonal-noise.png');
+	background: url('../img/pats/handmadepaper.png');
+	background: url('../img/pats/gold_scale.png');
+	background: url('../img/pats/gray_sand.png');
+	background: url('../img/pats/green_dust_scratch.png');
+	background: url('../img/pats/green-fibers.png');
+	background: url('../img/pats/green_gobbler.png');
+	background: url('../img/pats/grunge_wall.png');
+	background: url('../img/pats/inflicted.png');
+	background: url('../img/pats/leather_1.png');
+	background: url('../img/pats/light_alu.png');
+	background: url('../img/pats/light_checkered_tiles.png');
+	background: url('../img/pats/light_honeycomb.png');
+	background: url('../img/pats/littleknobs.png');
+	background: url('../img/pats/little_pluses.png');
+	background: url('../img/pats/mirrored_squares.png');
+	background: url('../img/pats/noise_pattern_with_crosslines.png');
+	background: url('../img/pats/double_lined.png');
+	background: url('../img/pats/elastoplast.png');
+	background: url('../img/pats/elegant_grid.png');
+	background: url('../img/pats/exclusive_paper.png');
+	background: url('../img/pats/fabric_1.png');
+	background: url('../img/pats/flowers.png');
+	background: url('../img/pats/felt.png');
+	background: url('../img/pats/fancy_deboss.png');
+	background: url('../img/pats/45degreee_fabric.png');
+	background: url('../img/pats/60degree_gray.png');
+	background: url('../img/pats/always_grey.png');
+	background: url('../img/pats/beige_paper.png');
+	background: url('../img/pats/bgnoise_lg.png');
+	background: url('../img/pats/black_denim.png');
+	background: url('../img/pats/black-Linen.png');
+	background: url('../img/pats/black_linen_v2.png');
+	background: url('../img/pats/blackmamba.png');
+	background: url('../img/pats/noisy.png');
+	background: url('../img/pats/old_mathematics.png');
+	background: url('../img/pats/padded.png');
+	background: url('../img/pats/paper_1.png');
+	background: url('../img/pats/paper_2.png');
+	background: url('../img/pats/paper_3.png');
+	background: url('../img/pats/pinstripe.png');
+	background: url('../img/pats/polaroid.png');
+	background: url('../img/pats/pool_table.png');
+	background: url('../img/pats/random_grey_variations.png');
+	background: url('../img/pats/real_cf.png');
+	background: url('../img/pats/rip_jobs.png');
+	background: url('../img/pats/robots.png');
+	background: url('../img/pats/rockywall.png');
+	background: url('../img/pats/roughcloth.png');
+	background: url('../img/pats/rubber_grip.png');
+	background: url('../img/pats/silver_scales.png');
+	background: url('../img/pats/small_tiles.png');
+	background: url('../img/pats/soft_circle_scales.png');
+	background: url('../img/pats/soft_wallpaper.png');
+	background: url('../img/pats/square_bg.png');
+	background: url('../img/pats/squares.png');
+	background: url('../img/pats/stucco.png');
+	background: url('../img/pats/subtle_freckles.png');
+	background: url('../img/pats/subtle_orange_emboss.png');
+	background: url('../img/pats/SubtlePatterns.pat');
+	background: url('../img/pats/tactile_noise.png');
+	background: url('../img/pats/triangles.png');
+	background: url('../img/pats/vichy.png');
+	background: url('../img/pats/type.png');
+	background: url('../img/pats/woven.png');
+	background: url('../img/pats/white_brick_wall.png');
+	background: url('../img/pats/white_texture.png');
+	background: url('../img/pats/white_sand.png');
+	background: url('../img/pats/white_carbon.png');
+	background: url('../img/pats/wavecut.png');
+	background: url('../img/pats/washi.png');
+	background: url('../img/pats/paven.png');
+	background: url('../img/pats/whitey.png');
+	background: url('../img/pats/smooth_wall.png');
+	background: url('../img/pats/project_papper.png');
+	background: url('../img/pats/black_paper.png');
+	background: url('../img/pats/black_scales.png');
+	background: url('../img/pats/bright_squares.png');
+	background: url('../img/pats/brushed_alu_dark.png');
+	background: url('../img/pats/carbon_fibre.png');
+	background: url('../img/pats/carbon_fibre_v2.png');
+	background: url('../img/pats/circles.png');
+	background: url('../img/pats/concrete_wall_3.png');
+	background: url('../img/pats/cardboard.png');
+	background: url('../img/pats/brushed_alu.png');
+	background: url('../img/pats/concrete_wall_2.png');
+}
+.navbar .fill, .navbar-inner{
+	background: url('../img/pats/black_scales.png');
+	background: url('../img/pats/little_pluses.png');
+	background: url('../img/pats/black-Linen.png');
+	background: url('../img/pats/always_grey.png');
+	background: url('../img/pats/45degreee_fabric.png');
+	background: url('../img/pats/black_denim.png');
+	background: url('../img/pats/mirrored_squares.png');
+	background: url('../img/pats/micro_carbon.png');
+	background: url('../img/pats/vichy.png');
+	background: url('../img/pats/wood_1.png');
+	background: url('../img/pats/concrete_wall.png');
+}
+
+iframe{
+	border:none;
+}
+.close{
+	color: white !important;
+	opacity: 1 !important;
+}
+.CodeMirror{
+	border: 1px solid #CCCCCC;
+	border-radius: 3px 3px 3px 3px;
+	font-size: 13px;
+	padding: 2px;
+	width: 290px;
+}
+#form_summary .CodeMirror{
+	height:175px;
+	width: 200px;
+	overflow: hidden;
+}
+#format_summary{
+	border-left: 2px solid #eee;
+	padding-left: 30px;
+	
+}
+.row-clip {
+	height:475px;
+}
+.submit-info, .submit-clip, .preview-clip{
+	margin: 10px 0;
+	padding: 10px 25px;
+}
+.submit-info {
+	/*height: 220px;
+	*/
+	width:300px;
+}
+.preview-clip{
+	width: 650px;
+	height: 350px;
+}
+.submit-clip{
+	width:300px;
+	height: 330px;
+}
+.gallery-html .CodeMirror, .gallery-css .CodeMirror{
+}
+.spacer{
+	border-bottom: 2px solid #eee;
+	margin: 50px 0px 30px 0px;
+}
+body > .container .hero-unit{
+	/*background: url('../img/clip.png') no-repeat #f5f5f5;
+	*/
+}
+/*
+.CodeMirror:hover {
+	border-color: rgba(82, 168, 236, 0.8);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset, 0 0 8px rgba(82, 168, 236, 0.6);
+	outline: 0 none;
+}
+*/
+#author_info{
+	line-height: 1.7em;
+}

@@ -61,16 +61,17 @@ For the MVC scaffold 'foo':
 
 ### FILE SYSTEM
 
+* base/ 		- Contains essential system classes.
+* config/  		- Contains configuration files for application.
 * controllers/ 		- Holds created controllers.
-* lib/ 			- Contains essential system classes.
 * models/		- Holds created models.
 * modules/ 		- Holds module classes
-* views/ 		- Holds created views
+* views/ 		- Holds templates and views
 * public_html/		- Holds publicly-viewable files.
 	* media/  	- Holds css, js, and imgs.
 	* index.php	- The "boot strapping" script
-* config.php  		- Single configuration file for application.
-* generate.php 		- Generates MVC scaffolds
+* miniMVC.php 		- Generates MVC scaffolds
+* generator/		- Contains backend for miniMVC.php generation script.
 * README.md 		- You're reading it.
 * .htaccess 		- Rewrites the url.
 
