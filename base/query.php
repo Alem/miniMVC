@@ -1,8 +1,19 @@
 <?php
 
+/**
+ * Query class file.
+ *
+ * @author Zersenay Alem <info@alemmedia.com>
+ * @link http://www.alemmedia.com/
+ * @copyright Copyright &copy; 2008-2012 Alemmedia
+ */
 
 class Query extends Database{
 	
+	/**
+	 * @var array Count-keeper for each query builder.
+	 */
+
 	public $counter = array( 
 		'insert' => 0,
 		'update' => 0,
@@ -17,15 +28,19 @@ class Query extends Database{
 	);
 
 
-	// page() - Executes query and returns paged result
-	//
-	// Alternative to run(), returns an pagination-friendly array.
-	//
-	// $limit - Number of rows to return AKA results per page
-	// $page - Set when paged results are require_once_onced. Returns a pagination friendly array: 
-	//		 pages ( # pages), paged ( single page result), total (total # rows in column)
+	/**
+	 * page() - Executes query and returns paged result
+	 *
+	 * Alternative to run(), returns an pagination-friendly array.
+	 *
+	 *
+	 * @param int     $page           The page to start on or SQL offset
+	 * @param int     $items_per_page Number of rows to return which determines the number of results per page
+	 * @return array  A pagination-friendly array: pages ( # pages), paged ( single page result), total (total # rows in column).
+	 *
+	 */
 
-	function page($page, $items_per_page){
+	public function page($page, $items_per_page){
 
 		$this -> clean($page);
 
@@ -44,17 +59,19 @@ class Query extends Database{
 		);
 	}
 
-	// whitelist () - Checks if value is a valid column.
-	// 
-	// Retrieves list of columns from SQL table.
-	// Parses through table columns to check if supplied column name 
-	// is present in the table.
-	//
-	// $column - Column values to check
-	// $table - The table whose columns will be checked against
-	// Model::custom_whitelist - Optionally supply alternate whitelist values
+	/**
+	 * whitelist () - Checks if value is a valid column.
+	 *
+	 * Retrieves list of columns from SQL table.
+	 * Parses through table columns to check if supplied column name is present in the table.
+	 * Or uses Model::custom_whitelist as an optional alternate whitelist array.
+	 *
+	 * @param mixed  $column The column values to check.
+	 * @oaran string $table  The table whose columns will be checked against
+	 *
+	 */
 
-	function whitelist( $column, $table = null ){
+	public function whitelist( $column, $table = null ){
 
 		$table = ($table == null) ? $this -> table : $table;
 
@@ -91,19 +108,22 @@ class Query extends Database{
 	}
 
 
-	// seperator - Generates a partial query construct from arrays
-	//
-	// Generates a query for multiple columns
-	// by appending the ' = ? ' for parameterization
-	// and seperating each "column = ? " by a defined seperator
-	// and returns constructed query
-	//
-	// Only used by where() " column=? AND column=?  "  and update(), needs to be improved for others.
-	//
-	// &$columns - array of columns
-	// $seperator - the string that seperates the 'column = ?' statements
+	/**
+	 * seperator - Generates a partial query construct from arrays
+	 *
+	 * Generates a query for multiple columns by appending the ' = ? ' for parameterization
+	 * and seperating each "column = ? " by a defined seperator
+	 * and returns constructed query
+	 *
+	 * Only used by where() " column=? AND column=?  "  and update(), needs to be improved for others
+	 *
+	 * @param array  &$columns  The array of columns
+	 * @param string $seperator The string that seperates the 'column = ?' statements
+	 * @return string Returns the constructed query fragment
+	 *
+	 */
 
-	function seperator( &$columns, $seperator ){
+	public function seperator( &$columns, $seperator ){
 		
 		for( $i = 0, $j = count($columns), $construct = null; $i < $j ; $i++ ){
 			if ( $i > 0 )
@@ -115,14 +135,19 @@ class Query extends Database{
 	}
 
 
-	// prefix - Prefixes names
-	//
-	// $name - Word to prefix
-	// $prefix_one - Primary Prefix
-	// $prefix_two - Secondary prefix
+	/**
+	 * prefix - Prefixes names
+	 *
+	 * @param string $name         Word to prefix
+	 * @param string $prefix_one   Primary Prefix
+	 * @param string $prefix_two   Secondary prefix
+	 * @param bool   $check        If set to true, checks if either prefix is already present in column
+	 * @return array|string        Returns the prefixed column or columns.
+	 *
+	 */
 
 
-	function prefix( $name , $prefix_one = null, $prefix_two = '.', $check = true ){
+	public function prefix( $name , $prefix_one = null, $prefix_two = '.', $check = true ){
 		$prefix_one = ( isset( $prefix_one ) ) ? $prefix_one : $this -> table;
 
 		if( is_array( $name ) ){
@@ -139,15 +164,19 @@ class Query extends Database{
 	}
 
 
-	// select - Performs a database select query
-	//
-	// Recieves the column to select
-	//
-	// $column - Column of interest,  defaults to $this -> column 
-	// $table - Table of interest, defaults to $this -> table 
-	// $distinct - if set, will include the 'distinct' option in query
+	/**
+	 * select - Performs a database select query
+	 *
+	 * Recieves the column to select
+	 *
+	 * @param mixed  $column   Column of interest,  defaults to $this -> column 
+	 * @param string $table    Table of interest, defaults to $this -> table 
+	 * @param bool   $distinct If set to true, will include the 'distinct' option in query
+	 * @return object 
+	 *
+	 */
 
-	function select( $column=null, $table = null, $distinct = false){
+	public function select( $column=null, $table = null, $distinct = false){
 		$this -> counter['select']++;
 		$table = ( isset($table) ) ? $this -> clean ($table) : $this -> table;
 		$column = (isset($column)) ? $this -> clean($column) : '*';
@@ -168,7 +197,15 @@ class Query extends Database{
 	}
 
 
-	function from ( $table = null){
+	/**
+	 * from - The 'from <table>' fragment of SQL query
+	 *
+	 * @param string $table 
+	 * @return object 
+	 *
+	 */
+
+	public function from ( $table = null){
 		$this -> counter['from']++;
 		$table = ( isset($table) ) ? $this -> clean ($table) : $this -> table;
 		$this -> query (" FROM $table ");
@@ -176,19 +213,21 @@ class Query extends Database{
 	}
 
 
-	// insert - uses query to insert into table
-	//
-	// Takes a value and its column and performs insert. 
-	// Can accept multiple values to be inserted into multiple columns by passing it 
-	//
-	// $value - the value to be inserted.  
-	// $column - the  table column to be inserted into. Defaults to model -> column, 
-	// 		the lower-case name of controller.
-	//
-	// Note: If using to insert POST data, ensure the order of $_POST array keys (order in HTML form) 
-	// match $column array order
+	/**
+	 * insert - uses query to insert into table
+	 *
+	 * Takes a value and its column and performs insert. 
+	 * Can accept multiple values to be inserted into multiple columns by passing it 
+	 * Note: If using to insert POST data, ensure the order of $_POST array keys (order in HTML form) match $column array order
+	 *
+	 * @param mixed  $value  The value to be inserted.  
+	 * @param string $column The  table column to be inserted into. Defaults to model -> column, the lower-case name of controller.
+	 * @param string $table  The table to insert into.
+	 * @return object 
+	 *
+	 */
 
-	function insert( $value, $column = null, $table =  null){
+	public function insert( $value, $column = null, $table =  null){
 		$this -> counter['insert']++;
 
 		$table = ( isset ($table) ) ? $this -> clean($table) : $this -> table;
@@ -210,12 +249,16 @@ class Query extends Database{
 	}
 
 
-	// update - uses query to update table
-	//
-	// $new - New value to replace an existing value
-	// $new_column - The columnn of for the new value
+	/** 
+	 * update - uses query to update table
+	 *
+	 * @param mixed $new        New value to replace an existing value
+	 * @param mixed $new_column The columnn of for the new value
+	 * @return object 
+	 *
+	 */
 
-	function update($new, $new_column = null, $table = null ){
+	public function update($new, $new_column = null, $table = null ){
 		$this -> counter['update']++;
 		$table = (isset($table)) ? $this -> clean ($table) : $this -> table;
 		$this -> whitelist($new_column, $table);
@@ -230,11 +273,15 @@ class Query extends Database{
 	}
 
 
-	// remove - uses query to remove from table 
-	//
-	// $table - the table to be removed from. Defaults to model -> table
+	/**
+	 * remove - uses query to remove from table 
+	 *
+	 * @param  string $table The table to be removed from. Defaults to model -> table
+	 * @return object 
+	 *
+	 */
 
-	function remove($table = null ){
+	public function remove($table = null ){
 		$this -> counter['remove']++;
 		$table = (isset($table)) ? $this -> clean ($table) : $this -> table;
 		$column = ( isset($column) ) ?  $this -> clean($column) : 'id';
@@ -243,15 +290,18 @@ class Query extends Database{
 	}
 
 
-	// where 
-	//
-	// Recieves the value of a known/reference column, the name of the known/reference column.
-	//
-	// $ref - Reference value 
-	// $ref_column - The column the value belongs to
-	// $table - The table to whitelist the columns against
+	/**
+	 * where 
+	 *
+	 * Recieves the value of a known/reference column, the name of the known/reference column.
+	 *
+	 * @param mixed  $ref        Reference value 
+	 * @param mixed  $ref_column The column the value belongs to
+	 * @param string $table      The table to whitelist the columns against
+	 *
+	 */
 
-	function where( $ref, $ref_column = null , $table = null ){
+	public function where( $ref, $ref_column = null , $table = null ){
 		$this -> counter['where']++;
 		$table = (isset($table)) ? $this -> clean ($table) : $this -> table;
 		$ref_column = ( isset($ref_column) ) ? $this -> clean($ref_column) : 'id';
@@ -278,15 +328,16 @@ class Query extends Database{
 	}
 
 
-	// order 
-	//
-	// Recieves the column to use for ordering, the type of sort.
-	//
-	// $orderby - The column used for ordering
-	// $sort - The type of sort (ex. DESC)
-	// $table - The table to whitelist the columns against
+	/**
+	 * order - Recieves the column to use for ordering, the type of sort.
+	 *
+	 * @param string $orderby - The column used for ordering
+	 * @param string $sort - The type of sort (ex. DESC)
+	 * @param string $table - The table to whitelist the columns against
+	 *
+	 */
 
-	function order($orderby, $sort, $table = null){
+	public function order($orderby, $sort, $table = null){
 		$this -> counter['order']++;
 		$table = (isset($table)) ? $this -> clean ($table) : $this -> table;
 		if ( ($orderby) && ($sort == 'ASC' || $sort == 'DESC' ) ){
@@ -299,13 +350,16 @@ class Query extends Database{
 	}
 
 
-	// limit 
-	//
-	// Recieves the limit of rows to return
-	//
-	// $limit - Number of rows to return
+	/**
+	 * limit - Recieves the limit of rows to return
+	 *
+	 * @param integer $limit  Number of rows to return
+	 * @param integer $offset The record to start at.
+	 * @return object
+	 *
+	 */
 
-	function limit($limit, $offset = null){
+	public function limit($limit, $offset = null){
 		$this -> counter['limit']++;
 		if ( isset( $limit) )
 			$limit = " LIMIT $limit";
@@ -315,18 +369,21 @@ class Query extends Database{
 		return $this;
 	}
 
-	// joining -  Joins two tables
-	//
-	// Takes the table 'a' and 'b', their respective columns
-	// and the type of join.
-	//
-	// $type - Join type: INNER, LEFT, RIGHT, OUTER
-	// $table_b - The table to join to.
-	// $columns_a - The columns of table_a to match with columns of table b
-	// $columns_b - The columns of table_b
-	// $table_a - The main table, defaults to the table registered in $this -> table.
+	/**
+	 * joining -  Joins two tables
+	 *
+	 * Takes the table 'a' and 'b', their respective columns and the type of join.
+	 *
+	 * @param string $table_b   The table to join to.
+	 * @param mixed  $columns_a The columns of table_a to match with columns of table b
+	 * @param mixed  $columns_b The columns of table_b
+	 * @param string $type      Join type: INNER, LEFT, RIGHT, OUTER
+	 * @param string $table_a   The main table, defaults to the table registered in $this -> table.
+	 * @return object
+	 *
+	 */
 
-	function joining( $table_b, $columns_a, $columns_b , $type = 'LEFT OUTER', $table_a = null ) {
+	public function joining( $table_b, $columns_a, $columns_b , $type = 'LEFT OUTER', $table_a = null ) {
 		$this -> counter['joining']++;
 		$table_a = (isset($table_a)) ? $this -> clean ( $table_a ) : $this -> table;
 		$this -> whitelist($columns_a, $table_a);
@@ -346,11 +403,15 @@ class Query extends Database{
 	}
 
 
-	// show - Retrieve table information
-	//
-	// $table - The database table
+	/**
+	 * show - Retrieve table information
+	 *
+	 * @param string $table The database table
+	 * @return object
+	 *
+	 */
 
-	function show ( $table ){
+	public function show ( $table ){
 			$this -> counter['show']++;
 			$this -> query("SHOW COLUMNS FROM $table");
 			return $this;

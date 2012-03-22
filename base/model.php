@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Model class file.
+ *
+ * @author Zersenay Alem <info@alemmedia.com>
+ * @link http://www.alemmedia.com/
+ * @copyright Copyright &copy; 2008-2012 Alemmedia
+ */
+
+
 class Model extends Query{
 
 	public $table;

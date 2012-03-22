@@ -1,12 +1,32 @@
 <?php
 
+/**
+ * Debugger class file.
+ *
+ * @author Zersenay Alem <info@alemmedia.com>
+ * @link http://www.alemmedia.com/
+ * @copyright Copyright &copy; 2008-2012 Alemmedia
+ */
+
+
 class Debugger{
 
-	public $record = null;
+
 	private static $instance;
+
+	/**
+	 * @var array Holds the debug data to be output
+	 */
+	public $record = array();
 
 	private function __construct(){
 	}
+
+	/**
+	 * instantiate - Creates singleton instance of debugger
+	 *
+	 * @return object
+	 */
 
 	public static function instantiate() {
 		if ( !isset(self::$instance) ) {
@@ -14,6 +34,11 @@ class Debugger{
 		}
 		return self::$instance;
 	}
+
+	/**
+	 * display - Outputs debug data as a table: Debug ( CPU/MEM, Execution time, errors, constants ) and Session variables.
+	 *
+	 */
 
 	public function display(){
 		if ( 
@@ -25,12 +50,16 @@ class Debugger{
 		) {
 			$this -> record['Error'] = print_r( error_get_last(), true);
 
+			$constants = get_defined_constants(true);
+			$this -> record['Constants'] = print_r( $constants['user'] , true );
+
 			$table = <<<TABLE
 			<br/>
+			<hr>
 			<table class="table table-bordered">
 				<thead>
-					<th><h3>Debug</h3></th>
-					<th><h3>Session</h3></th>
+					<th><h2>Application Debug</h2></th>
+					<th><h2>Session Variables</h2></th>
 				</thead>
 				<tbody>
 				<tr>
@@ -45,24 +74,18 @@ TABLE;
 		}
 	}
 
+
+	/**
+	 * formatArray - Formats array for clean and readable debugging output
+	 *
+	 * @return array The formatted array.
+	 */
+
 	public function formatArray($array){
 		$printed_array = print_r($array,true);
 		$formatted_array = preg_replace('/(Array)||\(||\)||\[||\]||>/','',$printed_array);
 		$formatted_array = preg_replace('/ =/',':', $formatted_array);
 		return $formatted_array;
-	}
-	public function trace($message) {
-		$this -> log_level = 'debug';
-		$this -> line_number_arr = debug_backtrace();
-		$this -> write($message);
-	}
-
-	private function write($message) {
-		$file = fopen( SERVER_ROOT . DEFAULT_LOG_PATH . 'debugger.log', 'a') or die("Coudn't open debugger.log");
-		$this -> log_entry  = '[' . date('Y-m-d H:i:s', mktime()) . '][line:';
-		$this -> log_entry .= $this->line_number_arr[0]['line'].'|'.$this->log_level.']:\t'.$message.'\n';
-		fwrite($file, $this->log_entry);
-		fclose($file);
 	}
 
 }

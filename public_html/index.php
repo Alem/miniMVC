@@ -10,30 +10,14 @@ $timer_start = microtime(true);
 require_once('../config/main.php');
 
 // Require all lib/ files
-foreach ( array( 'database', 'query','model','controller','debugger','session' ) as $classname ){
+foreach ( array( 'router','database', 'query','model','controller','debugger','session' ) as $classname ){
 	require_once( SERVER_ROOT . DEFAULT_LIBRARY_PATH . $classname  . '.php' );
 }
 
 // Get the controller, method and variable from URL
-// each delimited by the forward slash '/'
-if ( isset( $argv[1] ) )
-	define( 'URI', $argv[1] );
-else
-	define( 'URI', $_SERVER['QUERY_STRING'] );
+$router = new Router();
+$request = $router -> formatRequest();
 
-$parsed_request = explode( '/', URI, 3);
-$request_size = count( $parsed_request );
-
-define( 'CONTROLLER' ,  $parsed_request[0] );
-$request['controller'] = CONTROLLER;
-if ( $request_size > 1 ){
-	define( 'METHOD' ,  $parsed_request[1] );
-	$request['method'] = METHOD;
-}
-if( $request_size > 2 ) {
-	define( 'VARIABLE' ,  $parsed_request[2] );
-	$request['variable'] = VARIABLE;
-}
 
 // Instantiate appropriate controller based on request.
 $application = new Controller();

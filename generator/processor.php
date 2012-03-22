@@ -55,6 +55,7 @@ HELP;
 	function execute($args){
 
 		$Generator = new Generator();
+		$Generator -> args = $args;
 
 		if( isset($args['mvc']) ||  isset($args['m'])  ||  isset($args['v'])  || isset($args['c'])   ){
 
