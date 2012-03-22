@@ -4,8 +4,6 @@
  * Query class file.
  *
  * @author Zersenay Alem <info@alemmedia.com>
- * @link http://www.alemmedia.com/
- * @copyright Copyright &copy; 2008-2012 Alemmedia
  */
 
 class Query extends Database{
@@ -67,7 +65,7 @@ class Query extends Database{
 	 * Or uses Model::custom_whitelist as an optional alternate whitelist array.
 	 *
 	 * @param mixed  $column The column values to check.
-	 * @oaran string $table  The table whose columns will be checked against
+	 * @param string $table  The table whose columns will be checked against
 	 *
 	 */
 
@@ -198,7 +196,7 @@ class Query extends Database{
 
 
 	/**
-	 * from - The 'from <table>' fragment of SQL query
+	 * from - The 'from table' fragment of SQL query
 	 *
 	 * @param string $table 
 	 * @return object 
@@ -249,11 +247,12 @@ class Query extends Database{
 	}
 
 
-	/** 
+	/**
 	 * update - uses query to update table
 	 *
 	 * @param mixed $new        New value to replace an existing value
 	 * @param mixed $new_column The columnn of for the new value
+	 * @param string $table     The table to update.
 	 * @return object 
 	 *
 	 */

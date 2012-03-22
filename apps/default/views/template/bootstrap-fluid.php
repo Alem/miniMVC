@@ -109,7 +109,7 @@
 						<? endif;?>
 
 						<br/>
-						<?php require_once( SERVER_ROOT .  DEFAULT_APPLICATION_PATH . DEFAULT_VIEW_PATH . $view . '.php'); ?>
+						<?php require_once( $this -> view_path ); ?>
 					</div><!--/row-->
 				</div><!--/span-->
 			</div><!--/row-->

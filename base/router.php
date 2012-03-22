@@ -4,8 +4,6 @@
  * Router class file.
  *
  * @author Zersenay Alem <info@alemmedia.com>
- * @link http://www.alemmedia.com/
- * @copyright Copyright &copy; 2008-2012 Alemmedia
  */
 
 
@@ -75,8 +73,9 @@ class Router{
 		foreach ( $this -> URI_map as $place => $type ){
 			if ( $parameters > $place ){
 				define ( strtoupper( $type ), $split_URI[ $place ] );
-				$request[ $type ] = $split_URI[ $place ];
-			}
+				$request[ $type ] = strtolower ( $split_URI[ $place ] );
+			}else
+				$request[ $type ] = null;
 		}
 
 		return $request;

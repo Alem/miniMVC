@@ -136,7 +136,7 @@
 				<div class="row">
 
 					<div class="<?php echo(isset($this -> menu -> menus['sidebar'])) ? 'span8' : 'span16' ?>">
-						<?php require_once( SERVER_ROOT . DEFAULT_APPLICATION_PATH . DEFAULT_VIEW_PATH . $view . '.php'); ?>
+						<?php require_once( $this -> view_path ); ?>
 					</div>
 
 					<?php if((isset($this -> menu -> menus['sidebar']) )): ?>

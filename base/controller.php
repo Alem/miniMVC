@@ -4,8 +4,6 @@
  * Controller class file.
  *
  * @author Zersenay Alem <info@alemmedia.com>
- * @link http://www.alemmedia.com/
- * @copyright Copyright &copy; 2008-2012 Alemmedia
  */
 
 
@@ -17,10 +15,12 @@ class Controller{
 	 */
 	public $name;
 
+
 	/**
 	 * @var string The classname of the controller ( Capitalized, 'Controller' suffix )
 	 */
 	public $classname;
+
 
 	/**
 	 * @var string The filename of the controller ( lowercase, no suffix )
@@ -29,84 +29,98 @@ class Controller{
 
 
 	/**
+	 * @var string Stores information about resources. (i.e. paths of Model, Views)
+	 */
+	public $resources = array();
+
+
+	/**
 	 * Constructor
 	 *
-	 * Auto-loads the appropriate model and module, determines and assigns the base name for the controller as the
-	 * class property 'name'. Only executes for extended/non-root controllers, not for the application controller.
-	 * Can be disabled by false set $autoload
-	 * 
-	 * @param bool $model If set to true, the appropriate model will be automatically loaded
-	 * @param bool $module If set to true, the default modules will be automatically loaded
+	 */
+	public function __construct( ){
+
+	}
+
+
+	/**
+	 * useMethod - Calls appropriate method of controller.
+	 *
+	 * The default/fallback method is 'index()', and the parameter is simply not passed to the method if not set. 
+	 * If the supplied variable contains the VAR_SEPARATOR then it is treated as multiple
+	 * seperated parameters and passed as an array using call_user_func_array.
+	 *
+	 * @param string $method     The method to call
+	 * @param mixed  $variable   The variable(s) to be passed to the controller, as a string/array.
+	 * @param object $controller The controller object. Defaults to the current controller.
 	 *
 	 */
 
-	function __construct( $model = true, $module = true ){
-		if ( get_parent_class($this)){
-			$this -> name = strtolower(str_replace( 'Controller', '', get_class($this) ));
-			$this -> useModel( null, false );
-			$this -> useModule( null, true, true );
-		}
+	public function useMethod ( $method, $variable = null , $controller = null ) {
+
+		if ( !isset( $controller ) )
+			$controller =& $this;
+
+		if ( !( isset( $method )  &&  method_exists( $controller, $method ) ) )
+			$controller -> { DEFAULT_METHOD }();
+		else{
+			if ( !isset( $variable ) ) 
+				$controller -> { $method }();
+
+			else{
+				if ( strpos( $variable , VAR_SEPARATOR ) === false ) 
+					$controller -> $method( $variable );
+				else{
+					call_user_func_array( 
+						array(
+							$controller, 
+							$method
+						), 
+						explode( VAR_SEPARATOR , $variable )
+					);
+				}
+			}
+		} 
 	}
 
 
 	/**
 	 * useController - Recieves URL request, constructs the appropriate controller and calls appropriate method. 
 	 *
-	 * The default/fallback controller is config constant DEFAULT_CONTROLLER, the default/fallback method is 'index()',
-	 * and the parameter is simply not passed to the method if not set. 
-	 * If the supplied variable contains the VAR_SEPARATOR then it is treated as multiple
-	 * seperated parameters and passed as an array using call_user_func_array.
+	 * The default/fallback controller is config constant DEFAULT_CONTROLLER, 
 	 *
 	 * This defines the child controller's name, classname, filename properties and assigns its model.
 	 *
-	 * @param mixed $request The Request URI array passed from index.php or a string naming the controller to be loaded 
-	 * @param bool $assign If set to true, will assign the newly created controller as a property of the controller that called it.
+	 * @param string $name The controller name. Defaults to the DEFAULT_CONTROLLER set in the application config.
+	 * @param bool $load_model If set to true, the appropriate model will be automatically loaded
+	 * @param bool $load_module If set to true, the default modules will be automatically loaded
 	 * @return object
 	 *
 	 */
 
-	function useController($request, $assign = false){
+	public function useController( $name , $load_model = true, $load_modules = true ){
 
-		if ( !is_array( $request ) )
-			$request = array( 'controller' => $request );
-		elseif( empty( $request['controller'] ) ) {
-			$request['controller'] = DEFAULT_CONTROLLER;
-		}
+		if( empty( $name ) )
+			$name = DEFAULT_CONTROLLER;
 
-		$controller_name = strtolower( $request['controller'] );
-		$controller_class = $controller_name . "Controller";
-		$controller_file = SERVER_ROOT . DEFAULT_APPLICATION_PATH .  DEFAULT_CONTROLLER_PATH . $controller_name . '.php';
+		$this -> resource['controller'][ $name ]['class'] = $name . "Controller";
+		$this -> resource['controller'][ $name ]['path'] = SERVER_ROOT . DEFAULT_APPLICATION_PATH . DEFAULT_CONTROLLER_PATH . $name . '.php';
 
-		if ( !file_exists( $controller_file ) ) 
+		if ( !file_exists( $this -> resource['controller'][ $name ]['path'] ) ) 
 			$this -> prg();
 		else{
-			require_once( $controller_file );
-			$controller = new $controller_class; 
-			if ( $assign )
-				return $this -> $controller_name = $controller;
+			require_once( $this -> resource['controller'][ $name ]['path']  );
+			$controller = new $this -> resource['controller'][ $name ]['class']; 
 
-			if ( !( isset( $request['method'] )  &&  method_exists( $controller, $request['method'] ) ) )
-				$controller -> { DEFAULT_METHOD }();
-			else{
-				if ( !isset( $request['variable'] ) ) 
-					$controller -> { $request['method'] }();
-				else{
-					if ( strpos( $request['variable'] , VAR_SEPARATOR ) === false ) 
-						$controller -> { $request['method'] }( $request['variable'] );
-					else{
-						call_user_func_array( 
-							array(
-								$controller, 
-								$request['method']
-							), 
-							explode( VAR_SEPARATOR , $request['variable'] )
-						);
-					}
-				}
-			} 
+			$controller -> name = $name;
+
+			if ( $load_model )
+				$controller -> useModel( null, false );
+			if ( $load_modules )
+				$controller -> useModule( null, true, true );
+
+			return $this -> $name = $controller;
 		} 
-
-		return $this;
 	}
 
 
@@ -118,23 +132,32 @@ class Controller{
 	 * The default view is the controller's index view (ex. views/example/index.php),
 	 * the default template is views/tpl/"DEFAULT_TEMPLATE".php, where DEFAULT_TEMPLATE is a config.php constant.
 	 *
-	 * @param string $view The name of the view file. Defaults to the controller's class base name as dir and index as view filename.
-	 * @param string $template The template file the view will be incorporated into. Defaults to DEFAULT_TEMPLATE.
+	 * @param string $view       The name of the view file. Defaults to the controller's class base name as dir and index as view filename.
+	 * @param string $controller The name of the controller. Defaults to the current controller.
+	 * @param string $template   The template file the view will be incorporated into. Defaults to DEFAULT_TEMPLATE.
+	 * @param string $model      The model the view will read data from. Defaults to the current controller's model.
 	 * @return object The current object
 	 *
 	 */
 
-	function useView($view = null, $controller = null, $template = DEFAULT_TEMPLATE, $model = null){
-		$controller = ( isset($controller) ) ?  $controller : $this -> name;
-		$view = ( isset($view) ) ?  $controller.'/'.$view : $this-> name . '/' . 'index';
+	public function useView($view = null, $controller = null, $template = DEFAULT_TEMPLATE, $model = null){
+
+		if ( !isset($controller) ) 
+			$controller =& $this -> name;
+
+		if ( !isset($view) )
+			$view = 'index';
 
 		if ( !isset($model) && isset ( $this -> model ) )  
 			$model =& $this -> model;
 
-		if ( $template )
-			require_once( SERVER_ROOT .  DEFAULT_APPLICATION_PATH . DEFAULT_TEMPLATE_PATH . $template . '.php');
+		$this -> template_path = SERVER_ROOT .  DEFAULT_APPLICATION_PATH . DEFAULT_TEMPLATE_PATH . $template . '.php';
+		$this -> view_path = SERVER_ROOT .  DEFAULT_APPLICATION_PATH . DEFAULT_VIEW_PATH .$controller . '/' . $view . '.php';
+
+		if ( isset( $template ) )
+			require_once( $this -> template_path );
 		else
-			require( SERVER_ROOT .  DEFAULT_APPLICATION_PATH . DEFAULT_VIEW_PATH . $view . '.php');
+			require( $this -> view_path );
 
 		return $this;
 	}
@@ -152,10 +175,14 @@ class Controller{
 	 *
 	 */
 
-	function useModel( $model = null , $eponym = true ){
+	public function useModel( $model = null , $eponym = true ){
+
 		$model = ( isset($model) ) ?  $model : $this -> name;
-		if ( file_exists(  SERVER_ROOT .  DEFAULT_APPLICATION_PATH . DEFAULT_MODEL_PATH . $model . '.php' ) ) {
-			require_once( SERVER_ROOT .  DEFAULT_APPLICATION_PATH . DEFAULT_MODEL_PATH . $model . '.php');
+		$this -> resource['model'][$model]['path'] = SERVER_ROOT .  DEFAULT_APPLICATION_PATH . DEFAULT_MODEL_PATH . $model . '.php';
+
+		if ( file_exists( $this -> resource['model'][$model]['path']  ) ) {
+			require_once( $this -> resource['model'][$model]['path'] );
+
 			if ( $eponym )
 				return $this -> $model = new $model;
 			else
@@ -171,29 +198,35 @@ class Controller{
 	 * The module defaults to the list DEFAULT_MODULES from config.php, 
 	 * additional modules can be added by supplying their names.
 	 *
-	 * @param mixed $module An string or array containing the name/names of any additional module.
+	 * @param mixed $modules An string or array containing the name/names of any additional module.
 	 * @param bool $assign If set to true, will assign the module as a property of the controller that called it.
 	 * @param bool $load_defaults If set to true, will load the default modules set in the application config file.
 	 *
 	 */
 
-	function useModule( $modules = null, $assign = true , $load_defaults = false ){
+	public function useModule( $modules = null, $assign = true , $load_defaults = false ){
 
 		if ( $modules == null && DEFAULT_MODULES == null)
 			return false;
 
 		if ( defined( 'DEFAULT_MODULES' ) && ( $load_defaults ) )
 			$loadable_modules = explode( ',', DEFAULT_MODULES );
+
 		elseif ( is_array ( $modules ) )
 			$loadable_modules =& $modules;
+
 		else
 			$loadable_modules[] = $modules;
 
 		foreach( $loadable_modules as $module_path ){
-			require_once( SERVER_ROOT .  DEFAULT_APPLICATION_PATH . DEFAULT_MODULE_PATH . $module_path . '.php');
-			$sub_path = explode( '/' , $module_path );
+			$sub_path =  explode( '/' , $module_path );
+			$module   =& $sub_path[1];
 
-			$module =& $sub_path[1];
+			$this -> resource['module'][$module]['group'] =&  $sub_path[2];
+			$this -> resource['module'][$module]['path']  =  SERVER_ROOT .  DEFAULT_APPLICATION_PATH . DEFAULT_MODULE_PATH . $module_path . '.php';
+
+			require_once( $this -> resource['module'][$module]['path'] );
+
 			if ( $assign ){
 				$this -> $module = new $module;
 				$this -> $module -> controller =& $this;
@@ -210,25 +243,28 @@ class Controller{
 	 * A simple fix for prevent Database modification by re-send on a browser 'back' or 'refresh'
 	 *
 	 * @param string $method The controller method to call AKA the page to redirect to (ex. index)
-	 * @param mixed $variable The variables to be passed to the method.
+	 * @param mixed $variables The variables to be passed to the method.
 	 * @param string $controller The controller the method belongs to. Defaults to the current controller if $method is specified.
 	 *
 	 */
 
-	function prg( $method = null, $variables = null, $controller = null ){
-		if ( !isset($controller) && isset( $method )  )
+	public function prg( $method = null, $variables = null, $controller = null ){
+
+		if ( !isset( $controller ) && isset( $method )  )
 			$controller =& $this -> name;
 
 		if ( isset( $method ) ){
-			$location = $controller . '/' . $method;
+			$location = $controller .URI_SEPARATOR  . $method;
+
 			if ( is_array( $variables ) )
-				$location .= '/' . implode( VAR_SEPARATOR, $variables);
+				$location .= URI_SEPARATOR . implode( VAR_SEPARATOR, $variables);
+
 			elseif ( isset( $variables) )
-				$location .= '/' . $variables;
+				$location .= URI_SEPARATOR . $variables;
 		}else
 			$location =& $controller;
 
-		header("Location: " . WEB_ROOT . $location, 303);
+		header( 'Location: ' . WEB_ROOT . $location, 303 );
 	}
 
 
