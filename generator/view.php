@@ -2,15 +2,17 @@
 
 class View extends Generator{
 
-	function scaffold( $base_name, $return ) {
+	function scaffold( $return ) {
 
-		$u_name = ucwords( $base_name );
+		$name = $this -> name;
+		$uname = $this -> uname;
 
-		if ( isset( Database::open() -> filtered_columns ) ){
-			$this -> viewbits ( Database::open() -> filtered_columns, $base_name );
-		}else{
-			$this -> viewbits ( $base_name , $base_name );
-		}
+
+		if ( isset( Database::open() -> filtered_columns ) )
+			$this -> viewbits ( Database::open() -> filtered_columns, $name );
+		else
+			$this -> viewbits ( $name , $name );
+
 
 		$index = <<<VIEW
 <h1><?php echo SITE_NAME; ?> <small><?php echo SITE_TAG; ?></small></h1>
@@ -20,7 +22,7 @@ class View extends Generator{
 
 <div class ='row'>
 	<div class ='span7'>
-		<h2>$u_name</h2>
+		<h2>$uname</h2>
 	</div>
 	<div class ='span4 well'>
 	</div>
@@ -30,10 +32,10 @@ VIEW;
 		$form = <<<VIEW
 <div class = 'row' >
 	<div class = 'span4' >
-		<form class = "form-stacked" action = "$base_name/post/" method = "post">
+		<form class = "form-stacked" action = "$name/post/" method = "post">
 					{$this -> inputs}
 			<p>
-			<?php if (Session::open() -> get('editing_{$base_name}_id') ): ?>
+			<?php if (Session::open() -> get('editing_{$name}_id') ): ?>
 			<input class = "Primary btn large btn-primary btn-large" type = "submit" value = "Update"/>
 			<?php else: ?>
 			<input class = "Primary btn large btn-primary btn-large" type = "submit" value = "Submit"/>
@@ -43,7 +45,7 @@ VIEW;
 		</form>
 	</div>
 	<div class = 'span5 well' >
-		<?php if (Session::open() -> get('editing_{$base_name}_id') ): ?>
+		<?php if (Session::open() -> get('editing_{$name}_id') ): ?>
 		<h1>Edit</h1>
 		<?php else: ?>
 		<h1>Add</h1>
@@ -81,13 +83,13 @@ VIEW;
 			<br/>
 			<p>
 			<?php if ( !isset ( \$model -> show ) ): ?>
-			<a class ='btn btn-success' href='$base_name/show/<?php echo \$row['id'] ?>'>View</a>
+			<a class ='btn btn-success' href='$name/show/<?php echo \$row['id'] ?>'>View</a>
 			<?php else: ?>
 				<?php if ( \$this -> access -> permission ('u') ): ?>
-				<a class ='btn btn-info' href='$base_name/edit/<?php echo \$row['id'] ?>'>Edit</a> 
+				<a class ='btn btn-info' href='$name/edit/<?php echo \$row['id'] ?>'>Edit</a> 
 				<?php endif; ?>
 				<?php if ( \$this -> access -> permission ('d') ): ?>
-				<a class ='btn btn-danger' href='$base_name/del/<?php echo \$row['id'] ?>'>Delete</a>
+				<a class ='btn btn-danger' href='$name/del/<?php echo \$row['id'] ?>'>Delete</a>
 				<?php endif; ?>
 			<?php endif; ?>
 			</p>
@@ -119,13 +121,13 @@ VIEW;
 
 	<td>
 	<?php if ( !isset ( \$model -> show ) ): ?>
-	<a class ='btn btn-success' href='$base_name/show/<?php echo \$row['id'] ?>'>View</a>
+	<a class ='btn btn-success' href='$name/show/<?php echo \$row['id'] ?>'>View</a>
 	<?php else: ?>
 	<?php if ( \$this -> access -> permission ('u') ): ?>
-	<a class ='btn btn-info' href='$base_name/edit/<?php echo \$row['id'] ?>'>Edit</a> 
+	<a class ='btn btn-info' href='$name/edit/<?php echo \$row['id'] ?>'>Edit</a> 
 	<?php endif; ?>
 	<?php if ( \$this -> access -> permission ('d') ): ?>
-		<a class ='btn btn-danger' href='$base_name/del/<?php echo \$row['id'] ?>'>Delete</a>
+		<a class ='btn btn-danger' href='$name/del/<?php echo \$row['id'] ?>'>Delete</a>
 		<?php endif; ?>
 	<?php endif; ?>
 	</td>
@@ -136,16 +138,18 @@ VIEW;
 	</table>
 VIEW;
 
-		$last_letter = $u_name[ strlen( $u_name) - 1 ];
+		$last_letter = $uname[ strlen( $uname) - 1 ];
+
 		if ( $last_letter == 's' || $last_letter == 'y' )
-			$gallery_title = "$u_name Gallery";
+			$gallery_title = "$uname Gallery";
 		else
-			$gallery_title = $u_name . 's';
+			$gallery_title = $uname . 's';
+
 
 		$gallery_top = <<<VIEW
 <div class = 'row'>
 	<?php if ( isset ( \$model -> show ) ): ?>
-		<h1>$u_name</h1>
+		<h1>$uname</h1>
 	<?php else: ?>
 		<h2> $gallery_title</h2>
 	<?php endif; ?>
@@ -156,9 +160,9 @@ VIEW;
 
 	<div class = 'span3'>
 		<?php if ( !isset ( \$model -> show ) && \$this -> access -> permission('c') ): ?>
-		<p><a class ='btn btn-primary' href='$base_name/form'>Add $u_name</a></p>
+		<p><a class ='btn btn-primary' href='$name/form'>Add $uname</a></p>
 		<?php elseif ( isset ( \$model -> show ) ): ?>
-		<p><a class ='btn-danger btn-large' href='$base_name/gallery'>Back to $gallery_title</a></p>
+		<p><a class ='btn-danger btn-large' href='$name/gallery'>Back to $gallery_title</a></p>
 		<?php endif; ?>
 		<br/>
 	</div>
@@ -176,7 +180,7 @@ VIEW;
 
 		$show = <<<VIEW
 <div class = 'row'>
-	<h1>$u_name</h1>
+	<h1>$uname</h1>
 	<hr>
 
 	<br/>
@@ -191,15 +195,15 @@ VIEW;
 		<hr>
 
 		<?php if ( \$this -> access -> permission ('u') ): ?>
-			<a class ='btn btn-info' href='$base_name/edit/<?php echo \$row['id'] ?>'>Edit</a> 
+			<a class ='btn btn-info' href='$name/edit/<?php echo \$row['id'] ?>'>Edit</a> 
 		<?php endif; ?>
 		<?php if ( \$this -> access -> permission ('d') ): ?>
-			<a class ='btn btn-danger' href='$base_name/del/<?php echo \$row['id'] ?>'>Delete</a>
+			<a class ='btn btn-danger' href='$name/del/<?php echo \$row['id'] ?>'>Delete</a>
 		<?php endif; ?>
 	</div>
 	<br/>
 	<div class = 'span3' >
-		<p><a class ='btn-danger btn-large' href='$base_name/gallery'>Back to $gallery_title</a></p>
+		<p><a class ='btn-danger btn-large' href='$name/gallery'>Back to $gallery_title</a></p>
 	</div>
 </div>
 VIEW;
@@ -233,14 +237,14 @@ VIEW;
 	}
 
 
-	function viewbits( $column, $base_name ){
+	function viewbits( $column, $name ){
 		if ( is_array($column) ){
 			$this -> inputs = null;
 			$this -> table_heads = null;
 			$this -> table_cells = null;
 			$this -> thumbnails = null;
 			foreach( Database::open() -> filtered_columns as $single_column ){
-				$this -> viewbits ( $single_column, $base_name );
+				$this -> viewbits ( $single_column, $name );
 			}
 		}else{
 
@@ -268,8 +272,8 @@ input;
 			$this -> table_heads.= <<<heads
 	<th> 
 	<a href='<?php 
-		echo '$base_name/gallery/' . \$model -> page .  VAR_SEPARATOR . '$column' . VAR_SEPARATOR;
-		echo ( strstr( \$model -> order, '$column/ASC' ) ) ? 'DESC' : 'ASC' 
+		echo '$name/gallery/' . \$model -> page .  VAR_SEPARATOR . '$column' . VAR_SEPARATOR;
+		echo ( stristr( \$model -> order, '$column/ASC' ) ) ? 'DESC' : 'ASC' 
 		?>'
 	>
 	$uc_column

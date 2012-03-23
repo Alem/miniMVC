@@ -21,7 +21,8 @@ $request = $router -> formatRequest();
 
 // Instantiate appropriate controller based on request.
 $application = new Controller();
-$application -> useController($request);
+$application -> useController( $request['controller'] ) 
+		-> useMethod ( $request['method']  ,  $request ['variable'] );
 
 // Script-timing completion
 $timer_end = microtime(true);

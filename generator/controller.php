@@ -3,22 +3,28 @@
 
 class Controller extends Generator{
 
-	function scaffold( $base_name, $user = true ) {
-
-		$capitalized_name = ucwords ( $base_name );
-		$controller_name = $capitalized_name . 'Controller'; 
+	function scaffold( $user = true ) {
+		
+		$name  =& $this -> name;
+		$uname =& $this -> uname;
 		$external_fetch = null;
+
 
 		if ( $user ){
 			$user = ", Session::open() -> get( 'user_id' ) ";
 			$user_single = " Session::open() -> get( 'user_id' ) ";
 		}
 
+
+
 		if ( isset( Database::open() -> filtered_columns ) ){
+
 			foreach ( Database::open() -> filtered_columns  as $column ){
 				if (  ( preg_match( '/_id/', $column))  ){
+
 					$base_column = preg_replace( '/_id/', '', $column);
 					$uc_base_coumn = ucwords( $base_column );
+
 					$external_fetch .= <<<fetch
 
 			\$this -> model -> set ( 
@@ -30,7 +36,12 @@ fetch;
 			}
 		}
 
+
+
 		$rules = <<<RULES
+	/**
+ 	 * @var array Sets the permissions for each type of action. Processed and enforced by the Access module.
+	 */
 	public \$permissions = array(
 
 		'roles' => array(
@@ -51,7 +62,7 @@ RULES;
 		$controller = <<<CONT
 <?php
 
-class $controller_name extends Controller{
+class {$uname}Controller extends Controller{
 
 $rules
 
@@ -60,17 +71,21 @@ $rules
 	}
 
 
-	// index() - Loads default 'index' view
-
+	/**
+ 	 * index() - Loads default 'index' view
+	 *
+	 */
 	function index(){
 		\$this -> prg('gallery');
 	}
 
 
-	// form() - Loads 'form' view
-
+	/**
+ 	 * form() - Loads 'form' view
+	 *
+	 */
 	function form(){
-		Session::open() -> del('editing_{$base_name}_id');
+		Session::open() -> del('editing_{$name}_id');
 		if( \$this -> access -> action('form') ){
 			$external_fetch
 			\$this -> useView('form');
@@ -79,51 +94,60 @@ $rules
 	}
 
 
-	// post() - Recieves POST data and hands it to model for database insertion
-
+	/**
+ 	 * post() - Recieves POST data and hands it to model for database insertion
+	 *
+	 */
 	function post(){
-		if ( \$id = Session::open() -> getThenDel('editing_{$base_name}_id')  )
-			\$this -> model -> update$capitalized_name( \$id $user);
+		if ( \$id = Session::open() -> getThenDel('editing_{$name}_id')  )
+			\$this -> model -> update$uname( \$id $user);
 		elseif( \$this -> access -> action('post') )
 			\$id = \$this -> model -> insertPOST( $user_single );
 		\$this -> prg('show', \$id);
 	}
 
 
-	// del() - Directly remove database data from URL. 
-
+	/**
+ 	 * del() - Removes $uname from database.
+	 *
+	 * @param integer \$id The id of the $uname to delete.
+	 */
 	function del( \$id ){
 		if ( isset( \$id ) && \$this -> access -> action( 'del' ) )
-			\$this -> model -> delete$capitalized_name ( \$id $user);
+			\$this -> model -> delete$uname ( \$id $user);
 		\$this -> prg('gallery');
 	}
 
 
-	// edit() - Updates specified values
-
+	/**
+ 	 * edit() - Updates specified $uname in database.
+	 *
+	 * @param integer \$id The id of the $uname to update.
+	 */
 	function edit(\$id){
-		Session::open() -> set( 'editing_{$base_name}_id', \$id );
+		Session::open() -> set( 'editing_{$name}_id', \$id );
 		if( 
 			isset( \$id )
-			&& ( $$base_name = \$this -> model -> get$capitalized_name( \$id $user) )
+			&& ( $$name = \$this -> model -> get$uname( \$id $user) )
 			&& ( \$this -> access -> action( 'edit' ) )
 		){
 			$external_fetch
-			\$this -> model -> saved_fields	= reset ($$base_name); 
+			\$this -> model -> saved_fields	= reset ($$name); 
 			\$this -> useView('form');
 		}else
 			\$this -> prg('gallery');
 	}
 
 
-	// show() - Display all information for specifed primary Id
-	//
-	// Retrieves all data for specified id and passes it to 'gallery' view
-
+	/**
+ 	 * show() - Retrieves and displays specified $uname
+	 *
+	 * @param integer \$id The id of the $uname to show.
+	 */
 	function show( \$id ){
 		if( 
 			isset( \$id ) 
-			&& \$this -> model -> get$capitalized_name(\$id $user) 
+			&& \$this -> model -> get$uname(\$id $user) 
 			&& ( \$this -> access -> action( 'show' ) )
 		){
 			\$this -> model -> set( 'show', true );
@@ -133,17 +157,16 @@ $rules
 	}
 
 
-	// gallery() - A gallery of items
-	//
-	// Displays items '{$capitalized_name}s' in gallery form.
-	//
-	// \$page - Current page, defaults to 1
-	// \$order_col 	- The column to order by
-	// \$order_sort 	- The sort to use
-
+	/**
+ 	 * gallery() -  Displays items '{$uname}s' in gallery form.
+	 *
+	 * @param integer \$page        Current page, defaults to 1
+	 * @param string  \$order_col   The column to order by
+	 * @param string  \$order_sort  The sort to use
+	 */
 	function gallery(\$page = 1, \$order_col = null, \$order_sort = null){
 		if ( \$this -> access -> action( 'gallery' ) ){
-			\$this -> model -> gallery$capitalized_name( \$order_col, \$order_sort, \$page $user );
+			\$this -> model -> gallery$uname( \$order_col, \$order_sort, \$page $user );
 			\$this -> useView('table');
 		}else
 			\$this -> prg();
@@ -153,6 +176,23 @@ $rules
 }
 ?>
 CONT;
+
+		$is_main = <<<is_main
+
+	// about() - Run of the mill 'about' page
+
+	function about(){
+		\$this -> useView('about');
+	}
+is_main;
+
+
+		return $controller;
+	}
+
+}
+
+
 
 /*
 	// order() - Recieves/processes order options to be passed to be shown to the gallery.
@@ -175,21 +215,6 @@ CONT;
 		$this -> prg( 'gallery', $variables );
 	}
 */
-
-		$is_main = <<<is_main
-
-	// about() - Run of the mill 'about' page
-
-	function about(){
-		\$this -> useView('about');
-	}
-is_main;
-
-
-		return $controller;
-	}
-
-}
 
 
 ?>

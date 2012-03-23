@@ -3,10 +3,10 @@
 /**
  * Query class file.
  *
- * @author Zersenay Alem <info@alemmedia.com>
+ * @author Z. Alem <info@alemmedia.com>
  */
 
-class Query extends Database{
+abstract class Query extends Database{
 	
 	/**
 	 * @var array Count-keeper for each query builder.
@@ -336,14 +336,13 @@ class Query extends Database{
 	 *
 	 */
 
-	public function order($orderby, $sort, $table = null){
+	public function order( $orderby, $sort, $table = null){
 		$this -> counter['order']++;
 		$table = (isset($table)) ? $this -> clean ($table) : $this -> table;
-		if ( ($orderby) && ($sort == 'ASC' || $sort == 'DESC' ) ){
+		if ( isset( $orderby ) && preg_match( '/ASC||DESC/i' , $sort )  ){ #MAKE CASE INSENSITIVE
 			$this -> whitelist($orderby,$table);
-			#$this -> whitelist($sort,$table, array('ASC','DESC'));
 			$order = " ORDER BY $table.$orderby $sort";
-			$this -> query .= $order; 
+			$this -> query ( $order ); 
 		}
 		return $this;
 	}
@@ -367,6 +366,7 @@ class Query extends Database{
 		$this -> query .= $limit; 
 		return $this;
 	}
+
 
 	/**
 	 * joining -  Joins two tables

@@ -3,7 +3,7 @@
 /**
  * Controller class file.
  *
- * @author Zersenay Alem <info@alemmedia.com>
+ * @author Z. Alem <info@alemmedia.com>
  */
 
 
@@ -93,7 +93,7 @@ class Controller{
 	 *
 	 * @param string $name The controller name. Defaults to the DEFAULT_CONTROLLER set in the application config.
 	 * @param bool $load_model If set to true, the appropriate model will be automatically loaded
-	 * @param bool $load_module If set to true, the default modules will be automatically loaded
+	 * @param bool $load_modules If set to true, the default modules will be automatically loaded
 	 * @return object
 	 *
 	 */

@@ -18,7 +18,9 @@ class Generator{
 			$class = $name . 'Controller';
 
 			$controller_scaffold = new Controller();
-			$template = $controller_scaffold -> scaffold( $name );
+			$controller_scaffold  -> name = $name;
+			$controller_scaffold  -> uname = ucwords ( $name );
+			$template = $controller_scaffold -> scaffold();
 
 			$path =  SERVER_ROOT . DEFAULT_APPLICATION_PATH . DEFAULT_CONTROLLER_PATH . $name . '.php';
 			$this -> create($path, $template);
@@ -28,7 +30,9 @@ class Generator{
 			echo "Creating model for $name...\n";
 
 			$model_scaffold = new Model();
-			$template = $model_scaffold -> scaffold($name);
+			$model_scaffold  -> name = $name;
+			$model_scaffold  -> uname = ucwords ( $name );
+			$template = $model_scaffold -> scaffold();
 
 			$path =  SERVER_ROOT . DEFAULT_APPLICATION_PATH . DEFAULT_MODEL_PATH . $name . '.php';
 			$this -> create($path, $template);
@@ -40,9 +44,11 @@ class Generator{
 			mkdir( $dir , 0755 ) or die("Couldn't create directory");
 
 			$view_scaffold = new View();
+			$view_scaffold  -> name = $name;
+			$view_scaffold  -> uname = ucwords ( $name );
 
 			foreach ($this -> views as $view)
-				$this -> create($dir . $view . '.php' , $view_scaffold -> scaffold( $name , $view ) );
+				$this -> create($dir . $view . '.php' , $view_scaffold -> scaffold( $view ) );
 		}
 
 		echo "Completed \n";

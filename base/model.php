@@ -3,11 +3,11 @@
 /**
  * Model class file.
  *
- * @author Zersenay Alem <info@alemmedia.com>
+ * @author Z. Alem <info@alemmedia.com>
  */
 
 
-class Model extends Query{
+abstract class Model extends Query{
 
 	public $table;
 	public $column;

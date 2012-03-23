@@ -3,11 +3,11 @@
 /**
  * Database class file.
  *
- * @author Zersenay Alem <info@alemmedia.com>
+ * @author Z. Alem <info@alemmedia.com>
  */
 
 
-class Database{
+abstract class Database{
 
 
 	/** 
