@@ -61,12 +61,14 @@ For the MVC scaffold 'foo':
 
 ### FILE SYSTEM
 
+* apps/ 		- Contains your applications. Comprised of controllers, models, modules and views directories
+	* default/
+		* controllers/ 	
+		* models/
+		* modules/ 
+		* views/ 	
 * base/ 		- Contains essential system classes.
 * config/  		- Contains configuration files for application.
-* controllers/ 		- Holds created controllers.
-* models/		- Holds created models.
-* modules/ 		- Holds module classes
-* views/ 		- Holds templates and views
 * public_html/		- Holds publicly-viewable files.
 	* media/  	- Holds css, js, and imgs.
 	* index.php	- The "boot strapping" script
