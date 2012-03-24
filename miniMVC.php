@@ -1,13 +1,7 @@
 #!/usr/bin/php
 <?php
 
-require_once('config/main.php');
-require_once('generator/database.php');
 require_once('generator/generator.php');
-require_once('generator/controller.php');
-require_once('generator/model.php');
-require_once('generator/view.php');
-require_once('generator/processor.php');
 
 // Running Script
 $args = getopt( 
@@ -25,12 +19,13 @@ $args = getopt(
 		'user', 
 		'help', 
 		'opendb:', 
-		'redo:'
+		'redo:',
+		'scaffold:'
 	) 
 );
 
-$processor = new Processor();
-$processor -> execute ($args);
+$generator = new Generator();
+$generator -> process ($args);
 
 ?>
 

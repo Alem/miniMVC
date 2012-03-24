@@ -14,7 +14,8 @@ class Database{
 		return self::$instance;
 	}
  
-	function run() {
+
+	public function run() {
 		$db_link = new PDO('mysql:host=' . DB_SERVER . ';dbname=' . DB_DATABASE,DB_USERNAME,DB_PASSWORD);
 		$statement = $db_link -> query($this -> query);
 		if ( !$statement )
@@ -25,7 +26,7 @@ class Database{
 		}
 	}
 
-	function get_columns( $name ){
+	public function get_columns( $name ){
 		$this -> query = 'show columns from ' .  $name . 's';
 		$this -> table_info = $this -> run();
 		foreach( $this -> table_info as $table_row => $table_column){
@@ -38,7 +39,7 @@ class Database{
 	}
 
 
-	function openDB( $query ){
+	public function openDB( $query ){
 		echo "Connected to database: " . DB_DATABASE . "\n";
 		$this -> query = $query;
 		$this -> run();
