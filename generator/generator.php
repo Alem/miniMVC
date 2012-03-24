@@ -1,9 +1,5 @@
 <?php
 
-require_once( '../config/main.php');
-require_once( 'config.php' );
-require_once( 'database.php'  );
-
 class Generator{
 
 	public $args;
@@ -164,33 +160,44 @@ SQL;
 
 		$help = <<<HELP
 
-	miniMVC.php - Automatic MVC scaffold generator for miniMVC
-	usage: ./miniMVC.php [option] [name]	
+	NAME
+		gimiMVC - An MVC scaffold generator and Database management tool for miniMVC
+	
+	DESCRIPTION
+		gimiMVC allows the generation of MVC scaffolds within the application directory specified
+		in the applications config/ file ( ie. app/default.php ). It also allows instant database
+		management using the current settings in config/database.php.
 
-	Commands: 
-	--mvc "blah"		: Create model,view and controller for blah.
-	-m "blah"		: Create model for blah.
-	-c "blah"		: Create controller for blah.
-	-v "blah"		: Create view for blah.
+	USAGE
+		./gimiMVC [option] [name]	
+	
+	OPTIONS
+		Scaffold Generation:
+		-m "blah"		Create model for blah.
+		-c "blah"		Create controller for blah.
+		-v "blah"		Create view for blah.
+		--mvc "blah"		Create model,view and controller for blah.
+		--table "blah"		Generate table and column for blah.
+		--scaffold "name"	Identify the scaffold to use. ( Default is specified in config/generator.php )
 
-	--undo "blah"		: Delete MVC scaffold for blah. 
-	--redo "blah"		: Regenerate MVC scaffold for blah. 
+		Update and Undo:
+		--redo "blah"		Regenerate MVC scaffold for blah. 
+		--undo "blah"		Delete MVC scaffold for blah. 
+		--undotable "blah"	Delete database and column for blah. 
 
-	--opendb '<SQL QUERY>'	: Provides one-line execution of SQL queries using config/databse.php settings.
+		Model Linking:
+		--link X 		Allows linking of X's table to another via foreign key id reference. Requires --to
+		--to Y 			Links X to Y by creating Y foreign ID column in X's table.
+		--unlink X 		Removes linking of X's table to another by dropping foreign key + column. Requires --to
 
-	--table "blah"		: Generate table and column for blah.
-				 * Requires database settings to be configured in config.php.
-	--undotable "blah"	: Delete database and column for blah. 
-				 * Requires database settings to be configured in config.php.
-				 
-	--link X 		: Allows linking of X's table to another via foreign key id reference. Requires --to
-	--to Y 			: Links X to Y by creating Y foreign ID column in X's table.
-	--unlink X 		: Removes linking of X's table to another by dropping foreign key + column. Requires --to
+		Instant Query:
+		--opendb '<SQL QUERY>'	Provides one-line execution of SQL queries using config/database.php settings.
 
-	-h or --help 		: Displays this help text.
+		Help:
+		-h or --help 		Displays this help text.
 
 HELP;
-		echo $help;
+			echo $help;
 	}
 
 }
