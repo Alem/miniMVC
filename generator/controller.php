@@ -25,6 +25,8 @@ class Controller extends Generator{
 					$base_column = preg_replace( '/_id/', '', $column);
 					$uc_base_coumn = ucwords( $base_column );
 
+
+/*********************** BEGIN HTML ****************************************************************/
 					$external_fetch .= <<<fetch
 
 			\$this -> model -> set ( 
@@ -32,12 +34,14 @@ class Controller extends Generator{
 				\$this -> useModel('$base_column') -> get$uc_base_coumn( null, Session::open() -> get( 'user_id' ) ) 
 			);
 fetch;
+######################## END HTML   #################################################################
 				}
 			}
 		}
 
 
 
+/*********************** BEGIN HTML ****************************************************************/
 		$rules = <<<RULES
 	/**
  	 * @var array Sets the permissions for each type of action. Processed and enforced by the Access module.
@@ -58,7 +62,11 @@ fetch;
 		)
 	);
 RULES;
+######################## END HTML   #################################################################
 
+
+
+/*********************** BEGIN HTML ****************************************************************/
 		$controller = <<<CONT
 <?php
 
@@ -176,7 +184,11 @@ $rules
 }
 ?>
 CONT;
+######################## END HTML   #################################################################
 
+
+
+/*********************** BEGIN HTML ****************************************************************/
 		$is_main = <<<is_main
 
 	// about() - Run of the mill 'about' page
@@ -185,6 +197,7 @@ CONT;
 		\$this -> useView('about');
 	}
 is_main;
+######################## END HTML   #################################################################
 
 
 		return $controller;
