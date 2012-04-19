@@ -1,18 +1,24 @@
 <?php
-
 /**
  * Request class file.
  *
  * @author Z. Alem <info@alemmedia.com>
  */
 
-
+/**
+ * The request class processes the URI request and 
+ * defines the Controller, method, and variable requested,
+ * and separates the URI request from search queries 
+ * ( both of which end up in $_GET, $_SERVER['QUERY_STRING'] )
+ */
 class Request{
 
 
 	/**
-	 * @var array The position of each URI type in the query string. ie: example.com/controller/method/variable
+	 * @var array The position of each URI type in the query string. 
 	 *
+	 * This array maps where the controller, method, and variables are expected to be in.
+	 * 	ie: example.com/controller/method/variable
 	 */
 	public $URI_map = array(
 		0 => 'CONTROLLER',
@@ -20,21 +26,24 @@ class Request{
 		2 => 'VARIABLE'
 	);
 
+
 	/**
 	 * filterURI - Filters URI from $_GET and $_SERVER
 	 *
 	 * Removes the 'uri' paramater ( responsible for identifying the Controller, method )
 	 * from the $_GET variable and the $_SERVER variable
 	 *
-	 * @todo Overwriting a superglobal seems like a bad idea -- replace this with constant for string and a session variable for GET?
+	 * @todo Unsetting values from the superglobal seems like a bad idea 
+	 * 		-- create filtered GET session variable?
 	 */
-
 	public function filterURI(){
 		unset( $_GET['uri'] );
+
 		$ampPos = strpos ( $_SERVER['QUERY_STRING'], '&' );
 		if ( $ampPos !== false )
 			define ( 'FILTERED_QUERY_STRING', substr ($_SERVER['QUERY_STRING'], $ampPos + 1 ) );
 	}
+
 
 	/**
 	 * get - Defines URI using GET[uri] or command line arguement
@@ -62,12 +71,13 @@ class Request{
 
 
 	/**
-	 * process - Returns formatted request array defining the Controller, Method and Variables.
+	 * process - Defines the Controller, Method and Variables from the request.
 	 *
-	 * Parses the request and splits it up using the URI_SEPARATOR delimiter.
+	 * Splits up the URI request using the URI_SEPARATOR delimiter, 
+	 * and defines the Controller, method, and variable
+	 * referencing Request::URI_map to determine the placement.
 	 *
-	 * @return array The contoller-friendly request array.
-	 *
+	 * @return object 	The request object.
 	 */
 	function process() {
 
@@ -86,7 +96,8 @@ class Request{
 
 
 	/**
-	 * INCOMPLETE
+	 * subDomain
+	 * @todo Add subdomain suport?
 	 */
 	function subDomain(){
 		$urlInfo = parse_url( $url );

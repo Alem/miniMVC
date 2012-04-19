@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @todo Get rid of this garbage and use the system/db/databse instead
+ */
 class Database{
 
 	private static $instance;
@@ -27,14 +29,14 @@ class Database{
 	}
 
 	public function get_columns( $name ){
+
 		$this -> query = 'show columns from ' .  $name . 's';
 		$this -> table_info = $this -> run();
+
 		foreach( $this -> table_info as $table_row => $table_column){
 			$this -> table_columns[] = $table_column['Field'];
-			if ( ( $table_column['Field'] != 'id' ) && ( $table_column['Field'] != 'user_id' ) ){
-				#$table_column['Field'] = str_replace ( '_', ' ', $table_column['Field'] );
+			if ( ( $table_column['Field'] != 'id' ) && ( $table_column['Field'] != 'user_id' ) )
 				$this -> filtered_columns[] = $table_column['Field'];
-			}
 		}
 	}
 

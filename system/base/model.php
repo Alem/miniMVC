@@ -1,6 +1,4 @@
 <?php
-
-
 /**
  * Model class file.
  *
@@ -8,6 +6,13 @@
  */
 
 
+/**
+ * The model class is the parent for all application models.
+ *
+ * It serves to retrieve data and encapsulate data.
+ * It is provided SQL access by the SQL() method which utilizes the QueryBuilder class.
+ *
+ */
 class Model{
 
 	/**
@@ -22,7 +27,6 @@ class Model{
 
 	/**
 	 * @var object Instance of Query class. Allows building database queries.
-	 * @todo Implement query in model as a property object rather than being extension of it.
 	 */
 	public $sql;
 
@@ -72,6 +76,13 @@ class Model{
 	}
 
 
+	/**
+	 * SQL - A simple singleton wrapper for a QueryBuilder object
+	 *
+	 * Allows model to 'lazy-load' and build queries by part.
+	 *
+	 * @return object 	The loaded QueryBuilder object
+	 */
 	function SQL(){
 		if ( !isset( $this -> sql ) ){
 			$this -> sql = new QueryBuilder();

@@ -1,18 +1,29 @@
 <?php
-
 /**
  * Session class file.
- *
- * A singleton wrapper to aid accessing and modifying the session
  *
  * @author Z. Alem <info@alemmedia.com>
  */
 
+/**
+ * The Session class is a singleton wrapper to aid in the 
+ * accessing and modifying the session
+ *
+ */
 class Session{
 
 
-	protected $id;
+	/**
+	 * @var object Holds the single instance of Session
+	 */
 	private static $instance;
+
+
+	/**
+	 * @var string The session id of the current session
+	 */
+	protected $id;
+
 
 	/**
 	 * @var mixed The data to be held in session.
@@ -21,8 +32,10 @@ class Session{
 
 
 	/**
-	 * __construct - Starts session, establishes Session::data reference to $_SESSION superglobal array, and sets session id.
+	 * __construct - Starts session
 	 *
+	 *  Establishes Session::data reference to $_SESSION superglobal array, and sets session id.
+	 *  Privately held an called only by Session::open for singleton functionality
 	 */
 	private function __construct(){
 		session_start();
@@ -35,9 +48,7 @@ class Session{
 	 * open - Creates singleton instance of Session object
 	 * 
 	 * @return object
-	 *
 	 */
-
 	public static function open() {
 		if ( !isset(self::$instance) )
 			self::$instance = new self();
@@ -51,9 +62,7 @@ class Session{
 	 * @param string $property   The property to set to the session
 	 * @param mixed  $value      The balue to set to the property
 	 * @param bool   $make_array If set to true the property will be an numeric array
-	 *
 	 */
-
 	public static function set($property, $value = null, $make_array = false){
 		if ( is_array( $property) ){
 			foreach($property as $key => $single_property)
@@ -71,9 +80,7 @@ class Session{
 	 * del - Recieves variables to delete in $_SESSION array
 	 *
 	 * @param string $property   The property to delete from the session
-	 *
 	 */
-
 	public static function del($property){
 		if ( is_array( $property) ){
 			foreach($property as $key => $single_property)
@@ -88,9 +95,7 @@ class Session{
 	 * 
 	 * @param string $property   The property to retrieve from the session
 	 * @return mixed|bool        The retrieved property or false.
-	 *
 	 */
-
 	public static function get($property){
 		if ( isset( Session::open() -> data[$property] ) )
 			return Session::open() -> data[$property];
@@ -98,14 +103,13 @@ class Session{
 			return false;
 	}
 
+
 	/**
 	 * get - Returns variables from $_SESSION array and subsequently deletes them.
 	 * 
 	 * @param string $property   The property to retrieve and delete from the session
 	 * @return mixed             The retrieved property.
-	 *
 	 */
-
 	public static function getThenDel($property){
 		$result = Session::open() -> get ($property);
 		Session::open() -> del ($property);

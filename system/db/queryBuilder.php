@@ -1,11 +1,21 @@
 <?php
-
 /**
- * Query class file.
+ * QueryBuilder class file.
  *
  * @author Z. Alem <info@alemmedia.com>
  */
 
+/**
+ * The QueryBuilder class allows a simplified abstraction layer for
+ * constructing and running queries. This allows for simpler sequential construction of queries.
+ *
+ * Example
+ * -------
+ * QueryBuilder -> select ('*') -> from('table') -> where('value','column') -> run();
+ *
+ *
+ * @todo Make each partial query database agnostic. Many queries will not work with all database types.
+ */
 class QueryBuilder extends Database{
 
 	/**
@@ -36,6 +46,7 @@ class QueryBuilder extends Database{
 	 */
 	public $query;
 
+
 	/**
 	 * @var string Holds the query data to be parameterized.
 	 */
@@ -49,7 +60,6 @@ class QueryBuilder extends Database{
 	 * @return object
 	 *
 	 */
-
 	function query($fragment){
 		if($fragment)
 			$this -> query .= $fragment;
@@ -62,7 +72,6 @@ class QueryBuilder extends Database{
 	 *
 	 * @param mixed $data - Data to be passed
 	 */
-
 	function query_data($data){
 		if( is_array($data) ){
 			$data = array_values ( $data );
@@ -77,7 +86,6 @@ class QueryBuilder extends Database{
 	 *
 	 * @return object
 	 */
-
 	function clearQuery(){
 		$this -> query = null;
 		$this -> query_data = array();
@@ -92,7 +100,6 @@ class QueryBuilder extends Database{
 	 *
 	 * @return object
 	 */
-
 	function saveQuery(){
 		$this -> saved_query = $this -> query;
 		$this -> saved_query_data = $this -> query_data;
@@ -106,7 +113,6 @@ class QueryBuilder extends Database{
 	 *
 	 * @return object
 	 */
-
 	function restoreQuery(){
 		$this -> query = $this -> saved_query;
 		$this -> query_data = $this -> saved_query_data;
@@ -128,7 +134,6 @@ class QueryBuilder extends Database{
 	 * @return array The SQL rows.
 	 *
 	 */
-
 	public function run(){
 		$db_link = $this -> db();
 
@@ -193,7 +198,6 @@ class QueryBuilder extends Database{
 	 * @param mixed &$data The data to be cleaned.
 	 *
 	 */
-
 	function clean( &$data ){
 		if (is_array($data)) {
 			foreach($data as &$value)
@@ -333,6 +337,7 @@ class QueryBuilder extends Database{
 		if ( $position !== false )
 			return $name = substr( $name, ( $position + 1 ) , strlen( $name ) );
 	}
+
 
 	/**
 	 * select - Performs a database select query
@@ -543,7 +548,6 @@ class QueryBuilder extends Database{
 	 * @return object
 	 *
 	 */
-
 	public function joining( $table_b, $columns_a, $columns_b , $type = 'LEFT OUTER', $table_a = null ) {
 		$this -> counter['joining']++;
 		$table_a = (isset($table_a)) ? $this -> clean ( $table_a ) : $this -> table;
@@ -569,7 +573,6 @@ class QueryBuilder extends Database{
 	 *
 	 * @param string $table The database table
 	 * @return object
-	 *
 	 */
 	public function show ( $table ){
 		$this -> counter['show']++;
@@ -583,7 +586,6 @@ class QueryBuilder extends Database{
 	 *
 	 * @param string $table The database table
 	 * @return array        The columns of the table.
-	 *
 	 */
 	public function getColumns ( $table ){
 		if ( ! isset ( $this -> table_columns[$table] ) ){

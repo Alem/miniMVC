@@ -1,5 +1,15 @@
 <?php
+/**
+ * Generator class file.
+ *
+ * @author Z. Alem <info@alemmedia.com>
+ */
 
+/** 
+ * The Generator handles the generation of MVC scaffolds.
+ *
+ * @todo This system needs major improvements in terms of configurability
+ */
 class Generator{
 
 	public $args;

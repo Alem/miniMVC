@@ -1,9 +1,15 @@
 <?php
 /**
- * Load - A collection of factory methods that assign the instance as a property of the supplied object.
+ * Load class file.
  *
- * todo COMPLETE REFACTOR: Remove All caller modifiying procedures. This class is now only a factory container.
+ * @author Z. Alem <info@alemmedia.com>
+ */
+
+/**
+ * The Load class provides a configurable factory method that efficently loads the named component
+ * as well as the method to assign the component instance as a property of a supplied object.
  *
+ * todo Is the Load::toObject safe? difficult to test?
  */
 
 class Load{
@@ -56,6 +62,17 @@ class Load{
 	}
 
 
+	/**
+	 * toObject - Uses load::component to load an instance of the named class to the supplied object
+	 *
+	 * Instantiates the named class if not already assigned to the supplied object and returns the new object property.
+	 * Otherwise it returns the named object property.
+	 *
+	 * @param object object 	The object onwhich the instance will be loaded to
+	 * @param string type 		The type of component
+	 * @param string name 		The name of the component
+	 * @return object 		The instance of the component
+	 */
 	public static function toObject( $object, $type , $name, $instantiate = true ){
 		if ( !isset ( $object -> loaded[ $type ][$name] ) )
 			$object -> loaded[$type][$name] = Load::component( $type , $name, $instantiate );
@@ -63,7 +80,5 @@ class Load{
 		return $object -> loaded[$type][$name];
 	}
 
-
 }
-
 ?>
