@@ -1,6 +1,6 @@
 <?php
 
-define( 'SCAFFOLD_DIR', 'scaffolds/' );
-define( 'DEFAULT_SCAFFOLD', 'management/');
+const SCAFFOLD_DIR =  'scaffolds/';
+const DEFAULT_SCAFFOLD =  'management/';
 
 ?>

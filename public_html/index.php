@@ -1,5 +1,4 @@
 <?php
-//
 // index.php - The bootup script for the application
 // (c) Alem
 
@@ -10,29 +9,26 @@ $timer_start = microtime(true);
 require_once('../config/main.php');
 
 // Require all lib/ files
-foreach ( array( 'router','database', 'query','model','controller','debugger','session' ) as $classname ){
-	require_once( SERVER_ROOT . DEFAULT_LIBRARY_PATH . $classname  . '.php' );
-}
+foreach ( explode( ',' , LIBRARY_CLASSES ) as $classname )
+	require_once( SERVER_ROOT . DEFAULT_SYSTEM_PATH . $classname  . '.php' );
 
 // Get the controller, method and variable from URL
-$router = new Router();
-$request = $router -> formatRequest();
+$request = new Request();
+$request -> process();
 
-
-// Instantiate appropriate controller based on request.
+// open appropriate controller based on request.
 $application = new Controller();
-$application -> useController( $request['controller'] ) 
-		-> useMethod ( $request['method']  ,  $request ['variable'] );
+$application -> useController( CONTROLLER ) ->  useMethod ( HTTP_ACCESS_PREFIX . METHOD  ,  VARIABLE );
 
 // Script-timing completion
 $timer_end = microtime(true);
 $time = $timer_end - $timer_start;
-Debugger::instantiate() -> record['Script Time'] = $time;
-Debugger::instantiate() -> record['Memory Usage'] = ( memory_get_usage() / 1000 ) . ' kb';
-Debugger::instantiate() -> record['Memory Peak Usage'] = ( memory_get_peak_usage() / 1000 ) . ' kb';
-Debugger::instantiate() -> record['CPU Usage'] = getrusage(); 
+
+// Debug Recording
+Debug::open() -> record['Script Time'] = $time;
+Debug::open() -> record['Memory Usage'] = ( memory_get_usage() / 1000 ) . ' kb';
+Debug::open() -> record['Memory Peak Usage'] = ( memory_get_peak_usage() / 1000 ) . ' kb';
 
 //Logging Output
-Debugger::instantiate() -> display();
-
+Debug::open() -> display();
 ?>

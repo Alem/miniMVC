@@ -2,8 +2,9 @@
 <?php
 
 require_once( 'config/main.php');
-require_once( 'generator/database.php'  );
-require_once( 'generator/generator.php');
+require_once( 'config/generator.php');
+require_once( DEFAULT_SYSTEM_PATH . 'cli/generator/database.php'  );
+require_once( DEFAULT_SYSTEM_PATH . 'cli/generator/generator.php');
 
 // Running Script
 $args = getopt( 
