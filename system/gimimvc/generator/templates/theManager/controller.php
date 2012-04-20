@@ -11,8 +11,8 @@ class Controller extends Generator{
 
 
 		if ( $user ){
-			$user = ", Session::open() -> get( 'user_id' ) ";
-			$user_single = " Session::open() -> get( 'user_id' ) ";
+			$user = ", Session::get( 'user_id' ) ";
+			$user_single = " Session::get( 'user_id' ) ";
 		}
 
 
@@ -31,7 +31,7 @@ class Controller extends Generator{
 
 			\$this -> model() -> set ( 
 				'$base_column', 
-				\$this -> model('$base_column') -> get$uc_base_coumn( null, Session::open() -> get( 'user_id' ) ) 
+				\$this -> model('$base_column') -> get$uc_base_coumn( null, Session::get( 'user_id' ) ) 
 			);
 fetch;
 ######################## END HTML   #################################################################
@@ -73,6 +73,8 @@ RULES;
 
 class {$uname}Controller extends Controller{
 
+$rules
+
 	public function __construct(){
 		parent::__construct();
 	}
@@ -85,23 +87,9 @@ class {$uname}Controller extends Controller{
 	 */
 	public function access(){
 		if ( !isset ( \$this -> accessControl ) ) {
-			\$roles = array(
-				'0'	=> array('c', 'r', 'u', 'd'),
-				'1'	=> array('c', 'r', 'u', 'd'),
-				'2'	=> array('', 'r', '', ''),
-				''	=> array('', '', '', ''),
-			);
-
-			\$actions = array(
-				'c'	=> array( 'post', 'form' ),
-				'r'	=> array( 'show', 'gallery' ),
-				'u' 	=> array( 'edit' ),
-				'd'	=> array( 'del')
-			);
-
 			\$this -> accessControl = new AccessControl();
-			\$this -> accessControl -> defineRoles( \$roles );
-			\$this -> accessControl -> defineActions( \$actions );
+			\$this -> accessControl -> defineRoles( \$this -> permissions['roles'] );
+			\$this -> accessControl -> defineActions( \$this -> permissions['actions'] );
 			\$this -> accessControl -> setRole( Session::get('user_type') );
 		}
 		return \$this -> accessControl;
