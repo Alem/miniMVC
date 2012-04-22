@@ -22,7 +22,7 @@ class Element extends HTML{
 		$loadedCSS = null;
 		if( defined('DEFAULT_CSS')  ){ 
 			foreach( explode( ",", DEFAULT_CSS ) as $name )
-				$loadedCSS .= HTML::linkCSS( $name );
+				$loadedCSS .= self::linkCSS( $name );
 		}
 		return $loadedCSS;
 	}
@@ -37,7 +37,7 @@ class Element extends HTML{
 		$loadedJS = null;
 		if( defined('DEFAULT_JAVASCRIPT')  ){ 
 			foreach( explode( ",", DEFAULT_JAVASCRIPT ) as $name )
-				$loadedJS .= HTML::linkJS( $name );
+				$loadedJS .= self::linkJS( $name );
 		}
 		return $loadedJS;
 	}
@@ -66,7 +66,7 @@ class Element extends HTML{
 			$options[ $row['id'] ] = $row[ $name ];
 
 		if ( isset ( $options ) )
-			$select .=  HTML::options ( $options, $selected_value  );
+			$select .=  self::options ( $options, $selected_value  );
 		else
 			$select .= '<option value = "" > </option>';
 
@@ -85,7 +85,8 @@ class Element extends HTML{
 	 * @param object model 		The model containing the data, order, search string, and current page.
 	 * @param string method 	The name of the method that each page link will use.	
 	 * @param string controller	The name of the controller that each page link will use.	
-	 * @todo Seems almost complete.
+	 *
+	 * @todo  Complete this.
 	 */
 	public static function pager( $model, $method = 'gallery' , $controller = CONTROLLER){
 

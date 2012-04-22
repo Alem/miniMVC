@@ -1,48 +1,51 @@
 <?php
 
 
-class Controller extends Generator{
+class Controller extends Template{
 
-	public function scaffold( $user = true ) {
-		
+
+	public function __construct( $name ){
+		parent::__construct( $name );
+	}
+
+
+	public function externalModelFetch(){
+		$external_fetch = null;
+		if ( isset( $this -> queryTool() -> linked_columns ) ):
+			foreach ( $this -> queryTool() -> linked_columns  as $column ):
+					$uc_column = ucwords( $column );
+//--------------------------------------HTML START
+					$external_fetch .= <<<fetch
+
+			\$this -> model() -> set ( 
+				'$column', 
+				\$this -> model('$column') -> get$uc_column( null, Session::get( 'user_id' ) ) 
+			);
+fetch;
+//---------------------------------------HTML END
+			endforeach;
+			return $external_fetch;
+		endif;
+	}
+
+
+	public function scaffold() {
 		$name  =& $this -> name;
 		$uname =& $this -> uname;
-		$external_fetch = null;
+		$external_fetch = $this -> externalModelFetch();
+		$HTTP_ACCESS_PREFIX = HTTP_ACCESS_PREFIX;
 
-
-		if ( $user ){
+		if ( 1 == 1 ){
 			$user = ", Session::get( 'user_id' ) ";
 			$user_single = " Session::get( 'user_id' ) ";
 		}
 
+//----------------HTML START
+		$controller = <<<CONT
+<?php
 
+class {$uname}Controller extends Controller{
 
-		if ( isset( Database::open() -> filtered_columns ) ){
-
-			foreach ( Database::open() -> filtered_columns  as $column ){
-				if (  ( preg_match( '/_id/', $column))  ){
-
-					$base_column = preg_replace( '/_id/', '', $column);
-					$uc_base_coumn = ucwords( $base_column );
-
-
-/*********************** BEGIN HTML ****************************************************************/
-					$external_fetch .= <<<fetch
-
-			\$this -> model() -> set ( 
-				'$base_column', 
-				\$this -> model('$base_column') -> get$uc_base_coumn( null, Session::get( 'user_id' ) ) 
-			);
-fetch;
-######################## END HTML   #################################################################
-				}
-			}
-		}
-
-
-
-/*********************** BEGIN HTML ****************************************************************/
-		$rules = <<<RULES
 	/**
  	 * @var array Sets the permissions for each type of action. Processed and enforced by the Access module.
 	 */
@@ -62,18 +65,7 @@ fetch;
 			'd'	=> array( 'del')
 		)
 	);
-RULES;
-######################## END HTML   #################################################################
 
-		$HTTP_ACCESS_PREFIX = HTTP_ACCESS_PREFIX;
-
-/*********************** BEGIN HTML ****************************************************************/
-		$controller = <<<CONT
-<?php
-
-class {$uname}Controller extends Controller{
-
-$rules
 
 	public function __construct(){
 		parent::__construct();
@@ -211,21 +203,7 @@ $rules
 }
 ?>
 CONT;
-######################## END HTML   #################################################################
-
-
-
-/*********************** BEGIN HTML ****************************************************************/
-		$is_main = <<<is_main
-
-	// {$HTTP_ACCESS_PREFIX}About() - Run of the mill 'about' page
-
-	public function {$HTTP_ACCESS_PREFIX}About(){
-		\$this -> view('about');
-	}
-is_main;
-######################## END HTML   #################################################################
-
+//----------------HTML END
 
 		return $controller;
 	}

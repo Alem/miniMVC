@@ -1,64 +1,79 @@
 <?php
 
-class Model extends Generator{
+class Model extends Template{
+
+	public function __construct( $name ){
+		parent::__construct( $name );
+	}
 
 
-	public function scaffold(){
-
-		$uname = $this -> uname;
-		$name = $this -> name;
-
+	public function manageExternalLinks(){
 		$joining = null;
 		$external_select = null;
 		$external_table_arrays = null;
-		$getBlankForX = null;
 
-		if ( isset( Database::open() -> filtered_columns ) ):
-
-			$table_columns = implode( "','" , Database::open() -> table_columns );
-			$form_columns  = implode( "','" , Database::open() -> filtered_columns );
-		
-			foreach ( Database::open() -> filtered_columns  as $column ):
-				if (  ( preg_match( '/_id/', $column ) )  ):
-					$stripped_column = preg_replace( '/_id/', '', $column);
-
-/*********************** BEGIN HTML ****************************************************************/
+		if ( isset( $this -> queryTool() -> linked_columns ) ):
+			foreach ( $this -> queryTool() -> linked_columns  as $stripped_column ):
+//--------------------------------------START HTML
 					$external_table_arrays .= <<<external
 
 			'{$stripped_column}' => array( '$stripped_column' ),
 external;
-######################## END HTML   #################################################################
-/*********************** BEGIN HTML ****************************************************************/
+//--------------------------------------END HTML
+//--------------------------------------START HTML
 					$external_select .= <<<select
 
 		\$this -> SQL() -> select ( \$this -> columns['external']['{$stripped_column}'], '{$stripped_column}s' );
 
 select;
-######################## END HTML   #################################################################
-/*********************** BEGIN HTML ****************************************************************/
+//--------------------------------------END HTML
+//--------------------------------------START HTML
 					$joining .= <<<JOINING
 
-		\$this -> SQL() -> joining ('{$stripped_column}s', '$column', 'id', 'LEFT OUTER' );
+		\$this -> SQL() -> joining ('{$stripped_column}s', '{$stripped_column}_id', 'id', 'LEFT OUTER' );
 JOINING;
-######################## END HTML   #################################################################
-
-				endif;
+//--------------------------------------END HTML
 			endforeach;
-			
+		endif;
+		return array(
+			'external_table_array'  => $external_table_arrays,
+			'external_select' 	=> $external_select,
+			'joining' 		=> $joining
+		);
+	}
 
-			if ( !empty ( $external_table_arrays ) ):
-/*********************** BEGIN HTML ****************************************************************/
-			$getBlankForX = <<<externalFunction
+	public function scaffold(){
+
+		$uname = $this -> uname;
+		$name = $this -> name;
+		$table_columns = null;
+		$form_columns = null;
+		$getBlankForX = null;
+
+		$external_table_data = $this -> manageExternalLinks();
+		$joining 		= $external_table_data['joining'];
+		$external_select 	= $external_table_data['external_select'];
+		$external_table_arrays 	= $external_table_data['external_table_array'];
+
+		if ( !empty ( $this -> queryTool() -> table_columns ) )
+			$table_columns = implode( "','" , $this -> queryTool() -> table_columns );
+		if ( !empty ( $this -> queryTool() -> filtered_columns ) )
+			$form_columns  = implode( "','" , $this -> queryTool() -> filtered_columns );
+
+		if ( !empty ( $external_table_data ) ):
+
+
+			$getBlankForX =<<<externalFunction
 
 	/**
-	 * get{$uname}sForX - Retrieves $uname(s) and orders them by the specified external column
+	 * get{$uname}sByX - Retrieves $uname(s) and orders them by the specified external column
 	 *
 	 * @param string  \$external_column  The name of the external column
 	 * @param integer \$id               The primary ID of the $uname to delete.
 	 * @param mixed   \$user_id          The value that matches the row's value for the 'ownership' column.
 	 * @return array  \$x                The array of table values organized for each external column value
 	 */
-	public function get{$uname}sForX ( \$external_column , \$id = null,  \$user_id = null ) {
+	public function get{$uname}sByX ( \$external_column , \$id = null,  \$user_id = null ) {
 		\$result = \$this -> get{$uname}( \$id , \$user_id );
 		
 		foreach ( \$result as \$row ){
@@ -74,14 +89,7 @@ JOINING;
 		return \$x;
 	}
 externalFunction;
-######################## END HTML   #################################################################
 			endif;
-
-
-		else:
-			$table_columns = 'id,' . $name;
-			$form_columns =& $name;
-		endif;
 
 		$model =  <<<MODEL
 <?php

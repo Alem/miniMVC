@@ -3,8 +3,13 @@
 
 require_once( 'config/main.php');
 require_once( 'config/generator.php');
-require_once( DEFAULT_SYSTEM_PATH . 'cli/generator/database.php'  );
-require_once( DEFAULT_SYSTEM_PATH . 'cli/generator/generator.php');
+require_once( SERVER_ROOT . DEFAULT_SYSTEM_PATH . 'db/database.php');
+require_once( SERVER_ROOT . DEFAULT_SYSTEM_PATH . 'db/queryBuilder.php');
+require_once( SERVER_ROOT . DEFAULT_SYSTEM_PATH . 'log/debug.php');
+require_once( SERVER_ROOT . DEFAULT_SYSTEM_PATH . 'cache/fileCache.php');
+require_once( SERVER_ROOT . DEFAULT_SYSTEM_PATH . 'gimimvc/generator/queryTool.php'  );
+require_once( SERVER_ROOT . DEFAULT_SYSTEM_PATH . 'gimimvc/generator/generator.php');
+require_once( SERVER_ROOT . DEFAULT_SYSTEM_PATH . 'gimimvc/generator/template.php');
 
 // Running Script
 $args = getopt( 
@@ -31,4 +36,3 @@ $generator = new Generator();
 $generator -> process ($args);
 
 ?>
-

@@ -17,4 +17,4 @@
 
 <?php echo element::loadCSS(); ?>
 <?php echo element::loadJS(); ?>
-<?php if( $this -> module('base/analytics') )  echo $this -> module('base/analytics') -> track(); ?>
+<?php if( $this -> module('metrics/analytics') )  echo $this -> module('metrics/analytics') -> track(); ?>

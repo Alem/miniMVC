@@ -52,6 +52,7 @@ class Request{
 	 * leaving $_GET with the remaining 'non-routing' key => value pairs.
 	 *
 	 * @return string The URI/Query String
+	 * @uses   Request::filterURI()
 	 */
 	function get(){
 
@@ -77,7 +78,7 @@ class Request{
 	 * and defines the Controller, method, and variable
 	 * referencing Request::URI_map to determine the placement.
 	 *
-	 * @return object 	The request object.
+	 * @return Request 	The request object.
 	 */
 	function process() {
 
@@ -108,5 +109,4 @@ class Request{
 	}
 
 }
-
 ?>

@@ -41,7 +41,7 @@ class AccessControl{
 	/**
 	 * defineRoles - Recieves the user role permissions
 	 *
-	 * @param array roles    The array of user roles where the key is the user-type and the value is an array of permissions.
+	 * @param array $roles    The array of user roles where the key is the user-type and the value is an array of permissions.
 	 */
 	public function defineRoles( array $roles ){
 		return $this -> permissions['roles'] = $roles;
@@ -51,7 +51,7 @@ class AccessControl{
 	/**
 	 * defineActions - Recieves the list of actions classified by permission-level
 	 *
-	 * @param array actions    The array of actions where the key is the permission and the value is an array of actions.
+	 * @param array $actions    The array of actions where the key is the permission and the value is an array of actions.
 	 */
 	public function defineActions( array $actions ){
 		return $this -> permissions['actions'] = $actions;
@@ -64,7 +64,7 @@ class AccessControl{
 	 * This value will be matched against a key in the AccessControl::permissions['roles'] array
 	 * the matching permission set will be enforced by AccessControl::permission()
 	 *
-	 * @param mixed role  The current user's role
+	 * @param mixed $role  The current user's role
 	 */
 	public function setRole( $role ){
 		return $this -> default_role = $role;
@@ -77,8 +77,8 @@ class AccessControl{
 	 * Checks user's user-type against the $rule['roles'] array's ROLE:PERMISSION pairs 
 	 * to determine if user has sufficient permission.
 	 *
-	 * @param mixed action_permission 	The level of permission required, ex c/r/u/d.
-	 * @param mixed user_role 		The user's user-role 
+	 * @param mixed $action_permission 	The level of permission required, ex c/r/u/d.
+	 * @param mixed $user_role 		The user's user-role 
 	 * @return bool 			Returns true if the defined user-role has the required permissions; otherwise false.
 	 */
 	public function permission( $required_permission, $user_role = null  ){
@@ -108,9 +108,10 @@ class AccessControl{
 	 * ensuring that the supplied action's required permission is met by the user_type
 	 * (done by Acess::permission)
 	 *
-	 * @param mixed  method 	The name of the method
-	 * @param mixed  user_role 	The session variable that sets the role.
-	 * @return bool			Returns true if the defined user-role has the required permissions; otherwise false.
+	 * @param mixed  $method 		The name of the method
+	 * @param mixed  $user_role 		The session variable that sets the role.
+	 * @return bool				Returns true if the defined user-role has the required permissions; otherwise false.
+	 * @uses AccessControl::permission()	Checks $user_role against the action's permission level 
 	 */
 	public function action( $action, $user_role = null ){
 		foreach ( $this -> permissions['actions'] as $required_permission => $actions ){

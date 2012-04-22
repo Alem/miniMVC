@@ -14,10 +14,14 @@ class Generator{
 
 	public $args;
 
-	public $views = array( 'index', 'form', 'table', 'thumbnails', 'show' );
+	public function queryTool(){
+		if ( !isset( $this -> query_tool ) )
+			$this -> query_tool = new QueryTool(); 
+		return $this -> query_tool;
+	}
 
 	public function process($args){
-		
+
 
 		if( isset($args['scaffold']) )
 			$this -> scaffold = $args['scaffold'];
@@ -27,6 +31,9 @@ class Generator{
 		require_once( SCAFFOLD_DIR . $this -> scaffold . 'controller.php');
 		require_once( SCAFFOLD_DIR . $this -> scaffold . 'model.php');
 		require_once( SCAFFOLD_DIR . $this -> scaffold . 'view.php' );
+
+		if( isset($args['table']) )
+			$this -> queryTool() -> makeTable($args['table']);
 
 		if( isset($args['mvc']) ||  isset($args['m'])  ||  isset($args['v'])  || isset($args['c'])   ){
 			foreach ( $args as $arg => $value) {
@@ -40,18 +47,16 @@ class Generator{
 			$this -> undo($args['undo']);
 		if( isset($args['redo']) )
 			$this -> redo($args['redo']);
-		if( isset($args['table']) )
-			$this -> makeTable($args['table']);
 		if( isset($args['undotable']) )
-			$this -> deleteTable($args['undotable']);
+			$this -> queryTool() -> deleteTable($args['undotable']);
 		if( isset($args['opendb']) )
-			Database::open() -> openDB( $args['opendb'] );
+			$this -> queryTool() -> openDB( $args['opendb'] );
 		if( isset($args['h']) or  isset($args['help']) or  empty( $args) )
 			$this -> help();
 		if( isset($args['link']) &&  isset($args['to'])  )
-			$this -> linkTables( $args['link'], $args['to'] );
+			$this -> queryTool() -> linkTables( $args['link'], $args['to'] );
 		if( isset($args['unlink']) &&  isset($args['to'])  )
-			$this -> unlinkTables( $args['unlink'], $args['to'] );
+			$this -> queryTool() -> unlinkTables( $args['unlink'], $args['to'] );
 	}
 
 
@@ -66,11 +71,8 @@ class Generator{
 
 		if ( strpos( $type, 'c' ) !== false ){
 			echo "Creating controller for $name...\n";
-			$class = $name . 'Controller';
 
-			$controller_scaffold = new Controller();
-			$controller_scaffold  -> name = $name;
-			$controller_scaffold  -> uname = ucwords ( $name );
+			$controller_scaffold = new Controller( $name );
 			$template = $controller_scaffold -> scaffold();
 
 			$path =  SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_CONTROLLER_PATH . $name . '.php';
@@ -80,9 +82,7 @@ class Generator{
 		if ( strpos ( $type, 'm') !== false ) {
 			echo "Creating model for $name...\n";
 
-			$model_scaffold = new Model();
-			$model_scaffold  -> name = $name;
-			$model_scaffold  -> uname = ucwords ( $name );
+			$model_scaffold = new Model( $name );
 			$template = $model_scaffold -> scaffold();
 
 			$path =  SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_MODEL_PATH . $name . '.php';
@@ -94,11 +94,9 @@ class Generator{
 			$dir =  SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_VIEW_PATH . DEFAULT_CONTENT_PATH . $name . '/';
 			mkdir( $dir , 0755 ) or die("Couldn't create directory");
 
-			$view_scaffold = new View();
-			$view_scaffold  -> name = $name;
-			$view_scaffold  -> uname = ucwords ( $name );
+			$view_scaffold = new View( $name );
 
-			foreach ($this -> views as $view)
+			foreach ($view_scaffold -> views as $view)
 				$this -> create($dir . $view . '.php' , $view_scaffold -> scaffold( $view ) );
 		}
 
@@ -109,7 +107,9 @@ class Generator{
 	public function undo( $name ){
 		$paths[] =  SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_CONTROLLER_PATH . $name . '.php';
 		$paths[] =  SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_MODEL_PATH. $name . '.php';
-		foreach ($this -> views as $view)
+
+		$view_scaffold = new View( $name );
+		foreach ($view_scaffold -> views as $view)
 			$paths[] =  SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_VIEW_PATH . DEFAULT_CONTENT_PATH . $name . '/' . $view . '.php';
 		$dir =  SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_VIEW_PATH . DEFAULT_CONTENT_PATH . $name;
 		foreach ($paths as $path){
@@ -121,50 +121,11 @@ class Generator{
 	}
 
 	public function redo( $name ) {
-		Database::open() -> get_columns( $name );
+		$this -> queryTool() -> getFormattedColumns( $name );
 		$this -> undo ( $name );
 		$this -> generate( $name, 'mvc');
 	}
 
-	public function makeTable($name){
-		$names = $name . 's';
-		Database::open() -> query = "create table $names ( id integer not null primary key auto_increment, $name varchar(128) not null );";
-		Database::open() -> run();
-		echo "Created $name table!\n";
-	}
-
-	public function linkTables( $table, $foreign_table ){
-		$table = $table . 's';
-		#ADD CONSTRAINT {$foreign_table}_id 
-		$sql = <<<SQL
-		ALTER TABLE $table
-			ADD COLUMN {$foreign_table}_id integer(11) UNSIGNED,
-			ADD FOREIGN KEY ( {$foreign_table}_id )
-			REFERENCES  {$foreign_table}s(id)
-SQL;
-		Database::open() -> query = $sql;
-		Database::open() -> run();
-
-	}
-
-	public function unlinkTables( $table, $foreign_table ){
-		$table = $table . 's';
-		$sql = <<<SQL
-		ALTER TABLE $table
-			DROP FOREIGN KEY {$foreign_table}_id,
-			DROP {$foreign_table}_id 
-SQL;
-		Database::open() -> query = $sql;
-		Database::open() -> run();
-	}
-
-	public function deleteTable($name){
-		if( !empty($name) ){
-			Database::open() -> query = "drop table $name".'s'; 
-			Database::open() -> run();
-			echo "Deleted $name table! \n";
-		}
-	}
 
 	public function help(){
 

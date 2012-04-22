@@ -94,9 +94,9 @@ TABLE;
 	/**
 	 * formatArray - Formats array for clean and readable debugging output
 	 *
-	 * @return array The formatted array.
+	 * @return array  $array 	The formatted array.
 	 */
-	public function formatArray($array){
+	public static function formatArray($array){
 		$printed_array = print_r($array,true);
 
 		$search = array ( 'Array' , '(' , ')' , '[' , ']' , '>' );

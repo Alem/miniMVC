@@ -84,9 +84,9 @@ class Controller{
 	 * 
 	 * A simple fix for prevent Database modification by re-send on a browser 'back' or 'refresh'
 	 *
-	 * @param string method 	The controller method to call; the page to redirect to (ex. index)
-	 * @param mixed variables 	The variables to be passed to the method.
-	 * @param string controller 	The controller the method belongs to. Defaults to the URI requested controller if $method is specified.
+	 * @param string $method 	The controller method to call; the page to redirect to (ex. index)
+	 * @param mixed  $variables 	The variables to be passed to the method.
+	 * @param string $controller 	The controller the method belongs to. Defaults to the URI requested controller if $method is specified.
 	 */
 	public static function prg( $method = null, $variables = null, $controller = null ){
 
@@ -114,8 +114,9 @@ class Controller{
 	 * Uses the Load::toObject method which uses the Load::component() method to 
 	 * load an object of the named class to the controller IF not already loaded.
 	 *
-	 * @param string name 	The name of the controller to load
-	 * @return object 	The loaded controller.
+	 * @param  string $name 	The name of the controller to load
+	 * @return Controller 		The loaded controller.
+	 * @uses   load::toObject 	Assigns instance of the named controller to current controller.
 	 */
 	public function useController( $name ){
 
@@ -136,8 +137,9 @@ class Controller{
 	 * Uses the Load::toObject method which uses the Load::component() method to 
 	 * load an object of the named class to the controller IF not already loaded.
 	 *
-	 * @param string name 	The name of the model to load. Defaults to the name of the controller.
-	 * @return object 	The loaded model.
+	 * @param  string $name 	The name of the model to load. Defaults to the name of the controller.
+	 * @return Model 		The loaded model.
+	 * @uses   load::toObject 	Assigns the model instance to the controller.
 	 */
 	public function model( $name = null ){
 		if ( !isset( $name ) )
@@ -156,9 +158,11 @@ class Controller{
 	 * If the class exists in a subdirectory, the name should follow the form: 'subdir/name'
 	 * 	ex. for applications/default/modules/base/menu.php   The name would be 'base/menu'
 	 *
-	 * @param string name 		The name of the module to load.
-	 * @param bool instantiate 	If set to true, the module is assumed to be a class by the same name and instantiated. Otherwise simple include.
+	 * @param  string $name 	The name of the module to load.
+	 * @param  bool   $instantiate 	If set to true, the module is assumed to be a class by the 
+	 * 					same name and instantiated. Otherwise simply include.
 	 * @return object 		The loaded module.
+	 * @uses   load::toObject 	Assigns the module instance to the controller.
 	 */
 	public function module( $name, $instantiate = true ){
 		$module = load::toObject( $this, 'module', $name, $instantiate );
@@ -174,9 +178,11 @@ class Controller{
 	 * Uses the Load::toObject method which uses the Load::component() method to 
 	 * load an object of the named class to the controller IF not already loaded.
 	 *
-	 * @param string name 		The name of the library to load.
-	 * @param bool instantiate 	If set to true, the library is assumed to be a class by the same name and instantiated. Otherwise simple include.
+	 * @param  string $name 	The name of the library to load.
+	 * @param  bool   $instantiate 	If set to true, the module is assumed to be a class by the 
+	 * 					same name and instantiated. Otherwise simply include.
 	 * @return object 		The loaded library.
+	 * @uses   load::toObject 	Assigns the library instance to the controller.
 	 */
 	public function library( $name, $instantiate = true ){
 		return $library = load::toObject( $this, 'library', $name, $instantiate );
@@ -188,8 +194,9 @@ class Controller{
 	 *
 	 * The template comprises the larger HTML structure the view will be loaded into.
 	 *
-	 * @param string name 		The name of the template to set. Defaults to the DEFAULT_TEMPLATE constant in the application config
-	 * @return object 		The current object.
+	 * @param string $name 		The name of the template to set. Defaults to the constant DEFAULT_TEMPLATE set in the application config
+	 * @return Controller 		The current controller.
+	 * @uses   load::path()		Returns file path for the template.
 	 */
 	public function template( $name ){
 		$this -> loaded['template']['path'] = Load::path('template', $name );
@@ -203,10 +210,11 @@ class Controller{
 	 * The template requires the view path to be set before it is included. Once defined, 
 	 * the template can be included and it will then include the view.
 	 *
-	 * @param sting  view 			The name of the view to load. Defaults to the value of DEFAULT_METHOD set in the application config.
-	 * @param string controller_name 	The name of the controller the view belongs to. Defaults to the current controller.
-	 * @param object model 			The model to be passed to the view for interaction/reading. Defaults to the current model.
+	 * @param sting  $view 			The name of the view to load. Defaults to the value of DEFAULT_METHOD set in the application config.
+	 * @param string $controller_name 	The name of the controller the view belongs to. Defaults to the current controller.
+	 * @param object $model 			The model to be passed to the view for interaction/reading. Defaults to the current model.
 	 * @return object 			The current object.
+	 * @uses   load::path()			Returns file path for the view.
 	 *
 	 * @todo Determine if needless object copying/cloning occuring
 	 */

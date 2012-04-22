@@ -41,8 +41,8 @@ class Database{
 	 *
 	 * Starts connection if model::db not set, otherwise returns model::db
 	 *
-	 * @param string name 	The name of the connection. Defaults to 'main'.
-	 * @return object 	The PDO object as a property of the current object
+	 * @param  string $name 	The name of the connection. Defaults to 'main'.
+	 * @return PDO 			The PDO object as a property of the current object
 	 */
 	function db( $name = 'main' ){
 		if ( !isset( $this -> db[$name]['connection'] ) )

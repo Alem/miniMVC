@@ -1,6 +1,12 @@
 <?php
 
-class View extends Generator{
+class View extends Template{
+
+	public $views = array( 'index', 'form', 'table', 'thumbnails', 'show' );
+
+	public function __construct( $name ){
+		parent::__construct( $name );
+	}
 
 	public function scaffold( $return ) {
 
@@ -8,8 +14,8 @@ class View extends Generator{
 		$uname = $this -> uname;
 
 
-		if ( isset( Database::open() -> filtered_columns ) )
-			$this -> viewbits ( Database::open() -> filtered_columns, $name );
+		if ( isset( $this -> queryTool() -> filtered_columns ) )
+			$this -> viewbits ( $this -> queryTool() -> filtered_columns, $name );
 		else
 			$this -> viewbits ( $name , $name );
 
@@ -318,7 +324,7 @@ VIEW;
 			$this -> thumbnails = null;
 			$this -> show_table = null;
 			$this -> search_columns = null;
-			foreach( Database::open() -> filtered_columns as $single_column ):
+			foreach( $this -> queryTool() -> filtered_columns as $single_column ):
 				$this -> viewbits ( $single_column, $name );
 			endforeach;
 		else:

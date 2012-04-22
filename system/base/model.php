@@ -63,8 +63,8 @@ class Model{
 	/**
 	 * get - Returns the named property of the model
 	 *
-	 * @param  mixed $property - The name of the property to be returned OR array containing multiple properties who's values are to be returned
-	 * @return mixed             The requested property.
+	 * @param  mixed $property 	The name of the property to be returned OR array containing multiple properties who's values are to be returned
+	 * @return mixed 		The requested property.
 	 */
 	function get($property){
 		if ( is_array( $property) ){
@@ -79,9 +79,11 @@ class Model{
 	/**
 	 * SQL - A simple singleton wrapper for a QueryBuilder object
 	 *
-	 * Allows model to 'lazy-load' and build queries by part.
-	 *
-	 * @return object 	The loaded QueryBuilder object
+	 * Allows model to use single instance of QueryBuilder to 
+	 * build queries in a sequential manner. 
+	 * 
+	 * @return QueryBuilder 	The loaded QueryBuilder object
+	 * @uses   QueryBuilder 	Assigned as a property for automated loading of single instance.
 	 */
 	function SQL(){
 		if ( !isset( $this -> sql ) ){
