@@ -30,7 +30,7 @@ class HTML{
 	 * @return string 	The scripts HTML <script> node.
 	 */
 	public static function linkJS( $name ){	
-		return $script = "<script type = 'text/javascript' src ='" . DEFAULT_MEDIA_PATH . "js/{$name}.js'; '> </script>";
+		return $script = "<script type = 'text/javascript' src ='" . DEFAULT_MEDIA_PATH . "js/{$name}.js'></script> ";
 	}
 
 
@@ -42,8 +42,9 @@ class HTML{
 	 * @param string type 	The type of field
 	 * @return string 	The HTML <input> node.
 	 */
-	public static function input( $name, $value = null , $type = 'text'){
-		return $input = "<input id = '$name-field' type ='$type' name = '$name' type = '$type'  value = '$value'>";
+	public static function input( $name, $value = null , $type = 'text', $placeholder = null, $id = null, $class = null ){
+		if ( !isset( $id ) )  $id = $name . '-field';
+		return $input = "<input id = '$id' class = '$class' type ='$type' name = '$name' type = '$type'  value = '$value' placeholder = '$placeholder'>";
 	}
 
 
@@ -57,8 +58,9 @@ class HTML{
 	 * @param integer columns 	The number of columns
 	 * @return string 		The HTML <textarea> node.
 	 */
-	public static function textarea( $name, $value = null, $type = 'text' , $rows = 10, $cols = 50) {
-		return $textarea = "<textarea id = '$name-field' name = '$name' type = '$type' rows = '$rows' cols = '$cols' >$value</textarea>";
+	public static function textarea( $name, $value = null, $type = 'text' , $rows = 10, $cols = 50, $id = null, $class = null) {
+		if ( !isset( $id ) )  $id = $name . '-field';
+		return $textarea = "<textarea id = '$id' name = '$name' type = '$type' rows = '$rows' cols = '$cols' >$value</textarea>";
 	}
 	
 
@@ -72,7 +74,7 @@ class HTML{
 	public static function options ( $array, $selected_value ){
 		$options = null;
 		foreach ( $array as $key => $value) {
-			$selected =  ( $value === $selected_value ) ? 'selected' : null;
+			$selected =  ( $key === $selected_value ) ? 'selected' : null;
 			$options .= "<option value ='$key' $selected > $value </option> ";
 		}
 		return $options;

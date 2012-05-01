@@ -31,9 +31,11 @@ class FileCache{
 	/**
 	 * __construct - Defines the default path and extension for cache files
 	 */
-	function __construct(){
-		$this -> path = SERVER_ROOT . DEFAULT_PUBLIC_PATH . DEFAULT_CACHE_PATH; 
-		$this -> ext  = '.tmp';
+	function __construct ( $set_defaults = true ) {
+		if ( $set_defaults === true) {
+			$this -> path = SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_PUBLIC_PATH . DEFAULT_CACHE_PATH; 
+			$this -> ext  = '.tmp';
+		}
 	}
 
 	/**

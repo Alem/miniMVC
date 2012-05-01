@@ -1,38 +1,77 @@
 #!/usr/bin/php
 <?php
+/**
+ * gimiMVC executable script file.
+ *
+ * @author Z. Alem <info@alemmedia.com>
+ */
 
-require_once( 'config/main.php');
-require_once( 'config/generator.php');
-require_once( SERVER_ROOT . DEFAULT_SYSTEM_PATH . 'db/database.php');
-require_once( SERVER_ROOT . DEFAULT_SYSTEM_PATH . 'db/queryBuilder.php');
-require_once( SERVER_ROOT . DEFAULT_SYSTEM_PATH . 'log/debug.php');
-require_once( SERVER_ROOT . DEFAULT_SYSTEM_PATH . 'cache/fileCache.php');
-require_once( SERVER_ROOT . DEFAULT_SYSTEM_PATH . 'gimimvc/generator/queryTool.php'  );
-require_once( SERVER_ROOT . DEFAULT_SYSTEM_PATH . 'gimimvc/generator/generator.php');
-require_once( SERVER_ROOT . DEFAULT_SYSTEM_PATH . 'gimimvc/generator/template.php');
+/**
+ * GimiMVC is a complimentary console tool for miniMVC.
+ * It serves to aid in development within the miniMVC framework by providing scaffolding tools 
+ * and simplified database access.
+ * 
+ * SCAFFOLDING
+ *
+ * 	 Scaffold templates are placed in system/gimiMVC/templates/.
+ * 	 Each template folder consists of a template file for each component to be scaffolded.
+ * 	 	ex. template/theManager/model.php  generates a model scaffold
+ *
+ * 	 Each template file inherits its basic functionality and scheme by
+ * 	 extension of the Template class.
+ *
+ * DATABASE ACCESS
+ *
+ * 	gimiMVC utilizes the QueryTool class, an extension of the QueryBuilder and Database system/db/ classes,
+ * 	to provide direct, simplified access to an application's database.
+ *
+ * 	Using the available commands, gimiMVC uses the QueryTool to create a direct query console 
+ * 	communication-line to an application database, creation and deletion of tables,
+ * 	and linking and unlinking of tables.
+ */
 
-// Running Script
+
+/**
+ * ----------------------------------------------------------------------
+ * Load Required Files
+ * ----------------------------------------------------------------------
+ */
+
+define( 'GIMIMVC_ROOT', dirname(__FILE__) . '/' );
+
+$required_files = array (
+	'db/database',		'db/queryBuilder', 	'cache/fileCache', 'log/debug',
+	'gimimvc/config', 	
+	'gimimvc/processor', 'gimimvc/core/queryTool', 'gimimvc/core/template',
+);
+
+foreach ( $required_files as $file )
+	require_once ( 'system/' . $file . '.php' );
+
+
+/**
+ * ----------------------------------------------------------------------
+ * Define/Fetch Arguments
+ * ----------------------------------------------------------------------
+ */
 $args = getopt( 
 
-	"c:m:v:p:u:h", 
+	'c:m:v:p:u:a:h', 
 
 	array(
-		'mvc:', 
-		'undo:', 
-		'table:', 
-		'undotable:', 
-		'link:', 
-		'unlink:', 
-		'to:', 
-		'user', 
-		'help', 
-		'opendb:', 
-		'redo:',
-		'scaffold:'
+		'useconfig::',	'app:',		'mvc:',	 	'table:', 
+		'undotable:', 	'link:', 	'unlink:', 	'to:', 
+		'user', 	'help', 	'opendb:', 	'redo',	'undo',
+		'scaffold:', 	'component:', 	'unit:', 	'generate'
 	) 
 );
 
-$generator = new Generator();
-$generator -> process ($args);
 
+/**
+ * ----------------------------------------------------------------------
+ * Initiate Processor and process arguements
+ * ----------------------------------------------------------------------
+ */
+$processor = new Processor( $args );
+$processor -> process ();
 ?>

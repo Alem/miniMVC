@@ -17,6 +17,12 @@ class Database{
 
 
 	/**
+	 * @var array Holds the database connection.
+	 */
+	public $db;
+
+
+	/**
 	 * __construct - Creates default database configuration.
 	 */
 	public function __construct(){
@@ -25,30 +31,24 @@ class Database{
 			'username' => DB_USERNAME,
 			'password' => DB_PASSWORD,
 			'database' => DB_DATABASE,
-			'connection' => null
+			'pdo_connection' => null
 		);
 	}
 
 
-	/**
-	 * @var object Holds the database connection.
-	 */
-	public $db;
-
-
 	/** 
-	 * db() - Accesses database connection 
+	 * dbConnect() - Accesses database connection 
 	 *
 	 * Starts connection if model::db not set, otherwise returns model::db
 	 *
 	 * @param  string $name 	The name of the connection. Defaults to 'main'.
 	 * @return PDO 			The PDO object as a property of the current object
 	 */
-	function db( $name = 'main' ){
-		if ( !isset( $this -> db[$name]['connection'] ) )
-			$this-> db[$name]['connection'] = new PDO('mysql:host=' . $this ->db[$name]['host'] . ';dbname=' . $this ->db[$name]['database'], $this ->db[$name]['username'], $this ->db[$name]['password']);
+	function dbConnect( $name = 'main' ){
+		if ( !isset( $this -> db[$name]['pdo_connection'] ) )
+			$this-> db[$name]['pdo_connection'] = new PDO('mysql:host=' . $this ->db[$name]['host'] . ';dbname=' . $this ->db[$name]['database'], $this ->db[$name]['username'], $this ->db[$name]['password']);
 
-		return $this -> db[$name]['connection'];
+		return $this -> db[$name]['pdo_connection'];
 	}
 
 }

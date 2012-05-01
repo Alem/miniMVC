@@ -56,6 +56,20 @@ class Element extends HTML{
 
 
 	/**
+	 * sortable - Creates link for sorting results.
+	 * 
+	 * @param string $column 	The column to sort by
+	 */
+	public static function sortable( $column, $current_order ){
+		$first_variable = current(explode('/',VARIABLE)); 
+		$string =  CONTROLLER . URI_SEPARATOR . METHOD . URI_SEPARATOR;
+	       	$string .= $first_variable . VAR_SEPARATOR . $column . VAR_SEPARATOR;
+		$string .= ( stristr( $current_order, $column . VAR_SEPARATOR . 'ASC' ) ) ? 'DESC' : 'ASC';
+		return  $string;
+	}
+
+
+	/**
 	 * select - Prints Select list
 	 * @todo Too specific for SQL returned array's $row['id'] $row[ FIELD ] form. REWORK
 	 */
@@ -88,19 +102,19 @@ class Element extends HTML{
 	 *
 	 * @todo  Complete this.
 	 */
-	public static function pager( $model, $method = 'gallery' , $controller = CONTROLLER){
+	public static function pager( $model, $method = METHOD , $controller = CONTROLLER){
 
 		if( empty(  $model->lastpage ))
 			return null;
-
-		$count = count( $model -> data );
-		$prev_page = $page - 1;
-		$next_page = $page + 1;
 
 		$order =& $model -> order;
 		$search =& $model -> search;
 		$page =&  $model -> page;
 		$lastpage =&  $model -> lastpage;
+
+		$count = count( $model -> data );
+		$prev_page = $page - 1;
+		$next_page = $page + 1;
 
 		$pagination= <<<top
 	<div class="pagination">
@@ -112,7 +126,7 @@ top;
 previous;
 		for( $i = $page, $pages = null; $i <= $lastpage; $i++) 
 			$pagination .= <<<pages
-		<li><a href="payment/gallery/$i{$order}{$search}">$i</a></li>
+		<li><a href="$controller/gallery/$i{$order}{$search}">$i</a></li>
 pages;
 		if( $page != $lastpage )
 			$pagination .= <<<nextpage

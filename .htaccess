@@ -1,4 +1,0 @@
-RewriteEngine On
-ReWriteCond %{REQUEST_FILENAME} !-f
-ReWriteCond %{REQUEST_FILENAME} !-d
-ReWriteRule ^public_html/(.*)$ public_html/index.php?uri=$1 [L,QSA]

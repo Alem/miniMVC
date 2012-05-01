@@ -86,10 +86,8 @@ class Model{
 	 * @uses   QueryBuilder 	Assigned as a property for automated loading of single instance.
 	 */
 	function SQL(){
-		if ( !isset( $this -> sql ) ){
-			$this -> sql = new QueryBuilder();
-			$this -> sql -> table =& $this -> table;
-		}
+		if ( !isset( $this -> sql ) )
+			$this -> sql = new QueryBuilder( $this -> table );
 		return $this -> sql;
 	}
 

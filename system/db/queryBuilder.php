@@ -33,12 +33,12 @@ class QueryBuilder extends Database{
 		'update' => 0,
 		'remove' => 0,
 		'select' => 0,
-		'from' => 0,
+		'from' 	 => 0,
 		'joining' => 0,
-		'where' => 0,
-		'order' => 0,
-		'limit' => 0,
-		'show' => 0
+		'where'  => 0,
+		'order'  => 0,
+		'limit'  => 0,
+		'show' 	 => 0
 	);
 
 
@@ -54,6 +54,15 @@ class QueryBuilder extends Database{
 	public $query_data = array();
 
 
+	/**
+	 * construct() - Sets the default table for the queryBuilder
+	 *
+	 * @param string $table 	The table name
+	 */
+	public function __construct( $table = null ){
+		parent::__construct();
+		$this -> table = $table;
+	}
 	/**
 	 * query() - Concatonates query fragements to build a full query
 	 *
@@ -140,7 +149,7 @@ class QueryBuilder extends Database{
 		Debug::open() -> record['PDO_Query'][] = $this -> query;
 		Debug::open() -> record['PDO_Data'][] = print_r($this -> query_data,true);
 
-		$statement = $this -> db() -> prepare($this -> query);
+		$statement = $this -> dbConnect() -> prepare($this -> query);
 		$statement -> execute($this -> query_data);
 
 		$this -> clearQuery();
@@ -148,7 +157,7 @@ class QueryBuilder extends Database{
 		Debug::open() -> record['PDO_Errors'][] = print_r($statement -> errorInfo(), true);
 
 		if( isset( $this -> counter['insert'] ) )
-			$this -> last_insert_id = $this -> db() -> lastInsertId();
+			$this -> last_insert_id = $this -> dbConnect() -> lastInsertId();
 		else
 			$this -> rowcount = $statement -> rowCount();
 
@@ -343,19 +352,42 @@ class QueryBuilder extends Database{
 
 
 	/**
+	 * alias - Aliases column names 
+	 *
+	 * Uses the form: PREFIX_column
+	 *
+	 * @param $column The column to alias
+	 * @param $prefix The prefix to use. ( Typically a table )
+	 */
+	public function alias( &$column, $prefix ){
+		if ( is_array( $column ) ){
+			foreach ( $column as &$single_column )
+				$this -> alias( $single_column, $prefix );
+		}else{
+			$position = strpos( $column, '.' ); // If prefixed, gets the un-prefixed column name
+			if ( $position !== false )
+				return $column = $column . ' AS ' . $prefix . '_' . substr( $column,($position + 1));
+			else
+				return $column = $column . ' AS ' . $prefix . '_' . $column;
+		}
+	}
+
+
+	/**
 	 * select - Performs a database select query
 	 *
 	 * Recieves the column to select
 	 *
 	 * @param mixed  $column 			Column of interest,  defaults to '*'
 	 * @param string $table 			Table of interest, defaults to $this -> table 
+	 * @param bool   $autoalias 			If set to true, aliases columns with form: table_column
 	 * @param bool   $is_distinct 			If set to true, includes 'distinct' in query
 	 * @return 	 QueryBuilder 			The current QueryBuilder object.
 	 * @uses 	 QueryBuilder::whitelist() 	Whitelists column to ensure it is a valid table column
 	 * @uses 	 QueryBuilder::setPrefix() 	Prefixes table columns
 	 * @uses 	 QueryBuilder::query() 		Holds partial query
 	 */
-	public function select( $column=null, $table = null, $is_distinct = false){
+	public function select( $column=null, $table = null, $autoalias = false, $is_distinct = false){
 		$this -> counter['select']++;
 		$table    = ( isset($table)  ) ? $this -> clean ($table) : $this -> table;
 		$column   = ( isset($column) ) ? $this -> clean($column) : '*';
@@ -364,6 +396,8 @@ class QueryBuilder extends Database{
 		if ( $column != '*' ){
 			$this -> whitelist($column, $table);
 			$this -> setPrefix( $column, $table );
+			if ( $autoalias )
+				$this -> alias( $column, $table );
 		}
 
 		if(is_array($column))
@@ -520,7 +554,7 @@ class QueryBuilder extends Database{
 	public function order( $orderby, $sort, $table = null){
 		$this -> counter['order']++;
 		$table = (isset($table)) ? $this -> clean ($table) : $this -> table;
-		if ( isset( $orderby ) && preg_match( '/ASC||DESC/i' , $sort )  ){ #MAKE CASE INSENSITIVE
+		if ( isset( $orderby ) && ( stristr( $sort, 'asc' ) || stristr( $sort, 'desc' ) ) ){
 			$this -> whitelist($orderby,$table);
 			$order = " ORDER BY $table.$orderby $sort";
 			$this -> query ( $order ); 
