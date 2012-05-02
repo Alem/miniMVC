@@ -1,5 +1,13 @@
 <?php
+/**
+ * View template class file.
+ *
+ * @author Z. Alem <info@alemmedia.com>
+ */
 
+/**
+ *
+ */
 class View extends Template{
 
 	public $views = array( 'index', 'form', 'table', 'thumbnails', 'show' );
@@ -7,27 +15,30 @@ class View extends Template{
 	public function __construct( $name ){
 		parent::__construct( $name );
 		$this -> fileCache() -> path =  SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_VIEW_PATH . DEFAULT_CONTENT_PATH . $name . '/';  
-		$this -> fileCache() -> ext =  '.php';
 	}
 
 
 	public function generate(){
+		echo 'Generating Directory: ';
+	      	echo $this->fileCache()->path . "\n";
 		mkdir ( $this -> fileCache() -> path );
-		foreach ( $this -> views as $view )
+		foreach ( $this -> views as $view ){
+			echo 'Generating file for view: ' . $view . "\n";
 			$this -> fileCache() -> create( $this -> scaffold( $view ), $view );
+		}
 	}
 
 
 	public function undo(){
-		foreach ( $this -> views as $view )
+		foreach ( $this -> views as $view ){
+			echo 'Removing file for view: ' . $view . "\n";
 			$this -> fileCache() -> clear( $view );
+		}
+		echo 'Removing Directory: ';
+	      	echo $this->fileCache()->path . "\n";
 		rmdir ( $this -> fileCache() -> path );
 	}
 
-	public function redo(){
-		$this -> undo();
-		$this -> generate();
-	}
 
 	public function scaffold( $return ) {
 

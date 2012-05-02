@@ -1,27 +1,19 @@
 <?php
+/**
+ * Model template class file.
+ *
+ * @author Z. Alem <info@alemmedia.com>
+ */
 
+/**
+ *
+ */
 class Model extends Template{
 
 	public function __construct( $name ){
 		parent::__construct( $name );
 
-		$this -> fileCache() -> id   = $name;
 		$this -> fileCache() -> path =  SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_MODEL_PATH;  
-		$this -> fileCache() -> ext =  '.php';
-	}
-
-
-	public function generate(){
-		$this -> fileCache() -> create( $this -> scaffold() );
-	}
-
-	public function redo(){
-		$this -> fileCache() -> clear();
-		$this -> fileCache() -> create( $this -> scaffold() );
-	}
-
-	public function undo(){
-		$this -> fileCache() -> clear();
 	}
 
 

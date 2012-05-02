@@ -1,6 +1,17 @@
-<?
+<?php
+/**
+ * libraryController template class file.
+ *
+ * @author Z. Alem <info@alemmedia.com>
+ */
 
-#$library = <<<lib
+/**
+ *
+ */
+class libraryController extends Template{
+
+	public function scaffold(){
+		$library = <<<lib
 	/**
 	 * access - Sets and enforces the permissions for each type of action. 
 	 *
@@ -28,8 +39,9 @@
 		}
 		return $search;
 	}
+lib;
+	}
 }
 
-#lib;
 
 ?>

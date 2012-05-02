@@ -13,12 +13,31 @@
  */
 class Processor{
 
+
+	/**
+	 * @var array The command line arguments recieved by gimiMVC
+	 */
 	public $args;
 
+
+	/**
+	 * __construct() - Assigns received command line arguments to the $args property
+	 *
+	 * @param array $args  The command line arguments recieved by gimiMVC 
+	 */
 	public function __construct( $args ){
 		$this -> args = $args;
 	}
 
+
+	/**
+	 * process() - Processes command line arguments and executes appropriate methods.
+	 *
+	 * Commands fall into three catagories: 
+	 * 	1. Query Tool Commands: Use the QueryTool object
+	 * 	2. Scaffolding Commands: Use loaded Template derived tpl.php classes from scaffolds.
+	 * 	3. General Commands: The help command.
+	 */
 	public function process(){
 
 		// QueryTool Commands
@@ -32,23 +51,17 @@ class Processor{
 			$this -> queryTool() -> unlinkTables( $this -> args['unlink'], $this -> args['to'] );
 		if( isset($this -> args['opendb']) )
 			$this -> queryTool() -> openDB( $this -> args['opendb'] );
-	
+
 
 		// Scaffolding Commands
-		if( isset( $this -> args['generate'] ) ){
-			echo 'Generate method will be executed for each loaded component' . "\n";
-			foreach ( $this -> scaffolds()  as $scaffold )
-				$scaffold -> generate();
-		}
-		if( isset( $this -> args['redo'] ) ){
-			echo 'Redo method will be executed for each loaded component' . "\n";
-			foreach ( $this -> scaffolds() as $scaffold )
-				$scaffold -> redo();
-		}
-		if( isset( $this -> args['undo'] ) ){
-			echo 'Undo method will be executed for each loaded component' . "\n";
-			foreach ( $this -> scaffolds() as $scaffold )
-				$scaffold -> undo();
+		$scaffold_args = array ( 'generate', 'redo', 'undo' );
+		foreach ( $scaffold_args as $scaffold_method ){
+			if( isset( $this -> args[ $scaffold_method ] ) ){
+				echo ucwords($scaffold_method);
+			       	echo ' method will be executed for each loaded component'."\n";
+				foreach ( $this -> scaffolds()  as $scaffold )
+					$scaffold -> $scaffold_method();
+			}
 		}
 
 		// General Commands
@@ -58,9 +71,13 @@ class Processor{
 
 
 	/**
-	 * Specifies application configuration file
-	 * Uses full path from appconfig argument
-	 * or uses app argument to construct probable config path.
+	 * loadAppConfig() - Loads an application configuration file.
+	 *
+	 * Uses full path from '--useconfig' argument
+	 * or uses the '-a' argument to construct the typical convention-compliant application
+	 * configuration path.
+	 *
+	 * @return bool 	True if application config successfully included, otherwise false.
 	 */
 	public function loadAppConfig(){
 		if ( isset ($this -> app_config_set ) || !isset ( $this -> args['useconfig']) )
@@ -84,8 +101,16 @@ class Processor{
 		}
 	}
 
+
+	/**
+	 * loadScaffoldConfig() - Loads the scaffold configuration file.
+	 *
+	 * Loads the scaffold configuration file 'config.php' found in each scaffold directory.
+	 *
+	 * @return array $config 	The scaffold configuration array.
+	 */
 	public function loadScaffoldConfig(){
-		
+
 		if( isset($this -> args['scaffold']) )
 			$this -> scaffold = $this -> args['scaffold'];
 		else
@@ -94,12 +119,18 @@ class Processor{
 		$config = require_once( SCAFFOLD_DIR . $this -> scaffold . '/' . 'config.php' );
 
 		if ( isset ( $config ) ){
-			echo 'Loaded configuration file for the scaffold: ' . $this -> scaffold . "\n";
+			echo 'Loaded configuration file for the scaffold: \'' . $this -> scaffold . "'\n";
 			return $config;
 		}else
 			return null;
 	}
 
+
+	/**
+	 * scaffolds() - Loads the scaffold components/templates referencing the scaffold configuration file.
+	 *
+	 * @return array 	An array containining the instantied template objects.
+	 */
 	public function scaffolds(){
 
 		$this -> loadAppConfig();
@@ -126,6 +157,14 @@ class Processor{
 	}
 
 
+	/**
+	 * queryTool() - Grants access to single instance of QueryTool object.
+	 *
+	 * Loads the application configuration to ensure database information 
+	 * is available to QueryTool.
+	 *
+	 * @return QueryTool  Instance of QueryTool
+	 */
 	public function queryTool( ){
 		$this -> loadAppConfig();
 
@@ -135,13 +174,16 @@ class Processor{
 	}
 
 
+	/**
+	 * help() - Prints help message.
+	 */
 	public function help(){
 
 		$help = <<<HELP
 
 	NAME
 		gimiMVC - An MVC scaffold generator and Database management tool for miniMVC
-	
+
 	DESCRIPTION
 		gimiMVC allows the generation of MVC scaffolds within the application directory specified
 		in the applications config/ file ( ie. app/default.php ). It also allows instant database
@@ -149,7 +191,7 @@ class Processor{
 
 	USAGE
 		gimiMVC [option] [name]	
-	
+
 	OPTIONS
 		General:
 		-a 'appname' 		Sets the application name. Assumes conventions  to load the configuration file.
@@ -180,7 +222,7 @@ class Processor{
 		-h or --help 		Displays this help text.
 
 HELP;
-			echo $help;
+		echo $help;
 	}
 
 

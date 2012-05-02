@@ -1,29 +1,22 @@
 <?php
+/**
+ * Controller template class file.
+ *
+ * @author Z. Alem <info@alemmedia.com>
+ */
 
-
+/**
+ * The Controller template creates the controller scaffold file.
+ * It names the class using the convention [Unit]Controller 
+ * and write the file to the application's controllers directory as [Unit].php
+ */
 class Controller extends Template{
 
 
 	public function __construct( $name ){
 		parent::__construct( $name );
 
-		$this -> fileCache() -> id   = $name;
 		$this -> fileCache() -> path =  SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_CONTROLLER_PATH;  
-		$this -> fileCache() -> ext =  '.php';
-	}
-
-
-	public function generate(){
-		$this -> fileCache() -> create( $this -> scaffold() );
-	}
-
-	public function redo(){
-		$this -> fileCache() -> clear();
-		$this -> fileCache() -> create( $this -> scaffold() );
-	}
-
-	public function undo(){
-		$this -> fileCache() -> clear();
 	}
 
 
@@ -47,6 +40,11 @@ fetch;
 	}
 
 
+	/**
+	 * scaffold() - Creates the content for the scaffold.
+	 *
+	 * @return string 	The conent for the scaffold file
+	 */
 	public function scaffold() {
 		$name  =& $this -> name;
 		$uname =& $this -> uname;

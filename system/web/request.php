@@ -83,12 +83,12 @@ class Request{
 	function process() {
 
 		$this -> get();
-		$URI_parts = explode( URI_SEPARATOR, URI, 3 );
-		$parameters = count( $URI_parts );
+		$uri_parts = explode( URI_SEPARATOR, URI, 3 );
+		$parameters = count( $uri_parts );
 
 		foreach ( $this -> URI_map as $position => $type ){
-			if ( $parameters > $position )
-				define ( $type , $URI_parts[ $position ] );
+			if ( ( $parameters > $position ) && ( $uri_parts[$position] !== '' ) )
+				define ( $type , $uri_parts[ $position ] );
 			else
 				define ( $type , null );
 		}

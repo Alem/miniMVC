@@ -8,14 +8,16 @@ class PublicHtml extends Template{
 		$this -> template_path = GIMIMVC_ROOT . 'system/gimimvc/templates/skeleton/';
 		$this -> destination_path =  GIMIMVC_ROOT . 'applications/' . $this -> name . '/';
 		$this -> full_listing = $this -> recursiveList( 'public_html', $this -> template_path );
-		echo print_r ( ($this-> full_listing['dirs'] ), true ) . "\n";
 	}
 
 	public function generate(){
 		foreach ( $this -> full_listing['dirs'] as  $dir_name ){
-			if ( !file_exists(  $this -> destination_path . '/' . $dir_name ) )
+			if ( !file_exists(  $this -> destination_path . '/' . $dir_name ) ){
+				echo 'Creating : ' . $this -> destination_path . '/' . $dir_name . "\n";
 				mkdir ( $this -> destination_path . '/' . $dir_name , 0755, true );
+			}
 		}
+
 		foreach( $this -> full_listing['files'] as $file_path )
 			copy( $this -> template_path . $file_path, $this -> destination_path . $file_path );
 

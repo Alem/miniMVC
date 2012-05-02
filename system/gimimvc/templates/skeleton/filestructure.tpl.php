@@ -4,10 +4,8 @@ class FileStructure extends Template{
 
 
 	public $dirs = array( 
-		'/data/', 	'/logs/',
-		'/modules/', 		'/libraries/', 
-		'/views/templates/', 	
-		'/views/shared/'
+		'/data/', 	'/logs/',		'/modules/', 		
+		'/libraries/',  '/views/shared/'
 	);
 
 

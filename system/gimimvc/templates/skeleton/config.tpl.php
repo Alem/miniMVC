@@ -140,7 +140,7 @@ require_once('database.php');
  * Application defaults
  * ----------------------------------------------------------------------
  */
-const DEFAULT_CONTROLLER =  'test';
+const DEFAULT_CONTROLLER =  'main';
 const DEFAULT_METHOD =  'index';
 const DEFAULT_TEMPLATE =  'bootstrap-single';
 const DEFAULT_MODULES =  'base/menu,base/cache,base/helper';
@@ -152,15 +152,15 @@ const DEFAULT_CSS =  'bs/bootstrap-superhero';
  * Site information
  * ----------------------------------------------------------------------
  */
-const SITE_NAME = 'miniMVC';
-const SITE_TAG = 'An Upstart App-starter';
-const SITE_EMAIL = 'info@alemmedia.com';
+const SITE_NAME = '$name';
+const SITE_TAG = 'A miniMVC Application';
+const SITE_EMAIL = 'info@localhost';
 const SITE_ADMIN = 'admin';
-#const DEFAULT_LOGO_PATH =  'media/img/logo.png';
-const META_DESCRIPTION = 'miniMVC is a super lightweight MVC framework written in PHP.';
-const META_KEYWORDS = 'miniMVC, PHP MVC';
-const COMPANY = 'Alemmedia';
-const COMPANY_WEBSITE = 'http://Alemmedia.com';
+#const DEFAULT_LOGO_PATH =  '';
+const META_DESCRIPTION = '';
+const META_KEYWORDS = '';
+const COMPANY = '';
+const COMPANY_WEBSITE = '';
 
 ?>
 

@@ -28,10 +28,10 @@ $timer_start = microtime(true);
  * ----------------------------------------------------------------------
  */
 $system_classes = array ( 
-		'auth/accessControl', 	'base/load', 		'web/request',		'db/database',
-		'db/queryBuilder' , 	'base/model', 		'base/controller', 	'log/debug',
-		'web/session', 		'cache/fileCache',	'web/html',		'web/element'
-	);
+	'auth/accessControl', 	'base/load', 		'web/request',		'db/database',
+	'db/queryBuilder' , 	'base/model', 		'base/controller', 	'log/debug',
+	'web/session', 		'cache/fileCache',	'web/html',		'web/element'
+);
 
 foreach ( $system_classes as $classname )
 	require_once( SERVER_ROOT . DEFAULT_SYSTEM_PATH . $classname  . '.php' );
@@ -39,7 +39,7 @@ foreach ( $system_classes as $classname )
 
 /*
  * ----------------------------------------------------------------------
- * Process Request: Get the controller, method and variable from URL
+ * Process Request: Declare controller, method & variable constants.
  * ----------------------------------------------------------------------
  */
 $request = new Request();
@@ -48,11 +48,21 @@ $request -> process();
 
 /*
  * ----------------------------------------------------------------------
- * Initiate Application: Open appropriate controller based on request.
+ * Initiate Application: Load appropriate controller based on request.
  * ----------------------------------------------------------------------
  */
 $application = new Controller();
-$application -> useController( CONTROLLER ) ->  useMethod ( HTTP_ACCESS_PREFIX . METHOD  ,  VARIABLE );
+
+if ( CONTROLLER === null )
+	$application -> useController(DEFAULT_CONTROLLER) -> useMethod ( HTTP_ACCESS_PREFIX . DEFAULT_METHOD );
+else{
+	$requested_controller = $application -> useController( CONTROLLER ); 
+
+	if ( empty( $requested_controller ) )
+		$application -> prg( null, null, null );
+	else
+		$requested_controller ->  useMethod ( HTTP_ACCESS_PREFIX . METHOD  ,  VARIABLE );
+}
 
 
 /*

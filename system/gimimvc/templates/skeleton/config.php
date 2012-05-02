@@ -1,7 +1,11 @@
 <?php
 
 return array(
-	'components' => array( 'filestructure'  , 'config', 'model', 'view', 'controller', 'publicHtml' )
+	'components' => array( 
+		'filestructure' , 'config', 'model',
+		'templates', 'view', 'controller', 
+		'publicHtml' 
+	)
 );
 
 

@@ -6,7 +6,12 @@
  */
 
 /**
- * 
+ * The QueryTool is an extension of the QueryBuilder that facilitates
+ * following database interactions:
+ * 	> Table column profiling.
+ * 	> Table creation/deletion
+ * 	> Foreign primary key creation/deletion
+ * 	> Direct queries
  */
 class QueryTool extends QueryBuilder{
 

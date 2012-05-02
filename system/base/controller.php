@@ -124,8 +124,6 @@ class Controller{
 
 		if ( isset( $controller ) )
 			$controller -> name = $name;
-		else
-			$this -> prg( null, null, DEFAULT_CONTROLLER );
 
 		return $controller;
 	}
