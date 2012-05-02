@@ -21,9 +21,9 @@ SETUP
 
 2. Define the relevant information in the application's config/app.php file.
 
-3. Generate a basic scaffold controller, model and view with generate.php
+3. Generate a basic scaffold controller, model and view with gimiMVC
 
-	./generate.php --mvc foo --table foo
+	./gimiMVC.php -a MYAPP --scaffold skeleton --generate
 
 4. Use controller by visiting the application's index.php in your browser
 
