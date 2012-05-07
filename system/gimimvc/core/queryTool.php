@@ -73,7 +73,7 @@ class QueryTool extends QueryBuilder{
 		echo "===============================================\n";
 		echo " Created $name table.\n";
 		echo "===============================================\n";
-		echo print_r( Debug::formatArray( Debug::open() -> record ), true);
+		echo print_r( Logger::formatArray( Logger::open() -> record ), true);
 	}
 
 
@@ -89,7 +89,7 @@ class QueryTool extends QueryBuilder{
 			echo "===============================================\n";
 			echo " Deleted $name table. \n";
 			echo "===============================================\n";
-			echo print_r( Debug::formatArray( Debug::open() -> record ), true);
+			echo print_r( Logger::formatArray( Logger::open() -> record ), true);
 		}
 	}
 
@@ -114,7 +114,7 @@ SQL;
 		echo "===============================================\n";
 		echo " Linked $name to $foreign_name.\n";
 		echo "===============================================\n";
-		echo print_r( Debug::formatArray( Debug::open() -> record ), true);
+		echo print_r( Logger::formatArray( Logger::open() -> record ), true);
 
 	}
 
@@ -137,7 +137,7 @@ SQL;
 		echo "===============================================\n";
 		echo " Unlinked $name to $foreign_name.\n";
 		echo "===============================================\n";
-		echo print_r( Debug::formatArray( Debug::open() -> record ), true);
+		echo print_r( Logger::formatArray( Logger::open() -> record ), true);
 	}
 
 
@@ -155,7 +155,7 @@ SQL;
 		echo "===============================================\n";
 		echo " Results\n";
 		echo "-----------------------------------------------";
-		echo print_r( Debug::formatArray( Debug::open() -> record ), true);
+		echo print_r( Logger::formatArray( Logger::open() -> record ), true);
 	}
 }
 ?>

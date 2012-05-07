@@ -210,13 +210,14 @@ class Controller{
 	 *
 	 * @param sting  $view 			The name of the view to load. Defaults to the value of DEFAULT_METHOD set in the application config.
 	 * @param string $controller_name 	The name of the controller the view belongs to. Defaults to the current controller.
-	 * @param object $model 			The model to be passed to the view for interaction/reading. Defaults to the current model.
+	 * @param Model  $model 		The model to be passed to the view for interaction/reading. Defaults to the current model.
+	 * @param bool 	 $direct_include 	If set to true, includes the view directly, rather than loading the template then view.
 	 * @return object 			The current object.
 	 * @uses   load::path()			Returns file path for the view.
 	 *
 	 * @todo Determine if needless object copying/cloning occuring
 	 */
-	public function view($view = DEFAULT_METHOD, $controller_name = null, $model = null){
+	public function view($view = DEFAULT_METHOD, $controller_name = null, $model = null, $direct_include = false ){
 
 		if ( !isset( $controller_name ) )
 			$controller_name = $this -> name;
@@ -229,7 +230,10 @@ class Controller{
 		if (  !isset( $this -> loaded['template']['path'] ) )
 			$this -> template ( DEFAULT_TEMPLATE );
 
-		require_once( $this -> loaded['template']['path'] );
+		if ( $direct_include === false )
+			require_once( $this -> loaded['template']['path'] );
+		else
+			require( $this -> loaded['view']['main']['path'] );
 
 		return $this;
 	}

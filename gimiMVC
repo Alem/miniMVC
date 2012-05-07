@@ -40,7 +40,7 @@
 define( 'GIMIMVC_ROOT', dirname(__FILE__) . '/' );
 
 $required_files = array (
-	'db/database',		'db/queryBuilder', 	'cache/fileCache', 'log/debug',
+	'db/database',		'db/queryBuilder', 	'cache/fileCache', 'log/logger',
 	'gimimvc/config', 	
 	'gimimvc/processor', 'gimimvc/core/queryTool', 'gimimvc/core/template',
 );

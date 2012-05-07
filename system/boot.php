@@ -29,7 +29,7 @@ $timer_start = microtime(true);
  */
 $system_classes = array ( 
 	'auth/accessControl', 	'base/load', 		'web/request',		'db/database',
-	'db/queryBuilder' , 	'base/model', 		'base/controller', 	'log/debug',
+	'db/queryBuilder' , 	'base/model', 		'base/controller', 	'log/logger',
 	'web/session', 		'cache/fileCache',	'web/html',		'web/element'
 );
 
@@ -79,9 +79,9 @@ $time = $timer_end - $timer_start;
  * Debug: Recording
  * ----------------------------------------------------------------------
  */
-Debug::open() -> record['Script Time'] = $time;
-Debug::open() -> record['Memory Usage'] = ( memory_get_usage() / 1000 ) . ' kb';
-Debug::open() -> record['Memory Peak Usage'] = ( memory_get_peak_usage() / 1000 ) . ' kb';
+Logger::debug('Script Time', $time );
+Logger::debug('Memory Usage', ( memory_get_usage() / 1000 ) . ' kb' );
+Logger::debug('Memory Peak Usage', ( memory_get_peak_usage() / 1000 ) . ' kb' );
 
 
 /*
@@ -89,6 +89,6 @@ Debug::open() -> record['Memory Peak Usage'] = ( memory_get_peak_usage() / 1000 
  * Debug: Output
  * ----------------------------------------------------------------------
  */
-Debug::open() -> display();
+Logger::display();
 
 ?>

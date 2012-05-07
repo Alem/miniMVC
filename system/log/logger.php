@@ -1,12 +1,12 @@
 <?php
 /**
- * Debug class file.
+ * Logger class file.
  *
  * @author Z. Alem <info@alemmedia.com>
  */
 
 /** 
- * The Debug singleton records data by assignment to the $record array
+ * The Logger singleton records data by assignment to the $record array
  * and displays it at the end of the applications execution.
  *
  * It also displays all session variables. 
@@ -14,30 +14,30 @@
  * It's display level is determined by DEBUG_LEVEL in the main configuration file (config/main.php)
  * Where 0 is no display, 1 is username 'admin' only, and 2 means it is visible to everyone.
  */
-class Debug{
+class Logger{
 
 
 	/**
-	 * @var array Holds the debug data to be output
-	 */
-	public $record = array();
-
-
-	/**
-	 * @var object Holds the single instance of Debug
+	 * @var object Holds the single instance of Logger
 	 */
 	private static $instance;
 
 
 	/**
-	 * __construct - Privately held an called only by Debug::open for singleton functionality
+	 * @var array Holds the Logger data
+	 */
+	public $record = array();
+
+
+	/**
+	 * __construct - Privately held an called only by Logger::open for singleton functionality
 	 */
 	private function __construct(){
 	}
 
 
 	/**
-	 * open - Creates singleton instance of debug
+	 * open - Creates singleton instance of Logger
 	 *
 	 * @return object
 	 */
@@ -49,13 +49,45 @@ class Debug{
 
 
 	/**
+	 * debug - Records debug information
+	 */
+	public static function debug( $title, $details ) {
+		self::open() -> record['debug'][][ $title ] = $details;
+	}
+
+
+	/**
+	 * error - Records error information
+	 */
+	public static function error( $title, $details ) {
+		self::open() -> record['error'][][ $title ] = $details;
+	}
+
+
+	/**
+	 * info - Records info information
+	 */
+	public static function info( $title, $details ) {
+		self::open() -> record['info'][][ $title ] = $details;
+	}
+
+
+	/**
+	 * warn - Records warn information
+	 */
+	public static function warn( $title, $details ) {
+		self::open() -> record['warn'][][ $title ] = $details;
+	}
+
+
+	/**
 	 * display - Outputs debug data as a table 
 	 *
 	 * The debug table outputs two columns:
 	 * 	Debug   - MEM, Execution time, errors, constants, queries
 	 * 	Session - All session variables, including previous table outputs saved to session.
 	 */
-	public function display(){
+	public static function display(){
 		if ( 
 			( DEBUG_LEVEL === 2 )
 			|| ( 
@@ -63,11 +95,13 @@ class Debug{
 				&& ( Session::get('username') == SITE_ADMIN ) 
 			)
 		) {
-			$this -> record['Error'] = print_r( error_get_last(), true);
+			self::open() -> record['error'][] = print_r( error_get_last(), true);
 
 			$constants = get_defined_constants(true);
-			$this -> record['Constants'] = print_r( $constants['user'] , true );
+			self::open() -> record['Constants'][] = print_r( $constants['user'] , true );
 
+			$debug =& self::open() -> formatArray( self::open() -> record );
+			$session =& self::open() -> formatArray( $_SESSION );
 			$table = <<<TABLE
 			<br/>
 			<hr>
@@ -78,15 +112,19 @@ class Debug{
 				</thead>
 				<tbody>
 				<tr>
-					<td><pre>{$this -> formatArray( $this -> record )}</pre></td>
-					<td><pre>{$this -> formatArray( $_SESSION )}</pre></td>
+					<td>
+						<pre>$debug</pre>
+					</td>
+					<td>
+						<pre>$session</pre>
+					</td>
 				</tr>
 				</tbody>
 			</table>
 TABLE;
 			echo $table;
 			Session::set('second_last_debug', Session::get('last_debug') );
-			Session::set('last_debug', $this -> record);
+			Session::set('last_debug', self::open() -> record);
 		}
 	}
 

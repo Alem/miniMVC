@@ -19,7 +19,7 @@
 	<div class = "span4">
 		<h2> Login </h2>
 		<br/>
-		<form class = "form-stacked" action = "?user/login" method = "post">
+		<form class = "form-stacked" action = "user/login" method = "post">
 			<label>User:
 			<input name = "username" type = "text" /></label>
 			<label>Password:
@@ -39,7 +39,7 @@
 	<div class = "span3">
 		<h2> Register </h2>
 		<br/>
-		<form class = "form-stacked" action = "?user/register" method = "post">
+		<form class = "form-stacked" action = "user/register" method = "post">
 			<label>User:
 			<input name = "username" type = "text" /> </label>
 			<label>Password:

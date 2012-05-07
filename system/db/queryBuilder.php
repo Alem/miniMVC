@@ -146,15 +146,15 @@ class QueryBuilder extends Database{
 	 * @uses 	 QueryBuilder::clear 		Used to clear query after execution
 	 */
 	public function run(){
-		Debug::open() -> record['PDO_Query'][] = $this -> query;
-		Debug::open() -> record['PDO_Data'][] = print_r($this -> query_data,true);
+		Logger::debug('PDO Query', $this -> query );
+		Logger::debug('PDO Data', print_r($this -> query_data,true) );
 
 		$statement = $this -> dbConnect() -> prepare($this -> query);
 		$statement -> execute($this -> query_data);
 
 		$this -> clearQuery();
 
-		Debug::open() -> record['PDO_Errors'][] = print_r($statement -> errorInfo(), true);
+		Logger::error('PDO Errors', print_r($statement -> errorInfo(), true) );
 
 		if( isset( $this -> counter['insert'] ) )
 			$this -> last_insert_id = $this -> dbConnect() -> lastInsertId();
@@ -162,7 +162,6 @@ class QueryBuilder extends Database{
 			$this -> rowcount = $statement -> rowCount();
 
 		$results = $statement -> fetchall( PDO::FETCH_ASSOC );
-		Debug::open() -> record['PDO_Results'][] = print_r($results , true);
 		
 		return $results;
 	}
@@ -257,7 +256,7 @@ class QueryBuilder extends Database{
 			if ( in_array ( $column, $list ) )
 				return true;
 			else{
-				Debug::open() -> record['whitelist_error'][] = "Column '$column' not found in table '$table'";
+				Logger::error('Whitelist',"Column '$column' not found in table '$table'");
 				controller::prg( null, null, CONTROLLER );
 			}
 		}
