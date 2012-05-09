@@ -1,17 +1,25 @@
 miniMVC - A light-weight PHP MVC framework.
 ===============================================
-(c) Alemmedia - Alemmedia.com
+(c) Alem - Alemmedia.com
 
 
 DESCRIPTION
 ---------------
 
-miniMVC is a simple MVC framework for PHP designed to provide a minimalist, bare-bones base for your own specific 
-application/framework giving you the freedom to hack your way to the rest. 
+miniMVC is an MVC framework for PHP designed to provide a simple base for application developement,
+ giving you the freedom to hack your way to the rest. 
 
-It features URI-routing, a parameterized query builder, an MVC scaffold generator, automated 'lazy-loading' of models/views/modules, extension by third-party modules/classes, and built-in bootstrap integration for agile front-end development.
-
-To view miniMVC's request routing and processing, take a look at the image located in: public_html/media/img/miniMVC.jpg
+It features:
+* Clean, documented, object-oriented code
+* URI-routing
+* Search engine friendly URLs
+* A parameterized query builder
+* A template-based MVC scaffold generator
+* Automated 'lazy-loading' of models/views/modules
+* Multiple application hosting 
+* Templating support
+* Extension by third-party modules/classes, 
+* Built-in bootstrap and jQuery integration for agile front-end development
 
 
 SETUP
@@ -19,11 +27,11 @@ SETUP
 
 1. Create the database for your application.
 
-2. Define the relevant information in the application's config/app.php file.
-
-3. Generate a basic scaffold controller, model and view with gimiMVC
+2. Generate the application skeleton using gimiMVC.
 
 	./gimiMVC.php -a MYAPP --scaffold skeleton --generate
+
+3. Define the relevant information in the new application's config/app.php file.
 
 4. Use controller by visiting the application's index.php in your browser
 
