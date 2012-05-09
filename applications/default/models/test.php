@@ -1,8 +1,10 @@
 <?php
 
-class Test extends Model{
+class Test extends Model
+{
 
-	function __construct(){
+	function __construct()
+	{
 		parent::__construct();
 	}
 
@@ -11,7 +13,8 @@ class Test extends Model{
 	 *
 	 * @param string $data 	The data to be inserted
 	 */
-	function insertTest( $data ){
+	function insertTest( $data )
+	{
 		$form_fields = array_keys( $data );
 		$this	-> SQL()
 			-> insert( $data, $form_fields) 
@@ -67,7 +70,8 @@ class Test extends Model{
 	 * @param mixed $page 		The page to start on.
 	 * @return array 		The pagination-friendly select SQL query result.
 	 */
-	function galleryTest( $order_col, $order_sort, $page){
+	function galleryTest( $order_col, $order_sort, $page)
+	{
 		$result = $this -> SQL()
 			-> select('*') 
 			-> from()

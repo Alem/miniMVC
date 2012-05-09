@@ -1,24 +1,28 @@
 <?php
 
-class View extends Template{
+class View extends Template
+{
 
 	public $views = array('index', 'about');
 
-	public function __construct( $name ){
+	public function __construct( $name )
+	{
 		parent::__construct( $name );
 		$this -> root_path = GIMIMVC_ROOT . 'applications/' . $this -> name . '/views/';
 		$this -> fileCache() -> path = $this -> root_path . 'content/main/';
 	}
 
 
-	public function generate(){
+	public function generate()
+	{
 		mkdir( $this -> fileCache() -> path , 0777 , true );
 		foreach ( $this -> views as $view )
 			$this -> fileCache() -> create( $this -> scaffold( $view ), $view );
 	}
 
 
-	public function undo(){
+	public function undo()
+	{
 		foreach ( $this -> views as $view )
 			$this -> fileCache() -> clear( $view );
 		rmdir ( $this -> fileCache() -> path );
@@ -26,7 +30,8 @@ class View extends Template{
 		rmdir ( $this -> root_path );
 	}
 
-	public function scaffold( $type ) {
+	public function scaffold( $type ) 
+	{
 
 		$index = <<<INDEX
 <h1><?php echo SITE_NAME; ?> <small><?php echo SITE_TAG; ?></small></h1>

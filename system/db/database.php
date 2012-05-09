@@ -25,7 +25,8 @@ class Database{
 	/**
 	 * __construct - Creates default database configuration.
 	 */
-	public function __construct(){
+	public function __construct()
+	{
 		$this -> db['main'] = array(
 			'host' 	   => DB_SERVER,
 			'username' => DB_USERNAME,
@@ -44,7 +45,8 @@ class Database{
 	 * @param  string $name 	The name of the connection. Defaults to 'main'.
 	 * @return PDO 			The PDO object as a property of the current object
 	 */
-	function dbConnect( $name = 'main' ){
+	function dbConnect( $name = 'main' )
+	{
 		if ( !isset( $this -> db[$name]['pdo_connection'] ) )
 			$this-> db[$name]['pdo_connection'] = new PDO('mysql:host=' . $this ->db[$name]['host'] . ';dbname=' . $this ->db[$name]['database'], $this ->db[$name]['username'], $this ->db[$name]['password']);
 

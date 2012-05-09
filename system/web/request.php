@@ -11,7 +11,8 @@
  * and separates the URI request from search queries 
  * ( both of which end up in $_GET, $_SERVER['QUERY_STRING'] )
  */
-class Request{
+class Request
+{
 
 
 	/**
@@ -79,7 +80,8 @@ class Request{
 	/**
 	 * __construct() - Calls Request::populate to populate object properties
 	 */
-	public function __construct(){
+	public function __construct()
+	{
 		$this -> populate();
 	}
 
@@ -101,7 +103,8 @@ class Request{
 		if ( $ampersand_pos !== false )
 			$this -> query_string = substr ($_SERVER['QUERY_STRING'], $ampersand_pos + 1 );
 
-		switch ( $_SERVER['REQUEST_METHOD'] ){
+		switch ( $_SERVER['REQUEST_METHOD'] )
+		{
 		case 'PUT':
 			parse_str( file_get_contents('php://input'), $this -> put );
 			break;
@@ -122,7 +125,8 @@ class Request{
 	 *
 	 * @return mixed 	Returns key value or false if not found.
 	 */
-	public function fetchFromArray( $array, $value ){
+	public function fetchFromArray( $array, $value )
+	{
 		if ( isset ( $array[ $value ] ) )
 			return $array [ $value ];
 		else
@@ -133,7 +137,8 @@ class Request{
 	/**
 	 * get() -  Fetches key value from get array. Returns false if not found.
 	 */
-	public function get( $value = null ){
+	public function get( $value = null )
+	{
 		return $this -> fetchFromArray( $this -> get, $value );
 	}
 
@@ -141,7 +146,8 @@ class Request{
 	/**
 	 * post() -  Fetches key value from post array. Returns false if not found.
 	 */
-	public function post( $value = null ){
+	public function post( $value = null )
+	{
 		return $this -> fetchFromArray( $this -> post, $value );
 	}
 
@@ -149,7 +155,8 @@ class Request{
 	/**
 	 * put() -  Fetches key value from put array. Returns false if not found.
 	 */
-	public function put( $value = null ){
+	public function put( $value = null )
+	{
 		return $this -> fetchFromArray( $this -> put, $value );
 	}
 
@@ -157,7 +164,8 @@ class Request{
 	/**
 	 * dele() -  Fetches key value from dele array. Returns false if not found.
 	 */
-	public function dele( $value = null ){
+	public function dele( $value = null )
+	{
 		return $this -> fetchFromArray( $this -> dele, $value );
 	}
 
@@ -165,7 +173,8 @@ class Request{
 	/**
 	 * options() -  Fetches key value from options array. Returns false if not found.
 	 */
-	public function options( $value = null ){
+	public function options( $value = null )
+	{
 		return $this -> fetchFromArray( $this -> options, $value );
 	}
 
@@ -175,7 +184,8 @@ class Request{
 	 *
 	 * @return string The URI/Query String
 	 */
-	function defineURI(){
+	function defineURI()
+	{
 
 		global $argc, $argv; // argc and argv are not PHP superglobals.
 
@@ -207,7 +217,8 @@ class Request{
 		$uri_parts  = explode( URI_SEPARATOR, URI, 3 );
 		$parameters = count( $uri_parts );
 
-		foreach ( $this -> uri_map as $position => $type ){
+		foreach ( $this -> uri_map as $position => $type )
+		{
 			if ( ( $parameters > $position ) && ( $uri_parts[$position] !== '' ) )
 				define ( $type , $uri_parts[ $position ] );
 			else
@@ -224,7 +235,8 @@ class Request{
 	 *
 	 * @return bool 	Returns true if AJAX request, otherwise false.
 	 */
-	public function is_ajax(){
+	public function is_ajax()
+	{
 		if ( !empty( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest')
 			return true;
 		else
@@ -243,7 +255,8 @@ class Request{
 	 * @param  bool    $long_int 	If set returns long-int sql-formatted IP number.
 	 * @return mixed 		The IP address
 	 */
-	public function userIP( $long_int = false ){
+	public function userIP( $long_int = false )
+	{
 
 		if (!empty($_SERVER['HTTP_CLIENT_IP']))
 			$ip = $_SERVER['HTTP_CLIENT_IP'];
@@ -266,7 +279,8 @@ class Request{
 	 * subdomain
 	 * Todo
 	 */
-	function subdomain(){
+	function subdomain()
+	{
 		$url_info = parse_url( $url );
 		$subdomain = substr( $url_info['host'], 0, strpos( $url_info['host'], '.' ) );
 

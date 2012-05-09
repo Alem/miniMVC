@@ -35,7 +35,8 @@
  *	);
  *
  */
-class AccessControl{
+class AccessControl
+{
 
 
 	/**
@@ -43,7 +44,8 @@ class AccessControl{
 	 *
 	 * @param array $roles    The array of user roles where the key is the user-type and the value is an array of permissions.
 	 */
-	public function defineRoles( array $roles ){
+	public function defineRoles( array $roles )
+	{
 		return $this -> permissions['roles'] = $roles;
 	}
 
@@ -53,7 +55,8 @@ class AccessControl{
 	 *
 	 * @param array $actions    The array of actions where the key is the permission and the value is an array of actions.
 	 */
-	public function defineActions( array $actions ){
+	public function defineActions( array $actions )
+	{
 		return $this -> permissions['actions'] = $actions;
 	}
 
@@ -66,7 +69,8 @@ class AccessControl{
 	 *
 	 * @param mixed $role  The current user's role
 	 */
-	public function setRole( $role ){
+	public function setRole( $role )
+	{
 		return $this -> default_role = $role;
 	}
 
@@ -81,14 +85,17 @@ class AccessControl{
 	 * @param mixed $user_role 		The user's user-role 
 	 * @return bool 			Returns true if the defined user-role has the required permissions; otherwise false.
 	 */
-	public function permission( $required_permission, $user_role = null  ){
+	public function permission( $required_permission, $user_role = null  )
+	{
 
 		if ( !isset ( $user_role ) && isset( $this -> default_role) )
 			$user_role = $this -> default_role;
 
-		foreach ( $this -> permissions['roles'] as $role => $role_permissions ){
+		foreach ( $this -> permissions['roles'] as $role => $role_permissions )
+		{
 
-			foreach ( $role_permissions as $role_permission ){
+			foreach ( $role_permissions as $role_permission )
+			{
 
 				if ( 
 					( $required_permission === $role_permission ) 
@@ -113,10 +120,13 @@ class AccessControl{
 	 * @return bool				Returns true if the defined user-role has the required permissions; otherwise false.
 	 * @uses AccessControl::permission()	Checks $user_role against the action's permission level 
 	 */
-	public function action( $action, $user_role = null ){
-		foreach ( $this -> permissions['actions'] as $required_permission => $actions ){
+	public function action( $action, $user_role = null )
+	{
+		foreach ( $this -> permissions['actions'] as $required_permission => $actions )
+		{
 
-			if ( in_array( $action, $actions ) ){
+			if ( in_array( $action, $actions ) )
+			{
 				if ( $this -> permission ( $required_permission, $user_role ) )
 					return true;
 			}

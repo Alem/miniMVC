@@ -1,27 +1,32 @@
 <?php
 
 
-class Templates extends Template{
+class Templates extends Template
+{
 
 
-	public function __construct( $name ){
+	public function __construct( $name )
+	{
 		parent::__construct( $name );
 		$this -> root_path = GIMIMVC_ROOT . 'applications/' . $this -> name . '/views/';
 		$this -> fileCache() -> path = $this -> root_path . 'template/';
 		$this -> fileCache() -> id = 'bootstrap-single';
 	}
 
-	public function generate(){
+	public function generate()
+	{
 		mkdir( $this -> fileCache() -> path , 0777 , true );
 		parent::generate();
 	}
 
-	public function undo(){
+	public function undo()
+	{
 		parent::undo();
 		rmdir( $this -> fileCache() -> path );
 	}
 
-	public function scaffold(){
+	public function scaffold()
+	{
 
 		$bootstrap_single = <<<bootstrap_single
 <!DOCTYPE html>

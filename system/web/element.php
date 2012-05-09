@@ -10,7 +10,8 @@
  * and Prints HTML structures specific to the conventions and settings of this framework.
  *
  */
-class Element extends HTML{
+class Element extends HTML
+{
 
 
 	/**
@@ -18,9 +19,11 @@ class Element extends HTML{
 	 *
 	 * @return string 	The CSS stylesheet HTML links
 	 */
-	public static function loadCSS( ){	
+	public static function loadCSS( )
+	{	
 		$loadedCSS = null;
-		if( defined('DEFAULT_CSS')  ){ 
+		if( defined('DEFAULT_CSS')  )
+		{ 
 			foreach( explode( ",", DEFAULT_CSS ) as $name )
 				$loadedCSS .= self::linkCSS( $name );
 		}
@@ -33,9 +36,11 @@ class Element extends HTML{
 	 *
 	 * @return string 	The Javascript scripts
 	 */
-	public static function loadJS( ){	
+	public static function loadJS( )
+	{	
 		$loadedJS = null;
-		if( defined('DEFAULT_JAVASCRIPT')  ){ 
+		if( defined('DEFAULT_JAVASCRIPT')  )
+		{ 
 			foreach( explode( ",", DEFAULT_JAVASCRIPT ) as $name )
 				$loadedJS .= self::linkJS( $name );
 		}
@@ -47,7 +52,8 @@ class Element extends HTML{
 	 * saved_field 
 	 * @todo delete? is this useful? specific for forms, place it in a class for forms?
 	 */
-	function saved_field( $name,$model ){
+	function saved_field( $name,$model )
+	{
 		if (isset( $model -> saved_fields[$name] ))
 			return $value = $model -> saved_fields[$name];
 		else
@@ -60,10 +66,11 @@ class Element extends HTML{
 	 * 
 	 * @param string $column 	The column to sort by
 	 */
-	public static function sortable( $column, $current_order ){
+	public static function sortable( $column, $current_order )
+	{
 		$first_variable = current(explode('/',VARIABLE)); 
 		$string =  CONTROLLER . URI_SEPARATOR . METHOD . URI_SEPARATOR;
-	       	$string .= $first_variable . VAR_SEPARATOR . $column . VAR_SEPARATOR;
+		$string .= $first_variable . VAR_SEPARATOR . $column . VAR_SEPARATOR;
 		$string .= ( stristr( $current_order, $column . VAR_SEPARATOR . 'ASC' ) ) ? 'DESC' : 'ASC';
 		return  $string;
 	}
@@ -73,7 +80,8 @@ class Element extends HTML{
 	 * select - Prints Select list
 	 * @todo Too specific for SQL returned array's $row['id'] $row[ FIELD ] form. REWORK
 	 */
-	public static function select ( $name , $data , $selected_value ){
+	public static function select ( $name , $data , $selected_value )
+	{
 		$select = "<select id = '$name-field' name = '{$name}_id'>";
 
 		foreach ( $data as $row )
@@ -85,7 +93,7 @@ class Element extends HTML{
 			$select .= '<option value = "" > </option>';
 
 		$select .= '</select>';
-		
+
 		return $select;
 	}
 
@@ -102,7 +110,8 @@ class Element extends HTML{
 	 *
 	 * @todo  Complete this.
 	 */
-	public static function pager( $model, $method = METHOD , $controller = CONTROLLER){
+	public static function pager( $model, $method = METHOD , $controller = CONTROLLER)
+	{
 
 		if( empty(  $model->lastpage ))
 			return null;
@@ -122,7 +131,8 @@ class Element extends HTML{
 top;
 		if($page != 1)
 			$pagination .= <<<previous
-		<li class="prev"><a href="$controller/gallery/{$prev_page}{$order}{$search}">&larr; Previous</a></li>
+		<li class="prev"><a href="$controller/gallery/{$prev_page}{$order}
+{$search}">&larr; Previous</a></li>
 previous;
 		for( $i = $page, $pages = null; $i <= $lastpage; $i++) 
 			$pagination .= <<<pages
@@ -130,7 +140,8 @@ previous;
 pages;
 		if( $page != $lastpage )
 			$pagination .= <<<nextpage
-		<li class="prev"><a href="$controller/gallery/{$next_page}{$order}{$search}">Next &rarr;</a></li>
+		<li class="prev"><a href="$controller/gallery/{$next_page}{$order}
+{$search}">Next &rarr;</a></li>
 nextpage;
 		$pagination .= <<<bottom
 		</ul>

@@ -1,15 +1,18 @@
 <?php
 
-class Model extends Template{
+class Model extends Template
+{
 
-	public function __construct( $name ){
+	public function __construct( $name )
+	{
 		parent::__construct( $name );
 		$this -> fileCache() -> path = GIMIMVC_ROOT . 'applications/' . $this -> name . '/models/';
 		$this -> fileCache() -> id   = 'main';
 	}
 
 
-	public function generate(){
+	public function generate()
+	{
 		echo 'Creating: ' .  $this -> fileCache() -> path . "\n";
 		mkdir( $this -> fileCache() -> path , 0777 , true );
 		echo 'Creating model template' . "\n";
@@ -17,7 +20,8 @@ class Model extends Template{
 	}
 
 
-	public function undo(){
+	public function undo()
+	{
 		echo 'Removing model template' . "\n";
 		$this -> fileCache() -> clear();
 		echo 'Removing: ' .  $this -> fileCache() -> path . "\n";
@@ -25,14 +29,17 @@ class Model extends Template{
 	}
 
 
-	public function scaffold(){
+	public function scaffold()
+	{
 
 		$model = <<<MODEL
 <?php
 
-class Main extends Model{
+class Main extends Model
+{
 
-	function __construct(){
+	function __construct()
+	{
 		parent::__construct();
 	}
 }

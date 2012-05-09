@@ -14,7 +14,8 @@
  * The entire application is initiated as an instance of this class.
  *
  */
-class Controller{
+class Controller
+{
 
 
 	/**
@@ -31,14 +32,6 @@ class Controller{
 
 
 	/**
-	 * __construct
-	 */
-	public function __construct( ){
-
-	}
-
-
-	/**
 	 * useMethod - Calls appropriate method of controller.
 	 *
 	 * The default/fallback method is 'index()', and variable
@@ -51,21 +44,24 @@ class Controller{
 	 * @param mixed  $variable 	The variable(s) to be passed to the controller, as a string/array.
 	 * @param object $controller 	The controller object. Defaults to the current controller.
 	 */
-	public function useMethod ( $method, $variable = null , $controller = null ) {
-
+	public function useMethod ( $method, $variable = null , $controller = null )
+	{
 		if ( !isset( $controller ) )
 			$controller =& $this;
 
 		if ( !( isset( $method )  &&  method_exists( $controller, $method ) ) )
 			$controller -> { HTTP_ACCESS_PREFIX . DEFAULT_METHOD }();
-		else{
+		else
+		{
 			if ( !isset( $variable ) ) 
 				$controller -> { $method }();
 
-			else{
+			else
+			{
 				if ( strpos( $variable , VAR_SEPARATOR ) === false ) 
 					$controller -> $method( $variable );
-				else{
+				else
+				{
 					call_user_func_array( 
 						array(
 							$controller, 
@@ -88,12 +84,13 @@ class Controller{
 	 * @param mixed  $variables 	The variables to be passed to the method.
 	 * @param string $controller 	The controller the method belongs to. Defaults to the URI requested controller if $method is specified.
 	 */
-	public static function prg( $method = null, $variables = null, $controller = null ){
-
+	public static function prg( $method = null, $variables = null, $controller = null )
+	{
 		if ( !isset( $controller ) && isset( $method )  )
 			$controller = CONTROLLER;
 
-		if ( isset( $method ) ){
+		if ( isset( $method ) )
+		{
 			$location = $controller .URI_SEPARATOR  . $method;
 
 			if ( is_array( $variables ) )
@@ -118,8 +115,8 @@ class Controller{
 	 * @return Controller 		The loaded controller.
 	 * @uses   load::toObject 	Assigns instance of the named controller to current controller.
 	 */
-	public function useController( $name ){
-
+	public function useController( $name )
+	{
 		$controller = load::toObject ( $this, 'controller', $name );
 
 		if ( isset( $controller ) )
@@ -139,7 +136,8 @@ class Controller{
 	 * @return Model 		The loaded model.
 	 * @uses   load::toObject 	Assigns the model instance to the controller.
 	 */
-	public function model( $name = null ){
+	public function model( $name = null )
+	{
 		if ( !isset( $name ) )
 			$name = $this -> name;
 
@@ -162,11 +160,9 @@ class Controller{
 	 * @return object 		The loaded module.
 	 * @uses   load::toObject 	Assigns the module instance to the controller.
 	 */
-	public function module( $name, $instantiate = true ){
-		$module = load::toObject( $this, 'module', $name, $instantiate );
-		if (isset ( $module ) )
-			$module -> owner =& $this; //todo Remove this
-		return $module;
+	public function module( $name, $instantiate = true )
+	{
+		return $module = load::toObject( $this, 'module', $name, $instantiate );
 	}
 
 
@@ -182,7 +178,8 @@ class Controller{
 	 * @return object 		The loaded library.
 	 * @uses   load::toObject 	Assigns the library instance to the controller.
 	 */
-	public function library( $name, $instantiate = true ){
+	public function library( $name, $instantiate = true )
+	{
 		return $library = load::toObject( $this, 'library', $name, $instantiate );
 	}
 
@@ -196,12 +193,13 @@ class Controller{
 	 * @return Controller 		The current controller.
 	 * @uses   load::path()		Returns file path for the template.
 	 */
-	public function template( $name ){
+	public function template( $name )
+	{
 		$this -> loaded['template']['path'] = Load::path('template', $name );
 		return $this;
 	}
 
-	
+
 	/**
 	 * view - Sets the view to be incorporated into the template then includes the template.
 	 *
@@ -217,7 +215,8 @@ class Controller{
 	 *
 	 * @todo Determine if needless object copying/cloning occuring
 	 */
-	public function view($view = DEFAULT_METHOD, $controller_name = null, $model = null, $direct_include = false ){
+	public function view($view = DEFAULT_METHOD, $controller_name = null, $model = null, $direct_include = false )
+	{
 
 		if ( !isset( $controller_name ) )
 			$controller_name = $this -> name;
@@ -226,7 +225,7 @@ class Controller{
 			$model = $this -> model();
 
 		$this -> loaded['view']['main']['path'] = Load::path('view', $controller_name . '/'. $view );
-		
+
 		if (  !isset( $this -> loaded['template']['path'] ) )
 			$this -> template ( DEFAULT_TEMPLATE );
 

@@ -1,12 +1,14 @@
 <?php
 
-class TestController extends Controller{
+class TestController extends Controller
+{
 
 
 	/**
 	 * index() - Loads default 'index' view
 	 */
-	function actionIndex(){
+	function actionIndex()
+	{
 		$this -> view();
 	}
 
@@ -14,7 +16,8 @@ class TestController extends Controller{
 	/**
 	 * form() - Loads 'form' view
 	 */
-	function actionForm(){
+	function actionForm()
+	{
 		$this -> view('form');
 	}
 
@@ -22,7 +25,8 @@ class TestController extends Controller{
 	/**
 	 * post() - Recieves POST data and hands it to model for database insertion
 	 */
-	function actionPost(){
+	function actionPost()
+	{
 		$request = new Request();
 		$this -> model() -> insertTest( $request -> post );
 		$this -> prg('gallery');
@@ -32,7 +36,8 @@ class TestController extends Controller{
 	/**
 	 * del() - Directly remove database data 
 	 */
-	function actionDel($value ){
+	function actionDel($value )
+	{
 		$this -> model() -> deleteTest ( $value, 'id' );
 		$this -> prg('gallery');
 	}
@@ -46,18 +51,20 @@ class TestController extends Controller{
 	 * @param string $ref_column 	Reference column 
 	 * @param string $new_column  	Column of new value
 	 */
-	function actionEdit($ref, $new, $column_ref = null, $column_new = null){
+	function actionEdit($ref, $new, $column_ref = null, $column_new = null)
+	{
 		$this -> model() -> editTest($new, $new_column, $ref, $ref_column );
 		$this -> show();
 	}
 
-	
+
 	/**
 	 * show() - Display all information for specifed primary Id
 	 *
 	 * Retrieves all data for specified id and passes it to 'gallery' view
 	 */
-	function actionShow( $id ){
+	function actionShow( $id )
+	{
 		$this -> model() -> getTest($id);
 		$this -> view('gallery');
 	}
@@ -72,7 +79,8 @@ class TestController extends Controller{
 	 * @param string $order_col 	The column to order by
 	 * @param string $order_sort 	The sort to use
 	 */
-	function actionGallery($page = 1, $order_col = null, $order_sort = null){
+	function actionGallery($page = 1, $order_col = null, $order_sort = null)
+	{
 		$this -> model() -> galleryTest( $order_col, $order_sort, $page  );
 		$this -> view('gallery');
 	}
@@ -81,7 +89,8 @@ class TestController extends Controller{
 	/**
 	 * about() - Run of the mill 'about' page
 	 */
-	function actionAbout(){
+	function actionAbout()
+	{
 		$this -> view('about');
 	}
 

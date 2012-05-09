@@ -1,6 +1,7 @@
 <?php
 
-class UserController extends Controller{
+class UserController extends Controller
+{
 
 	public $logged_in;
 	public $username;
@@ -16,7 +17,8 @@ class UserController extends Controller{
 	 *
 	 * @param string $message 	 If set displays appropriate message, set by user::login()
 	 */
-	public function actionIndex($message = null){
+	public function actionIndex($message = null)
+	{
 		if( $message == 'goodbye' )
 			$this -> model() -> goodbyeMsg = true;
 
@@ -29,11 +31,13 @@ class UserController extends Controller{
 		elseif ( $message == 'taken' )
 			$this -> model() -> takenMsg = Session::get('username');
 
-		if( Session::get('logged_in') ){
+		if( Session::get('logged_in') )
+		{
 			$this -> model() -> title = Session::get('username');
 			$this -> model() -> getUser( Session::get('username'));
 			$this -> view();
-		}else{
+		}else
+		{
 			$this -> view('login');
 		}
 	}
@@ -46,16 +50,19 @@ class UserController extends Controller{
 	 * If successfull logs user in, sets logged_in as true and directs to index() with welcome flag set
 	 * If failure, directs to index() with failure flag set.
 	 */
-	public function actionLogin(){
+	public function actionLogin()
+	{
 		$request = new Request();
 		$username = $request -> post['username'];
 		$password = md5( $request -> post['password'] );
 
-		if ( isset( $username ) && isset( $password ) ){
+		if ( isset( $username ) && isset( $password ) )
+		{
 			$user = $this -> model() -> getUser($username,$password);
 		}
 
-		if( !empty( $user ) ){
+		if( !empty( $user ) )
+		{
 			$this -> logged_in = true;
 			Session::set('username', $username);
 			Session::set('email',    $user[0]['email']);
@@ -78,12 +85,15 @@ class UserController extends Controller{
 	 * If successfull insert sets logged_in to true and runs user::login()
 	 * If fails, directs to index with failure flag
 	 */
-	public function actionRegister(){
+	public function actionRegister()
+	{
 		$request  = new Request();
 		$username = $request -> post['username'];
 		$password = md5( $request -> post['password'] );
-		if (	$this -> validates( $request -> post )	){
-			if ( !( $this -> model() -> getUser( $username , $password ) ) ){
+		if (	$this -> validates( $request -> post )	)
+		{
+			if ( !( $this -> model() -> getUser( $username , $password ) ) )
+			{
 				$insert = $this -> model() -> addUser($username, $password, $request -> post['email'] );
 				if ( $insert )
 					$this -> logged_in = true;	
@@ -99,8 +109,10 @@ class UserController extends Controller{
 	/**
 	 * actionSettings - Takes user to settings page
 	 */
-	public function actionSettings(){
-		if( Session::get('logged_in') ){
+	public function actionSettings()
+	{
+		if( Session::get('logged_in') )
+		{
 			#$user = $this -> model -> getUser($username,$password);
 			$this -> model() -> getUser( Session::get('username'));
 			$this -> view( 'settings' );
@@ -117,17 +129,21 @@ class UserController extends Controller{
 	 *
 	 * @param string $setting 	Determines the setting to be changed. Can be 'password' or 'email'.
 	 */
-	function actionChange( $setting ){
+	function actionChange( $setting )
+	{
 		$request = new Request();
-		if( Session::get('logged_in') ){
-			if ( $setting == 'password' ){
+		if( Session::get('logged_in') )
+		{
+			if ( $setting == 'password' )
+			{
 				if (
-				       	( Session::get ('password') == md5( $request -> post['password_old'] ) ) 
+					( Session::get ('password') == md5( $request -> post['password_old'] ) ) 
 					&& ( $request -> post['password_repeat'] == $request -> post['password_new'] )
 				)
 				$password_new =  md5( $request -> post['password_new'] );
 				$this -> model() -> editUser( $password_new, 'password', Session::get('username') );
-			}elseif ( $setting == 'email' ){
+			}elseif ( $setting == 'email' )
+			{
 				$this -> model() -> editUser( $request -> post['email_new'] , 'email', Session::get('username') );
 				Session::set( 'email', $request -> post['email_new'] );
 			}
@@ -139,11 +155,12 @@ class UserController extends Controller{
 	/**
 	 * validates - Performs validation on regristration POST data
 	 */
-	public function validates( $post ){
+	public function validates( $post )
+	{
 		$password = md5( $post['password'] );
 		$password_repeat = md5( $post['verify_password'] );
 		if (	isset( $post['username'] )
-		       	&& empty( $post['address'])
+			&& empty( $post['address'])
 			&& isset( $post['email'] )  
 			&& isset( $post['username'] ) 
 			&& isset($password) 
@@ -151,7 +168,7 @@ class UserController extends Controller{
 			&& ( $password == $password_repeat )
 			&& (!preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $post['username'])) //Special chars
 		)
-			return true;
+		return true;
 		else
 			return false;
 	}
@@ -159,7 +176,8 @@ class UserController extends Controller{
 	/**
 	 * actionLogout() - Logs user out
 	 */
-	public function actionLogout(){
+	public function actionLogout()
+	{
 		Session::set('logged_in', null);
 		session_destroy();
 		$this -> prg('index/goodbye');

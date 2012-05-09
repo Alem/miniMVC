@@ -25,7 +25,8 @@ class Processor{
 	 *
 	 * @param array $args  The command line arguments recieved by gimiMVC 
 	 */
-	public function __construct( $args ){
+	public function __construct( $args )
+	{
 		$this -> args = $args;
 	}
 
@@ -38,7 +39,8 @@ class Processor{
 	 * 	2. Scaffolding Commands: Use loaded Template derived tpl.php classes from scaffolds.
 	 * 	3. General Commands: The help command.
 	 */
-	public function process(){
+	public function process()
+	{
 
 		// QueryTool Commands
 		if( isset($this -> args['table']) )
@@ -55,10 +57,12 @@ class Processor{
 
 		// Scaffolding Commands
 		$scaffold_args = array ( 'generate', 'redo', 'undo' );
-		foreach ( $scaffold_args as $scaffold_method ){
-			if( isset( $this -> args[ $scaffold_method ] ) ){
+		foreach ( $scaffold_args as $scaffold_method )
+		{
+			if( isset( $this -> args[ $scaffold_method ] ) )
+			{
 				echo ucwords($scaffold_method);
-			       	echo ' method will be executed for each loaded component'."\n";
+				echo ' method will be executed for each loaded component'."\n";
 				foreach ( $this -> scaffolds()  as $scaffold )
 					$scaffold -> $scaffold_method();
 			}
@@ -79,23 +83,27 @@ class Processor{
 	 *
 	 * @return bool 	True if application config successfully included, otherwise false.
 	 */
-	public function loadAppConfig(){
+	public function loadAppConfig()
+	{
 		if ( isset ($this -> app_config_set ) || !isset ( $this -> args['useconfig']) )
 			return true;
 
 		if( !empty($this -> args['useconfig'] ) )
 			$path = GIMIMVC_ROOT . $this -> args['useconfig'];
-		elseif ( isset( $this -> args['a'] ) ){
+		elseif ( isset( $this -> args['a'] ) )
+		{
 			$path =  'applications/' . $this -> args['a'] . '/config/app.php';
 			echo 'Assuming application config path: ' . $path . "\n";
 		}
 
-		if ( file_exists( $path ) ){
+		if ( file_exists( $path ) )
+		{
 			require_once( $path );
 			$this -> app_config_set = true;
 			echo "Loaded application config: $path \n";
 			return true;
-		}else{
+		}else
+		{
 			echo "The application configuration file '$path' could be found." . "\n";
 			return false;
 		}
@@ -109,7 +117,8 @@ class Processor{
 	 *
 	 * @return array $config 	The scaffold configuration array.
 	 */
-	public function loadScaffoldConfig(){
+	public function loadScaffoldConfig()
+	{
 
 		if( isset($this -> args['scaffold']) )
 			$this -> scaffold = $this -> args['scaffold'];
@@ -118,7 +127,8 @@ class Processor{
 
 		$config = require_once( SCAFFOLD_DIR . $this -> scaffold . '/' . 'config.php' );
 
-		if ( isset ( $config ) ){
+		if ( isset ( $config ) )
+		{
 			echo 'Loaded configuration file for the scaffold: \'' . $this -> scaffold . "'\n";
 			return $config;
 		}else
@@ -131,7 +141,8 @@ class Processor{
 	 *
 	 * @return array 	An array containining the instantied template objects.
 	 */
-	public function scaffolds(){
+	public function scaffolds()
+	{
 
 		$this -> loadAppConfig();
 		$config = $this -> loadScaffoldConfig();	
@@ -148,7 +159,8 @@ class Processor{
 		else
 			$unit = null;
 
-		foreach( $components as $component ){
+		foreach( $components as $component )
+		{
 			require_once( SCAFFOLD_DIR . $this -> scaffold . '/' . $component . '.tpl.php' );
 			$loaded_components[ $component ] = new $component( $unit );
 			echo 'Loaded scaffold component: ' . $component . "\n";
@@ -165,7 +177,8 @@ class Processor{
 	 *
 	 * @return QueryTool  Instance of QueryTool
 	 */
-	public function queryTool( ){
+	public function queryTool( )
+	{
 		$this -> loadAppConfig();
 
 		if ( !isset( $this -> query_tool ) )
@@ -177,7 +190,8 @@ class Processor{
 	/**
 	 * help() - Prints help message.
 	 */
-	public function help(){
+	public function help()
+	{
 
 		$help = <<<HELP
 

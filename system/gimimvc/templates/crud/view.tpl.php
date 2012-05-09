@@ -8,34 +8,40 @@
 /**
  *
  */
-class View extends Template{
+class View extends Template
+{
 
 	public $views = array( 'index', 'form', 'table', 'thumbnails', 'show' );
 
-	public function __construct( $name ){
+	public function __construct( $name )
+	{
 		parent::__construct( $name );
 		$this -> fileCache() -> path =  SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_VIEW_PATH . DEFAULT_CONTENT_PATH . $name . '/';  
 	}
 
 
-	public function generate(){
+	public function generate()
+	{
 		echo 'Generating Directory: ';
-	      	echo $this->fileCache()->path . "\n";
+		echo $this->fileCache()->path . "\n";
 		mkdir ( $this -> fileCache() -> path );
-		foreach ( $this -> views as $view ){
+		foreach ( $this -> views as $view )
+		{
 			echo 'Generating file for view: ' . $view . "\n";
 			$this -> fileCache() -> create( $this -> scaffold( $view ), $view );
 		}
 	}
 
 
-	public function undo(){
-		foreach ( $this -> views as $view ){
+	public function undo()
+	{
+		foreach ( $this -> views as $view )
+		{
 			echo 'Removing file for view: ' . $view . "\n";
 			$this -> fileCache() -> clear( $view );
 		}
 		echo 'Removing Directory: ';
-	      	echo $this->fileCache()->path . "\n";
+		echo $this->fileCache()->path . "\n";
 		rmdir ( $this -> fileCache() -> path );
 	}
 
@@ -52,7 +58,7 @@ class View extends Template{
 			$this -> viewbits ( $name , $name );
 
 
-/*********************** BEGIN HTML ****************************************************************/
+		/*********************** BEGIN HTML ****************************************************************/
 		$index = <<<VIEW
 <h1><?php echo SITE_NAME; ?> <small><?php echo SITE_TAG; ?></small></h1>
 <hr>
@@ -65,8 +71,8 @@ class View extends Template{
 	</div>
 </div>
 VIEW;
-######################## END HTML   #################################################################
-/*********************** BEGIN HTML ****************************************************************/
+		######################## END HTML   #################################################################
+		/*********************** BEGIN HTML ****************************************************************/
 
 		$search = <<<VIEW
 		<form class = 'well form form-inline' action ='$name/gallery' method ='get' >
@@ -78,8 +84,8 @@ VIEW;
 					<input class ='btn btn-large primary-btn' type='submit' value = 'Search'/>
 		</form>
 VIEW;
-######################## END HTML   #################################################################
-/*********************** BEGIN HTML ****************************************************************/
+		######################## END HTML   #################################################################
+		/*********************** BEGIN HTML ****************************************************************/
 		$form = <<<VIEW
 <div class = 'row' >
 
@@ -115,10 +121,10 @@ VIEW;
 	</div>
 </div>
 VIEW;
-######################## END HTML   #################################################################
+		######################## END HTML   #################################################################
 
-		
-/*********************** BEGIN HTML ****************************************************************/
+
+		/*********************** BEGIN HTML ****************************************************************/
 		$edit_delete = <<<VIEW
 				<?php if ( \$this -> access() -> permission ('u') ): ?>
 				<a class ='btn btn-info' href='$name/edit/<?php echo \$row['id'] ?>'>
@@ -132,10 +138,10 @@ VIEW;
 				<?php endif; ?>
 
 VIEW;
-######################## END HTML   #################################################################
+		######################## END HTML   #################################################################
 
 
-/*********************** BEGIN HTML ****************************************************************/
+		/*********************** BEGIN HTML ****************************************************************/
 		$thumbnails_seg = <<<VIEW
 <br/>
 <div class =''>
@@ -160,10 +166,10 @@ VIEW;
 	</ul>
 </div>
 VIEW;
-######################## END HTML   #################################################################
+		######################## END HTML   #################################################################
 
 
-/*********************** BEGIN HTML ****************************************************************/
+		/*********************** BEGIN HTML ****************************************************************/
 		$table_seg = <<<VIEW
 <table class ='table table-striped'>
 	<tr>
@@ -186,7 +192,7 @@ VIEW;
 	<?php endforeach; ?>
 </table>
 VIEW;
-######################## END HTML   #################################################################
+		######################## END HTML   #################################################################
 
 
 		$last_letter = $uname[ strlen( $uname) - 1 ];
@@ -198,7 +204,7 @@ VIEW;
 
 
 
-/*********************** BEGIN HTML ****************************************************************/
+		/*********************** BEGIN HTML ****************************************************************/
 		$gallery_top = <<<VIEW
 <div class = 'row'>
 	<?php if ( isset ( \$model -> show ) ): ?>
@@ -225,11 +231,11 @@ VIEW;
 </div>
 <?php endif; ?>
 VIEW;
-######################## END HTML   #################################################################
+		######################## END HTML   #################################################################
 
 
 
-/*********************** BEGIN HTML ****************************************************************/
+		/*********************** BEGIN HTML ****************************************************************/
 		$gallery_bottom = <<<VIEW
 	<?php echo \$this -> module('base/helper') -> paginate() ?>
 	<br/>
@@ -247,7 +253,7 @@ VIEW;
 	</div>
 	<div class = 'well span6'>
 
-		
+
 	<?php if ( !isset ( \$model -> search ) ): ?>
 		<h3> Nothing here yet... </h3>
 		<br/>
@@ -277,9 +283,9 @@ VIEW;
 $search
 <?php endif; ?>
 VIEW;
-######################## END HTML   #################################################################
+		######################## END HTML   #################################################################
 
-/*********************** BEGIN HTML ****************************************************************/
+		/*********************** BEGIN HTML ****************************************************************/
 		$show_table = <<<VIEW
 		<table class = 'table'>
 			{$this -> show_table }
@@ -290,9 +296,9 @@ VIEW;
 			{$this -> thumbnails}
 		</p>
 VIEW;
-######################## END HTML   #################################################################
-		
-/*********************** BEGIN HTML ****************************************************************/
+		######################## END HTML   #################################################################
+
+		/*********************** BEGIN HTML ****************************************************************/
 		$show = <<<VIEW
 <div class = 'row'>
 	<h1>$uname</h1>
@@ -310,15 +316,15 @@ VIEW;
 		<p><a class ='btn-success btn-large' href='$name/gallery'>Go to $gallery_title</a></p>
 		<br/>
 		<hr>
-	
+
 		$edit_delete
 	</div>
 </div>
 VIEW;
-######################## END HTML   #################################################################
+		######################## END HTML   #################################################################
 
 
-/*********************** BEGIN HTML ****************************************************************/
+		/*********************** BEGIN HTML ****************************************************************/
 		$about = <<<VIEW
 <h1> About </h1>
 <hr>
@@ -335,7 +341,7 @@ VIEW;
 	If you notice any bugs or leaky faucets let us know at <a href = "mailto:<?php echo SITE_EMAIL ?>"> <?php echo SITE_EMAIL ?></a>.
 </p>
 VIEW;
-######################## END HTML   #################################################################
+		######################## END HTML   #################################################################
 
 		if ( $return == 'table' )
 			$table = $gallery_top . $table_seg . $gallery_bottom;
@@ -348,49 +354,50 @@ VIEW;
 
 
 
-	public function viewbits( $column, $name ){
+	public function viewbits( $column, $name )
+	{
 		if ( is_array($column) ):
 			$this -> inputs = null;
-			$this -> table_heads = null;
-			$this -> table_cells = null;
-			$this -> thumbnails = null;
-			$this -> show_table = null;
-			$this -> search_columns = null;
-			foreach( $this -> queryTool() -> filtered_columns as $single_column ):
-				$this -> viewbits ( $single_column, $name );
-			endforeach;
-		else:
-			$uc_column = ucwords( $column );
+		$this -> table_heads = null;
+		$this -> table_cells = null;
+		$this -> thumbnails = null;
+		$this -> show_table = null;
+		$this -> search_columns = null;
+		foreach( $this -> queryTool() -> filtered_columns as $single_column ):
+			$this -> viewbits ( $single_column, $name );
+endforeach;
+else:
+	$uc_column = ucwords( $column );
 
 /*********************** BEGIN HTML ****************************************************************/
-			$printed_column = <<<printed
+$printed_column = <<<printed
 	<?php echo \$row['$column'] ?> 
 printed;
 ######################## END HTML   #################################################################
 
-			$helper = 'input';
-			$column_id = $column; // If external retains id, while column is stripped of id
-			$prefixed_column = $column; // For search. Prefixes if external
+$helper = 'input';
+$column_id = $column; // If external retains id, while column is stripped of id
+$prefixed_column = $column; // For search. Prefixes if external
 
-			if ( preg_match( '/_id/', $column ) ):
-				$column_id = $column;
-				$column = preg_replace( '/_id/', '', $column);
-				$prefixed_column = $column . 's.'	. $column;
-				$uc_column = ucwords( $column );
-				$printed_column = <<<printed
+if ( preg_match( '/_id/', $column ) ):
+	$column_id = $column;
+$column = preg_replace( '/_id/', '', $column);
+$prefixed_column = $column . 's.'	. $column;
+$uc_column = ucwords( $column );
+$printed_column = <<<printed
 	<a href ='$column/show/<?php echo \$row['$column_id'] ?>'> <?php echo \$row['$column'] ?> </a>
 printed;
-				$helper = 'select';
-			endif;
+$helper = 'select';
+endif;
 
 /*********************** BEGIN HTML ****************************************************************/
-			$this -> inputs .= <<<input
+$this -> inputs .= <<<input
 
 	<label>$uc_column: <?php echo html::$helper ('$column', \$model -> saved_fields['$column'] ) ?> </label>
 input;
 ######################## END HTML   #################################################################
 /*********************** BEGIN HTML ****************************************************************/
-			$this -> table_heads.= <<<heads
+$this -> table_heads.= <<<heads
 	<th> 
 	<a href='<?php 
 		echo '$name/gallery/' . \$model -> page .  VAR_SEPARATOR . '$column_id' . VAR_SEPARATOR;
@@ -404,13 +411,13 @@ input;
 heads;
 ######################## END HTML   #################################################################
 /*********************** BEGIN HTML ****************************************************************/
-			$this -> table_cells.= <<<cells
+$this -> table_cells.= <<<cells
 
 	<td> $printed_column </td>
 cells;
 ######################## END HTML   #################################################################
 /*********************** BEGIN HTML ****************************************************************/
-			$this -> show_table .= <<<show
+$this -> show_table .= <<<show
 	<tr>
 		<td> <span class = 'label' >$uc_column:</span> </td>
 		<td> $printed_column</td>
@@ -419,7 +426,7 @@ cells;
 show;
 ######################## END HTML   #################################################################
 /*********************** BEGIN HTML ****************************************************************/
-			$this -> thumbnails .= <<<tbs
+$this -> thumbnails .= <<<tbs
 
 			<span class = 'label' >$uc_column:</span>
 			$printed_column
@@ -427,7 +434,7 @@ show;
 
 tbs;
 /*********************** BEGIN HTML ****************************************************************/
-			$this -> show .= <<<show
+$this -> show .= <<<show
 
 	<h3>$uc_column:</h3>
 	$printed_column
@@ -436,12 +443,12 @@ tbs;
 show;
 ######################## END HTML   #################################################################
 /*********************** BEGIN HTML ****************************************************************/
-			$this -> search_columns .= <<<search
+$this -> search_columns .= <<<search
 
 	<label>$uc_column: <?php echo html::input ('$prefixed_column') ?> </label>
 search;
 ######################## END HTML   #################################################################
-		endif;
+endif;
 	}
 
 

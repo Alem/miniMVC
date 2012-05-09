@@ -1,14 +1,16 @@
 <?php
 
 class Config extends Template{
-	
-	public function __construct( $name ){
+
+	public function __construct( $name )
+	{
 		parent::__construct( $name );
 		$this -> fileCache() -> path = GIMIMVC_ROOT . 'applications/' . $this -> name . '/config/';
 	}
 
 
-	public function generate(){
+	public function generate()
+	{
 		echo 'Creating: ' .  $this -> fileCache() -> path . "\n";
 		mkdir( $this -> fileCache() -> path , 0777 , true );
 		echo 'Creating application and database config templates' . "\n";
@@ -16,7 +18,8 @@ class Config extends Template{
 		$this -> fileCache() -> create( $this -> scaffold( 'database' ), 'database' );
 	}
 
-	public function undo(){
+	public function undo()
+	{
 		echo 'Removing application and database config templates' . "\n";
 		$this -> fileCache() -> clear( 'app' );
 		$this -> fileCache() -> clear( 'database' );
@@ -25,10 +28,11 @@ class Config extends Template{
 	}
 
 
-	public function scaffold( $type ){
+	public function scaffold( $type )
+	{
 
 		$name =& $this -> name;
-		
+
 		$app = <<<APP
 <?php
 /**
@@ -167,7 +171,7 @@ const COMPANY_WEBSITE = '';
 
 
 APP;
-		
+
 		$database = <<<DATABASE
 <?php
 

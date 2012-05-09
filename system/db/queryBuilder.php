@@ -59,7 +59,8 @@ class QueryBuilder extends Database{
 	 *
 	 * @param string $table 	The table name
 	 */
-	public function __construct( $table = null ){
+	public function __construct( $table = null )
+	{
 		parent::__construct();
 		$this -> table = $table;
 	}
@@ -69,7 +70,8 @@ class QueryBuilder extends Database{
 	 * @param  string $fragment 	A partial query
 	 * @return QueryBuilder 	The current QueryBuilder object.
 	 */
-	function query($fragment){
+	function query($fragment)
+	{
 		if($fragment)
 			$this -> query .= $fragment;
 		return $this;
@@ -82,8 +84,10 @@ class QueryBuilder extends Database{
 	 * @param mixed $data 		Data to be passed
 	 * @return QueryBuilder 	The current QueryBuilder object.
 	 */
-	function query_data($data){
-		if( is_array($data) ){
+	function query_data($data)
+	{
+		if( is_array($data) )
+		{
 			$data = array_values ( $data );
 			$this -> query_data = $this -> query_data + $data;
 		}else
@@ -97,7 +101,8 @@ class QueryBuilder extends Database{
 	 *
 	 * @return QueryBuilder 	The current QueryBuilder object.
 	 */
-	function clearQuery(){
+	function clearQuery()
+	{
 		$this -> query = null;
 		$this -> query_data = array();
 		foreach ( $this -> counter as $query => $value )
@@ -111,7 +116,8 @@ class QueryBuilder extends Database{
 	 *
 	 * @return QueryBuilder 	The current QueryBuilder object.
 	 */
-	function saveQuery(){
+	function saveQuery()
+	{
 		$this -> saved_query = $this -> query;
 		$this -> saved_query_data = $this -> query_data;
 		$this -> saved_counter = $this -> counter;
@@ -124,7 +130,8 @@ class QueryBuilder extends Database{
 	 *
 	 * @return QueryBuilder 	The current QueryBuilder object.
 	 */
-	function restoreQuery(){
+	function restoreQuery()
+	{
 		$this -> query = $this -> saved_query;
 		$this -> query_data = $this -> saved_query_data;
 		$this -> counter = $this -> saved_counter;
@@ -145,7 +152,8 @@ class QueryBuilder extends Database{
 	 * @return array The SQL rows.
 	 * @uses 	 QueryBuilder::clear 		Used to clear query after execution
 	 */
-	public function run(){
+	public function run()
+	{
 		Logger::debug('PDO Query', $this -> query );
 		Logger::debug('PDO Data', print_r($this -> query_data,true) );
 
@@ -162,7 +170,7 @@ class QueryBuilder extends Database{
 			$this -> rowcount = $statement -> rowCount();
 
 		$results = $statement -> fetchall( PDO::FETCH_ASSOC );
-		
+
 		return $results;
 	}
 
@@ -183,7 +191,8 @@ class QueryBuilder extends Database{
 	 * @uses 	QueryBuilder::restoreQuery() 	Restores query to for use in following paged query
 	 * @uses 	QueryBuilder::limit()		Used to limit the paged query.
 	 */
-	public function page($page, $items_per_page){
+	public function page($page, $items_per_page)
+	{
 
 		$this -> clean($page);
 
@@ -210,7 +219,8 @@ class QueryBuilder extends Database{
 	 *
 	 * @param mixed &$data The data to be cleaned.
 	 */
-	function clean( &$data ){
+	function clean( &$data )
+	{
 		if (is_array($data)) {
 			foreach($data as &$value)
 				$this -> clean( $value );
@@ -237,9 +247,11 @@ class QueryBuilder extends Database{
 	 * @uses 	 QueryBuilder::getColumns() 	Retrieves tables columns to whitelist $column
 	 * @uses 	 Controller::prg() 		Redirects to default controller if invalid column is given
 	 */
-	public function whitelist( $column, $table = null ){
+	public function whitelist( $column, $table = null )
+	{
 
-		if( $prefix = $this -> getPrefix( $column ) ){
+		if( $prefix = $this -> getPrefix( $column ) )
+		{
 			$table = $prefix;
 			$this -> unprefix( $column );
 		}elseif ( empty ( $table ) )
@@ -249,17 +261,20 @@ class QueryBuilder extends Database{
 		$list = $this -> getColumns( $table );
 		$this -> restoreQuery();
 
-		if ( is_array ( $column ) ) {
+		if ( is_array ( $column ) ) 
+		{
 			foreach ( $column as $single_column )
 				$this -> whitelist( $single_column, $table );
-		}else{
-			if ( in_array ( $column, $list ) )
-				return true;
-			else{
-				Logger::error('Whitelist',"Column '$column' not found in table '$table'");
-				controller::prg( null, null, CONTROLLER );
+		}else
+			{
+				if ( in_array ( $column, $list ) )
+					return true;
+				else
+				{
+					Logger::error('Whitelist',"Column '$column' not found in table '$table'");
+					controller::prg( null, null, CONTROLLER );
+				}
 			}
-		}
 	}
 
 
@@ -276,9 +291,11 @@ class QueryBuilder extends Database{
 	 * @param  string $seperator 	The string that seperates the 'column = ?' statements
 	 * @return string 		Returns the constructed query fragment
 	 */
-	public function seperator( &$columns, $seperator ){
+	public function seperator( &$columns, $seperator )
+	{
 
-		for( $i = 0, $j = count($columns), $construct = null; $i < $j ; $i++ ){
+		for( $i = 0, $j = count($columns), $construct = null; $i < $j ; $i++ )
+		{
 			if ( $i > 0 )
 				$construct .= $seperator;
 			$construct .= $columns[$i] . " = ? ";
@@ -299,11 +316,13 @@ class QueryBuilder extends Database{
 	 * @param bool   $check        If set to true, checks if either prefix is already present in column before prefixing
 	 * @return array|string        Returns the prefixed column or columns.
 	 */
-	public function setPrefix( &$name , $prefix_a = null, $prefix_b = '.', $check = true ){
+	public function setPrefix( &$name , $prefix_a = null, $prefix_b = '.', $check = true )
+	{
 
 		$prefix_one = ( isset( $prefix_a ) ) ? $prefix_a : $this -> table;
 
-		if( is_array( $name ) ){
+		if( is_array( $name ) )
+		{
 			foreach( $name as $single_name)
 				$prefixed_array[] = $this -> setPrefix ( $single_name, $prefix_a, $prefix_b, $check );
 			if ( isset ( $prefixed_array ) )
@@ -323,7 +342,8 @@ class QueryBuilder extends Database{
 	 * @param  string $prefix_b     Secondary prefix (ex. '.' or '_' )
 	 * @return string|bool         Returns the prefix name.
 	 */
-	public function getPrefix( $name, $prefix_b = '.' ){
+	public function getPrefix( $name, $prefix_b = '.' )
+	{
 		if ( is_array( $name ) )
 			return null;
 		$position = strpos( $name, $prefix_b );
@@ -341,7 +361,8 @@ class QueryBuilder extends Database{
 	 * @param string $prefix_b     Secondary prefix (ex. '.' or '_' )
 	 * @return string  	       Returns un-prefixed name.
 	 */
-	public function unPrefix( &$name , $prefix_b = '.' ){
+	public function unPrefix( &$name , $prefix_b = '.' )
+	{
 		if ( is_array( $name ) )
 			return $name;
 		$position = strpos( $name, $prefix_b );
@@ -358,17 +379,20 @@ class QueryBuilder extends Database{
 	 * @param $column The column to alias
 	 * @param $prefix The prefix to use. ( Typically a table )
 	 */
-	public function alias( &$column, $prefix ){
-		if ( is_array( $column ) ){
+	public function alias( &$column, $prefix )
+	{
+		if ( is_array( $column ) )
+		{
 			foreach ( $column as &$single_column )
 				$this -> alias( $single_column, $prefix );
-		}else{
-			$position = strpos( $column, '.' ); // If prefixed, gets the un-prefixed column name
-			if ( $position !== false )
-				return $column = $column . ' AS ' . $prefix . '_' . substr( $column,($position + 1));
-			else
-				return $column = $column . ' AS ' . $prefix . '_' . $column;
-		}
+		}else
+			{
+				$position = strpos( $column, '.' ); // If prefixed, gets the un-prefixed column name
+				if ( $position !== false )
+					return $column = $column . ' AS ' . $prefix . '_' . substr( $column,($position + 1));
+				else
+					return $column = $column . ' AS ' . $prefix . '_' . $column;
+			}
 	}
 
 
@@ -386,13 +410,15 @@ class QueryBuilder extends Database{
 	 * @uses 	 QueryBuilder::setPrefix() 	Prefixes table columns
 	 * @uses 	 QueryBuilder::query() 		Holds partial query
 	 */
-	public function select( $column=null, $table = null, $autoalias = false, $is_distinct = false){
+	public function select( $column=null, $table = null, $autoalias = false, $is_distinct = false)
+	{
 		$this -> counter['select']++;
 		$table    = ( isset($table)  ) ? $this -> clean ($table) : $this -> table;
 		$column   = ( isset($column) ) ? $this -> clean($column) : '*';
 		$distinct = ( $is_distinct )   ? 'DISTINCT' : null ;
 
-		if ( $column != '*' ){
+		if ( $column != '*' )
+		{
 			$this -> whitelist($column, $table);
 			$this -> setPrefix( $column, $table );
 			if ( $autoalias )
@@ -417,7 +443,8 @@ class QueryBuilder extends Database{
 	 * @return QueryBuilder 	The current QueryBuilder object.
 	 * @uses 	 QueryBuilder::query() 		Holds partial query
 	 */
-	public function from ( $table = null){
+	public function from ( $table = null)
+	{
 		$this -> counter['from']++;
 		$table = ( isset($table) ) ? $this -> clean ($table) : $this -> table;
 		$this -> query (" FROM $table ");
@@ -440,15 +467,18 @@ class QueryBuilder extends Database{
 	 * @uses 	 QueryBuilder::query() 		Holds partial query
 	 * @uses 	 QueryBuilder::query_data() 	Holds the partial query's data
 	 */
-	public function insert( $value, $column = null, $table =  null){
+	public function insert( $value, $column = null, $table =  null)
+	{
 		$this -> counter['insert']++;
 
 		$table = ( isset ($table) ) ? $this -> clean($table) : $this -> table;
 		$this -> whitelist($column, $table);
 
 		$value_string = ' ? ';
-		if ( is_array($value) ){
-			for ( $i = 1, $j = count($value); $i <= $j ; $i++ ){
+		if ( is_array($value) )
+		{
+			for ( $i = 1, $j = count($value); $i <= $j ; $i++ )
+			{
 				if ($i >  1)		
 					$value_string .= ", ? ";
 			}
@@ -473,7 +503,8 @@ class QueryBuilder extends Database{
 	 * @uses 	 QueryBuilder::query() 		Holds partial query
 	 * @uses 	 QueryBuilder::query_data() 	Holds the partial query's data
 	 */
-	public function update($new, $new_column = null, $table = null ){
+	public function update($new, $new_column = null, $table = null )
+	{
 		$this -> counter['update']++;
 		$table = (isset($table)) ? $this -> clean ($table) : $this -> table;
 		$this -> whitelist($new_column, $table);
@@ -495,7 +526,8 @@ class QueryBuilder extends Database{
 	 * @return QueryBuilder 			The current QueryBuilder object.
 	 * @uses 	 	QueryBuilder::query() 	Holds partial query
 	 */
-	public function remove($table = null ){
+	public function remove($table = null )
+	{
 		$this -> counter['remove']++;
 		$table = (isset($table)) ? $this -> clean ($table) : $this -> table;
 		$column = ( isset($column) ) ?  $this -> clean($column) : 'id';
@@ -518,7 +550,8 @@ class QueryBuilder extends Database{
 	 * @uses 	 QueryBuilder::query() 		Holds partial query
 	 * @uses 	 QueryBuilder::query_data() 	Holds the partial query's data
 	 */
-	public function where( $ref, $ref_column = null , $table = null ){
+	public function where( $ref, $ref_column = null , $table = null )
+	{
 		$this -> counter['where']++;
 		$table = ( isset($table) ) ? $this -> clean ($table) : $this -> table;
 		$this -> whitelist($ref_column, $table );
@@ -550,10 +583,12 @@ class QueryBuilder extends Database{
 	 * @uses 	 QueryBuilder::whitelist() 	Whitelists column to ensure it is a valid table column
 	 * @uses 	 QueryBuilder::query() 		Holds partial query
 	 */
-	public function order( $orderby, $sort, $table = null){
+	public function order( $orderby, $sort, $table = null)
+	{
 		$this -> counter['order']++;
 		$table = (isset($table)) ? $this -> clean ($table) : $this -> table;
-		if ( isset( $orderby ) && ( stristr( $sort, 'asc' ) || stristr( $sort, 'desc' ) ) ){
+		if ( isset( $orderby ) && ( stristr( $sort, 'asc' ) || stristr( $sort, 'desc' ) ) )
+		{
 			$this -> whitelist($orderby,$table);
 			$order = " ORDER BY $table.$orderby $sort";
 			$this -> query ( $order ); 
@@ -570,9 +605,11 @@ class QueryBuilder extends Database{
 	 * @return QueryBuilder 			The current QueryBuilder object.
 	 * @uses 	 	QueryBuilder::query() 	Holds partial query
 	 */
-	public function limit($limit, $offset = null){
+	public function limit($limit, $offset = null)
+	{
 		$this -> counter['limit']++;
-		if ( isset( $limit) ){
+		if ( isset( $limit) )
+		{
 			$limit = " LIMIT $limit";
 			if ( isset( $offset)  )
 				$limit .= ',' . $offset;
@@ -606,7 +643,8 @@ class QueryBuilder extends Database{
 		$this -> setPrefix ( $columns_a, $table_a );
 		$this -> setPrefix ( $columns_b, $table_b );
 
-		if  ( is_array ($columns_a) ){
+		if  ( is_array ($columns_a) )
+		{
 			for ( $i = 0 , $j = count ( $column_a ), $conditions = null; $i <= $j; $i ++ )
 				$conditions .= $column_a[$i] . '=' . $column_b[$i];
 		}else
@@ -625,7 +663,8 @@ class QueryBuilder extends Database{
 	 * @return 		QueryBuilder 		The current QueryBuilder object.
 	 * @uses 		QueryBuilder::query() 	Holds partial query
 	 */
-	public function show ( $table ){
+	public function show ( $table )
+	{
 		$this -> counter['show']++;
 		$this -> query("SHOW COLUMNS FROM $table");
 		return $this;
@@ -639,8 +678,10 @@ class QueryBuilder extends Database{
 	 * @return array        The columns of the table.
 	 * @uses 		QueryBuilder::show() 	Retrieves table information
 	 */
-	public function getColumns ( $table ){
-		if ( ! isset ( $this -> table_columns[$table] ) ){
+	public function getColumns ( $table )
+	{
+		if ( ! isset ( $this -> table_columns[$table] ) )
+		{
 			$this -> table_info[$table] = $this -> show( $table ) -> run();
 			foreach( $this -> table_info[$table] as $table_row => $table_column)
 				$this -> table_columns[$table][] = $table_column['Field'];

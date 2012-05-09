@@ -13,20 +13,20 @@
  */
 
 
-class Menu {
+class Menu 
+{
 
 	public $menus = array();
 	public $hierarchy = array();
 	public $active = array();
 
-	function __construct(){
+	function __construct()
+	{
 		$this -> nav();	
-	//	$this -> sec_nav();	
-	//	$this -> sidebar();	
-	//	$this -> breadcrumb();	
 	}
 
-	function display( $menu ){
+	function display( $menu )
+	{
 		$links = null;
 		if ( isset(  $this -> menus[$menu] ) ):
 			foreach( $this -> menus[$menu] as $name => $href ):
@@ -34,29 +34,30 @@ class Menu {
 					isset(  $this -> active[$menu] ) 
 					&& ( $name == $this -> active[$menu] )
 				) 
-					$active = 'class = "active"';
+				$active = 'class = "active"';
 				else
 					$active =  null;
-				if ( $menu == 'breadcrumb'):
-					$links .= <<<links
+		if ( $menu == 'breadcrumb'):
+			$links .= <<<links
 
 				<span class="divider">/</span>
 
 links;
-				endif;
-				$links .= <<<links
+			endif;
+			$links .= <<<links
 				<li $active>
 				<a href= "$href">$name</a>
 				</li>
 links;
 			endforeach;
-		endif;
-		return $links;
+			endif;
+			return $links;
 	}
 
 
 
-	function nav(){
+	function nav()
+	{
 
 		$this -> menus['nav']['Home'] = null;
 		$this -> menus['nav']['Gallery'] = DEFAULT_CONTROLLER . '/gallery';
@@ -66,32 +67,38 @@ links;
 	}
 
 
-	function sec_nav(){
-		if ( in_array( CONTROLLER, $this -> hierarchy['nav']['Home'] ) ){
+	function sec_nav()
+	{
+		if ( in_array( CONTROLLER, $this -> hierarchy['nav']['Home'] ) )
+		{
 		}
 	}
 
 
-	function sidebar(){
+	function sidebar()
+	{
 	}		
 
 
-	function breadcrumb(){
-			if ( defined('CONTROLLER') )
-				$this -> menus['breadcrumb'][ucwords( CONTROLLER )] = CONTROLLER;
-			if ( defined('METHOD') )
-				$this -> menus['breadcrumb'][ucwords( METHOD )] = CONTROLLER . '/' . METHOD;
-			if ( defined('VARIABLE') )
-				$this -> menus['breadcrumb'][ucwords( VARIABLE )] = CONTROLLER . '/' . METHOD . '/' . VARIABLE;
+	function breadcrumb()
+	{
+		if ( defined('CONTROLLER') )
+			$this -> menus['breadcrumb'][ucwords( CONTROLLER )] = CONTROLLER;
+		if ( defined('METHOD') )
+			$this -> menus['breadcrumb'][ucwords( METHOD )] = CONTROLLER . '/' . METHOD;
+		if ( defined('VARIABLE') )
+			$this -> menus['breadcrumb'][ucwords( VARIABLE )] = CONTROLLER . '/' . METHOD . '/' . VARIABLE;
 
-			end( $this -> menus['breadcrumb'] );
-			if ( !empty ( $this -> breadcrumb ) )
-				$this -> active['breadcrumb'] = ucwords ( key( $this->breadcrumb ) );
+		end( $this -> menus['breadcrumb'] );
+		if ( !empty ( $this -> breadcrumb ) )
+			$this -> active['breadcrumb'] = ucwords ( key( $this->breadcrumb ) );
 	}
 
 
-	function set_active( $menu, $has_children = false ){
-		foreach ( $this -> menus[$menu] as $name => $href ){
+	function set_active( $menu, $has_children = false )
+	{
+		foreach ( $this -> menus[$menu] as $name => $href )
+		{
 			if( 
 				$href == URI  
 				|| (

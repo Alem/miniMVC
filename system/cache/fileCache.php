@@ -31,8 +31,10 @@ class FileCache{
 	/**
 	 * __construct - Defines the default path and extension for cache files
 	 */
-	function __construct ( $set_defaults = true ) {
-		if ( $set_defaults === true) {
+	function __construct ( $set_defaults = true ) 
+	{
+		if ( $set_defaults === true) 
+		{
 			$this -> path = SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_PUBLIC_PATH . DEFAULT_CACHE_PATH; 
 			$this -> ext  = '.tmp';
 		}
@@ -48,7 +50,9 @@ class FileCache{
 	function create( $data, $id = null ) {
 		if ( !isset( $id ) )
 			$id =& $this -> id;
+
 		$filename = $this -> path . $id . $this -> ext;
+
 		return file_put_contents( $filename, $data );
 	}
 
@@ -61,7 +65,9 @@ class FileCache{
 	function get( $id = null ) {
 		if ( !isset( $id ) )
 			$id =& $this -> id;
+
 		$filename = $this -> path . $id . $this -> ext;
+
 		if ( file_exists($filename) )
 			return file_get_contents( $filename );	
 	}
@@ -75,7 +81,9 @@ class FileCache{
 	function clear( $id = null ) {
 		if ( !isset( $id ) )
 			$id =& $this -> id;
+
 		$filename = $this -> path . $id . $this -> ext;
+
 		unlink( $filename );
 
 		if ( !file_exists($filename) )
@@ -93,7 +101,9 @@ class FileCache{
 	function recency( $id = null ) {
 		if ( !isset( $id ) )
 			$id =& $this -> id;
+
 		$filename = $this -> path . $id . $this -> ext;
+
 		if ( file_exists( $filename ) )
 			return $time_difference = ( time() - filemtime($id) );
 		else 

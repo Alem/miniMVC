@@ -8,51 +8,55 @@
 /**
  *
  */
-class Model extends Template{
+class Model extends Template
+{
 
-	public function __construct( $name ){
+	public function __construct( $name )
+	{
 		parent::__construct( $name );
 
 		$this -> fileCache() -> path =  SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_MODEL_PATH;  
 	}
 
 
-	public function manageExternalLinks(){
+	public function manageExternalLinks()
+	{
 		$joining = null;
 		$external_select = null;
 		$external_table_arrays = null;
 
 		if ( isset( $this -> queryTool() -> linked_columns ) ):
 			foreach ( $this -> queryTool() -> linked_columns  as $stripped_column ):
-//--------------------------------------START HTML
-					$external_table_arrays .= <<<external
+				//--------------------------------------START HTML
+				$external_table_arrays .= <<<external
 
 			'{$stripped_column}' => array( '$stripped_column' ),
 external;
-//--------------------------------------END HTML
-//--------------------------------------START HTML
-					$external_select .= <<<select
+		//--------------------------------------END HTML
+		//--------------------------------------START HTML
+		$external_select .= <<<select
 
 		\$this -> SQL() -> select ( \$this -> columns['external']['{$stripped_column}'], '{$stripped_column}s' );
 
 select;
-//--------------------------------------END HTML
-//--------------------------------------START HTML
-					$joining .= <<<JOINING
+		//--------------------------------------END HTML
+		//--------------------------------------START HTML
+		$joining .= <<<JOINING
 
 		\$this -> SQL() -> joining ('{$stripped_column}s', '{$stripped_column}_id', 'id', 'LEFT OUTER' );
 JOINING;
-//--------------------------------------END HTML
-			endforeach;
-		endif;
-		return array(
-			'external_table_array'  => $external_table_arrays,
-			'external_select' 	=> $external_select,
-			'joining' 		=> $joining
-		);
+		//--------------------------------------END HTML
+endforeach;
+endif;
+return array(
+	'external_table_array'  => $external_table_arrays,
+	'external_select' 	=> $external_select,
+	'joining' 		=> $joining
+);
 	}
 
-	public function scaffold(){
+	public function scaffold()
+	{
 
 		$uname = $this -> uname;
 		$name = $this -> name;
@@ -83,10 +87,12 @@ JOINING;
 	 * @param mixed   \$user_id          The value that matches the row's value for the 'ownership' column.
 	 * @return array  \$x                The array of table values organized for each external column value
 	 */
-	public function get{$uname}sByX ( \$external_column , \$id = null,  \$user_id = null ) {
+	public function get{$uname}sByX ( \$external_column , \$id = null,  \$user_id = null ) 
+	{
 		\$result = \$this -> get{$uname}( \$id , \$user_id );
-		
-		foreach ( \$result as \$row ){
+
+		foreach ( \$result as \$row )
+		{
 			if ( !isset ( \$x[ \$row[ \$external_column ]['total'] ] ) )
 				\$x[ \$row[ \$external_column  ] ][ 'total' ] = 0;
 
@@ -99,15 +105,16 @@ JOINING;
 		return \$x;
 	}
 externalFunction;
-			endif;
+endif;
 
-		$model =  <<<MODEL
+$model =  <<<MODEL
 <?php
 
-class $uname extends Model{
+class $uname extends Model
+{
 
 	/**
- 	 * @var array The columns array identifies and classifies the columns of the tables the Model interacts with. 
+	 * @var array The columns array identifies and classifies the columns of the tables the Model interacts with. 
 	 */
 	public \$columns = array(
 
@@ -123,24 +130,27 @@ class $uname extends Model{
 	);
 
 
-	public function __construct(){
+	public function __construct()
+	{
 		parent::__construct();
 	}
 
 
 	/**
- 	 * insertPOST - Inserts POST from form into table.
+	 * insert$uname - Inserts $uname data into table.
 	 *
 	 * @return integer The Primary ID of the last/recently inserted row. 
 	 */
-	public function insertPOST( \$user_id = null ){
-		if ( isset( \$user_id ) ){
-			\$_POST[ \$this -> columns['ownership'] ] = \$user_id;
+	public function insert$uname( \$data, \$user_id = null )
+	{
+		if ( isset( \$user_id ) )
+		{
+			\$data[ \$this -> columns['ownership'] ] = \$user_id;
 			\$this -> columns['form'][] = \$this -> columns['ownership'];
 		}
 
 		\$this	-> SQL() 
-			-> insert( \$_POST, \$this -> columns['form'] ) 
+			-> insert( \$data, \$this -> columns['form'] ) 
 			-> run();
 
 		return \$this -> SQL() -> last_insert_id;
@@ -148,12 +158,13 @@ class $uname extends Model{
 
 
 	/**
- 	 * delete$uname - Deletes $uname from table
+	 * delete$uname - Deletes $uname from table
 	 *
 	 * @param integer \$id      The primary ID of the $uname to delete.
 	 * @param mixed   \$user_id The value that matches the row's value for the 'ownership' column.
 	 */
-	public function delete$uname ( \$id, \$user_id = null) {
+	public function delete$uname ( \$id, \$user_id = null)
+	{
 		\$this 	-> SQL() 
 			-> remove() 
 			-> where( \$id, 'id' );
@@ -164,13 +175,14 @@ class $uname extends Model{
 
 
 	/**
- 	 * update$uname - Updates the specified $uname
+	 * update$uname - Updates the specified $uname
 	 *
 	 * @param integer \$id      The primary ID of the $uname to update.
 	 * @param mixed   \$user_id The value that matches the row's value for the 'ownership' column.
 	 */
-	public function update$uname(\$id = null, \$user_id = null ) {
-		\$this 	-> update( \$_POST, \$this -> columns['form'] );
+	public function update$uname( \$data, \$id = null, \$user_id = null ) 
+	{
+		\$this 	-> update( \$data, \$this -> columns['form'] );
 
 		if ( isset( \$id ) )
 			\$this	-> SQL() -> where( \$id, 'id' );
@@ -182,13 +194,14 @@ class $uname extends Model{
 
 
 	/**
- 	 * get$uname - Retrieves the $uname from table
+	 * get$uname - Retrieves the $uname from table
 	 *
 	 * @param  integer \$id      The primary ID of the $uname to retrieve.
 	 * @param  mixed   \$user_id The value that matches the row's value for the 'ownership' column.
 	 * @return array             The array of matching table rows returned by the SQL query.
 	 */
-	public function get$uname(\$id = null, \$user_id = null ) {
+	public function get$uname(\$id = null, \$user_id = null ) 
+	{
 		\$this -> SQL() -> select ( \$this -> columns['table'] );
 		$external_select
 		\$this -> SQL() -> from();
@@ -208,7 +221,7 @@ class $uname extends Model{
 
 
 	/**
- 	 * gallery$uname - Displays multiples items from the table
+	 * gallery$uname - Displays multiples items from the table
 	 *
 	 * @param integer \$page        Current page, defaults to 1
 	 * @param string  \$order_col   The column to order by
@@ -217,15 +230,17 @@ class $uname extends Model{
 	 * @param array   \$search      An array containing search columns and search values.
 	 * @return array                The 'pagination-friendly' array returned by the Model::page method.
 	 */
-	public function gallery$uname( \$order_col, \$order_sort, \$page, \$search = null, \$user_id = null){
+	public function gallery$uname( \$order_col, \$order_sort, \$page, \$search = null, \$user_id = null)
+	{
 		\$this -> SQL() -> select ( \$this -> columns['table'] );
 		$external_select
 		\$this -> SQL() -> from();
 		$joining
 
-		if ( !empty( \$search ) ){
+		if ( !empty( \$search ) )
+		{
 			\$this	-> SQL() -> where(\$search['values'], \$search['columns'] );
-			\$search_string = '?' . FILTERED_QUERY_STRING;
+			\$search_string = '?' . \$search['query_string'];
 		}else
 			\$search_string = null;
 
@@ -257,7 +272,7 @@ class $uname extends Model{
 }
 ?>
 MODEL;
-		return $model;
+return $model;
 	}
 
 }

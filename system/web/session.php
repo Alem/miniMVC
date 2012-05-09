@@ -10,7 +10,8 @@
  * accessing and modifying the session
  *
  */
-class Session{
+class Session
+{
 
 
 	/**
@@ -37,7 +38,8 @@ class Session{
 	 *  Establishes Session::data reference to $_SESSION superglobal array, and sets session id.
 	 *  Privately held an called only by Session::open for singleton functionality
 	 */
-	private function __construct(){
+	private function __construct()
+	{
 		session_start();
 		$this -> id   = session_id();
 		$this -> data =& $_SESSION;
@@ -63,11 +65,15 @@ class Session{
 	 * @param mixed  $value      The balue to set to the property
 	 * @param bool   $make_array If set to true the property will be an numeric array
 	 */
-	public static function set($property, $value = null, $make_array = false){
-		if ( is_array( $property) ){
+	public static function set($property, $value = null, $make_array = false)
+	{
+		if ( is_array( $property) )
+		{
 			foreach($property as $key => $single_property)
 				Session::open() -> set($key, $single_property);
-		}else{
+		}
+		else
+		{
 			if ($make_array == false)
 				Session::open() -> data[$property] = $value;
 			else
@@ -81,8 +87,10 @@ class Session{
 	 *
 	 * @param string $property   The property to delete from the session
 	 */
-	public static function del($property){
-		if ( is_array( $property) ){
+	public static function del($property)
+	{
+		if ( is_array( $property) )
+		{
 			foreach($property as $key => $single_property)
 				Session::open() -> del($key);
 		}else
@@ -96,7 +104,8 @@ class Session{
 	 * @param string $property   The property to retrieve from the session
 	 * @return mixed|bool        The retrieved property or false.
 	 */
-	public static function get($property){
+	public static function get($property)
+	{
 		if ( isset( Session::open() -> data[$property] ) )
 			return Session::open() -> data[$property];
 		else 
@@ -110,7 +119,8 @@ class Session{
 	 * @param string $property   The property to retrieve and delete from the session
 	 * @return mixed             The retrieved property.
 	 */
-	public static function getThenDel($property){
+	public static function getThenDel($property)
+	{
 		$result = Session::open() -> get ($property);
 		Session::open() -> del ($property);
 		return $result;

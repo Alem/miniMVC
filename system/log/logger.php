@@ -14,7 +14,8 @@
  * It's display level is determined by DEBUG_LEVEL in the main configuration file (config/main.php)
  * Where 0 is no display, 1 is username 'admin' only, and 2 means it is visible to everyone.
  */
-class Logger{
+class Logger
+{
 
 
 	/**
@@ -32,7 +33,8 @@ class Logger{
 	/**
 	 * __construct - Privately held an called only by Logger::open for singleton functionality
 	 */
-	private function __construct(){
+	private function __construct()
+	{
 	}
 
 
@@ -87,7 +89,8 @@ class Logger{
 	 * 	Debug   - MEM, Execution time, errors, constants, queries
 	 * 	Session - All session variables, including previous table outputs saved to session.
 	 */
-	public static function display(){
+	public static function display()
+	{
 		if ( 
 			( DEBUG_LEVEL === 2 )
 			|| ( 
@@ -134,7 +137,8 @@ TABLE;
 	 *
 	 * @return array  $array 	The formatted array.
 	 */
-	public static function formatArray($array){
+	public static function formatArray($array)
+	{
 		$printed_array = print_r($array,true);
 
 		$search = array ( 'Array' , '(' , ')' , '[' , ']' , '>' );

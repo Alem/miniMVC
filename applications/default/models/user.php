@@ -1,6 +1,7 @@
 <?php
 
-class User extends Model{
+class User extends Model
+{
 
 	public $columns = array(
 		'table' 	=> array( 'id', 'user', 'password', 'email' ),
@@ -9,7 +10,8 @@ class User extends Model{
 	);
 
 
-	function getUser( $username, $password = null) {
+	function getUser( $username, $password = null) 
+	{
 		$this -> SQL() -> select('*');
 		$this -> SQL() -> from();
 		$this -> SQL() -> where( $username , 'user');
@@ -23,19 +25,22 @@ class User extends Model{
 		return $result;
 	}
 
-	function addUser( $username, $password, $email) {
+	function addUser( $username, $password, $email) 
+	{
 		return $this -> SQL() 
 			-> insert( array($username, $password,$email), $this -> columns['form'] )
 			-> run();
 	}
 
 
-	function deleteUser ( $username, $password ) {
+	function deleteUser ( $username, $password ) 
+	{
 		$this -> SQL() -> remove() -> where ( $username, $password )  -> run();
 	}
 
 
-	function editUser($new, $new_column, $ref, $ref_column = 'user' ) {
+	function editUser($new, $new_column, $ref, $ref_column = 'user' ) 
+	{
 		$this  -> SQL() -> update( $new, $new_column) -> where($ref, $ref_column) -> run();
 	}
 }

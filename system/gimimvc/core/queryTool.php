@@ -13,7 +13,8 @@
  * 	> Foreign primary key creation/deletion
  * 	> Direct queries
  */
-class QueryTool extends QueryBuilder{
+class QueryTool extends QueryBuilder
+{
 
 	/**
 	 * @var array Holds table information. Populated by getFormattedColumns().
@@ -45,12 +46,15 @@ class QueryTool extends QueryBuilder{
 	 *
 	 * @param string $name 		The name of the MVC unit.
 	 */
-	public function getFormattedColumns( $name ){
+	public function getFormattedColumns( $name )
+	{
 
 		$this -> table_columns = $this -> getColumns( $name .'s' );
 
-		if ( !empty ( $this -> table_columns ) ){
-			foreach( $this -> table_columns as $table_column){
+		if ( !empty ( $this -> table_columns ) )
+		{
+			foreach( $this -> table_columns as $table_column)
+			{
 
 				if (( $table_column != 'id' ) && ( $table_column != 'user_id' ) )
 					$this -> filtered_columns[] = $table_column;
@@ -66,7 +70,8 @@ class QueryTool extends QueryBuilder{
 	 *
 	 * @param string $name 		The name of the MVC unit.
 	 */
-	public function makeTable($name){
+	public function makeTable($name)
+	{
 		$names = $name . 's';
 		$this -> query( "create table $names ( id integer not null primary key auto_increment, $name varchar(128) not null );");
 		$this -> run();
@@ -82,8 +87,10 @@ class QueryTool extends QueryBuilder{
 	 *
 	 * @param string $name 		The name of the MVC unit.
 	 */
-	public function deleteTable($name){
-		if( !empty($name) ){
+	public function deleteTable($name)
+	{
+		if( !empty($name) )
+		{
 			$this -> query = "drop table $name".'s'; 
 			$this -> run();
 			echo "===============================================\n";
@@ -100,7 +107,8 @@ class QueryTool extends QueryBuilder{
 	 * @param string $name 		The name of the MVC unit.
 	 * @param string $foreign_name 	The name of the foriegn MVC unit.
 	 */
-	public function linkTables( $name, $foreign_name ){
+	public function linkTables( $name, $foreign_name )
+	{
 		$table = $name . 's';
 		#ADD CONSTRAINT {$foreign_table}_id 
 		$sql = <<<SQL
@@ -125,7 +133,8 @@ SQL;
 	 * @param string $name 		The name of the MVC unit.
 	 * @param string $foreign_name 	The name of the foriegn MVC unit.
 	 */
-	public function unlinkTables( $table, $foreign_name ){
+	public function unlinkTables( $table, $foreign_name )
+	{
 		$table = $name . 's';
 		$sql = <<<SQL
 		ALTER TABLE $table
@@ -146,7 +155,8 @@ SQL;
 	 *
 	 * @param string $query 	The SQL query
 	 */
-	public function openDB( $query ){
+	public function openDB( $query )
+	{
 		echo "=============================================== \n";
 		echo " Connected to database: " . DB_DATABASE . "\n";
 		$this -> query ( $query );

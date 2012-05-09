@@ -10,17 +10,19 @@
  * template files ( *.tpl.php ).
  *
  */
-abstract class Template {
+abstract class Template 
+{
 
 
 	/**
 	 * __construct() - Establishes default unit name, fileCache name and extension.
 	 */
-	public function __construct( $name ){
-			$this -> name = $name;
-			$this -> uname = ucwords ( $name );
-			$this -> fileCache() -> ext  = '.php';
-			$this -> fileCache() -> id   = $name;
+	public function __construct( $name )
+	{
+		$this -> name = $name;
+		$this -> uname = ucwords ( $name );
+		$this -> fileCache() -> ext  = '.php';
+		$this -> fileCache() -> id   = $name;
 	}
 
 
@@ -31,8 +33,10 @@ abstract class Template {
 	 *
 	 * @return QueryTool Instance of QueryTool.
 	 */
-	public function queryTool(){
-		if ( !isset( $this -> query_tool ) ){
+	public function queryTool()
+	{
+		if ( !isset( $this -> query_tool ) )
+		{
 			$this -> query_tool = new QueryTool(); 
 			$this -> query_tool -> getFormattedColumns( $this -> name );
 		}
@@ -47,7 +51,8 @@ abstract class Template {
 	 *
 	 * @return FileCache 	Instance of FileCache.
 	 */
-	public function fileCache(){
+	public function fileCache()
+	{
 		if ( !isset( $this -> fileCache ) ) 
 			$this -> fileCache = new FileCache( $set_defaults = false );
 		return $this -> fileCache;
@@ -57,9 +62,10 @@ abstract class Template {
 	/**
 	 * generate() -  The default generate method used to create the template's scaffold file.
 	 */
-	public function generate(){
+	public function generate()
+	{
 		echo 'Generating: ';
-	      	echo $this->fileCache()->path . $this->fileCache()->id . $this->fileCache()->ext . "\n";
+		echo $this->fileCache()->path . $this->fileCache()->id . $this->fileCache()->ext . "\n";
 		$this -> fileCache() -> create( $this -> scaffold() );
 	}
 
@@ -67,9 +73,10 @@ abstract class Template {
 	/**
 	 * undo() -  The default undo method used to delete the template's scaffold file.
 	 */
-	public function undo(){
+	public function undo()
+	{
 		echo 'Removing: ';
-	      	echo $this->fileCache()->path . $this->fileCache()->id . $this->fileCache()->ext . "\n";
+		echo $this->fileCache()->path . $this->fileCache()->id . $this->fileCache()->ext . "\n";
 		$this -> fileCache() -> clear();
 	}
 
@@ -77,7 +84,8 @@ abstract class Template {
 	/**
 	 * redo() -  The default redo method used to regenerate the template's scaffold file.
 	 */
-	public function redo(){
+	public function redo()
+	{
 		$this -> undo();
 		$this -> generate();
 	}
@@ -88,7 +96,8 @@ abstract class Template {
 	 *
 	 * Should be overriden to return the template's scaffold contents as a string.
 	 */
-	public function scaffold(){
+	public function scaffold()
+	{
 	}
 }
 

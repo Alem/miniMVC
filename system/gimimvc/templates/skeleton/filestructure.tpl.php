@@ -1,6 +1,7 @@
 <?php
 
-class FileStructure extends Template{
+class FileStructure extends Template
+{
 
 
 	public $dirs = array( 
@@ -9,16 +10,20 @@ class FileStructure extends Template{
 	);
 
 
-	public function generate(){
-		foreach ( $this -> dirs as $dir ){
+	public function generate()
+	{
+		foreach ( $this -> dirs as $dir )
+		{
 			$path = GIMIMVC_ROOT . 'applications/' . $this -> name . $dir;
 			echo 'Creating: ' .  $path . "\n";
 			mkdir( $path , 0777 , true );
 		}
 	}
 
-	public function undo(){
-		foreach ( array_reverse( $this -> dirs ) as $dir ){
+	public function undo()
+	{
+		foreach ( array_reverse( $this -> dirs ) as $dir )
+		{
 			$path = GIMIMVC_ROOT . 'applications/' . $this -> name . $dir;
 			echo 'Removing: ' . $path . "\n";
 			rmdir( $path );
