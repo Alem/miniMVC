@@ -15,7 +15,7 @@ It features:
 * Search engine friendly URLs
 * A parameterized query builder
 * A template-based MVC scaffold generator
-* Automated 'lazy-loading' of models/views/modules
+* Automated 'lazy-loading' of mvc components
 * Multiple application hosting 
 * Templating support
 * Extension by third-party modules/classes, 
