@@ -182,7 +182,10 @@ class Processor{
 		$this -> loadAppConfig();
 
 		if ( !isset( $this -> query_tool ) )
-			$this -> query_tool = new QueryTool(); 
+		{
+			$database = new Database();
+			$this -> query_tool = new QueryTool( $database ); 
+		}
 		return $this -> query_tool;
 	}
 

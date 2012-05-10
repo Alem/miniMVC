@@ -94,7 +94,10 @@ class Model
 	function SQL()
 	{
 		if ( !isset( $this -> sql ) )
-			$this -> sql = new QueryBuilder( $this -> table );
+		{
+			$database = new Database();
+			$this -> sql = new QueryBuilder( $database, $this -> table );
+		}
 		return $this -> sql;
 	}
 

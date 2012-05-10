@@ -8,7 +8,6 @@
 /**
  * FileCache grants the ability to cache data to a specified file.
  *
- * Todo Allow the setting of id outside functions, as well as giving md5(id) option.
  */
 class FileCache{
 

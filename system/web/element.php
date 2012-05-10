@@ -25,7 +25,7 @@ class Element extends HTML
 		if( defined('DEFAULT_CSS')  )
 		{ 
 			foreach( explode( ",", DEFAULT_CSS ) as $name )
-				$loadedCSS .= self::linkCSS( $name );
+				$loadedCSS .= self::linkCSS( $name ) . "\n";
 		}
 		return $loadedCSS;
 	}
@@ -42,7 +42,7 @@ class Element extends HTML
 		if( defined('DEFAULT_JAVASCRIPT')  )
 		{ 
 			foreach( explode( ",", DEFAULT_JAVASCRIPT ) as $name )
-				$loadedJS .= self::linkJS( $name );
+				$loadedJS .= self::linkJS( $name ) . "\n";
 		}
 		return $loadedJS;
 	}

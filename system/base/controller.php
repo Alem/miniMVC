@@ -37,7 +37,8 @@ class Controller
 	 * The default/fallback method is 'index()', and variable
 	 * is only passed to the method if set. 
 	 *
-	 * If the supplied variable contains the VAR_SEPARATOR then it is treated as multiple separate variables
+	 * If the supplied variable contains the VAR_SEPARATOR
+	 * then it is treated as multiple separate variables
 	 * and passed as an array using call_user_func_array.
 	 *
 	 * @param string $method 	The method to call
@@ -98,7 +99,8 @@ class Controller
 
 			elseif ( isset( $variables) )
 				$location .= URI_SEPARATOR . $variables;
-		}else
+		}
+		else
 			$location =& $controller;
 
 		header( 'Location: ' . WEB_ROOT . $location, 303 );

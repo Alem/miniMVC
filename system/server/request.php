@@ -16,6 +16,13 @@ class Request
 
 
 	/**
+	 * @var string 	Simply a convenience wrapper for $_SERVER['REQUEST_METHOD']
+	 *
+	 * @see Request::populate
+	 */
+	public $method 	= null;
+
+	/**
 	 * @var array 	Holds array of variables passed by the HTTP GET method; Populated by Request::populate.
 	 *
 	 * Also the key 'uri' unset by Request::populate
@@ -57,7 +64,7 @@ class Request
 
 
 	/**
-	 * @var string 	Holds the query string; Populated by Request::populate.
+	 * @var string 	Holds the URI-filtered query string; Populated by Request::populate.
 	 *
 	 * @see Request::populate
 	 */
@@ -99,23 +106,31 @@ class Request
 		$this -> get  = $_GET;
 		unset( $this -> get['uri'] );
 
-		$ampersand_pos = strpos ( $_SERVER['QUERY_STRING'], '&' );
-		if ( $ampersand_pos !== false )
-			$this -> query_string = substr ($_SERVER['QUERY_STRING'], $ampersand_pos + 1 );
-
-		switch ( $_SERVER['REQUEST_METHOD'] )
+		if ( isset( $_SERVER['QUERY_STRING'] ) )
 		{
-		case 'PUT':
-			parse_str( file_get_contents('php://input'), $this -> put );
-			break;
+			$ampersand_pos = strpos ( $_SERVER['QUERY_STRING'], '&' );
+			if ( $ampersand_pos !== false )
+				$this -> query_string = substr ($_SERVER['QUERY_STRING'], $ampersand_pos + 1 );
+		}
 
-		case 'DELETE':
-			parse_str( file_get_contents('php://input'), $this -> dele );
-			break;
+		if ( isset( $_SERVER['REQUEST_METHOD'] ) )
+		{
+			$this -> method =  $_SERVER['REQUEST_METHOD'];
 
-		case 'OPTIONS':
-			parse_str( file_get_contents('php://input'), $this -> options );
-			break;
+			switch ( $_SERVER['REQUEST_METHOD'] )
+			{
+			case 'PUT':
+				parse_str( file_get_contents('php://input'), $this -> put );
+				break;
+
+			case 'DELETE':
+				parse_str( file_get_contents('php://input'), $this -> dele );
+				break;
+
+			case 'OPTIONS':
+				parse_str( file_get_contents('php://input'), $this -> options );
+				break;
+			}
 		}
 	}
 

@@ -28,9 +28,19 @@ $timer_start = microtime(true);
  * ----------------------------------------------------------------------
  */
 $system_classes = array ( 
-	'auth/accessControl', 	'base/load', 		'web/request',		'db/database',
-	'db/queryBuilder' , 	'base/model', 		'base/controller', 	'log/logger',
-	'web/session', 		'cache/fileCache',	'web/html',		'web/element'
+	'auth/accessControl', 
+	'base/controller', 	
+	'base/load', 	
+	'base/model', 
+	'cache/fileCache',
+	'database/database',
+	'database/dbQuery',
+	'database/queryBuilder', 
+	'log/logger',
+	'server/request',
+	'server/session', 		
+	'web/html',	
+	'web/element',
 );
 
 foreach ( $system_classes as $classname )
