@@ -77,6 +77,20 @@ class Controller
 
 
 	/**
+	 * fetchName() - Returns name of controller
+	 *
+	 * @return string 	Name of controller
+	 */
+	public function fetchName()
+	{
+		$fullname  = get_called_class();
+		$controller_pos = strpos( $fullname, 'Controller');
+		$shortname = strtolower( substr( $fullname, 0, $controller_pos ) );
+		return $shortname;
+	}
+
+
+	/**
 	 * prg - Post Redirect Get
 	 * 
 	 * A simple fix for prevent Database modification by re-send on a browser 'back' or 'refresh'
@@ -85,10 +99,10 @@ class Controller
 	 * @param mixed  $variables 	The variables to be passed to the method.
 	 * @param string $controller 	The controller the method belongs to. Defaults to the URI requested controller if $method is specified.
 	 */
-	public static function prg( $method = null, $variables = null, $controller = null )
+	public function prg( $method = null, $variables = null, $controller = null )
 	{
 		if ( !isset( $controller ) && isset( $method )  )
-			$controller = CONTROLLER;
+			$controller = $this -> fetchName();
 
 		if ( isset( $method ) )
 		{
@@ -101,7 +115,7 @@ class Controller
 				$location .= URI_SEPARATOR . $variables;
 		}
 		else
-			$location =& $controller;
+			$location = $controller;
 
 		header( 'Location: ' . WEB_ROOT . $location, 303 );
 	}

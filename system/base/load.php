@@ -52,7 +52,7 @@ class Load
 			require_once( $filepath );
 
 			if ( $DS = strpos( $name, '/' ) )
-				$classname = substr ( $name, $DS +1 );
+				$classname = substr ( $name, $DS + 1 );
 			else
 				$classname =& $name;
 

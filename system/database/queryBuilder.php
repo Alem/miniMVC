@@ -133,7 +133,8 @@ class QueryBuilder extends DbQuery
 				else
 				{
 					Logger::error('Whitelist',"Column '$column' not found in table '$table'");
-					controller::prg( null, null, CONTROLLER );
+					$this -> clearQuery();
+					$this -> query(' -- ' );
 				}
 			}
 	}

@@ -22,6 +22,7 @@ class Menu
 
 	function __construct()
 	{
+		$this -> router = new Router();
 		$this -> nav();	
 	}
 
@@ -69,7 +70,7 @@ links;
 
 	function sec_nav()
 	{
-		if ( in_array( CONTROLLER, $this -> hierarchy['nav']['Home'] ) )
+		if ( in_array( $this -> router -> controller, $this -> hierarchy['nav']['Home'] ) )
 		{
 		}
 	}
@@ -82,12 +83,12 @@ links;
 
 	function breadcrumb()
 	{
-		if ( defined('CONTROLLER') )
-			$this -> menus['breadcrumb'][ucwords( CONTROLLER )] = CONTROLLER;
-		if ( defined('METHOD') )
-			$this -> menus['breadcrumb'][ucwords( METHOD )] = CONTROLLER . '/' . METHOD;
-		if ( defined('VARIABLE') )
-			$this -> menus['breadcrumb'][ucwords( VARIABLE )] = CONTROLLER . '/' . METHOD . '/' . VARIABLE;
+		if ( isset( $this -> router -> controller) )
+			$this -> menus['breadcrumb'][ucwords( $this -> router -> controller )] = $this -> router -> controller;
+		if ( isset( $this -> router -> method ) )
+			$this -> menus['breadcrumb'][ucwords( $this -> router -> method )] = $this -> router -> controller . '/' . $this -> router -> method;
+		if ( isset( $this -> router -> variable) )
+			$this -> menus['breadcrumb'][ucwords( $this -> router -> variable )] = $this -> router -> controller . '/' . $this -> router -> method . '/' . $this -> router -> variable;
 
 		end( $this -> menus['breadcrumb'] );
 		if ( !empty ( $this -> breadcrumb ) )
@@ -100,11 +101,11 @@ links;
 		foreach ( $this -> menus[$menu] as $name => $href )
 		{
 			if( 
-				$href == URI  
+				$href == $this -> router -> uri  
 				|| (
 					$has_children
 					&& isset( $this -> hierarchy[$menu][$name] ) 
-					&& in_array( CONTROLLER,  $this -> hierarchy[$menu][$name] ) 
+					&& in_array( $this -> router -> controller,  $this -> hierarchy[$menu][$name] ) 
 				) 
 			) 
 			$this -> active[$menu] = $name;

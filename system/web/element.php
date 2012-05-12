@@ -66,10 +66,10 @@ class Element extends HTML
 	 * 
 	 * @param string $column 	The column to sort by
 	 */
-	public static function sortable( $column, $current_order )
+	public static function sortable( $column, $current_order, $controller, $method )
 	{
 		$first_variable = current(explode('/',VARIABLE)); 
-		$string =  CONTROLLER . URI_SEPARATOR . METHOD . URI_SEPARATOR;
+		$string =  $controller . URI_SEPARATOR . $method . URI_SEPARATOR;
 		$string .= $first_variable . VAR_SEPARATOR . $column . VAR_SEPARATOR;
 		$string .= ( stristr( $current_order, $column . VAR_SEPARATOR . 'ASC' ) ) ? 'DESC' : 'ASC';
 		return  $string;
@@ -110,7 +110,7 @@ class Element extends HTML
 	 *
 	 * @todo  Complete this.
 	 */
-	public static function pager( $model, $method = METHOD , $controller = CONTROLLER)
+	public static function pager( $model, $method = null , $controller = null)
 	{
 
 		if( empty(  $model->lastpage ))

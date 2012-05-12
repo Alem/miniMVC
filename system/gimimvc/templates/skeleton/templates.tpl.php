@@ -95,7 +95,7 @@ class Templates extends Template
 					<a class="brand" href="<?php echo DEFAULT_CONTROLLER?>"><?php echo SITE_NAME; ?></a>
 					<div class="nav-collapse">
 						<ul class="nav">
-							<li> <a href=''> Link </a></li>
+							<li> <a href='main/about'>About</a></li>
 						</ul>
 						<?php if ( Session::get('logged_in') ): ?>
 						<p class="navbar-text pull-right">

@@ -6,10 +6,9 @@
  */
 
 /**
- * The request class processes the URI request and 
- * defines the Controller, method, and variable requested,
- * and separates the URI request from search queries 
- * ( both of which end up in $_GET, $_SERVER['QUERY_STRING'] )
+ * The request class provides simplified access to 
+ * HTTP request related data, while filtering internally-used
+ * routing-related data. ( The GET parameter 'uri' )
  */
 class Request
 {
@@ -69,19 +68,6 @@ class Request
 	 * @see Request::populate
 	 */
 	public $query_string = null;
-
-
-	/**
-	 * @var array The position of each URI type in the query string. 
-	 *
-	 * This array maps where the controller, method, and variables are expected to be in.
-	 * 	ie: example.com/controller/method/variable
-	 */
-	public $uri_map = array(
-		0 => 'CONTROLLER',
-		1 => 'METHOD',
-		2 => 'VARIABLE'
-	);
 
 
 	/**
@@ -193,54 +179,6 @@ class Request
 		return $this -> fetchFromArray( $this -> options, $value );
 	}
 
-
-	/**
-	 * defineURI - Defines URI using GET[uri] or command line arguement
-	 *
-	 * @return string The URI/Query String
-	 */
-	function defineURI()
-	{
-
-		global $argc, $argv; // argc and argv are not PHP superglobals.
-
-		if ( isset( $argv[1] ) )
-			define( 'URI', $argv[1] );
-
-		elseif ( isset ( $_GET['uri'] ) )
-			define( 'URI', $_GET['uri'] );
-
-		else
-			define( 'URI', null );
-
-		return URI;
-	}
-
-
-	/**
-	 * process - Defines the Controller, Method and Variables from the request.
-	 *
-	 * Splits up the URI request using the URI_SEPARATOR delimiter, 
-	 * and defines the Controller, method, and variable
-	 * referencing Request::uri_map to determine the placement.
-	 *
-	 * @return Request 	The request object.
-	 */
-	function process() {
-
-		$this -> defineURI();
-		$uri_parts  = explode( URI_SEPARATOR, URI, 3 );
-		$parameters = count( $uri_parts );
-
-		foreach ( $this -> uri_map as $position => $type )
-		{
-			if ( ( $parameters > $position ) && ( $uri_parts[$position] !== '' ) )
-				define ( $type , $uri_parts[ $position ] );
-			else
-				define ( $type , null );
-		}
-		return $this;
-	}
 
 	/**
 	 * is_ajax() - Check if request was made via AJAX

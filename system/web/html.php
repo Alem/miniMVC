@@ -62,10 +62,10 @@ class HTML
 	 * @param integer columns 	The number of columns
 	 * @return string 		The HTML <textarea> node.
 	 */
-	public static function textarea( $name, $value = null, $type = 'text' , $rows = 10, $cols = 50, $id = null, $class = null) 
+	public static function textarea( $name, $value = null, $type = 'text', $placeholder = null, $rows = 10, $cols = 50, $id = null, $class = null) 
 	{
 		if ( !isset( $id ) )  $id = $name . '-field';
-		return $textarea = "<textarea id = '$id' name = '$name' type = '$type' rows = '$rows' cols = '$cols' >$value</textarea>";
+		return $textarea = "<textarea id = '$id' name = '$name' type = '$type' rows = '$rows' cols = '$cols' placeholder = '$placeholder'>$value</textarea>";
 	}
 
 

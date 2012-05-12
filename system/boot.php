@@ -38,6 +38,7 @@ $system_classes = array (
 	'database/queryBuilder', 
 	'log/logger',
 	'server/request',
+	'server/router', 		
 	'server/session', 		
 	'web/html',	
 	'web/element',
@@ -49,30 +50,19 @@ foreach ( $system_classes as $classname )
 
 /*
  * ----------------------------------------------------------------------
- * Process Request: Declare controller, method & variable constants.
+ * Initiate Application: Route to appropriate controller based on request.
  * ----------------------------------------------------------------------
  */
-$request = new Request();
-$request -> process();
 
+$router 		= new Router();
+$application 		= new Controller();
+$requested_controller 	= $application -> useController( $router -> controller ); 
 
-/*
- * ----------------------------------------------------------------------
- * Initiate Application: Load appropriate controller based on request.
- * ----------------------------------------------------------------------
- */
-$application = new Controller();
+if ( empty( $requested_controller ) )
+	$application -> prg( null, null, null );
 
-if ( CONTROLLER === null )
-	$application -> useController(DEFAULT_CONTROLLER) -> useMethod ( HTTP_ACCESS_PREFIX . DEFAULT_METHOD );
-else{
-	$requested_controller = $application -> useController( CONTROLLER ); 
-
-	if ( empty( $requested_controller ) )
-		$application -> prg( null, null, null );
-	else
-		$requested_controller ->  useMethod ( HTTP_ACCESS_PREFIX . METHOD  ,  VARIABLE );
-}
+else
+	$requested_controller ->  useMethod ( HTTP_ACCESS_PREFIX . $router -> method  ,  $router -> variable );
 
 
 /*
