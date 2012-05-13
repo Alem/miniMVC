@@ -41,8 +41,22 @@ class Processor{
 	 */
 	public function process()
 	{
-
 		// QueryTool Commands
+		$this -> queryCommands();
+
+		// Scaffolding Commands
+		$this -> scaffoldCommands();
+
+		// General Commands
+		if( isset($this -> args['h']) or  isset($this -> args['help']) or  empty( $this -> args) )
+			$this -> help();
+	}
+
+	/**
+	 * queryCommands() - Processes query commands
+	 */
+	public function queryCommands()
+	{
 		if( isset($this -> args['table']) )
 			$this -> queryTool() -> makeTable($this -> args['table']);
 		if( isset($this -> args['undotable']) )
@@ -53,9 +67,13 @@ class Processor{
 			$this -> queryTool() -> unlinkTables( $this -> args['unlink'], $this -> args['to'] );
 		if( isset($this -> args['opendb']) )
 			$this -> queryTool() -> openDB( $this -> args['opendb'] );
+	}
 
-
-		// Scaffolding Commands
+	/**
+	 * scaffoldCommands() - Processes scaffolding commands
+	 */
+	public function scaffoldCommands()
+	{
 		$scaffold_args = array ( 'generate', 'redo', 'undo' );
 		foreach ( $scaffold_args as $scaffold_method )
 		{
@@ -67,10 +85,6 @@ class Processor{
 					$scaffold -> $scaffold_method();
 			}
 		}
-
-		// General Commands
-		if( isset($this -> args['h']) or  isset($this -> args['help']) or  empty( $this -> args) )
-			$this -> help();
 	}
 
 

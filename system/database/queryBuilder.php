@@ -47,15 +47,12 @@ class QueryBuilder extends DbQuery
 	 * @param int   $page           		The page to start on or SQL offset
 	 * @param int   $items_per_page 		Number of rows to return which determines the number of results per page
 	 * @return array  				The pagination-friendly array.
-	 * @uses 	QueryBuilder::clean()   	Cleans page
 	 * @uses 	QueryBuilder::saveQuery() 	Saves query before running first query
 	 * @uses 	QueryBuilder::restoreQuery() 	Restores query to for use in following paged query
 	 * @uses 	QueryBuilder::limit()		Used to limit the paged query.
 	 */
 	public function page($page, $items_per_page)
 	{
-
-		$this -> clean($page);
 
 		$this -> saveQuery();
 		$total_result = count( $this -> run() );
@@ -73,26 +70,6 @@ class QueryBuilder extends DbQuery
 	}
 
 
-	/** 
-	 * clean - Cleans any user data.
-	 *
-	 * Cleaning function, does NOT secure data, simply escapes spechars and strips html.
-	 *
-	 * @param mixed &$data The data to be cleaned.
-	 */
-	function clean( &$data )
-	{
-		if (is_array($data)) {
-			foreach($data as &$value)
-				$this -> clean( $value );
-		} else {
-			$data = addslashes($data);
-			$data = trim($data);
-		}
-		return $data;
-	}
-
-
 	/**
 	 * whitelist () - Checks if value is a valid column.
 	 *
@@ -103,7 +80,6 @@ class QueryBuilder extends DbQuery
 	 *
 	 * @param mixed  $column 			The column values to check.
 	 * @param string $table 			The table whose columns will be checked against
-	 * @uses 	 QueryBuilder::clean()   	Cleans page
 	 * @uses  	 QueryBuilder::saveQuery() 	Saves orignal query before running getColumns
 	 * @uses 	 QueryBuilder::getColumns() 	Retrieves tables columns to whitelist $column
 	 * @uses 	 Controller::prg() 		Redirects to default controller if invalid column is given
@@ -115,7 +91,8 @@ class QueryBuilder extends DbQuery
 		{
 			$table = $prefix;
 			$this -> unprefix( $column );
-		}elseif ( empty ( $table ) )
+		}
+		elseif ( empty ( $table ) )
 			$table =& $this -> table;
 
 		$this -> saveQuery() -> clearQuery();
@@ -126,17 +103,18 @@ class QueryBuilder extends DbQuery
 		{
 			foreach ( $column as $single_column )
 				$this -> whitelist( $single_column, $table );
-		}else
+		}
+		else
+		{
+			if ( in_array ( $column, $list ) )
+				return true;
+			else
 			{
-				if ( in_array ( $column, $list ) )
-					return true;
-				else
-				{
-					Logger::error('Whitelist',"Column '$column' not found in table '$table'");
-					$this -> clearQuery();
-					$this -> query(' -- ' );
-				}
+				Logger::error('Whitelist',"Column '$column' not found in table '$table'");
+				$this -> clearQuery();
+				$this -> query(' -- ' );
 			}
+		}
 	}
 
 
@@ -181,7 +159,8 @@ class QueryBuilder extends DbQuery
 	public function setPrefix( &$name , $prefix_a = null, $prefix_b = '.', $check = true )
 	{
 
-		$prefix_one = ( isset( $prefix_a ) ) ? $prefix_a : $this -> table;
+		if ( !isset($prefix_a) )
+			$prefix_a = $this -> table;
 
 		if( is_array( $name ) )
 		{
@@ -190,7 +169,8 @@ class QueryBuilder extends DbQuery
 			if ( isset ( $prefixed_array ) )
 				return $name = $prefixed_array;
 
-		}elseif ( ( strpos( $name, $prefix_a ) === false ) && ( strpos( $name, $prefix_b ) === false ) && $check )
+		}
+		elseif ( ( strpos( $name, $prefix_a ) === false ) && ( strpos( $name, $prefix_b ) === false ) && $check )
 			return $name = $prefix_a . $prefix_b . $name;	
 		else
 			return $name;
@@ -247,14 +227,15 @@ class QueryBuilder extends DbQuery
 		{
 			foreach ( $column as &$single_column )
 				$this -> alias( $single_column, $prefix );
-		}else
-			{
-				$position = strpos( $column, '.' ); // If prefixed, gets the un-prefixed column name
-				if ( $position !== false )
-					return $column = $column . ' AS ' . $prefix . '_' . substr( $column,($position + 1));
-				else
-					return $column = $column . ' AS ' . $prefix . '_' . $column;
-			}
+		}
+		else
+		{
+			$position = strpos( $column, '.' ); // If prefixed, gets the un-prefixed column name
+			if ( $position !== false )
+				return $column = $column . ' AS ' . $prefix . '_' . substr( $column,($position + 1));
+			else
+				return $column = $column . ' AS ' . $prefix . '_' . $column;
+		}
 	}
 
 
@@ -272,14 +253,16 @@ class QueryBuilder extends DbQuery
 	 * @uses 	 QueryBuilder::setPrefix() 	Prefixes table columns
 	 * @uses 	 QueryBuilder::query() 		Holds partial query
 	 */
-	public function select( $column=null, $table = null, $autoalias = false, $is_distinct = false)
+	public function select( $column = '*', $table = null, $autoalias = false, $is_distinct = false)
 	{
 		$this -> counter['select']++;
-		$table    = ( isset($table)  ) ? $this -> clean ($table) : $this -> table;
-		$column   = ( isset($column) ) ? $this -> clean($column) : '*';
+
+		if ( !isset($table)  )
+			$table = $this -> table;
+
 		$distinct = ( $is_distinct )   ? 'DISTINCT' : null ;
 
-		if ( $column != '*' )
+		if ( $column !== '*' )
 		{
 			$this -> whitelist($column, $table);
 			$this -> setPrefix( $column, $table );
@@ -308,7 +291,8 @@ class QueryBuilder extends DbQuery
 	public function from ( $table = null)
 	{
 		$this -> counter['from']++;
-		$table = ( isset($table) ) ? $this -> clean ($table) : $this -> table;
+		if ( !isset($table) )
+			$table = $this -> table;
 		$this -> query (" FROM $table ");
 		return $this;
 	}
@@ -333,7 +317,8 @@ class QueryBuilder extends DbQuery
 	{
 		$this -> counter['insert']++;
 
-		$table = ( isset ($table) ) ? $this -> clean($table) : $this -> table;
+		if ( !isset ($table) )
+			$table = $this -> table;
 		$this -> whitelist($column, $table);
 
 		$value_string = ' ? ';
@@ -345,7 +330,8 @@ class QueryBuilder extends DbQuery
 					$value_string .= ", ? ";
 			}
 			$column_string = implode(',', $column );
-		}else
+		}
+		else
 			$column_string =& $column;
 
 		$this -> query ("INSERT INTO $table ($column_string) VALUES( $value_string )");
@@ -368,7 +354,8 @@ class QueryBuilder extends DbQuery
 	public function update($new, $new_column = null, $table = null )
 	{
 		$this -> counter['update']++;
-		$table = (isset($table)) ? $this -> clean ($table) : $this -> table;
+		if ( !isset($table) )
+			$table = $this -> table;
 		$this -> whitelist($new_column, $table);
 
 		if ( is_array($new) )
@@ -391,8 +378,10 @@ class QueryBuilder extends DbQuery
 	public function remove($table = null )
 	{
 		$this -> counter['remove']++;
-		$table = (isset($table)) ? $this -> clean ($table) : $this -> table;
-		$column = ( isset($column) ) ?  $this -> clean($column) : 'id';
+		if ( !isset($table) )
+			$table = $this -> table;
+		if ( !isset($column) )
+			$column = 'id';
 		$this -> query ("DELETE FROM $table");
 		return $this;
 	}
@@ -415,7 +404,8 @@ class QueryBuilder extends DbQuery
 	public function where( $ref, $ref_column = null , $table = null )
 	{
 		$this -> counter['where']++;
-		$table = ( isset($table) ) ? $this -> clean ($table) : $this -> table;
+		if ( !isset($table) )
+			$table = $this -> table;
 		$this -> whitelist($ref_column, $table );
 		$this -> setPrefix( $ref_column, $table );
 
@@ -424,7 +414,8 @@ class QueryBuilder extends DbQuery
 		elseif ( is_array($ref) )
 			$where = $this -> seperator( $ref_column, ' AND ');
 
-		if ( isset( $where ) ) {
+		if ( isset( $where ) ) 
+		{
 			if ( $this -> counter['where']  > 1 )
 				$statement = ' AND ' . $where;
 			else 
@@ -448,7 +439,8 @@ class QueryBuilder extends DbQuery
 	public function order( $orderby, $sort, $table = null)
 	{
 		$this -> counter['order']++;
-		$table = (isset($table)) ? $this -> clean ($table) : $this -> table;
+		if ( !isset($table) )
+			$table = $this -> table;
 		if ( isset( $orderby ) && ( stristr( $sort, 'asc' ) || stristr( $sort, 'desc' ) ) )
 		{
 			$this -> whitelist($orderby,$table);
@@ -499,7 +491,8 @@ class QueryBuilder extends DbQuery
 	 */
 	public function joining( $table_b, $columns_a, $columns_b , $type = 'LEFT OUTER', $table_a = null ) {
 		$this -> counter['joining']++;
-		$table_a = (isset($table_a)) ? $this -> clean ( $table_a ) : $this -> table;
+		if ( !isset($table_a) )
+			$table_a = $this -> table;
 		$this -> whitelist($columns_a, $table_a);
 		$this -> whitelist($columns_b, $table_b);
 		$this -> setPrefix ( $columns_a, $table_a );
@@ -509,7 +502,8 @@ class QueryBuilder extends DbQuery
 		{
 			for ( $i = 0 , $j = count ( $column_a ), $conditions = null; $i <= $j; $i ++ )
 				$conditions .= $column_a[$i] . '=' . $column_b[$i];
-		}else
+		}
+		else
 			$conditions = $columns_a . '=' . $columns_b;
 
 		$statement = " $type JOIN $table_b ON $conditions";
@@ -534,7 +528,7 @@ class QueryBuilder extends DbQuery
 
 
 	/**
-	 * show - Retrieve table columns
+	 * getColumns - Retrieve table columns
 	 *
 	 * @param string $table The database table
 	 * @return array        The columns of the table.

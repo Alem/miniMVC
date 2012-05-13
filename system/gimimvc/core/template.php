@@ -37,7 +37,8 @@ abstract class Template
 	{
 		if ( !isset( $this -> query_tool ) )
 		{
-			$this -> query_tool = new QueryTool(); 
+			$database =  new Database();
+			$this -> query_tool = new QueryTool( $database ); 
 			$this -> query_tool -> getFormattedColumns( $this -> name );
 		}
 		return $this -> query_tool;

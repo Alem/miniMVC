@@ -47,7 +47,8 @@ class HTML
 	 */
 	public static function input( $name, $value = null , $type = 'text', $placeholder = null, $id = null, $class = null )
 	{
-		if ( !isset( $id ) )  $id = $name . '-field';
+		if ( !isset( $id ) )  
+			$id = $name . '-field';
 		return $input = "<input id = '$id' class = '$class' type ='$type' name = '$name' type = '$type'  value = '$value' placeholder = '$placeholder'>";
 	}
 
@@ -64,7 +65,8 @@ class HTML
 	 */
 	public static function textarea( $name, $value = null, $type = 'text', $placeholder = null, $rows = 10, $cols = 50, $id = null, $class = null) 
 	{
-		if ( !isset( $id ) )  $id = $name . '-field';
+		if ( !isset( $id ) )  
+			$id = $name . '-field';
 		return $textarea = "<textarea id = '$id' name = '$name' type = '$type' rows = '$rows' cols = '$cols' placeholder = '$placeholder'>$value</textarea>";
 	}
 

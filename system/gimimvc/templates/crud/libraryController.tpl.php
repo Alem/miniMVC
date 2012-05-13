@@ -1,4 +1,4 @@
-<?pp
+<?php
 /**
  * libraryController template class file.
  *
@@ -6,7 +6,7 @@
  */
 
 /**
- *
+ * todo Complete class file
  */
 class libraryController extends Template
 {
