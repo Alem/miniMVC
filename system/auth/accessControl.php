@@ -18,14 +18,17 @@
  * 			role => array( permission, permission )
  * 		actions =>
  * 			permission => array ( action, action )
- * 	
- * Example
- * ---------
+ *
+ * ------------------------------ 	
+ * Example:
+ *
  * 	public $permissions = array(
+ *
  *		'roles' => array(
  *			0	=> array('c', 'r', 'u', 'd'),
  *			1	=> array('', 'r', '', ''),
  *		),
+ *
  *		'actions' => array(
  *			'c'	=> array( 'post', 'form' ),
  *			'r'	=> array( 'show', 'gallery' ),
@@ -33,6 +36,7 @@
  *			'd'	=> array( 'del')
  *		)
  *	);
+ * ------------------------------
  *
  */
 class AccessControl

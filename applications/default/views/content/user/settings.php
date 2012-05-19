@@ -30,7 +30,7 @@
 	<div class = 'well span3' >
 		<h3> Change Email </h3>
 		<p>
-			<span class='label label-info'> Current Email</span>  <?php echo Session::get('email') ?>
+			<span class='label label-info'> Current Email</span>  <?php echo $data -> email ?>
 		</p>
 		<form class = 'form' action ='user/change/email' method = 'post' >
 			<label> New Email: <?php echo $this -> helper -> input ('email_new' , 'text', false ) ?> </label>

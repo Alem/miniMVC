@@ -52,7 +52,7 @@ class Element extends HTML
 	 * saved_field 
 	 * @todo delete? is this useful? specific for forms, place it in a class for forms?
 	 */
-	function saved_field( $name,$model )
+	public function saved_field( $name,$model )
 	{
 		if (isset( $model -> saved_fields[$name] ))
 			return $value = $model -> saved_fields[$name];
@@ -104,13 +104,13 @@ class Element extends HTML
 	 * Given the model and the name of the controller the pager prints an HTML page listing
 	 * Note: Uses bootstrap styling
 	 *
-	 * @param object model 		The model containing the data, order, search string, and current page.
+	 * @param Model  model 		The model containing the data, order, search string, and current page.
 	 * @param string method 	The name of the method that each page link will use.	
 	 * @param string controller	The name of the controller that each page link will use.	
 	 *
 	 * @todo  Complete this.
 	 */
-	public static function pager( $model, $method = null , $controller = null)
+	public static function pager( Model $model, $method = null , $controller = null)
 	{
 
 		if( empty(  $model->lastpage ))

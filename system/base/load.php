@@ -16,22 +16,30 @@ class Load
 {
 
 	/**
-	 * @var array Paths for application components
+	 * path() - Returns path for application component
+	 * 
+	 * @param string $component 	Type of component
+	 * @param string $name 		Name of component 
+	 * @param string $ext 		Type of extension
+	 * @return string 		The constructed file path of the component
 	 */
 	public static function path( $component , $name , $ext = '.php' )
 	{
 		$paths = array(
 			'controller' 	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_CONTROLLER_PATH,
+			'config' 	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_APP_CONFIG_PATH,
 			'model' 	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_MODEL_PATH,
 			'view'		=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_VIEW_PATH . DEFAULT_CONTENT_PATH,
 			'template'	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_VIEW_PATH . DEFAULT_TEMPLATE_PATH,
 			'shared'	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_VIEW_PATH . DEFAULT_SHARED_PATH,
 			'module'	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_MODULE_PATH,
 			'library'	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_LIBRARY_PATH,
+			'log'		=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_LOG_PATH,
 			'system'	=> SERVER_ROOT . DEFAULT_SYSTEM_PATH
 		);
 		return $paths[ $component ] . $name . $ext;
 	}
+
 
 	/**
 	 * component - Simple factory method for application components (controllers,models,modules,libraries)

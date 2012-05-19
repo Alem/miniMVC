@@ -38,7 +38,7 @@ class Templates extends Template
 		<?php endif; ?>
 
 		<meta charset="utf-8"/>
-		<title><?php echo SITE_NAME ?> - <?php echo ( isset( \$model -> title ) ) ? \$model -> title : SITE_TAG; ?> </title> 
+		<title><?php echo SITE_NAME ?> - <?php echo ( isset( \$data -> title ) ) ? \$data -> title : SITE_TAG; ?> </title> 
 
 		<?php if( defined('META_DESCRIPTION') ): ?>
 		<meta name="description" content="<?php echo META_DESCRIPTION?>"/>
@@ -97,9 +97,9 @@ class Templates extends Template
 						<ul class="nav">
 							<li> <a href='main/about'>About</a></li>
 						</ul>
-						<?php if ( Session::get('logged_in') ): ?>
+						<?php if ( !empty(  \$data -> logged_in ) ): ?>
 						<p class="navbar-text pull-right">
-						Logged in as <a href="user"><?php echo  Session::get('username') ?></a>
+						Logged in as <a href="user"><?php echo \$data -> username ?></a>
 						</p>
 						<?php endif; ?>
 					</div><!--/.nav-collapse -->

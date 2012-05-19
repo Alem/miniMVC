@@ -1,7 +1,7 @@
-<?php if ( isset( $this -> model -> welcomeMsg ) ): ?>
+<?php if ( isset( $this -> model() -> welcomeMsg ) ): ?>
 		<div class="alert alert-success"> 
 		<a class="close" href="user">×</a>
-		<strong>Welcome!</strong> You are now logged in as <?php echo $this -> model -> welcomeMsg ?>.
+		<strong>Welcome!</strong> You are now logged in as <?php echo $this -> model() -> welcomeMsg ?>.
 		</div>
 <?php endif; ?>
 

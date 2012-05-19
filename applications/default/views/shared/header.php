@@ -3,7 +3,7 @@
 <?php endif; ?>
 
 <meta charset="utf-8"/>
-<title><?php echo SITE_NAME ?> - <?php echo ( isset( $model -> title ) ) ? $model -> title : SITE_TAG; ?> </title> 
+<title><?php echo SITE_NAME ?> - <?php echo ( isset( $data -> title ) ) ? $data -> title : SITE_TAG; ?> </title> 
 
 <?php if( defined('META_DESCRIPTION') ): ?>
 <meta name="description" content="<?php echo META_DESCRIPTION?>"/>

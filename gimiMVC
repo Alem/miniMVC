@@ -41,6 +41,7 @@
 define( 'GIMIMVC_ROOT', dirname(__FILE__) . '/' );
 
 $required_files = array (
+	'base/load',
 	'database/database',		
 	'database/dbQuery', 	
 	'database/queryBuilder', 	

@@ -181,19 +181,16 @@ class Request
 
 
 	/**
-	 * is_ajax() - Check if request was made via AJAX
+	 * isAjax() - Check if request was made via AJAX
 	 *
 	 * Determines if request was made via AJAX by 
 	 * checking the request header for HTTP_X_REQUESTED_WITH 
 	 *
 	 * @return bool 	Returns true if AJAX request, otherwise false.
 	 */
-	public function is_ajax()
+	public function isAjax()
 	{
-		if ( !empty( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest')
-			return true;
-		else
-			return false;
+		return ( !empty( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
 	}
 
 
@@ -232,7 +229,7 @@ class Request
 	 * subdomain
 	 * Todo
 	 */
-	function subdomain()
+	public function subdomain()
 	{
 		$url_info = parse_url( $url );
 		$subdomain = substr( $url_info['host'], 0, strpos( $url_info['host'], '.' ) );

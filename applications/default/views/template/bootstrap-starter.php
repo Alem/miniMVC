@@ -63,9 +63,9 @@
 						<ul class="nav">
 							<?php echo $this -> helper -> menuLinks('nav') ?>
 						</ul>
-						<?php if ( Session::get('logged_in') ): ?>
+						<?php if ( $data -> logged_in ): ?>
 						<p class="navbar-text pull-right">
-						Logged in as <a href="user"><?php echo  Session::get('username') ?></a>
+						Logged in as <a href="user"><?php echo  $data -> username ?></a>
 						</p>
 						<?php endif; ?>
 					</div><!--/.nav-collapse -->

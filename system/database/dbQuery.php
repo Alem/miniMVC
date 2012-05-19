@@ -60,7 +60,7 @@ class DbQuery
 	 * @param  string $fragment 	A partial query
 	 * @return DbQuery 	The current DbQuery object.
 	 */
-	function query($fragment)
+	public function query($fragment)
 	{
 		if($fragment)
 			$this -> query .= $fragment;
@@ -74,7 +74,7 @@ class DbQuery
 	 * @param mixed $data 		Data to be passed
 	 * @return DbQuery 	The current DbQuery object.
 	 */
-	function query_data($data)
+	public function query_data($data)
 	{
 		if( is_array($data) )
 		{
@@ -91,7 +91,7 @@ class DbQuery
 	 *
 	 * @return DbQuery 	The current DbQuery object.
 	 */
-	function clearQuery()
+	public function clearQuery()
 	{
 		$this -> query = null;
 		$this -> query_data = array();
@@ -106,7 +106,7 @@ class DbQuery
 	 *
 	 * @return DbQuery 	The current DbQuery object.
 	 */
-	function saveQuery()
+	public function saveQuery()
 	{
 		$this -> saved_query = $this -> query;
 		$this -> saved_query_data = $this -> query_data;
@@ -120,7 +120,7 @@ class DbQuery
 	 *
 	 * @return DbQuery 	The current DbQuery object.
 	 */
-	function restoreQuery()
+	public function restoreQuery()
 	{
 		$this -> query = $this -> saved_query;
 		$this -> query_data = $this -> saved_query_data;
@@ -148,7 +148,7 @@ class DbQuery
 		Logger::debug('PDO Data', print_r($this -> query_data,true) );
 
 		$statement = $this -> database -> connection() -> prepare($this -> query);
-		$statement -> execute($this -> query_data);
+		$statement -> execute( $this -> query_data );
 
 		$this -> clearQuery();
 
@@ -160,6 +160,7 @@ class DbQuery
 			$this -> rowcount = $statement -> rowCount();
 
 		$results = $statement -> fetchall( PDO::FETCH_ASSOC );
+		Logger::debug('PDO Results', print_r( $results ,true ) );
 
 		return $results;
 	}

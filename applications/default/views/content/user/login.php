@@ -1,14 +1,14 @@
-<?php if ( isset( $this -> model -> failMsg ) ): ?>
+<?php if ( isset( $this -> model() -> failMsg ) ): ?>
 		<div class="alert alert-danger"> 
 		<a class="close" href="user">×</a>
 		<strong>Nope!</strong> Wrong, wrong wrong. Do it again.
 		</div>
-<?php elseif ( isset( $this -> model -> goodbyeMsg ) ): ?>
+<?php elseif ( isset( $this -> model() -> goodbyeMsg ) ): ?>
 		<div class="alert alert-info"> 
 		<a class="close" href="user">×</a>
 		You successfully logged out. <strong>Seeya!</strong>
 		</div>
-<?php elseif ( isset( $this -> model -> takenMsg ) ): ?>
+<?php elseif ( isset( $this -> model() -> takenMsg ) ): ?>
 		<div class="alert alert-danger"> 
 		<a class="close" href="user">×</a>
 		<strong>Sorry</strong>, that name is already registered. Try choosing another.

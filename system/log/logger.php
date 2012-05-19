@@ -19,15 +19,32 @@ class Logger
 
 
 	/**
-	 * @var object Holds the single instance of Logger
+	 * @var object 		Holds the single instance of Logger
 	 */
 	private static $instance;
 
 
 	/**
-	 * @var array Holds the Logger data
+	 * @var array 		Holds the Logger data
 	 */
 	public $record = array();
+
+	/**
+	 * @var integer 	Tracks the number of lines written per application run
+	 */
+	public $lines_written = 0;
+
+
+	/**
+	 * @var array 		Max number of old logs to keep
+	 */
+	public $max_old_logs = 2;
+
+
+	/**
+	 * @var array Max log size in bytes
+	 */
+	public $max_log_size = 50000;
 
 
 	/**
@@ -35,6 +52,7 @@ class Logger
 	 */
 	private function __construct()
 	{
+		$this -> rotate();
 	}
 
 
@@ -43,7 +61,8 @@ class Logger
 	 *
 	 * @return object
 	 */
-	public static function open() {
+	public static function open() 
+	{
 		if ( !isset(self::$instance) )
 			self::$instance = new self();
 		return self::$instance;
@@ -52,83 +71,143 @@ class Logger
 
 	/**
 	 * debug - Records debug information
+	 * 
+	 * @param string $title 	The title of the log entry
+	 * @param mixed  $details	The log entry details
 	 */
-	public static function debug( $title, $details ) {
+	public static function debug( $title, $details ) 
+	{
 		self::open() -> record['debug'][][ $title ] = $details;
+		self::open() -> write( 'debug', $title, $details );
 	}
 
 
 	/**
 	 * error - Records error information
+	 *
+	 * @param string $title 	The title of the log entry
+	 * @param mixed  $details	The log entry details
 	 */
-	public static function error( $title, $details ) {
+	public static function error( $title, $details ) 
+	{
 		self::open() -> record['error'][][ $title ] = $details;
+		self::open() -> write( 'error', $title, $details );
 	}
 
 
 	/**
 	 * info - Records info information
+	 *
+	 * @param string $title 	The title of the log entry
+	 * @param mixed  $details	The log entry details
 	 */
-	public static function info( $title, $details ) {
+	public static function info( $title, $details ) 
+	{
 		self::open() -> record['info'][][ $title ] = $details;
+		self::open() -> write( 'info', $title, $details );
 	}
 
 
 	/**
 	 * warn - Records warn information
+	 *
+	 * @param string $title 	The title of the log entry
+	 * @param mixed  $details	The log entry details
 	 */
-	public static function warn( $title, $details ) {
+	public static function warn( $title, $details ) 
+	{
 		self::open() -> record['warn'][][ $title ] = $details;
+		self::open() -> write( 'warn', $title, $details );
 	}
 
 
 	/**
-	 * display - Outputs debug data as a table 
+	 * write - Writes to log file
 	 *
-	 * The debug table outputs two columns:
-	 * 	Debug   - MEM, Execution time, errors, constants, queries
-	 * 	Session - All session variables, including previous table outputs saved to session.
+	 * @param string $level 	The level of log entry
+	 * @param string $title 	The title of the log entry
+	 * @param mixed  $details	The log entry details
 	 */
-	public static function display()
+	public function write( $level, $title, $details ) 
 	{
-		if ( 
-			( DEBUG_LEVEL === 2 )
-			|| ( 
-				( DEBUG_LEVEL === 1) 
-				&& ( Session::get('username') == SITE_ADMIN ) 
-			)
-		) {
-			self::open() -> record['error'][] = print_r( error_get_last(), true);
 
-			$constants = get_defined_constants(true);
-			self::open() -> record['Constants'][] = print_r( $constants['user'] , true );
+		if ( constant( 'LOGGER_' . strtoupper( $level) ) )
+		{
+			$line = date( 'D M j G:i:s T Y' )  . ' - '. $level . ' - ' . $title . ': ' . $details . "\n";
 
-			$debug =& self::open() -> formatArray( self::open() -> record );
-			$session =& self::open() -> formatArray( $_SESSION );
-			$table = <<<TABLE
+			$log_filepath = load::path( 'log', 'application', '.log' );
+			file_put_contents( $log_filepath, $line, FILE_APPEND );
+
+			$this -> lines_written++;
+		}
+	}
+
+
+	/**
+	 * rotate - If log file size exceeds maximum, rotate.
+	 *
+	 * If the log size exceeds the maximum
+	 * rename log by suffixing it with number.
+	 * If that file exists, rename it by incrementing that number.
+	 */
+	public function rotate()
+	{
+		$log_filepath = load::path( 'log', 'application', '.log' );
+		if ( file_exists ( $log_filepath ) )
+		{
+			$log_size = filesize( $log_filepath );
+
+			if ( $log_size > $this -> max_log_size )
+			{
+				if( !file_exists( $log_filepath . '.' . 1 ) )
+					rename( $log_filepath, $log_filepath . '.' . 1 );
+				else
+				{
+
+					for( $i =  $this -> max_old_logs; $i > 0; $i-- )
+					{
+						if( $i == $this -> max_old_logs )
+							unlink( $log_filepath . '.' . $i );
+						else
+							rename( $log_filepath . '.' . $i, $log_filepath . '.' . ( $i + 1 ) );
+					}
+				}
+			}
+		}
+	}
+
+
+	/**
+	 * showDebug - Outputs debug data as a table 
+	 *
+	 * todo Displaying previous requests, session data, etc.
+	 */
+	public static function showDebug()
+	{
+		$log_filepath 	= load::path( 'log', 'application', '.log' );
+		$log 		= file($log_filepath);
+		$total_lines 	= count( $log );
+		$log_lines 	= null;
+
+		for ( $i = ( $total_lines - self::open()->lines_written - 1 ); $i < $total_lines; $i++)  
+			$log_lines .= $log[$i];
+
+		$table = <<<TABLE
 			<br/>
-			<hr>
 			<table class="table table-bordered">
 				<thead>
-					<th style = 'width:50%' ><h2>Application Debug</h2></th>
-					<th style = 'width:50%' ><h2>Session Variables</h2></th>
+					<th><h2>Application Log</h2></th>
 				</thead>
 				<tbody>
 				<tr>
 					<td>
-						<pre>$debug</pre>
-					</td>
-					<td>
-						<pre>$session</pre>
+						<pre>$log_lines</pre>
 					</td>
 				</tr>
 				</tbody>
 			</table>
 TABLE;
-			echo $table;
-			Session::set('second_last_debug', Session::get('last_debug') );
-			Session::set('last_debug', self::open() -> record);
-		}
+		echo $table;
 	}
 
 

@@ -11,7 +11,7 @@ miniMVC is an MVC framework for PHP designed to provide a simple base for applic
 
 It features:
 * Clean, documented, object-oriented code
-* URI-routing
+* Simple URI-routing
 * Search engine friendly URLs
 * A parameterized query builder
 * A template-based MVC scaffold generator
@@ -29,7 +29,7 @@ SETUP
 
 2. Generate the application skeleton using gimiMVC.
 
-	./gimiMVC.php -a MYAPP --scaffold skeleton --generate
+	./gimiMVC.php -a MYAPP --generate
 
 3. Define the relevant information in the new application's config/app.php file.
 

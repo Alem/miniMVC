@@ -3,12 +3,13 @@
 class TestController extends Controller
 {
 
-
 	/**
 	 * index() - Loads default 'index' view
 	 */
 	function actionIndex()
 	{
+		$session = new Session();
+		$this -> useController('user') -> setSessionData( $session, $this -> model() );
 		$this -> view();
 	}
 
@@ -18,6 +19,8 @@ class TestController extends Controller
 	 */
 	function actionForm()
 	{
+		$session = new Session();
+		$this -> useController('user') -> setSessionData( $session, $this -> model() );
 		$this -> view('form');
 	}
 
@@ -28,6 +31,7 @@ class TestController extends Controller
 	function actionPost()
 	{
 		$request = new Request();
+
 		$this -> model() -> insertTest( $request -> post );
 		$this -> prg('gallery');
 	}
@@ -53,6 +57,9 @@ class TestController extends Controller
 	 */
 	function actionEdit($ref, $new, $column_ref = null, $column_new = null)
 	{
+		$session = new Session();
+		$this -> useController('user') -> setSessionData( $session, $this -> model() );
+
 		$this -> model() -> editTest($new, $new_column, $ref, $ref_column );
 		$this -> show();
 	}
@@ -65,6 +72,9 @@ class TestController extends Controller
 	 */
 	function actionShow( $id )
 	{
+		$session = new Session();
+		$this -> useController('user') -> setSessionData( $session, $this -> model() );
+
 		$this -> model() -> getTest($id);
 		$this -> view('gallery');
 	}
@@ -81,6 +91,9 @@ class TestController extends Controller
 	 */
 	function actionGallery($page = 1, $order_col = null, $order_sort = null)
 	{
+		$session = new Session();
+		$this -> useController('user') -> setSessionData( $session, $this -> model() );
+
 		$this -> model() -> galleryTest( $order_col, $order_sort, $page  );
 		$this -> view('gallery');
 	}
@@ -91,6 +104,9 @@ class TestController extends Controller
 	 */
 	function actionAbout()
 	{
+		$session = new Session();
+		$this -> useController('user') -> setSessionData( $session, $this -> model() );
+
 		$this -> view('about');
 	}
 

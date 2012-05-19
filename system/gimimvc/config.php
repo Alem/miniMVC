@@ -24,6 +24,6 @@ const SCAFFOLD_DIR =  'templates/';
  *  Scaffold defaults.
  * ----------------------------------------------------------------------
  */
-const DEFAULT_SCAFFOLD =  'crud';
+const DEFAULT_SCAFFOLD =  'skeleton';
 
 ?>

@@ -29,7 +29,7 @@
 			</form>
 			</p>
 
-			<?php	echo ( isset( $this -> model -> data['content'] ) ) ? $this -> model -> data['content'] : "";	?>
+			<?php	echo ( isset( $this -> model() -> data['content'] ) ) ? $this -> model() -> data['content'] : "";	?>
 		</blockquote>
 	
 	</div>

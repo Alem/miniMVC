@@ -30,7 +30,7 @@ class FileCache{
 	/**
 	 * __construct - Defines the default path and extension for cache files
 	 */
-	function __construct ( $set_defaults = true ) 
+	public function __construct ( $set_defaults = true ) 
 	{
 		if ( $set_defaults === true) 
 		{
@@ -46,7 +46,7 @@ class FileCache{
 	 * @param mixed $id 	The identifying value for the data
 	 * @return mixed 	The number of bytes written or a false on failure ( file_put_contents )
 	 */
-	function create( $data, $id = null ) {
+	public function create( $data, $id = null ) {
 		if ( !isset( $id ) )
 			$id =& $this -> id;
 
@@ -61,7 +61,7 @@ class FileCache{
 	 * @param  mixed $id 	The identifying value for the data
 	 * @return string 	The file contents returned as a string ( file_get_contents )
 	 */
-	function get( $id = null ) {
+	public function get( $id = null ) {
 		if ( !isset( $id ) )
 			$id =& $this -> id;
 
@@ -77,7 +77,7 @@ class FileCache{
 	 * @param mixed $id 	The identifying value for the data
 	 * @return bool 	Returns true if file no longer exists, otherwise false.
 	 */
-	function clear( $id = null ) {
+	public function clear( $id = null ) {
 		if ( !isset( $id ) )
 			$id =& $this -> id;
 
@@ -97,7 +97,7 @@ class FileCache{
 	 * @param  mixed $id 	The identifying value for the data
 	 * @return integer 	The recency of the cache file in seconds
 	 */
-	function recency( $id = null ) {
+	public function recency( $id = null ) {
 		if ( !isset( $id ) )
 			$id =& $this -> id;
 

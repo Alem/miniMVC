@@ -48,6 +48,7 @@ class Database
 	 */
 	public function __construct()
 	{
+		$this -> driver 	= DB_DRIVER;
 		$this -> host 		= DB_SERVER;
 		$this -> username 	= DB_USERNAME;
 		$this -> password 	= DB_PASSWORD;
@@ -63,10 +64,10 @@ class Database
 	 *
 	 * @return PDO 			The PDO object as a property of the current object
 	 */
-	function connection()
+	public function connection()
 	{
 		if ( !isset( $this -> pdo_connection ) )
-			$this-> pdo_connection = new PDO( 'mysql:host=' . $this -> host . ';dbname=' . $this -> dbname, $this -> username, $this -> password );
+			$this-> pdo_connection = new PDO( $this -> driver . ':host=' . $this -> host . ';dbname=' . $this -> dbname, $this -> username, $this -> password );
 		return $this -> pdo_connection;
 	}
 

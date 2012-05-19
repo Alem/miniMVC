@@ -6,13 +6,15 @@
  */
 
 /**
- * RestService, in combinration with the Request class,
+ * RestService, in combination with the Request class,
  * allows simple RESTful API functionality.
  *
  * A controller can determine the request method 
  * and retrieve the relevant parameters using the request class 
+ * then deliver a direct HTTP response using the RestService object.
  *
- * Then deliver a direct HTTP response using the RestService object.
+ * ------------------------------
+ * Example:
  *
  * switch ( $request -> method )
  * 	case 'get':
@@ -20,6 +22,7 @@
  * 		$data = json_encode( $requested_data );
  * 		$RestService -> sendResponse ( 200, $data, 'json' );
  * 		break;
+ * ------------------------------
  *
  * todo Determine if this should remain the RestService object 
  * or become an extension of the Controller class

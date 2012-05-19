@@ -33,7 +33,7 @@ class Controller extends Template
 
 			\$this -> model() -> set ( 
 				'$column', 
-				\$this -> model('$column') -> get$uc_column( null, Session::get( 'user_id' ) ) 
+				\$this -> model('$column') -> get$uc_column( null, \$session -> user_id' ) ) 
 			);
 fetch;
 		//---------------------------------------HTML END
@@ -57,8 +57,8 @@ endif;
 
 		if ( 1 == 1 )
 		{
-			$user = ", Session::get( 'user_id' ) ";
-			$user_single = " Session::get( 'user_id' ) ";
+			$user = ", \$session -> user_id' ) ";
+			$user_single = " \$session -> get( 'user_id' ) ";
 		}
 
 		//----------------HTML START
@@ -98,10 +98,11 @@ class {$uname}Controller extends Controller
 	{
 		if ( !isset ( \$this -> accessControl ) ) 
 		{
+			\$session = new Session();
 			\$this -> accessControl = new AccessControl();
 			\$this -> accessControl -> defineRoles( \$this -> permissions['roles'] );
 			\$this -> accessControl -> defineActions( \$this -> permissions['actions'] );
-			\$this -> accessControl -> setRole( Session::get('user_type') );
+			\$this -> accessControl -> setRole( \$session -> get('user_type') );
 		}
 		return \$this -> accessControl;
 	}
@@ -123,7 +124,8 @@ class {$uname}Controller extends Controller
 	 */
 	public function {$HTTP_ACCESS_PREFIX}Form()
 	{
-		Session::open() -> del('editing_{$name}_id');
+		\$session = new Session();
+		\$session -> del('editing_{$name}_id');
 		if( \$this -> access() -> action('form') )
 		{
 			$external_fetch
@@ -140,7 +142,8 @@ class {$uname}Controller extends Controller
 	public function {$HTTP_ACCESS_PREFIX}Post()
 	{
 		\$request = new Request();
-		if ( \$id = Session::open() -> getThenDel('editing_{$name}_id')  )
+		\$session = new Session();
+		if ( \$id = \$session -> getThenDel('editing_{$name}_id')  )
 			\$this -> model() -> update$uname(  \$request -> post, \$id $user);
 		elseif( \$this -> access() -> action('post') )
 			\$id = \$this -> model() -> insert$uname( \$request -> post $user );
@@ -168,7 +171,8 @@ class {$uname}Controller extends Controller
 	 */
 	public function {$HTTP_ACCESS_PREFIX}Edit(\$id)
 	{
-		Session::open() -> set( 'editing_{$name}_id', \$id );
+		\$session = new Session();
+		\$session -> set( 'editing_{$name}_id', \$id );
 		if( 
 			isset( \$id )
 			&& ( $$name = \$this -> model() -> get$uname( \$id $user) )
@@ -190,6 +194,7 @@ class {$uname}Controller extends Controller
 	 */
 	public function {$HTTP_ACCESS_PREFIX}Show( \$id )
 	{
+		\$session = new Session();
 		if( 
 			isset( \$id ) 
 			&& \$this -> model() -> get$uname(\$id $user) 
@@ -212,6 +217,7 @@ class {$uname}Controller extends Controller
 	 */
 	public function {$HTTP_ACCESS_PREFIX}Gallery(\$page = 1, \$order_col = null, \$order_sort = null )
 	{
+		\$session = new Session();
 		if ( \$this -> access() -> action( 'gallery' ) )
 		{
 			\$request = new Request();

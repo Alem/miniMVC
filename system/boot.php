@@ -32,6 +32,7 @@ $system_classes = array (
 	'base/controller', 	
 	'base/load', 	
 	'base/model', 
+	'base/config', 
 	'cache/fileCache',
 	'database/database',
 	'database/dbQuery',
@@ -39,7 +40,7 @@ $system_classes = array (
 	'log/logger',
 	'server/request',
 	'server/router', 		
-	'server/session', 		
+	'session/session', 		
 	'web/html',	
 	'web/element',
 );
@@ -89,6 +90,8 @@ Logger::debug('Memory Peak Usage', ( memory_get_peak_usage() / 1000 ) . ' kb' );
  * Debug: Output
  * ----------------------------------------------------------------------
  */
-Logger::display();
+$session = new Session();
+if( DEBUG_LEVEL === 1 )
+Logger::showDebug();
 
 ?>

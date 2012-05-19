@@ -26,7 +26,7 @@ class libraryController extends Template
 			\$this -> accessControl = new AccessControl();
 			\$this -> accessControl -> defineRoles( \$this -> permissions['roles'] );
 			\$this -> accessControl -> defineActions( \$this -> permissions['actions'] );
-			\$this -> accessControl -> setRole( Session::get('user_type') );
+			\$this -> accessControl -> setRole( \$session -> get('user_type') );
 		}
 		return \$this -> accessControl;
 	}

@@ -23,13 +23,15 @@ class Router
 		2 => 'variable'
 	);
 
-	
+
 	/**
-	 * construct() - Calls the Router::process() function
+	 * construct() - Calls the Router:: setURI and parseURI() functions
 	 */
-	public function __construct()
+	public function __construct( array $routes = null )
 	{
-		$this -> setURI() -> process();
+		$this -> setURI()
+			-> route( $routes )
+			-> parseURI();
 	}
 
 
@@ -57,7 +59,7 @@ class Router
 
 
 	/**
-	 * process - Defines the Controller, Method and Variables from the request.
+	 * parseURI - Defines the Controller, Method and Variables from the request.
 	 *
 	 * Splits up the URI request using the URI_SEPARATOR delimiter, 
 	 * and defines the Controller, method, and variable
@@ -65,16 +67,16 @@ class Router
 	 *
 	 * @return Router 	The Router object.
 	 */
-	function process() 
+	public function parseURI() 
 	{
 
-		$uri_parts  = explode( URI_SEPARATOR, $this -> uri , 3 );
-		$parameters = count( $uri_parts );
+		$this -> uri_parts  = explode( URI_SEPARATOR, $this -> uri , 3 );
+		$parameters = count( $this -> uri_parts );
 
 		foreach ( $this -> uri_map as $position => $type )
 		{
-			if ( ( $parameters > $position ) && ( $uri_parts[$position] !== '' ) )
-				$this -> $type = $uri_parts[ $position ];
+			if ( ( $parameters > $position ) && ( $this -> uri_parts[$position] !== '' ) )
+				$this -> $type = $this -> uri_parts[ $position ];
 			elseif( $type === 'controller' )
 				$this -> $type = DEFAULT_CONTROLLER;
 			elseif( $type === 'method' )
@@ -83,6 +85,41 @@ class Router
 				$this -> $type = null;
 		}
 		return $this;
+	}
+
+
+	/**
+	 * route - Maps request uri to a pre-defined set of resources.
+	 *
+	 * @param array $routes The array of routes
+	 * @return Router 	The Router object.
+	 */
+	public function route( array $routes = null )
+	{
+		if( $routes === null )
+		{
+			$config = new Config();
+			$routes = $config -> load ('routes');
+		}
+
+		if( $routes !== null )
+		{
+			foreach ( $routes as $match => $replacement )
+			{
+				$match = str_replace( array(':any',':num'), array( '.+', '[0-9]+' ), $match );
+
+				if ( preg_match( '#^' . $match . '$#', $this -> uri ) )
+				{
+					if ( strpos( $replacement, '$' ) ==! false && strpos( $match, '(' ) ==! false )
+						$replacement = preg_replace( '#^' . $match .'$#', $replacement, $this -> uri );
+					$this -> uri = $replacement;
+				}
+			}
+		}
+
+
+		return $this;
+
 	}
 
 }

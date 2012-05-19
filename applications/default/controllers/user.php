@@ -11,6 +11,20 @@ class UserController extends Controller
 
 
 	/**
+	 * setSessionData - Loads relevant sesion data to model
+	 */
+	function setSessionData( Session $session, Model $model = null )
+	{
+		if ( $model === null )
+			$model = $this -> model();
+
+		$model -> logged_in 	= $session -> get('logged_in');
+		$model -> username 	= $session -> get('username');
+		$model -> email 	= $session -> get('email');
+	}
+
+
+	/**
 	 * actionIndex() - Displays login form or profile page depending on login status
 	 *
 	 * Shows welcome, goodbye and failure message depending on flags set by user::login() 
@@ -19,6 +33,9 @@ class UserController extends Controller
 	 */
 	public function actionIndex($message = null)
 	{
+		$session = new Session();
+		$this -> setSessionData( $session );
+
 		if( $message == 'goodbye' )
 			$this -> model() -> goodbyeMsg = true;
 
@@ -26,15 +43,15 @@ class UserController extends Controller
 			$this -> model() -> failMsg = true;
 
 		elseif ( $message == 'welcome' )
-			$this -> model() -> welcomeMsg = Session::get('username');
+			$this -> model() -> welcomeMsg = $session -> get('username');
 
 		elseif ( $message == 'taken' )
-			$this -> model() -> takenMsg = Session::get('username');
+			$this -> model() -> takenMsg = $session -> get('username');
 
-		if( Session::get('logged_in') )
+		if( $session -> get('logged_in') )
 		{
-			$this -> model() -> title = Session::get('username');
-			$this -> model() -> getUser( Session::get('username'));
+			$this -> model() -> title = $session -> get('username');
+			$this -> model() -> getUser( $session -> get('username'));
 			$this -> view();
 		}else
 		{
@@ -53,22 +70,25 @@ class UserController extends Controller
 	public function actionLogin()
 	{
 		$request = new Request();
+		$session = new Session();
+		$this -> setSessionData( $session );
+
 		$username = $request -> post['username'];
 		$password = md5( $request -> post['password'] );
 
 		if ( isset( $username ) && isset( $password ) )
 		{
-			$user = $this -> model() -> getUser($username,$password);
+			$user_data = $this -> model() -> getUser($username,$password);
 		}
 
-		if( !empty( $user ) )
+		if( !empty( $user_data ) )
 		{
 			$this -> logged_in = true;
-			Session::set('username', $username);
-			Session::set('email',    $user[0]['email']);
-			Session::set('user_id',  $user[0]['id']);
-			Session::set('user_type', (int)$user[0]['type']);
-			Session::set('logged_in', $this -> logged_in);
+			$session -> set('username', $username);
+			$session -> set('email',    $user_data[0]['email']);
+			$session -> set('user_id',  $user_data[0]['id']);
+			$session -> set('user_type', (int)$user_data[0]['type']);
+			$session -> set('logged_in', $this -> logged_in);
 		}
 
 		if ( $this -> logged_in )
@@ -88,6 +108,9 @@ class UserController extends Controller
 	public function actionRegister()
 	{
 		$request  = new Request();
+		$session = new Session();
+		$this -> setSessionData( $session );
+
 		$username = $request -> post['username'];
 		$password = md5( $request -> post['password'] );
 		if (	$this -> validates( $request -> post )	)
@@ -97,7 +120,7 @@ class UserController extends Controller
 				$insert = $this -> model() -> addUser($username, $password, $request -> post['email'] );
 				if ( $insert )
 					$this -> logged_in = true;	
-				Session::set('logged_in', $this -> logged_in);
+				$session -> set('logged_in', $this -> logged_in);
 				$this -> actionLogin();
 			}else
 				$this -> prg('index/taken');
@@ -111,10 +134,13 @@ class UserController extends Controller
 	 */
 	public function actionSettings()
 	{
-		if( Session::get('logged_in') )
+		$session = new Session();
+		$this -> setSessionData( $session );
+
+		if( $session -> get('logged_in') )
 		{
 			#$user = $this -> model -> getUser($username,$password);
-			$this -> model() -> getUser( Session::get('username'));
+			$this -> model() -> getUser( $session -> get('username'));
 			$this -> view( 'settings' );
 		}
 	}
@@ -132,20 +158,21 @@ class UserController extends Controller
 	function actionChange( $setting )
 	{
 		$request = new Request();
-		if( Session::get('logged_in') )
+		$session = new Session();
+		if( $session -> get('logged_in') )
 		{
 			if ( $setting == 'password' )
 			{
 				if (
-					( Session::get ('password') == md5( $request -> post['password_old'] ) ) 
+					( $session -> get ('password') == md5( $request -> post['password_old'] ) ) 
 					&& ( $request -> post['password_repeat'] == $request -> post['password_new'] )
 				)
 				$password_new =  md5( $request -> post['password_new'] );
-				$this -> model() -> editUser( $password_new, 'password', Session::get('username') );
+				$this -> model() -> editUser( $password_new, 'password', $session -> get('username') );
 			}elseif ( $setting == 'email' )
 			{
-				$this -> model() -> editUser( $request -> post['email_new'] , 'email', Session::get('username') );
-				Session::set( 'email', $request -> post['email_new'] );
+				$this -> model() -> editUser( $request -> post['email_new'] , 'email', $session -> get('username') );
+				$session -> set( 'email', $request -> post['email_new'] );
 			}
 		}
 		$this -> prg('settings');
@@ -178,7 +205,10 @@ class UserController extends Controller
 	 */
 	public function actionLogout()
 	{
-		Session::set('logged_in', null);
+		$session = new Session();
+		$this -> setSessionData( $session );
+
+		$session -> set('logged_in', null);
 		session_destroy();
 		$this -> prg('index/goodbye');
 	}

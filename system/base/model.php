@@ -38,7 +38,7 @@ class Model
 	 * Assigns the model the 'table' property, lowercase pluralized name of the controller class
 	 * and the table's main column the lowercase singular name of the controller class.
 	 */
-	function __construct()
+	public function __construct()
 	{
 		$column =  strtolower( get_class($this) );
 		$table = $column . 's';
@@ -53,7 +53,7 @@ class Model
 	 * @oaram mixed $property The name of the property to be assigned OR an array containing multiple property/value pairs
 	 * @param mixed $value    The value of the property
 	 */
-	function set($property, $value = null)
+	public function set($property, $value = null)
 	{
 		if ( is_array( $property) )
 		{
@@ -70,7 +70,7 @@ class Model
 	 * @param  mixed $property 	The name of the property to be returned OR array containing multiple properties who's values are to be returned
 	 * @return mixed 		The requested property.
 	 */
-	function get($property)
+	public function get($property)
 	{
 		if ( is_array( $property) )
 		{
@@ -83,19 +83,21 @@ class Model
 
 
 	/**
-	 * SQL - A simple singleton wrapper for a QueryBuilder object
+	 * SQL - A simple lazy loader wrapper for a QueryBuilder object
 	 *
 	 * Allows model to use single instance of QueryBuilder to 
 	 * build queries in a sequential manner. 
 	 * 
+	 * @param  Database 		The Database object to be passed to the QueryBuilder
 	 * @return QueryBuilder 	The loaded QueryBuilder object
 	 * @uses   QueryBuilder 	Assigned as a property for automated loading of single instance.
 	 */
-	function SQL()
+	public function SQL( Database $database = null )
 	{
 		if ( !isset( $this -> sql ) )
 		{
-			$database = new Database();
+			if( !isset( $database ) )
+				$database = new Database();
 			$this -> sql = new QueryBuilder( $database, $this -> table );
 		}
 		return $this -> sql;

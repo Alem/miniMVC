@@ -9,9 +9,17 @@
  * The QueryBuilder class allows a simplified abstraction layer for
  * constructing and running queries. This allows for simpler sequential construction of queries.
  *
- * Example
- * -------
- * QueryBuilder -> select ('*') -> from('table') -> where('value','column') -> run();
+ * ------------------------------
+ * Example:
+ *
+ * $database 	 = new Database();
+ * $QueryBuilder = new QueryBuilder( $database );
+ *
+ * $QueryBuilder -> select ('*') 
+ * 		-> from('table') 
+ * 		-> where('value','column') 
+ * 		-> run();
+ * ------------------------------
  *
  *
  * @todo Make each partial query database agnostic. Many queries will not work with all database types.
@@ -42,7 +50,8 @@ class QueryBuilder extends DbQuery
 	 * Alternative to run(), returns an pagination-friendly array with the format:
 	 * 	pages ( # pages), 
 	 * 	paged ( single page result), 
-	 *	total (total # rows in column).
+	 *	total (total # rows ).
+	 *	total_result ( un-paged set of rows ).
 	 *
 	 * @param int   $page           		The page to start on or SQL offset
 	 * @param int   $items_per_page 		Number of rows to return which determines the number of results per page
@@ -55,7 +64,8 @@ class QueryBuilder extends DbQuery
 	{
 
 		$this -> saveQuery();
-		$total_result = count( $this -> run() );
+		$total_result = $this -> run();
+		$total = count ( $total_result );
 		$this -> restoreQuery();
 
 		$starting_row = ( $page != 1 ) ? ( ($page - 1) * $items_per_page ) : 0;
@@ -63,9 +73,10 @@ class QueryBuilder extends DbQuery
 		$paged_query_result = $this -> run();
 
 		return array(
-			'total' => $total_result,
-			'pages' => ceil( $total_result/$items_per_page ), 
-			'paged' => $paged_query_result 
+			'pages' => ceil( $total/$items_per_page ), 
+			'paged' => $paged_query_result,
+			'total' => $total,
+			'total_result' => $total_result
 		);
 	}
 

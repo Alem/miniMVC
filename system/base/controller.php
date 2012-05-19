@@ -41,11 +41,11 @@ class Controller
 	 * then it is treated as multiple separate variables
 	 * and passed as an array using call_user_func_array.
 	 *
-	 * @param string $method 	The method to call
-	 * @param mixed  $variable 	The variable(s) to be passed to the controller, as a string/array.
-	 * @param object $controller 	The controller object. Defaults to the current controller.
+	 * @param string 	$method 	The method to call
+	 * @param mixed 	$variable 	The variable(s) to be passed to the controller as string/array.
+	 * @param Controller 	$controller 	The controller object. Defaults to the current controller.
 	 */
-	public function useMethod ( $method, $variable = null , $controller = null )
+	public function useMethod ( $method, $variable = null , Controller $controller = null )
 	{
 		if ( !isset( $controller ) )
 			$controller =& $this;
@@ -224,21 +224,21 @@ class Controller
 	 *
 	 * @param sting  $view 			The name of the view to load. Defaults to the value of DEFAULT_METHOD set in the application config.
 	 * @param string $controller_name 	The name of the controller the view belongs to. Defaults to the current controller.
-	 * @param Model  $model 		The model to be passed to the view for interaction/reading. Defaults to the current model.
+	 * @param Model  $data 			The data to be passed to the view for interaction/reading. Defaults to the current model.
 	 * @param bool 	 $direct_include 	If set to true, includes the view directly, rather than loading the template then view.
 	 * @return object 			The current object.
 	 * @uses   load::path()			Returns file path for the view.
 	 *
 	 * @todo Determine if needless object copying/cloning occuring
 	 */
-	public function view($view = DEFAULT_METHOD, $controller_name = null, $model = null, $direct_include = false )
+	public function view($view = DEFAULT_METHOD, $controller_name = null, $data = null, $direct_include = false )
 	{
 
 		if ( !isset( $controller_name ) )
 			$controller_name = $this -> name;
 
-		if ( !isset( $model ) )
-			$model = $this -> model();
+		if ( !isset( $data ) )
+			$data = $this -> model();
 
 		$this -> loaded['view']['main']['path'] = Load::path('view', $controller_name . '/'. $view );
 

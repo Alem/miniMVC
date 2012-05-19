@@ -26,13 +26,19 @@ ini_set('display_errors', 1);
 
 /*
  * ----------------------------------------------------------------------
- * Settings: Debug Output level
+ * Settings: Logging and Debug Display level
  * ----------------------------------------------------------------------
- * 0 = none 
- * 1 = username 'admin' only
- * 2 = everyone
+ * Logging levels: error, warn, info, debug
+ *
+ * Debug Display:
+ * 	0 = none 
+ * 	1 = display
  */
-const DEBUG_LEVEL =  2;
+const DEBUG_LEVEL =  1;
+const LOGGER_ERROR =  true;
+const LOGGER_WARN  =  true;
+const LOGGER_INFO  =  true;
+const LOGGER_DEBUG =  true;
 
 
 /* 
@@ -51,7 +57,6 @@ const BASE_HREF = 'http://localhost/miniMVC/applications/default/public_html/';
  * ----------------------------------------------------------------------
  */
 // Framework paths
-const DEFAULT_LOG_PATH 		= 'logs/';
 const DEFAULT_SYSTEM_PATH 	= 'system/';
 const DEFAULT_APPS_PATH 	= 'applications/';
 
@@ -61,6 +66,7 @@ const DEFAULT_PUBLIC_PATH 	= 'public_html/';
 const DEFAULT_APP_CONFIG_PATH 	= 'config/';
 const DEFAULT_CONTROLLER_PATH 	= 'controllers/';
 const DEFAULT_LIBRARY_PATH 	= 'libraries/';
+const DEFAULT_LOG_PATH 		= 'logs/';
 const DEFAULT_MODEL_PATH 	= 'models/';
 const DEFAULT_MODULE_PATH 	= 'modules/';
 const DEFAULT_VIEW_PATH 	= 'views/';
