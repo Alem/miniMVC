@@ -61,9 +61,9 @@ links;
 	{
 
 		$this -> menus['nav']['Home'] = null;
-		$this -> menus['nav']['Gallery'] = DEFAULT_CONTROLLER . '/gallery';
-		$this -> menus['nav']['Submit'] =  DEFAULT_CONTROLLER . '/form';
-		$this -> menus['nav']['About'] =  DEFAULT_CONTROLLER . '/about';
+		$this -> menus['nav']['Gallery'] = 'gallery';
+		$this -> menus['nav']['Submit']  = 'form';
+		$this -> menus['nav']['About'] 	 = 'about';
 		$this -> set_active ( 'nav', true);
 	}
 

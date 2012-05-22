@@ -1,13 +1,13 @@
 <?php
 
-
-//// Database Configuration
-const DB_DRIVER =  'mysql';
-const DB_SERVER =  'localhost';
-const DB_USERNAME =  'test';
-const DB_PASSWORD =  'test';
-const DB_DATABASE =  'test';
-
-
+return array(
+	'default' => array(
+		'driver'	=>  'mysql',
+		'host' 		=>  'localhost',
+		'username'	=>  'test',
+		'password'	=>  'test',
+		'database'	=>  'test',
+	)
+);
 
 ?>

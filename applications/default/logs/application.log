@@ -1,0 +1,1443 @@
+Sun May 20 23:19:39 MDT 2012,debug,Application,Instantiated
+Sun May 20 23:19:39 MDT 2012,debug,Script Time,0.019937038421631
+Sun May 20 23:19:39 MDT 2012,debug,Memory Usage,968.98 kb
+Sun May 20 23:19:39 MDT 2012,debug,Memory Peak Usage,1015.592 kb
+Sun May 20 23:19:39 MDT 2012,debug,Application,Complete
+Sun May 20 23:19:39 MDT 2012,debug,Application,Instantiated
+Sun May 20 23:19:39 MDT 2012,debug,Script Time,0.011659145355225
+Sun May 20 23:19:39 MDT 2012,debug,Memory Usage,849.084 kb
+Sun May 20 23:19:39 MDT 2012,debug,Memory Peak Usage,854.884 kb
+Sun May 20 23:19:39 MDT 2012,debug,Application,Complete
+Sun May 20 23:19:41 MDT 2012,debug,Application,Instantiated
+Sun May 20 23:19:41 MDT 2012,debug,Script Time,0.019468069076538
+Sun May 20 23:19:41 MDT 2012,debug,Memory Usage,968.98 kb
+Sun May 20 23:19:41 MDT 2012,debug,Memory Peak Usage,1015.592 kb
+Sun May 20 23:19:41 MDT 2012,debug,Application,Complete
+Sun May 20 23:19:41 MDT 2012,debug,Application,Instantiated
+Sun May 20 23:19:41 MDT 2012,debug,Script Time,0.013175964355469
+Sun May 20 23:19:41 MDT 2012,debug,Memory Usage,849.084 kb
+Sun May 20 23:19:41 MDT 2012,debug,Memory Peak Usage,854.884 kb
+Sun May 20 23:19:41 MDT 2012,debug,Application,Complete
+Sun May 20 23:20:00 MDT 2012,debug,Application,Instantiated
+Sun May 20 23:20:00 MDT 2012,debug,Script Time,0.017820119857788
+Sun May 20 23:20:00 MDT 2012,debug,Memory Usage,968.952 kb
+Sun May 20 23:20:00 MDT 2012,debug,Memory Peak Usage,1015.564 kb
+Sun May 20 23:20:00 MDT 2012,debug,Application,Complete
+Sun May 20 23:20:00 MDT 2012,debug,Application,Instantiated
+Sun May 20 23:20:00 MDT 2012,debug,Script Time,0.011427164077759
+Sun May 20 23:20:00 MDT 2012,debug,Memory Usage,849.052 kb
+Sun May 20 23:20:00 MDT 2012,debug,Memory Peak Usage,854.852 kb
+Sun May 20 23:20:00 MDT 2012,debug,Application,Complete
+Sun May 20 23:20:35 MDT 2012,debug,Application,Instantiated
+Sun May 20 23:20:35 MDT 2012,debug,Script Time,0.009023904800415
+Sun May 20 23:20:35 MDT 2012,debug,Memory Usage,968.952 kb
+Sun May 20 23:20:35 MDT 2012,debug,Memory Peak Usage,1015.564 kb
+Sun May 20 23:20:35 MDT 2012,debug,Application,Complete
+Sun May 20 23:20:35 MDT 2012,debug,Application,Instantiated
+Sun May 20 23:20:35 MDT 2012,debug,Script Time,0.010298013687134
+Sun May 20 23:20:35 MDT 2012,debug,Memory Usage,849.084 kb
+Sun May 20 23:20:35 MDT 2012,debug,Memory Peak Usage,854.884 kb
+Sun May 20 23:20:35 MDT 2012,debug,Application,Complete
+Sun May 20 23:21:03 MDT 2012,debug,Application,Instantiated
+Sun May 20 23:21:03 MDT 2012,debug,Script Time,0.01515007019043
+Sun May 20 23:21:03 MDT 2012,debug,Memory Usage,968.968 kb
+Sun May 20 23:21:03 MDT 2012,debug,Memory Peak Usage,1015.588 kb
+Sun May 20 23:21:03 MDT 2012,debug,Application,Complete
+Sun May 20 23:21:03 MDT 2012,debug,Application,Instantiated
+Sun May 20 23:21:03 MDT 2012,debug,Script Time,0.012737035751343
+Sun May 20 23:21:03 MDT 2012,debug,Memory Usage,849.148 kb
+Sun May 20 23:21:03 MDT 2012,debug,Memory Peak Usage,854.948 kb
+Sun May 20 23:21:03 MDT 2012,debug,Application,Complete
+Sun May 20 23:21:13 MDT 2012,debug,Application,Instantiated
+Sun May 20 23:21:13 MDT 2012,debug,PDO Query,SELECT  *  FROM tests 
+Sun May 20 23:21:13 MDT 2012,debug,PDO Data,   
+Sun May 20 23:21:13 MDT 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+Sun May 20 23:21:13 MDT 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+Sun May 20 23:21:13 MDT 2012,debug,PDO Data,   
+Sun May 20 23:21:13 MDT 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+Sun May 20 23:21:13 MDT 2012,debug,Script Time,0.032540082931519
+Sun May 20 23:21:13 MDT 2012,debug,Memory Usage,981.4 kb
+Sun May 20 23:21:13 MDT 2012,debug,Memory Peak Usage,1039.296 kb
+Sun May 20 23:21:13 MDT 2012,debug,Application,Complete
+Sun May 20 23:21:14 MDT 2012,debug,Application,Instantiated
+Sun May 20 23:21:14 MDT 2012,debug,Script Time,0.0061728954315186
+Sun May 20 23:21:14 MDT 2012,debug,Memory Usage,848.912 kb
+Sun May 20 23:21:14 MDT 2012,debug,Memory Peak Usage,854.548 kb
+Sun May 20 23:21:14 MDT 2012,debug,Application,Complete
+Sun May 20 23:22:40 MDT 2012,debug,Application,Instantiated
+Sun May 20 23:22:40 MDT 2012,debug,PDO Query,SELECT  *  FROM tests 
+Sun May 20 23:22:40 MDT 2012,debug,PDO Data,   
+Sun May 20 23:22:40 MDT 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+Sun May 20 23:22:40 MDT 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+Sun May 20 23:22:40 MDT 2012,debug,PDO Data,   
+Sun May 20 23:22:40 MDT 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+Sun May 20 23:22:40 MDT 2012,debug,Script Time,0.01327109336853
+Sun May 20 23:22:40 MDT 2012,debug,Memory Usage,981.688 kb
+Sun May 20 23:22:40 MDT 2012,debug,Memory Peak Usage,1039.488 kb
+Sun May 20 23:22:40 MDT 2012,debug,Application,Complete
+Sun May 20 23:22:40 MDT 2012,debug,Application,Instantiated
+Sun May 20 23:22:40 MDT 2012,debug,Script Time,0.0093531608581543
+Sun May 20 23:22:40 MDT 2012,debug,Memory Usage,849.248 kb
+Sun May 20 23:22:40 MDT 2012,debug,Memory Peak Usage,855.048 kb
+Sun May 20 23:22:40 MDT 2012,debug,Application,Complete
+Sun May 20 23:22:58 MDT 2012,debug,Application,Instantiated
+Sun May 20 23:22:58 MDT 2012,debug,PDO Query,SELECT  *  FROM tests 
+Sun May 20 23:22:58 MDT 2012,debug,PDO Data,   
+Sun May 20 23:22:58 MDT 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+Sun May 20 23:22:58 MDT 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+Sun May 20 23:22:58 MDT 2012,debug,PDO Data,   
+Sun May 20 23:22:58 MDT 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+Sun May 20 23:22:58 MDT 2012,debug,Script Time,0.013891935348511
+Sun May 20 23:22:58 MDT 2012,debug,Memory Usage,981.688 kb
+Sun May 20 23:22:58 MDT 2012,debug,Memory Peak Usage,1039.488 kb
+Sun May 20 23:22:58 MDT 2012,debug,Application,Complete
+Sun May 20 23:22:58 MDT 2012,debug,Application,Instantiated
+Sun May 20 23:22:58 MDT 2012,debug,Script Time,0.012617826461792
+Sun May 20 23:22:58 MDT 2012,debug,Memory Usage,849.248 kb
+Sun May 20 23:22:58 MDT 2012,debug,Memory Peak Usage,855.048 kb
+Sun May 20 23:22:58 MDT 2012,debug,Application,Complete
+Sun May 20 23:23:00 MDT 2012,debug,Application,Instantiated
+Sun May 20 23:23:00 MDT 2012,debug,PDO Query,SELECT  *  FROM tests 
+Sun May 20 23:23:00 MDT 2012,debug,PDO Data,   
+Sun May 20 23:23:00 MDT 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+Sun May 20 23:23:00 MDT 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+Sun May 20 23:23:00 MDT 2012,debug,PDO Data,   
+Sun May 20 23:23:00 MDT 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+Sun May 20 23:23:00 MDT 2012,debug,Script Time,0.021075010299683
+Sun May 20 23:23:00 MDT 2012,debug,Memory Usage,981.688 kb
+Sun May 20 23:23:00 MDT 2012,debug,Memory Peak Usage,1039.488 kb
+Sun May 20 23:23:00 MDT 2012,debug,Application,Complete
+Sun May 20 23:23:00 MDT 2012,debug,Application,Instantiated
+Sun May 20 23:23:00 MDT 2012,debug,Script Time,0.012342929840088
+Sun May 20 23:23:00 MDT 2012,debug,Memory Usage,849.248 kb
+Sun May 20 23:23:00 MDT 2012,debug,Memory Peak Usage,855.048 kb
+Sun May 20 23:23:00 MDT 2012,debug,Application,Complete
+Sun May 20 23:23:02 MDT 2012,debug,Application,Instantiated
+Sun May 20 23:23:02 MDT 2012,debug,PDO Query,SELECT  *  FROM tests 
+Sun May 20 23:23:02 MDT 2012,debug,PDO Data,   
+Sun May 20 23:23:02 MDT 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+Sun May 20 23:23:02 MDT 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+Sun May 20 23:23:02 MDT 2012,debug,PDO Data,   
+Sun May 20 23:23:02 MDT 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+Sun May 20 23:23:02 MDT 2012,debug,Script Time,0.024235010147095
+Sun May 20 23:23:02 MDT 2012,debug,Memory Usage,981.688 kb
+Sun May 20 23:23:02 MDT 2012,debug,Memory Peak Usage,1039.488 kb
+Sun May 20 23:23:02 MDT 2012,debug,Application,Complete
+Sun May 20 23:23:02 MDT 2012,debug,Application,Instantiated
+Sun May 20 23:23:02 MDT 2012,debug,Script Time,0.01123309135437
+Sun May 20 23:23:02 MDT 2012,debug,Memory Usage,849.248 kb
+Sun May 20 23:23:02 MDT 2012,debug,Memory Peak Usage,855.048 kb
+Sun May 20 23:23:02 MDT 2012,debug,Application,Complete
+Sun May 20 23:23:11 MDT 2012,debug,Application,Instantiated
+Sun May 20 23:23:11 MDT 2012,debug,PDO Query,SELECT  *  FROM tests 
+Sun May 20 23:23:11 MDT 2012,debug,PDO Data,   
+Sun May 20 23:23:11 MDT 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+Sun May 20 23:23:11 MDT 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+Sun May 20 23:23:11 MDT 2012,debug,PDO Data,   
+Sun May 20 23:23:11 MDT 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+Sun May 20 23:23:11 MDT 2012,debug,Script Time,0.01386284828186
+Sun May 20 23:23:11 MDT 2012,debug,Memory Usage,981.688 kb
+Sun May 20 23:23:11 MDT 2012,debug,Memory Peak Usage,1039.488 kb
+Sun May 20 23:23:11 MDT 2012,debug,Application,Complete
+Sun May 20 23:23:11 MDT 2012,debug,Application,Instantiated
+Sun May 20 23:23:11 MDT 2012,debug,Script Time,0.005547046661377
+Sun May 20 23:23:11 MDT 2012,debug,Memory Usage,849.248 kb
+Sun May 20 23:23:11 MDT 2012,debug,Memory Peak Usage,855.048 kb
+Sun May 20 23:23:11 MDT 2012,debug,Application,Complete
+Sun May 20 23:23:27 MDT 2012,debug,Application,Instantiated
+Sun May 20 23:23:27 MDT 2012,debug,PDO Query,SELECT  *  FROM tests 
+Sun May 20 23:23:27 MDT 2012,debug,PDO Data,   
+Sun May 20 23:23:27 MDT 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+Sun May 20 23:23:27 MDT 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+Sun May 20 23:23:27 MDT 2012,debug,PDO Data,   
+Sun May 20 23:23:27 MDT 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+Sun May 20 23:23:27 MDT 2012,debug,Script Time,0.016649007797241
+Sun May 20 23:23:27 MDT 2012,debug,Memory Usage,981.688 kb
+Sun May 20 23:23:27 MDT 2012,debug,Memory Peak Usage,1039.488 kb
+Sun May 20 23:23:27 MDT 2012,debug,Application,Complete
+Sun May 20 23:23:27 MDT 2012,debug,Application,Instantiated
+Sun May 20 23:23:27 MDT 2012,debug,Script Time,0.0092470645904541
+Sun May 20 23:23:27 MDT 2012,debug,Memory Usage,849.248 kb
+Sun May 20 23:23:27 MDT 2012,debug,Memory Peak Usage,855.048 kb
+Sun May 20 23:23:27 MDT 2012,debug,Application,Complete
+Mon May 21 1:04:57 MDT 2012,debug,Application,Instantiated
+Mon May 21 1:04:57 MDT 2012,debug,PDO Query,SELECT  *  FROM tests 
+Mon May 21 1:04:57 MDT 2012,debug,PDO Data,   
+Mon May 21 1:04:57 MDT 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+Mon May 21 1:04:57 MDT 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+Mon May 21 1:04:57 MDT 2012,debug,PDO Data,   
+Mon May 21 1:04:57 MDT 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+Mon May 21 1:04:57 MDT 2012,debug,Script Time,0.039435148239136
+Mon May 21 1:04:57 MDT 2012,debug,Memory Usage,981.68 kb
+Mon May 21 1:04:57 MDT 2012,debug,Memory Peak Usage,1039.556 kb
+Mon May 21 1:04:57 MDT 2012,debug,Application,Complete
+Mon May 21 1:04:57 MDT 2012,debug,Application,Instantiated
+Mon May 21 1:04:57 MDT 2012,debug,Script Time,0.016853094100952
+Mon May 21 1:04:57 MDT 2012,debug,Memory Usage,849.72 kb
+Mon May 21 1:04:57 MDT 2012,debug,Memory Peak Usage,855.448 kb
+Mon May 21 1:04:57 MDT 2012,debug,Application,Complete
+Mon May 21 1:04:58 MDT 2012,debug,Application,Instantiated
+Mon May 21 1:04:58 MDT 2012,debug,PDO Query,SELECT  *  FROM tests 
+Mon May 21 1:04:58 MDT 2012,debug,PDO Data,   
+Mon May 21 1:04:58 MDT 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+Mon May 21 1:04:58 MDT 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+Mon May 21 1:04:58 MDT 2012,debug,PDO Data,   
+Mon May 21 1:04:58 MDT 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+Mon May 21 1:04:58 MDT 2012,debug,Script Time,0.022753953933716
+Mon May 21 1:04:58 MDT 2012,debug,Memory Usage,981.68 kb
+Mon May 21 1:04:58 MDT 2012,debug,Memory Peak Usage,1039.556 kb
+Mon May 21 1:04:58 MDT 2012,debug,Application,Complete
+Mon May 21 1:04:58 MDT 2012,debug,Application,Instantiated
+Mon May 21 1:04:58 MDT 2012,debug,Script Time,0.012461185455322
+Mon May 21 1:04:58 MDT 2012,debug,Memory Usage,849.72 kb
+Mon May 21 1:04:58 MDT 2012,debug,Memory Peak Usage,855.448 kb
+Mon May 21 1:04:58 MDT 2012,debug,Application,Complete
+Mon May 21 1:05:18 MDT 2012,debug,Application,Instantiated
+Mon May 21 1:05:18 MDT 2012,debug,PDO Query,SELECT  *  FROM tests 
+Mon May 21 1:05:18 MDT 2012,debug,PDO Data,   
+Mon May 21 1:05:18 MDT 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+Mon May 21 1:05:18 MDT 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+Mon May 21 1:05:18 MDT 2012,debug,PDO Data,   
+Mon May 21 1:05:18 MDT 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+Mon May 21 1:05:18 MDT 2012,debug,Script Time,0.032835960388184
+Mon May 21 1:05:18 MDT 2012,debug,Memory Usage,981.68 kb
+Mon May 21 1:05:18 MDT 2012,debug,Memory Peak Usage,1039.556 kb
+Mon May 21 1:05:18 MDT 2012,debug,Application,Complete
+Mon May 21 1:05:18 MDT 2012,debug,Application,Instantiated
+Mon May 21 1:05:18 MDT 2012,debug,Script Time,0.012237071990967
+Mon May 21 1:05:18 MDT 2012,debug,Memory Usage,849.72 kb
+Mon May 21 1:05:18 MDT 2012,debug,Memory Peak Usage,855.448 kb
+Mon May 21 1:05:18 MDT 2012,debug,Application,Complete
+1:05:21 MDT Mon May 21 2012,debug,Application,Instantiated
+1:05:21 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:05:21 MDT Mon May 21 2012,debug,PDO Data,   
+1:05:21 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:05:21 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:05:21 MDT Mon May 21 2012,debug,PDO Data,   
+1:05:21 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:05:21 MDT Mon May 21 2012,debug,Script Time,0.025002956390381
+1:05:21 MDT Mon May 21 2012,debug,Memory Usage,981.68 kb
+1:05:21 MDT Mon May 21 2012,debug,Memory Peak Usage,1039.556 kb
+1:05:21 MDT Mon May 21 2012,debug,Application,Complete
+1:05:21 MDT Mon May 21 2012,debug,Application,Instantiated
+1:05:21 MDT Mon May 21 2012,debug,Script Time,0.010424852371216
+1:05:21 MDT Mon May 21 2012,debug,Memory Usage,849.72 kb
+1:05:21 MDT Mon May 21 2012,debug,Memory Peak Usage,855.448 kb
+1:05:21 MDT Mon May 21 2012,debug,Application,Complete
+1:05:23 MDT Mon May 21 2012,debug,Application,Instantiated
+1:05:23 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:05:23 MDT Mon May 21 2012,debug,PDO Data,   
+1:05:23 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:05:23 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:05:23 MDT Mon May 21 2012,debug,PDO Data,   
+1:05:23 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:05:23 MDT Mon May 21 2012,debug,Script Time,0.024955034255981
+1:05:23 MDT Mon May 21 2012,debug,Memory Usage,981.68 kb
+1:05:23 MDT Mon May 21 2012,debug,Memory Peak Usage,1039.556 kb
+1:05:23 MDT Mon May 21 2012,debug,Application,Complete
+1:05:23 MDT Mon May 21 2012,debug,Application,Instantiated
+1:05:23 MDT Mon May 21 2012,debug,Script Time,0.0075879096984863
+1:05:23 MDT Mon May 21 2012,debug,Memory Usage,849.72 kb
+1:05:23 MDT Mon May 21 2012,debug,Memory Peak Usage,855.448 kb
+1:05:23 MDT Mon May 21 2012,debug,Application,Complete
+1:05:29 MDT Mon May 21 2012,debug,Application,Instantiated
+1:05:29 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:05:29 MDT Mon May 21 2012,debug,PDO Data,   
+1:05:29 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:05:29 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:05:29 MDT Mon May 21 2012,debug,PDO Data,   
+1:05:29 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:05:29 MDT Mon May 21 2012,debug,Script Time,0.030045986175537
+1:05:29 MDT Mon May 21 2012,debug,Memory Usage,981.416 kb
+1:05:29 MDT Mon May 21 2012,debug,Memory Peak Usage,1039.344 kb
+1:05:29 MDT Mon May 21 2012,debug,Application,Complete
+1:05:30 MDT Mon May 21 2012,debug,Application,Instantiated
+1:05:30 MDT Mon May 21 2012,debug,Script Time,0.0094530582427979
+1:05:30 MDT Mon May 21 2012,debug,Memory Usage,849.344 kb
+1:05:30 MDT Mon May 21 2012,debug,Memory Peak Usage,855.144 kb
+1:05:30 MDT Mon May 21 2012,debug,Application,Complete
+1:07:24 MDT Mon May 21 2012,debug,Application,Instantiated
+1:07:24 MDT Mon May 21 2012,debug,PDO Query,SHOW COLUMNS FROM tests
+1:07:24 MDT Mon May 21 2012,debug,PDO Data,   
+1:07:24 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:07:24 MDT Mon May 21 2012,debug,PDO Query,DELETE FROM tests WHERE tests.id = ? 
+1:07:24 MDT Mon May 21 2012,debug,PDO Data,      0: 1  
+1:07:24 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:07:24 MDT Mon May 21 2012,debug,Script Time,0.058210849761963
+1:07:24 MDT Mon May 21 2012,debug,Memory Usage,936.416 kb
+1:07:24 MDT Mon May 21 2012,debug,Memory Peak Usage,983.58 kb
+1:07:24 MDT Mon May 21 2012,debug,Application,Complete
+1:07:24 MDT Mon May 21 2012,debug,Application,Instantiated
+1:07:24 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:07:24 MDT Mon May 21 2012,debug,PDO Data,   
+1:07:24 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:07:24 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:07:24 MDT Mon May 21 2012,debug,PDO Data,   
+1:07:24 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:07:24 MDT Mon May 21 2012,debug,Script Time,0.016320943832397
+1:07:24 MDT Mon May 21 2012,debug,Memory Usage,980.66 kb
+1:07:24 MDT Mon May 21 2012,debug,Memory Peak Usage,1038.704 kb
+1:07:24 MDT Mon May 21 2012,debug,Application,Complete
+1:07:24 MDT Mon May 21 2012,debug,Application,Instantiated
+1:07:24 MDT Mon May 21 2012,debug,Script Time,0.0075891017913818
+1:07:24 MDT Mon May 21 2012,debug,Memory Usage,849.4 kb
+1:07:24 MDT Mon May 21 2012,debug,Memory Peak Usage,855.176 kb
+1:07:24 MDT Mon May 21 2012,debug,Application,Complete
+1:08:47 MDT Mon May 21 2012,debug,Application,Instantiated
+1:08:47 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:08:47 MDT Mon May 21 2012,debug,PDO Data,   
+1:08:47 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:08:47 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:08:47 MDT Mon May 21 2012,debug,PDO Data,   
+1:08:47 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:08:47 MDT Mon May 21 2012,debug,Script Time,0.024608850479126
+1:08:47 MDT Mon May 21 2012,debug,Memory Usage,981.276 kb
+1:08:47 MDT Mon May 21 2012,debug,Memory Peak Usage,1039.16 kb
+1:08:47 MDT Mon May 21 2012,debug,Application,Complete
+1:08:48 MDT Mon May 21 2012,debug,Application,Instantiated
+1:08:48 MDT Mon May 21 2012,debug,Script Time,0.0073699951171875
+1:08:48 MDT Mon May 21 2012,debug,Memory Usage,850.072 kb
+1:08:48 MDT Mon May 21 2012,debug,Memory Peak Usage,855.76 kb
+1:08:48 MDT Mon May 21 2012,debug,Application,Complete
+1:09:37 MDT Mon May 21 2012,debug,Application,Instantiated
+1:09:37 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:09:37 MDT Mon May 21 2012,debug,PDO Data,   
+1:09:37 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:09:37 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:09:37 MDT Mon May 21 2012,debug,PDO Data,   
+1:09:37 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:09:37 MDT Mon May 21 2012,debug,Script Time,0.021919012069702
+1:09:37 MDT Mon May 21 2012,debug,Memory Usage,980.66 kb
+1:09:37 MDT Mon May 21 2012,debug,Memory Peak Usage,1038.704 kb
+1:09:37 MDT Mon May 21 2012,debug,Application,Complete
+1:09:37 MDT Mon May 21 2012,debug,Application,Instantiated
+1:09:37 MDT Mon May 21 2012,debug,Script Time,0.012933015823364
+1:09:37 MDT Mon May 21 2012,debug,Memory Usage,849.4 kb
+1:09:37 MDT Mon May 21 2012,debug,Memory Peak Usage,855.176 kb
+1:09:37 MDT Mon May 21 2012,debug,Application,Complete
+1:11:49 MDT Mon May 21 2012,debug,Application,Instantiated
+1:11:49 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:11:49 MDT Mon May 21 2012,debug,PDO Data,   
+1:11:49 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:11:49 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:11:49 MDT Mon May 21 2012,debug,PDO Data,   
+1:11:49 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:11:49 MDT Mon May 21 2012,debug,Script Time,0.023081064224243
+1:11:49 MDT Mon May 21 2012,debug,Memory Usage,981.324 kb
+1:11:49 MDT Mon May 21 2012,debug,Memory Peak Usage,1039.328 kb
+1:11:49 MDT Mon May 21 2012,debug,Application,Complete
+1:11:49 MDT Mon May 21 2012,debug,Application,Instantiated
+1:11:49 MDT Mon May 21 2012,debug,Script Time,0.012913942337036
+1:11:49 MDT Mon May 21 2012,debug,Memory Usage,850.004 kb
+1:11:49 MDT Mon May 21 2012,debug,Memory Peak Usage,855.904 kb
+1:11:49 MDT Mon May 21 2012,debug,Application,Complete
+1:15:30 MDT Mon May 21 2012,debug,Application,Instantiated
+1:15:30 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:15:30 MDT Mon May 21 2012,debug,PDO Data,   
+1:15:30 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:15:30 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:15:30 MDT Mon May 21 2012,debug,PDO Data,   
+1:15:30 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:15:30 MDT Mon May 21 2012,debug,Script Time,0.021850109100342
+1:15:30 MDT Mon May 21 2012,debug,Memory Usage,979.888 kb
+1:15:30 MDT Mon May 21 2012,debug,Memory Peak Usage,1037.876 kb
+1:15:30 MDT Mon May 21 2012,debug,Application,Complete
+1:15:30 MDT Mon May 21 2012,debug,Application,Instantiated
+1:15:30 MDT Mon May 21 2012,debug,Script Time,0.0077669620513916
+1:15:30 MDT Mon May 21 2012,debug,Memory Usage,848.62 kb
+1:15:30 MDT Mon May 21 2012,debug,Memory Peak Usage,854.312 kb
+1:15:30 MDT Mon May 21 2012,debug,Application,Complete
+1:15:50 MDT Mon May 21 2012,debug,Application,Instantiated
+1:15:50 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:15:50 MDT Mon May 21 2012,debug,PDO Data,   
+1:15:50 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:15:50 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:15:50 MDT Mon May 21 2012,debug,PDO Data,   
+1:15:50 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:15:50 MDT Mon May 21 2012,debug,Script Time,0.018033981323242
+1:15:50 MDT Mon May 21 2012,debug,Memory Usage,979.304 kb
+1:15:50 MDT Mon May 21 2012,debug,Memory Peak Usage,1037.3 kb
+1:15:50 MDT Mon May 21 2012,debug,Application,Complete
+1:15:50 MDT Mon May 21 2012,debug,Application,Instantiated
+1:15:50 MDT Mon May 21 2012,debug,Script Time,0.0075118541717529
+1:15:50 MDT Mon May 21 2012,debug,Memory Usage,848.076 kb
+1:15:50 MDT Mon May 21 2012,debug,Memory Peak Usage,853.86 kb
+1:15:50 MDT Mon May 21 2012,debug,Application,Complete
+1:16:06 MDT Mon May 21 2012,debug,Application,Instantiated
+1:16:06 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:16:06 MDT Mon May 21 2012,debug,PDO Data,   
+1:16:06 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:16:06 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:16:06 MDT Mon May 21 2012,debug,PDO Data,   
+1:16:06 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:16:06 MDT Mon May 21 2012,debug,Script Time,0.01817798614502
+1:16:06 MDT Mon May 21 2012,debug,Memory Usage,979.304 kb
+1:16:06 MDT Mon May 21 2012,debug,Memory Peak Usage,1037.3 kb
+1:16:06 MDT Mon May 21 2012,debug,Application,Complete
+1:16:07 MDT Mon May 21 2012,debug,Application,Instantiated
+1:16:07 MDT Mon May 21 2012,debug,Script Time,0.010384082794189
+1:16:07 MDT Mon May 21 2012,debug,Memory Usage,848.024 kb
+1:16:07 MDT Mon May 21 2012,debug,Memory Peak Usage,853.86 kb
+1:16:07 MDT Mon May 21 2012,debug,Application,Complete
+1:24:05 MDT Mon May 21 2012,debug,Application,Instantiated
+1:24:05 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:24:05 MDT Mon May 21 2012,debug,PDO Data,   
+1:24:05 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:24:05 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:24:05 MDT Mon May 21 2012,debug,PDO Data,   
+1:24:05 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:24:05 MDT Mon May 21 2012,debug,Script Time,0.023440837860107
+1:24:05 MDT Mon May 21 2012,debug,Memory Usage,979.396 kb
+1:24:05 MDT Mon May 21 2012,debug,Memory Peak Usage,1037.376 kb
+1:24:05 MDT Mon May 21 2012,debug,Application,Complete
+1:24:06 MDT Mon May 21 2012,debug,Application,Instantiated
+1:24:06 MDT Mon May 21 2012,debug,Script Time,0.011804819107056
+1:24:06 MDT Mon May 21 2012,debug,Memory Usage,848.136 kb
+1:24:06 MDT Mon May 21 2012,debug,Memory Peak Usage,853.92 kb
+1:24:06 MDT Mon May 21 2012,debug,Application,Complete
+1:24:11 MDT Mon May 21 2012,debug,Application,Instantiated
+1:24:11 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:24:11 MDT Mon May 21 2012,debug,PDO Data,   
+1:24:11 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:24:11 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:24:11 MDT Mon May 21 2012,debug,PDO Data,   
+1:24:11 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:24:11 MDT Mon May 21 2012,debug,Script Time,0.025048017501831
+1:24:11 MDT Mon May 21 2012,debug,Memory Usage,979.304 kb
+1:24:11 MDT Mon May 21 2012,debug,Memory Peak Usage,1037.3 kb
+1:24:11 MDT Mon May 21 2012,debug,Application,Complete
+1:24:11 MDT Mon May 21 2012,debug,Application,Instantiated
+1:24:11 MDT Mon May 21 2012,debug,Script Time,0.0075879096984863
+1:24:11 MDT Mon May 21 2012,debug,Memory Usage,848.024 kb
+1:24:11 MDT Mon May 21 2012,debug,Memory Peak Usage,853.86 kb
+1:24:11 MDT Mon May 21 2012,debug,Application,Complete
+1:25:01 MDT Mon May 21 2012,debug,Application,Instantiated
+1:25:01 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:25:01 MDT Mon May 21 2012,debug,PDO Data,   
+1:25:01 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:25:01 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:25:01 MDT Mon May 21 2012,debug,PDO Data,   
+1:25:01 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:25:01 MDT Mon May 21 2012,debug,Script Time,0.01845908164978
+1:25:01 MDT Mon May 21 2012,debug,Memory Usage,979.452 kb
+1:25:01 MDT Mon May 21 2012,debug,Memory Peak Usage,1037.492 kb
+1:25:01 MDT Mon May 21 2012,debug,Application,Complete
+1:25:01 MDT Mon May 21 2012,debug,Application,Instantiated
+1:25:01 MDT Mon May 21 2012,debug,Script Time,0.011666059494019
+1:25:01 MDT Mon May 21 2012,debug,Memory Usage,848.18 kb
+1:25:01 MDT Mon May 21 2012,debug,Memory Peak Usage,853.964 kb
+1:25:01 MDT Mon May 21 2012,debug,Application,Complete
+1:25:37 MDT Mon May 21 2012,debug,Application,Instantiated
+1:25:37 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:25:37 MDT Mon May 21 2012,debug,PDO Data,   
+1:25:37 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:25:37 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:25:37 MDT Mon May 21 2012,debug,PDO Data,   
+1:25:37 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:25:37 MDT Mon May 21 2012,debug,Script Time,0.033951044082642
+1:25:37 MDT Mon May 21 2012,debug,Memory Usage,979.396 kb
+1:25:37 MDT Mon May 21 2012,debug,Memory Peak Usage,1037.376 kb
+1:25:37 MDT Mon May 21 2012,debug,Application,Complete
+1:25:37 MDT Mon May 21 2012,debug,Application,Instantiated
+1:25:37 MDT Mon May 21 2012,debug,Script Time,0.0073778629302979
+1:25:37 MDT Mon May 21 2012,debug,Memory Usage,848.136 kb
+1:25:37 MDT Mon May 21 2012,debug,Memory Peak Usage,853.92 kb
+1:25:37 MDT Mon May 21 2012,debug,Application,Complete
+1:26:00 MDT Mon May 21 2012,debug,Application,Instantiated
+1:26:00 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:26:00 MDT Mon May 21 2012,debug,PDO Data,   
+1:26:00 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:26:00 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:26:00 MDT Mon May 21 2012,debug,PDO Data,   
+1:26:00 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:26:00 MDT Mon May 21 2012,debug,Script Time,0.024019956588745
+1:26:00 MDT Mon May 21 2012,debug,Memory Usage,979.452 kb
+1:26:00 MDT Mon May 21 2012,debug,Memory Peak Usage,1037.492 kb
+1:26:00 MDT Mon May 21 2012,debug,Application,Complete
+1:26:00 MDT Mon May 21 2012,debug,Application,Instantiated
+1:26:00 MDT Mon May 21 2012,debug,Script Time,0.0084738731384277
+1:26:00 MDT Mon May 21 2012,debug,Memory Usage,848.18 kb
+1:26:00 MDT Mon May 21 2012,debug,Memory Peak Usage,853.964 kb
+1:26:00 MDT Mon May 21 2012,debug,Application,Complete
+1:26:43 MDT Mon May 21 2012,debug,Application,Instantiated
+1:26:43 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:26:43 MDT Mon May 21 2012,debug,PDO Data,   
+1:26:43 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:26:43 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:26:43 MDT Mon May 21 2012,debug,PDO Data,   
+1:26:43 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:26:43 MDT Mon May 21 2012,debug,Script Time,0.015172004699707
+1:26:43 MDT Mon May 21 2012,debug,Memory Usage,979.452 kb
+1:26:43 MDT Mon May 21 2012,debug,Memory Peak Usage,1037.492 kb
+1:26:43 MDT Mon May 21 2012,debug,Application,Complete
+1:26:43 MDT Mon May 21 2012,debug,Application,Instantiated
+1:26:43 MDT Mon May 21 2012,debug,Script Time,0.0098061561584473
+1:26:43 MDT Mon May 21 2012,debug,Memory Usage,848.18 kb
+1:26:43 MDT Mon May 21 2012,debug,Memory Peak Usage,853.964 kb
+1:26:43 MDT Mon May 21 2012,debug,Application,Complete
+1:27:43 MDT Mon May 21 2012,debug,Application,Instantiated
+1:27:43 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:27:43 MDT Mon May 21 2012,debug,PDO Data,   
+1:27:43 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:27:43 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:27:43 MDT Mon May 21 2012,debug,PDO Data,   
+1:27:43 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:27:43 MDT Mon May 21 2012,debug,Script Time,0.024960994720459
+1:27:43 MDT Mon May 21 2012,debug,Memory Usage,979.452 kb
+1:27:43 MDT Mon May 21 2012,debug,Memory Peak Usage,1037.492 kb
+1:27:43 MDT Mon May 21 2012,debug,Application,Complete
+1:27:43 MDT Mon May 21 2012,debug,Application,Instantiated
+1:27:43 MDT Mon May 21 2012,debug,Script Time,0.013313055038452
+1:27:43 MDT Mon May 21 2012,debug,Memory Usage,848.18 kb
+1:27:43 MDT Mon May 21 2012,debug,Memory Peak Usage,853.964 kb
+1:27:43 MDT Mon May 21 2012,debug,Application,Complete
+1:27:45 MDT Mon May 21 2012,debug,Application,Instantiated
+1:27:45 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:27:45 MDT Mon May 21 2012,debug,PDO Data,   
+1:27:45 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:27:45 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:27:45 MDT Mon May 21 2012,debug,PDO Data,   
+1:27:45 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:27:45 MDT Mon May 21 2012,debug,Script Time,0.016642093658447
+1:27:45 MDT Mon May 21 2012,debug,Memory Usage,979.452 kb
+1:27:45 MDT Mon May 21 2012,debug,Memory Peak Usage,1037.492 kb
+1:27:45 MDT Mon May 21 2012,debug,Application,Complete
+1:27:45 MDT Mon May 21 2012,debug,Application,Instantiated
+1:27:45 MDT Mon May 21 2012,debug,Script Time,0.013034105300903
+1:27:45 MDT Mon May 21 2012,debug,Memory Usage,848.18 kb
+1:27:45 MDT Mon May 21 2012,debug,Memory Peak Usage,853.964 kb
+1:27:45 MDT Mon May 21 2012,debug,Application,Complete
+1:27:49 MDT Mon May 21 2012,debug,Application,Instantiated
+1:27:49 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:27:49 MDT Mon May 21 2012,debug,PDO Data,   
+1:27:49 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:27:49 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:27:49 MDT Mon May 21 2012,debug,PDO Data,   
+1:27:49 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:27:49 MDT Mon May 21 2012,debug,Script Time,0.024420976638794
+1:27:49 MDT Mon May 21 2012,debug,Memory Usage,979.452 kb
+1:27:49 MDT Mon May 21 2012,debug,Memory Peak Usage,1037.492 kb
+1:27:49 MDT Mon May 21 2012,debug,Application,Complete
+1:27:49 MDT Mon May 21 2012,debug,Application,Instantiated
+1:27:49 MDT Mon May 21 2012,debug,Script Time,0.0072169303894043
+1:27:49 MDT Mon May 21 2012,debug,Memory Usage,848.18 kb
+1:27:49 MDT Mon May 21 2012,debug,Memory Peak Usage,853.964 kb
+1:27:49 MDT Mon May 21 2012,debug,Application,Complete
+1:31:19 MDT Mon May 21 2012,debug,Application,Instantiated
+1:31:19 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:31:19 MDT Mon May 21 2012,debug,PDO Data,   
+1:31:19 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:31:19 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:31:19 MDT Mon May 21 2012,debug,PDO Data,   
+1:31:19 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:31:19 MDT Mon May 21 2012,debug,Script Time,0.018712043762207
+1:31:19 MDT Mon May 21 2012,debug,Memory Usage,979.636 kb
+1:31:19 MDT Mon May 21 2012,debug,Memory Peak Usage,1037.684 kb
+1:31:19 MDT Mon May 21 2012,debug,Application,Complete
+1:31:19 MDT Mon May 21 2012,debug,Application,Instantiated
+1:31:19 MDT Mon May 21 2012,debug,Script Time,0.012586116790771
+1:31:19 MDT Mon May 21 2012,debug,Memory Usage,848.384 kb
+1:31:19 MDT Mon May 21 2012,debug,Memory Peak Usage,854.112 kb
+1:31:19 MDT Mon May 21 2012,debug,Application,Complete
+1:31:44 MDT Mon May 21 2012,debug,Application,Instantiated
+1:31:44 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:31:44 MDT Mon May 21 2012,debug,PDO Data,   
+1:31:44 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:31:44 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:31:44 MDT Mon May 21 2012,debug,PDO Data,   
+1:31:44 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:31:44 MDT Mon May 21 2012,debug,Script Time,0.015452861785889
+1:31:44 MDT Mon May 21 2012,debug,Memory Usage,979.636 kb
+1:31:44 MDT Mon May 21 2012,debug,Memory Peak Usage,1037.684 kb
+1:31:44 MDT Mon May 21 2012,debug,Application,Complete
+1:31:54 MDT Mon May 21 2012,debug,Application,Instantiated
+1:31:54 MDT Mon May 21 2012,debug,Script Time,0.01607084274292
+1:31:54 MDT Mon May 21 2012,debug,Memory Usage,848.384 kb
+1:31:54 MDT Mon May 21 2012,debug,Memory Peak Usage,854.112 kb
+1:31:54 MDT Mon May 21 2012,debug,Application,Complete
+1:35:11 MDT Mon May 21 2012,debug,Application,Instantiated
+1:35:11 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:35:11 MDT Mon May 21 2012,debug,PDO Data,   
+1:35:11 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:35:11 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:35:11 MDT Mon May 21 2012,debug,PDO Data,   
+1:35:11 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:35:11 MDT Mon May 21 2012,debug,Script Time,0.013952970504761
+1:35:11 MDT Mon May 21 2012,debug,Memory Usage,979.484 kb
+1:35:11 MDT Mon May 21 2012,debug,Memory Peak Usage,1037.54 kb
+1:35:11 MDT Mon May 21 2012,debug,Application,Complete
+1:35:11 MDT Mon May 21 2012,debug,Application,Instantiated
+1:35:11 MDT Mon May 21 2012,debug,Script Time,0.00966477394104
+1:35:11 MDT Mon May 21 2012,debug,Memory Usage,848.248 kb
+1:35:11 MDT Mon May 21 2012,debug,Memory Peak Usage,854.028 kb
+1:35:11 MDT Mon May 21 2012,debug,Application,Complete
+1:35:11 MDT Mon May 21 2012,debug,Application,Instantiated
+1:35:11 MDT Mon May 21 2012,debug,Script Time,0.013363122940063
+1:35:11 MDT Mon May 21 2012,debug,Memory Usage,847.676 kb
+1:35:11 MDT Mon May 21 2012,debug,Memory Peak Usage,855.988 kb
+1:35:11 MDT Mon May 21 2012,debug,Application,Complete
+1:35:11 MDT Mon May 21 2012,debug,Application,Instantiated
+1:35:11 MDT Mon May 21 2012,debug,Script Time,0.012693166732788
+1:35:11 MDT Mon May 21 2012,debug,Memory Usage,847.708 kb
+1:35:11 MDT Mon May 21 2012,debug,Memory Peak Usage,856.112 kb
+1:35:11 MDT Mon May 21 2012,debug,Application,Complete
+1:37:34 MDT Mon May 21 2012,debug,Application,Instantiated
+1:37:34 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:37:34 MDT Mon May 21 2012,debug,PDO Data,   
+1:37:34 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:37:34 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:37:34 MDT Mon May 21 2012,debug,PDO Data,   
+1:37:34 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:37:34 MDT Mon May 21 2012,debug,Script Time,0.023485898971558
+1:37:34 MDT Mon May 21 2012,debug,Memory Usage,979.612 kb
+1:37:34 MDT Mon May 21 2012,debug,Memory Peak Usage,1037.704 kb
+1:37:34 MDT Mon May 21 2012,debug,Application,Complete
+1:37:34 MDT Mon May 21 2012,debug,Application,Instantiated
+1:37:34 MDT Mon May 21 2012,debug,Script Time,0.012206077575684
+1:37:34 MDT Mon May 21 2012,debug,Memory Usage,848.248 kb
+1:37:34 MDT Mon May 21 2012,debug,Memory Peak Usage,854.028 kb
+1:37:34 MDT Mon May 21 2012,debug,Application,Complete
+1:37:37 MDT Mon May 21 2012,debug,Application,Instantiated
+1:37:37 MDT Mon May 21 2012,debug,Script Time,0.01783299446106
+1:37:37 MDT Mon May 21 2012,debug,Memory Usage,968.864 kb
+1:37:37 MDT Mon May 21 2012,debug,Memory Peak Usage,1015.4 kb
+1:37:37 MDT Mon May 21 2012,debug,Application,Complete
+1:37:37 MDT Mon May 21 2012,debug,Application,Instantiated
+1:37:37 MDT Mon May 21 2012,debug,Script Time,0.0075428485870361
+1:37:37 MDT Mon May 21 2012,debug,Memory Usage,848.248 kb
+1:37:37 MDT Mon May 21 2012,debug,Memory Peak Usage,854.028 kb
+1:37:37 MDT Mon May 21 2012,debug,Application,Complete
+1:37:41 MDT Mon May 21 2012,debug,Application,Instantiated
+1:37:41 MDT Mon May 21 2012,debug,Script Time,0.013916969299316
+1:37:41 MDT Mon May 21 2012,debug,Memory Usage,967.52 kb
+1:37:41 MDT Mon May 21 2012,debug,Memory Peak Usage,1014 kb
+1:37:41 MDT Mon May 21 2012,debug,Application,Complete
+1:37:41 MDT Mon May 21 2012,debug,Application,Instantiated
+1:37:41 MDT Mon May 21 2012,debug,Script Time,0.010192155838013
+1:37:41 MDT Mon May 21 2012,debug,Memory Usage,848.248 kb
+1:37:41 MDT Mon May 21 2012,debug,Memory Peak Usage,854.028 kb
+1:37:41 MDT Mon May 21 2012,debug,Application,Complete
+1:44:07 MDT Mon May 21 2012,debug,Application,Instantiated
+1:44:07 MDT Mon May 21 2012,debug,Script Time,0.020343065261841
+1:44:07 MDT Mon May 21 2012,debug,Memory Usage,967.852 kb
+1:44:07 MDT Mon May 21 2012,debug,Memory Peak Usage,1014.36 kb
+1:44:07 MDT Mon May 21 2012,debug,Application,Complete
+1:44:07 MDT Mon May 21 2012,debug,Application,Instantiated
+1:44:07 MDT Mon May 21 2012,debug,Script Time,0.008854866027832
+1:44:07 MDT Mon May 21 2012,debug,Memory Usage,848.544 kb
+1:44:07 MDT Mon May 21 2012,debug,Memory Peak Usage,854.236 kb
+1:44:07 MDT Mon May 21 2012,debug,Application,Complete
+1:45:32 MDT Mon May 21 2012,debug,Application,Instantiated
+1:45:32 MDT Mon May 21 2012,debug,Script Time,0.015352010726929
+1:45:32 MDT Mon May 21 2012,debug,Memory Usage,968.824 kb
+1:45:32 MDT Mon May 21 2012,debug,Memory Peak Usage,1015.332 kb
+1:45:32 MDT Mon May 21 2012,debug,Application,Complete
+1:45:32 MDT Mon May 21 2012,debug,Application,Instantiated
+1:45:32 MDT Mon May 21 2012,debug,Script Time,0.008803129196167
+1:45:32 MDT Mon May 21 2012,debug,Memory Usage,849.504 kb
+1:45:32 MDT Mon May 21 2012,debug,Memory Peak Usage,855.232 kb
+1:45:32 MDT Mon May 21 2012,debug,Application,Complete
+1:46:33 MDT Mon May 21 2012,debug,Application,Instantiated
+1:46:33 MDT Mon May 21 2012,debug,Script Time,0.012168884277344
+1:46:33 MDT Mon May 21 2012,debug,Memory Usage,969.168 kb
+1:46:33 MDT Mon May 21 2012,debug,Memory Peak Usage,1015.676 kb
+1:46:33 MDT Mon May 21 2012,debug,Application,Complete
+1:46:33 MDT Mon May 21 2012,debug,Application,Instantiated
+1:46:33 MDT Mon May 21 2012,debug,Script Time,0.0075550079345703
+1:46:33 MDT Mon May 21 2012,debug,Memory Usage,849.764 kb
+1:46:33 MDT Mon May 21 2012,debug,Memory Peak Usage,855.5 kb
+1:46:33 MDT Mon May 21 2012,debug,Application,Complete
+1:46:47 MDT Mon May 21 2012,debug,Application,Instantiated
+1:46:47 MDT Mon May 21 2012,debug,Script Time,0.011905908584595
+1:46:47 MDT Mon May 21 2012,debug,Memory Usage,968.716 kb
+1:46:47 MDT Mon May 21 2012,debug,Memory Peak Usage,1015.212 kb
+1:46:47 MDT Mon May 21 2012,debug,Application,Complete
+1:46:47 MDT Mon May 21 2012,debug,Application,Instantiated
+1:46:47 MDT Mon May 21 2012,debug,Script Time,0.0077760219573975
+1:46:47 MDT Mon May 21 2012,debug,Memory Usage,849.344 kb
+1:46:47 MDT Mon May 21 2012,debug,Memory Peak Usage,855.152 kb
+1:46:47 MDT Mon May 21 2012,debug,Application,Complete
+1:46:54 MDT Mon May 21 2012,debug,Application,Instantiated
+1:46:54 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:46:54 MDT Mon May 21 2012,debug,PDO Data,   
+1:46:54 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:46:54 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:46:54 MDT Mon May 21 2012,debug,PDO Data,   
+1:46:54 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:46:54 MDT Mon May 21 2012,debug,Script Time,0.028645992279053
+1:46:54 MDT Mon May 21 2012,debug,Memory Usage,980.904 kb
+1:46:54 MDT Mon May 21 2012,debug,Memory Peak Usage,1038.82 kb
+1:46:54 MDT Mon May 21 2012,debug,Application,Complete
+1:46:54 MDT Mon May 21 2012,debug,Application,Instantiated
+1:46:54 MDT Mon May 21 2012,debug,Script Time,0.0097558498382568
+1:46:54 MDT Mon May 21 2012,debug,Memory Usage,849.48 kb
+1:46:54 MDT Mon May 21 2012,debug,Memory Peak Usage,855.26 kb
+1:46:54 MDT Mon May 21 2012,debug,Application,Complete
+1:47:01 MDT Mon May 21 2012,debug,Application,Instantiated
+1:47:01 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:47:01 MDT Mon May 21 2012,debug,PDO Data,   
+1:47:01 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:47:01 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:47:01 MDT Mon May 21 2012,debug,PDO Data,   
+1:47:01 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:47:01 MDT Mon May 21 2012,debug,Script Time,0.016662120819092
+1:47:01 MDT Mon May 21 2012,debug,Memory Usage,980.904 kb
+1:47:01 MDT Mon May 21 2012,debug,Memory Peak Usage,1038.82 kb
+1:47:01 MDT Mon May 21 2012,debug,Application,Complete
+1:47:01 MDT Mon May 21 2012,debug,Application,Instantiated
+1:47:01 MDT Mon May 21 2012,debug,Script Time,0.009289026260376
+1:47:01 MDT Mon May 21 2012,debug,Memory Usage,849.48 kb
+1:47:01 MDT Mon May 21 2012,debug,Memory Peak Usage,855.26 kb
+1:47:01 MDT Mon May 21 2012,debug,Application,Complete
+1:47:04 MDT Mon May 21 2012,debug,Application,Instantiated
+1:47:04 MDT Mon May 21 2012,debug,Script Time,0.013849020004272
+1:47:04 MDT Mon May 21 2012,debug,Memory Usage,970.104 kb
+1:47:04 MDT Mon May 21 2012,debug,Memory Peak Usage,1016.64 kb
+1:47:04 MDT Mon May 21 2012,debug,Application,Complete
+1:47:04 MDT Mon May 21 2012,debug,Application,Instantiated
+1:47:04 MDT Mon May 21 2012,debug,Script Time,0.012734174728394
+1:47:04 MDT Mon May 21 2012,debug,Memory Usage,849.48 kb
+1:47:04 MDT Mon May 21 2012,debug,Memory Peak Usage,855.26 kb
+1:47:04 MDT Mon May 21 2012,debug,Application,Complete
+1:47:06 MDT Mon May 21 2012,debug,Application,Instantiated
+1:47:06 MDT Mon May 21 2012,debug,PDO Query,SHOW COLUMNS FROM tests
+1:47:06 MDT Mon May 21 2012,debug,PDO Data,   
+1:47:06 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:47:06 MDT Mon May 21 2012,debug,PDO Query,INSERT INTO tests (id,test) VALUES(  ? , ?  )
+1:47:06 MDT Mon May 21 2012,debug,PDO Data,      0:      1: asdfasd  
+1:47:06 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:47:06 MDT Mon May 21 2012,debug,Script Time,0.46734309196472
+1:47:06 MDT Mon May 21 2012,debug,Memory Usage,938.12 kb
+1:47:06 MDT Mon May 21 2012,debug,Memory Peak Usage,986.648 kb
+1:47:06 MDT Mon May 21 2012,debug,Application,Complete
+1:47:06 MDT Mon May 21 2012,debug,Application,Instantiated
+1:47:06 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests 
+1:47:06 MDT Mon May 21 2012,debug,PDO Data,   
+1:47:06 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:             
+1:47:06 MDT Mon May 21 2012,debug,PDO Query,SELECT  *  FROM tests  LIMIT 0,6
+1:47:06 MDT Mon May 21 2012,debug,PDO Data,   
+1:47:06 MDT Mon May 21 2012,error,PDO Errors,      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+1:47:06 MDT Mon May 21 2012,debug,Script Time,0.023231983184814
+1:47:06 MDT Mon May 21 2012,debug,Memory Usage,981.42 kb
+1:47:06 MDT Mon May 21 2012,debug,Memory Peak Usage,1039.264 kb
+1:47:06 MDT Mon May 21 2012,debug,Application,Complete
+1:47:07 MDT Mon May 21 2012,debug,Application,Instantiated
+1:47:07 MDT Mon May 21 2012,debug,Script Time,0.0075798034667969
+1:47:07 MDT Mon May 21 2012,debug,Memory Usage,849.48 kb
+1:47:07 MDT Mon May 21 2012,debug,Memory Peak Usage,855.26 kb
+1:47:07 MDT Mon May 21 2012,debug,Application,Complete
+12:32:25 MDT Mon May 21 2012|0.0067579746246338|debug|Logger|Instantiated
+12:32:25 MDT Mon May 21 2012|0.012671947479248|debug|Application|Instantiated
+12:32:25 MDT Mon May 21 2012|0.012896060943604|debug|Raw URI|
+12:32:25 MDT Mon May 21 2012|0.013088941574097|debug|URI|
+12:32:25 MDT Mon May 21 2012|0.016377925872803|debug|Memory Usage|986.684 kb
+12:32:25 MDT Mon May 21 2012|0.01662015914917|debug|Memory Peak Usage|1033.288 kb
+12:32:25 MDT Mon May 21 2012|0.016767978668213|debug|Application|Complete
+12:32:25 MDT Mon May 21 2012|0.006011962890625|debug|Logger|Instantiated
+12:32:25 MDT Mon May 21 2012|0.0065720081329346|debug|Application|Instantiated
+12:32:25 MDT Mon May 21 2012|0.0067811012268066|debug|Raw URI|media/js/jquery,bootstrap.js
+12:32:25 MDT Mon May 21 2012|0.0069811344146729|debug|URI|media/js/jquery,bootstrap.js
+12:32:25 MDT Mon May 21 2012|0.0071680545806885|debug|Memory Usage|866.932 kb
+12:32:25 MDT Mon May 21 2012|0.0072951316833496|debug|Memory Peak Usage|872.624 kb
+12:32:25 MDT Mon May 21 2012|0.0074710845947266|debug|Application|Complete
+22:37:11 MDT Mon May 21 2012|0.013167858123779|debug|Logger|Instantiated
+22:37:11 MDT Mon May 21 2012|0.022122859954834|debug|Application|Instantiated
+22:37:11 MDT Mon May 21 2012|0.022314786911011|debug|Raw URI|
+22:37:11 MDT Mon May 21 2012|0.02250599861145|debug|URI|
+22:38:21 MDT Mon May 21 2012|0.0047609806060791|debug|Logger|Instantiated
+22:38:21 MDT Mon May 21 2012|0.0091040134429932|debug|Application|Instantiated
+22:38:21 MDT Mon May 21 2012|0.0092449188232422|debug|Raw URI|
+22:38:21 MDT Mon May 21 2012|0.0093691349029541|debug|URI|
+22:39:55 MDT Mon May 21 2012|0.012324094772339|debug|Logger|Instantiated
+22:39:55 MDT Mon May 21 2012|0.015363216400146|debug|Application|Instantiated
+22:39:55 MDT Mon May 21 2012|0.015832185745239|debug|Raw URI|
+22:39:55 MDT Mon May 21 2012|0.015956163406372|debug|URI|
+22:39:55 MDT Mon May 21 2012|0.018486022949219|debug|Memory Usage|987.704 kb
+22:39:55 MDT Mon May 21 2012|0.018640041351318|debug|Memory Peak Usage|1034.148 kb
+22:39:55 MDT Mon May 21 2012|0.018775224685669|debug|Application|Complete
+22:39:55 MDT Mon May 21 2012|0.0049889087677002|debug|Logger|Instantiated
+22:39:55 MDT Mon May 21 2012|0.0055859088897705|debug|Application|Instantiated
+22:39:55 MDT Mon May 21 2012|0.0057148933410645|debug|Raw URI|media/js/jquery,bootstrap.js
+22:39:55 MDT Mon May 21 2012|0.0058879852294922|debug|URI|media/js/jquery,bootstrap.js
+22:39:55 MDT Mon May 21 2012|0.0061020851135254|debug|Memory Usage|867.46 kb
+22:39:55 MDT Mon May 21 2012|0.0062410831451416|debug|Memory Peak Usage|873.192 kb
+22:39:55 MDT Mon May 21 2012|0.0063619613647461|debug|Application|Complete
+22:40:28 MDT Mon May 21 2012|0.004417896270752|debug|Logger|Instantiated
+22:40:28 MDT Mon May 21 2012|0.0055577754974365|debug|Application|Instantiated
+22:40:28 MDT Mon May 21 2012|0.0056948661804199|debug|Raw URI|
+22:40:28 MDT Mon May 21 2012|0.0058178901672363|debug|URI|
+22:40:28 MDT Mon May 21 2012|0.0084059238433838|debug|Memory Usage|987.704 kb
+22:40:28 MDT Mon May 21 2012|0.0085809230804443|debug|Memory Peak Usage|1034.148 kb
+22:40:28 MDT Mon May 21 2012|0.0087029933929443|debug|Application|Complete
+22:40:28 MDT Mon May 21 2012|0.0050990581512451|debug|Logger|Instantiated
+22:40:28 MDT Mon May 21 2012|0.0056710243225098|debug|Application|Instantiated
+22:40:28 MDT Mon May 21 2012|0.0058009624481201|debug|Raw URI|media/js/jquery,bootstrap.js
+22:40:28 MDT Mon May 21 2012|0.0059549808502197|debug|URI|media/js/jquery,bootstrap.js
+22:40:28 MDT Mon May 21 2012|0.0062470436096191|debug|Memory Usage|867.46 kb
+22:40:28 MDT Mon May 21 2012|0.0063741207122803|debug|Memory Peak Usage|873.192 kb
+22:40:28 MDT Mon May 21 2012|0.0064949989318848|debug|Application|Complete
+22:40:29 MDT Mon May 21 2012|0.011651039123535|debug|Logger|Instantiated
+22:40:29 MDT Mon May 21 2012|0.013936996459961|debug|Application|Instantiated
+22:40:29 MDT Mon May 21 2012|0.014075040817261|debug|Raw URI|
+22:40:29 MDT Mon May 21 2012|0.014198064804077|debug|URI|
+22:40:29 MDT Mon May 21 2012|0.016496896743774|debug|Memory Usage|987.704 kb
+22:40:29 MDT Mon May 21 2012|0.016639947891235|debug|Memory Peak Usage|1034.148 kb
+22:40:29 MDT Mon May 21 2012|0.016762971878052|debug|Application|Complete
+22:40:30 MDT Mon May 21 2012|0.0076911449432373|debug|Logger|Instantiated
+22:40:30 MDT Mon May 21 2012|0.0081729888916016|debug|Application|Instantiated
+22:40:30 MDT Mon May 21 2012|0.0083560943603516|debug|Raw URI|media/js/jquery,bootstrap.js
+22:40:30 MDT Mon May 21 2012|0.0085780620574951|debug|URI|media/js/jquery,bootstrap.js
+22:40:30 MDT Mon May 21 2012|0.0087101459503174|debug|Memory Usage|867.46 kb
+22:40:30 MDT Mon May 21 2012|0.0088369846343994|debug|Memory Peak Usage|873.192 kb
+22:40:30 MDT Mon May 21 2012|0.0089571475982666|debug|Application|Complete
+22:41:28 MDT Mon May 21 2012|0.0092520713806152|debug|Logger|Instantiated
+22:41:28 MDT Mon May 21 2012|0.013525009155273|debug|Application|Instantiated
+22:41:28 MDT Mon May 21 2012|0.01366400718689|debug|Raw URI|
+22:41:28 MDT Mon May 21 2012|0.013787031173706|debug|URI|
+22:41:28 MDT Mon May 21 2012|0.016085147857666|debug|Memory Usage|987.576 kb
+22:41:28 MDT Mon May 21 2012|0.016235113143921|debug|Memory Peak Usage|1034.148 kb
+22:41:28 MDT Mon May 21 2012|0.016399145126343|debug|Application|Complete
+22:41:28 MDT Mon May 21 2012|0.0049622058868408|debug|Logger|Instantiated
+22:41:28 MDT Mon May 21 2012|0.0055890083312988|debug|Application|Instantiated
+22:41:28 MDT Mon May 21 2012|0.0057351589202881|debug|Raw URI|media/js/jquery,bootstrap.js
+22:41:28 MDT Mon May 21 2012|0.0058591365814209|debug|URI|media/js/jquery,bootstrap.js
+22:41:28 MDT Mon May 21 2012|0.0059990882873535|debug|Memory Usage|867.46 kb
+22:41:28 MDT Mon May 21 2012|0.0062081813812256|debug|Memory Peak Usage|873.192 kb
+22:41:28 MDT Mon May 21 2012|0.0063860416412354|debug|Application|Complete
+22:41:31 MDT Mon May 21 2012|0.011807918548584|debug|Logger|Instantiated
+22:41:31 MDT Mon May 21 2012|0.0140540599823|debug|Application|Instantiated
+22:41:31 MDT Mon May 21 2012|0.01442813873291|debug|Raw URI|gallery
+22:41:31 MDT Mon May 21 2012|0.014780044555664|debug|URI|test/gallery
+22:41:31 MDT Mon May 21 2012|0.016197919845581|debug|PDO Query|SELECT  *  FROM tests 
+22:41:31 MDT Mon May 21 2012|0.016387939453125|debug|PDO Data|   
+22:41:31 MDT Mon May 21 2012|0.023812055587769|error|PDO Errors|      0:                       0: 00000             1:              2:             
+22:41:31 MDT Mon May 21 2012|0.024399995803833|debug|PDO Query|SELECT  *  FROM tests  LIMIT 0,6
+22:41:31 MDT Mon May 21 2012|0.024721145629883|debug|PDO Data|   
+22:41:31 MDT Mon May 21 2012|0.02561092376709|error|PDO Errors|      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+22:41:31 MDT Mon May 21 2012|0.033590078353882|debug|Memory Usage|1000.644 kb
+22:41:31 MDT Mon May 21 2012|0.034028053283691|debug|Memory Peak Usage|1059.24 kb
+22:41:31 MDT Mon May 21 2012|0.03438401222229|debug|Application|Complete
+22:41:31 MDT Mon May 21 2012|0.0065100193023682|debug|Logger|Instantiated
+22:41:31 MDT Mon May 21 2012|0.0071730613708496|debug|Application|Instantiated
+22:41:31 MDT Mon May 21 2012|0.0073840618133545|debug|Raw URI|media/js/jquery,bootstrap.js
+22:41:31 MDT Mon May 21 2012|0.0075860023498535|debug|URI|media/js/jquery,bootstrap.js
+22:41:31 MDT Mon May 21 2012|0.0078010559082031|debug|Memory Usage|867.14 kb
+22:41:31 MDT Mon May 21 2012|0.0079319477081299|debug|Memory Peak Usage|872.82 kb
+22:41:31 MDT Mon May 21 2012|0.0081081390380859|debug|Application|Complete
+22:43:28 MDT Mon May 21 2012|0.011900901794434|debug|Logger|Instantiated
+22:43:28 MDT Mon May 21 2012|0.01422905921936|debug|Application|Instantiated
+22:43:28 MDT Mon May 21 2012|0.014603853225708|debug|Raw URI|gallery
+22:43:28 MDT Mon May 21 2012|0.014977931976318|debug|URI|test/gallery
+22:43:28 MDT Mon May 21 2012|0.017474889755249|debug|PDO Query|SELECT  *  FROM tests 
+22:43:28 MDT Mon May 21 2012|0.017940044403076|debug|PDO Data|   
+22:43:28 MDT Mon May 21 2012|0.028105974197388|error|PDO Errors|      0:                       0: 00000             1:              2:             
+22:43:28 MDT Mon May 21 2012|0.028419971466064|debug|PDO Query|SELECT  *  FROM tests  LIMIT 0,6
+22:43:28 MDT Mon May 21 2012|0.02857494354248|debug|PDO Data|   
+22:43:28 MDT Mon May 21 2012|0.02891993522644|error|PDO Errors|      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+22:43:28 MDT Mon May 21 2012|0.030632019042969|debug|Memory Usage|1000.824 kb
+22:43:28 MDT Mon May 21 2012|0.030777931213379|debug|Memory Peak Usage|1059.496 kb
+22:43:28 MDT Mon May 21 2012|0.030900001525879|debug|Application|Complete
+22:43:28 MDT Mon May 21 2012|0.0061180591583252|debug|Logger|Instantiated
+22:43:28 MDT Mon May 21 2012|0.006680965423584|debug|Application|Instantiated
+22:43:28 MDT Mon May 21 2012|0.0068750381469727|debug|Raw URI|media/js/jquery,bootstrap.js
+22:43:28 MDT Mon May 21 2012|0.0070779323577881|debug|URI|media/js/jquery,bootstrap.js
+22:43:28 MDT Mon May 21 2012|0.0072970390319824|debug|Memory Usage|867.516 kb
+22:43:28 MDT Mon May 21 2012|0.0074539184570312|debug|Memory Peak Usage|873.196 kb
+22:43:28 MDT Mon May 21 2012|0.0075819492340088|debug|Application|Complete
+22:43:36 MDT Mon May 21 2012|0.011954069137573|debug|Logger|Instantiated
+22:43:36 MDT Mon May 21 2012|0.014126062393188|debug|Application|Instantiated
+22:43:36 MDT Mon May 21 2012|0.025645017623901|debug|Raw URI|form
+22:43:36 MDT Mon May 21 2012|0.026196002960205|debug|URI|test/form
+22:43:36 MDT Mon May 21 2012|0.031765937805176|debug|Memory Usage|989.004 kb
+22:43:36 MDT Mon May 21 2012|0.032166957855225|debug|Memory Peak Usage|1035.568 kb
+22:43:36 MDT Mon May 21 2012|0.032516002655029|debug|Application|Complete
+22:43:36 MDT Mon May 21 2012|0.0065710544586182|debug|Logger|Instantiated
+22:43:36 MDT Mon May 21 2012|0.0071489810943604|debug|Application|Instantiated
+22:43:36 MDT Mon May 21 2012|0.0074090957641602|debug|Raw URI|media/js/jquery,bootstrap.js
+22:43:36 MDT Mon May 21 2012|0.0076119899749756|debug|URI|media/js/jquery,bootstrap.js
+22:43:36 MDT Mon May 21 2012|0.0078260898590088|debug|Memory Usage|867.076 kb
+22:43:36 MDT Mon May 21 2012|0.0080339908599854|debug|Memory Peak Usage|872.664 kb
+22:43:36 MDT Mon May 21 2012|0.0082340240478516|debug|Application|Complete
+22:43:41 MDT Mon May 21 2012|0.011759042739868|debug|Logger|Instantiated
+22:43:41 MDT Mon May 21 2012|0.013231039047241|debug|Application|Instantiated
+22:43:41 MDT Mon May 21 2012|0.013367176055908|debug|Raw URI|test/post/
+22:43:41 MDT Mon May 21 2012|0.013490200042725|debug|URI|test/post/
+22:43:41 MDT Mon May 21 2012|0.014077186584473|debug|PDO Query|SHOW COLUMNS FROM tests
+22:43:41 MDT Mon May 21 2012|0.01423716545105|debug|PDO Data|   
+22:43:41 MDT Mon May 21 2012|0.02489709854126|error|PDO Errors|      0:                       0: 00000             1:              2:             
+22:43:41 MDT Mon May 21 2012|0.025883197784424|debug|PDO Query|INSERT INTO tests (id,test) VALUES(  ? , ?  )
+22:43:41 MDT Mon May 21 2012|0.02632212638855|debug|PDO Data|      0:      1: zxcvzxcv  
+22:43:41 MDT Mon May 21 2012|0.051687002182007|error|PDO Errors|      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+22:43:41 MDT Mon May 21 2012|0.052827119827271|debug|Memory Usage|956.868 kb
+22:43:41 MDT Mon May 21 2012|0.053216218948364|debug|Memory Peak Usage|1006.244 kb
+22:43:41 MDT Mon May 21 2012|0.053562164306641|debug|Application|Complete
+22:43:41 MDT Mon May 21 2012|0.0079400539398193|debug|Logger|Instantiated
+22:43:41 MDT Mon May 21 2012|0.0096061229705811|debug|Application|Instantiated
+22:43:41 MDT Mon May 21 2012|0.0099070072174072|debug|Raw URI|test/gallery
+22:43:41 MDT Mon May 21 2012|0.010163068771362|debug|URI|test/gallery
+22:43:41 MDT Mon May 21 2012|0.011951208114624|debug|PDO Query|SELECT  *  FROM tests 
+22:43:41 MDT Mon May 21 2012|0.012291193008423|debug|PDO Data|   
+22:43:41 MDT Mon May 21 2012|0.014010190963745|error|PDO Errors|      0:                       0: 00000             1:              2:             
+22:43:41 MDT Mon May 21 2012|0.014672994613647|debug|PDO Query|SELECT  *  FROM tests  LIMIT 0,6
+22:43:41 MDT Mon May 21 2012|0.015128135681152|debug|PDO Data|   
+22:43:41 MDT Mon May 21 2012|0.016161203384399|error|PDO Errors|      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+22:43:41 MDT Mon May 21 2012|0.020552158355713|debug|Memory Usage|1001.04 kb
+22:43:41 MDT Mon May 21 2012|0.020955085754395|debug|Memory Peak Usage|1059.8 kb
+22:43:41 MDT Mon May 21 2012|0.021301984786987|debug|Application|Complete
+22:43:41 MDT Mon May 21 2012|0.0059809684753418|debug|Logger|Instantiated
+22:43:41 MDT Mon May 21 2012|0.0065288543701172|debug|Application|Instantiated
+22:43:41 MDT Mon May 21 2012|0.0067408084869385|debug|Raw URI|media/js/jquery,bootstrap.js
+22:43:41 MDT Mon May 21 2012|0.0069417953491211|debug|URI|media/js/jquery,bootstrap.js
+22:43:41 MDT Mon May 21 2012|0.0071558952331543|debug|Memory Usage|867.168 kb
+22:43:41 MDT Mon May 21 2012|0.0073089599609375|debug|Memory Peak Usage|872.848 kb
+22:43:41 MDT Mon May 21 2012|0.0074307918548584|debug|Application|Complete
+22:43:43 MDT Mon May 21 2012|0.010723114013672|debug|Logger|Instantiated
+22:43:43 MDT Mon May 21 2012|0.011754989624023|debug|Application|Instantiated
+22:43:43 MDT Mon May 21 2012|0.011906147003174|debug|Raw URI|test/del/3
+22:43:43 MDT Mon May 21 2012|0.012031078338623|debug|URI|test/del/3
+22:43:43 MDT Mon May 21 2012|0.012837171554565|debug|PDO Query|SHOW COLUMNS FROM tests
+22:43:43 MDT Mon May 21 2012|0.013070106506348|debug|PDO Data|   
+22:43:43 MDT Mon May 21 2012|0.015300035476685|error|PDO Errors|      0:                       0: 00000             1:              2:             
+22:43:43 MDT Mon May 21 2012|0.015758991241455|debug|PDO Query|DELETE FROM tests WHERE tests.id = ? 
+22:43:43 MDT Mon May 21 2012|0.016005992889404|debug|PDO Data|      0: 3  
+22:43:43 MDT Mon May 21 2012|0.50192999839783|error|PDO Errors|      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+22:43:43 MDT Mon May 21 2012|0.50256705284119|debug|Memory Usage|955.348 kb
+22:43:43 MDT Mon May 21 2012|0.50280117988586|debug|Memory Peak Usage|1002.792 kb
+22:43:43 MDT Mon May 21 2012|0.50296521186829|debug|Application|Complete
+22:43:43 MDT Mon May 21 2012|0.0068190097808838|debug|Logger|Instantiated
+22:43:43 MDT Mon May 21 2012|0.0081300735473633|debug|Application|Instantiated
+22:43:43 MDT Mon May 21 2012|0.0083491802215576|debug|Raw URI|test/gallery
+22:43:43 MDT Mon May 21 2012|0.008552074432373|debug|URI|test/gallery
+22:43:43 MDT Mon May 21 2012|0.0099079608917236|debug|PDO Query|SELECT  *  FROM tests 
+22:43:43 MDT Mon May 21 2012|0.010324954986572|debug|PDO Data|   
+22:43:43 MDT Mon May 21 2012|0.015002012252808|error|PDO Errors|      0:                       0: 00000             1:              2:             
+22:43:43 MDT Mon May 21 2012|0.015350103378296|debug|PDO Query|SELECT  *  FROM tests  LIMIT 0,6
+22:43:43 MDT Mon May 21 2012|0.0156090259552|debug|PDO Data|   
+22:43:43 MDT Mon May 21 2012|0.016148090362549|error|PDO Errors|      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+22:43:43 MDT Mon May 21 2012|0.018649101257324|debug|Memory Usage|1000.432 kb
+22:43:43 MDT Mon May 21 2012|0.01881217956543|debug|Memory Peak Usage|1059.184 kb
+22:43:43 MDT Mon May 21 2012|0.019011974334717|debug|Application|Complete
+22:43:44 MDT Mon May 21 2012|0.0096712112426758|debug|Logger|Instantiated
+22:43:44 MDT Mon May 21 2012|0.010295152664185|debug|Application|Instantiated
+22:43:44 MDT Mon May 21 2012|0.010505199432373|debug|Raw URI|media/js/jquery,bootstrap.js
+22:43:44 MDT Mon May 21 2012|0.010710000991821|debug|URI|media/js/jquery,bootstrap.js
+22:43:44 MDT Mon May 21 2012|0.010924100875854|debug|Memory Usage|867.168 kb
+22:43:44 MDT Mon May 21 2012|0.011135101318359|debug|Memory Peak Usage|872.848 kb
+22:43:44 MDT Mon May 21 2012|0.011280059814453|debug|Application|Complete
+22:47:13 MDT Mon May 21 2012|0.0093920230865479|debug|Logger|Instantiated
+22:47:13 MDT Mon May 21 2012|0.010435104370117|debug|Application|Instantiated
+22:47:13 MDT Mon May 21 2012|0.010609149932861|debug|Raw URI|test/gallery
+22:47:13 MDT Mon May 21 2012|0.010810136795044|debug|URI|test/gallery
+22:47:13 MDT Mon May 21 2012|0.011938095092773|debug|PDO Query|SELECT  *  FROM tests 
+22:47:13 MDT Mon May 21 2012|0.012130975723267|debug|PDO Data|   
+22:47:13 MDT Mon May 21 2012|0.016972064971924|error|PDO Errors|      0:                       0: 00000             1:              2:             
+22:47:13 MDT Mon May 21 2012|0.017651081085205|debug|PDO Query|SELECT  *  FROM tests  LIMIT 0,6
+22:47:13 MDT Mon May 21 2012|0.018092155456543|debug|PDO Data|   
+22:47:13 MDT Mon May 21 2012|0.018874168395996|error|PDO Errors|      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+22:47:13 MDT Mon May 21 2012|0.023640155792236|debug|Memory Usage|1000.436 kb
+22:47:13 MDT Mon May 21 2012|0.024275064468384|debug|Memory Peak Usage|1059.196 kb
+22:47:13 MDT Mon May 21 2012|0.024633169174194|debug|Application|Complete
+22:47:21 MDT Mon May 21 2012|0.0053551197052002|debug|Logger|Instantiated
+22:47:21 MDT Mon May 21 2012|0.010631084442139|debug|Application|Instantiated
+22:47:21 MDT Mon May 21 2012|0.010815143585205|debug|Raw URI|user
+22:47:21 MDT Mon May 21 2012|0.010939121246338|debug|URI|user
+22:47:21 MDT Mon May 21 2012|0.015433073043823|debug|Memory Usage|1012.92 kb
+22:47:21 MDT Mon May 21 2012|0.015591144561768|debug|Memory Peak Usage|1059.772 kb
+22:47:21 MDT Mon May 21 2012|0.0157151222229|debug|Application|Complete
+22:47:22 MDT Mon May 21 2012|0.011734008789062|debug|Logger|Instantiated
+22:47:22 MDT Mon May 21 2012|0.012853145599365|debug|Application|Instantiated
+22:47:22 MDT Mon May 21 2012|0.013219118118286|debug|Raw URI|media/js/jquery,bootstrap.js
+22:47:22 MDT Mon May 21 2012|0.01357102394104|debug|URI|media/js/jquery,bootstrap.js
+22:47:22 MDT Mon May 21 2012|0.01394510269165|debug|Memory Usage|867.076 kb
+22:47:22 MDT Mon May 21 2012|0.014309167861938|debug|Memory Peak Usage|872.664 kb
+22:47:22 MDT Mon May 21 2012|0.014655113220215|debug|Application|Complete
+22:47:26 MDT Mon May 21 2012|0.0051290988922119|debug|Logger|Instantiated
+22:47:26 MDT Mon May 21 2012|0.0066020488739014|debug|Application|Instantiated
+22:47:26 MDT Mon May 21 2012|0.0068180561065674|debug|Raw URI|user/login
+22:47:26 MDT Mon May 21 2012|0.0069401264190674|debug|URI|user/login
+22:47:26 MDT Mon May 21 2012|0.008228063583374|debug|PDO Query|SHOW COLUMNS FROM users
+22:47:26 MDT Mon May 21 2012|0.0084919929504395|debug|PDO Data|   
+22:47:26 MDT Mon May 21 2012|0.020019054412842|error|PDO Errors|      0:                       0: 00000             1:              2:             
+22:47:26 MDT Mon May 21 2012|0.021075010299683|debug|PDO Query|SELECT  *  FROM users  WHERE users.user = ?  AND users.password = ? 
+22:47:26 MDT Mon May 21 2012|0.021548986434937|debug|PDO Data|      0: admin     1: 2126c4787e634834f4c23b6100ed0873  
+22:47:26 MDT Mon May 21 2012|0.02243709564209|error|PDO Errors|      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+22:47:26 MDT Mon May 21 2012|0.023221015930176|debug|Memory Usage|1007.92 kb
+22:47:26 MDT Mon May 21 2012|0.023355007171631|debug|Memory Peak Usage|1057.736 kb
+22:47:26 MDT Mon May 21 2012|0.023493051528931|debug|Application|Complete
+22:47:26 MDT Mon May 21 2012|0.0076940059661865|debug|Logger|Instantiated
+22:47:26 MDT Mon May 21 2012|0.0090241432189941|debug|Application|Instantiated
+22:47:26 MDT Mon May 21 2012|0.0091609954833984|debug|Raw URI|user/index/welcome
+22:47:26 MDT Mon May 21 2012|0.0093450546264648|debug|URI|user/index/welcome
+22:47:26 MDT Mon May 21 2012|0.010660171508789|debug|PDO Query|SHOW COLUMNS FROM users
+22:47:26 MDT Mon May 21 2012|0.010825157165527|debug|PDO Data|   
+22:47:26 MDT Mon May 21 2012|0.013496160507202|error|PDO Errors|      0:                       0: 00000             1:              2:             
+22:47:26 MDT Mon May 21 2012|0.013986110687256|debug|PDO Query|SELECT  *  FROM users  WHERE users.user = ? 
+22:47:26 MDT Mon May 21 2012|0.014214038848877|debug|PDO Data|      0: admin  
+22:47:26 MDT Mon May 21 2012|0.014749050140381|error|PDO Errors|      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+22:47:26 MDT Mon May 21 2012|0.016617059707642|debug|Memory Usage|1039.512 kb
+22:47:26 MDT Mon May 21 2012|0.016844034194946|debug|Memory Peak Usage|1087.512 kb
+22:47:26 MDT Mon May 21 2012|0.017043113708496|debug|Application|Complete
+22:47:26 MDT Mon May 21 2012|0.011666059494019|debug|Logger|Instantiated
+22:47:26 MDT Mon May 21 2012|0.012765169143677|debug|Application|Instantiated
+22:47:26 MDT Mon May 21 2012|0.01307201385498|debug|Raw URI|media/js/jquery,bootstrap.js
+22:47:26 MDT Mon May 21 2012|0.013197183609009|debug|URI|media/js/jquery,bootstrap.js
+22:47:26 MDT Mon May 21 2012|0.013506174087524|debug|Memory Usage|867.168 kb
+22:47:26 MDT Mon May 21 2012|0.013719081878662|debug|Memory Peak Usage|872.848 kb
+22:47:26 MDT Mon May 21 2012|0.013861179351807|debug|Application|Complete
+22:47:45 MDT Mon May 21 2012|0.011940002441406|debug|Logger|Instantiated
+22:47:45 MDT Mon May 21 2012|0.015094041824341|debug|Application|Instantiated
+22:47:45 MDT Mon May 21 2012|0.015490055084229|debug|Raw URI|user/logout
+22:47:45 MDT Mon May 21 2012|0.015857934951782|debug|URI|user/logout
+22:47:45 MDT Mon May 21 2012|0.016992092132568|debug|Memory Usage|943.052 kb
+22:47:45 MDT Mon May 21 2012|0.01737904548645|debug|Memory Peak Usage|955.608 kb
+22:47:45 MDT Mon May 21 2012|0.017731904983521|debug|Application|Complete
+22:47:45 MDT Mon May 21 2012|0.0059340000152588|debug|Logger|Instantiated
+22:47:45 MDT Mon May 21 2012|0.0071721076965332|debug|Application|Instantiated
+22:47:45 MDT Mon May 21 2012|0.0074639320373535|debug|Raw URI|user/index/goodbye
+22:47:45 MDT Mon May 21 2012|0.0076620578765869|debug|URI|user/index/goodbye
+22:47:45 MDT Mon May 21 2012|0.01027512550354|debug|Memory Usage|1013.948 kb
+22:47:45 MDT Mon May 21 2012|0.010426044464111|debug|Memory Peak Usage|1060.468 kb
+22:47:45 MDT Mon May 21 2012|0.010612964630127|debug|Application|Complete
+22:47:45 MDT Mon May 21 2012|0.011759042739868|debug|Logger|Instantiated
+22:47:45 MDT Mon May 21 2012|0.012434005737305|debug|Application|Instantiated
+22:47:45 MDT Mon May 21 2012|0.012622117996216|debug|Raw URI|media/js/jquery,bootstrap.js
+22:47:45 MDT Mon May 21 2012|0.012744903564453|debug|URI|media/js/jquery,bootstrap.js
+22:47:45 MDT Mon May 21 2012|0.012948989868164|debug|Memory Usage|867.168 kb
+22:47:45 MDT Mon May 21 2012|0.013156890869141|debug|Memory Peak Usage|872.848 kb
+22:47:45 MDT Mon May 21 2012|0.013355016708374|debug|Application|Complete
+23:35:41 MDT Mon May 21 2012|0.0054280757904053|debug|Logger|Instantiated
+23:35:41 MDT Mon May 21 2012|0.0075311660766602|debug|Application|Instantiated
+23:35:41 MDT Mon May 21 2012|0.007742166519165|debug|Raw URI|
+23:35:41 MDT Mon May 21 2012|0.0078940391540527|debug|URI|
+23:36:54 MDT Mon May 21 2012|0.011906147003174|debug|Logger|Instantiated
+23:36:54 MDT Mon May 21 2012|0.013489007949829|debug|Application|Instantiated
+23:36:54 MDT Mon May 21 2012|0.013673067092896|debug|Raw URI|
+23:36:54 MDT Mon May 21 2012|0.01379919052124|debug|URI|
+23:36:55 MDT Mon May 21 2012|0.0041720867156982|debug|Logger|Instantiated
+23:36:55 MDT Mon May 21 2012|0.0051660537719727|debug|Application|Instantiated
+23:36:55 MDT Mon May 21 2012|0.0052990913391113|debug|Raw URI|
+23:36:55 MDT Mon May 21 2012|0.0054221153259277|debug|URI|
+23:36:55 MDT Mon May 21 2012|0.011560916900635|debug|Logger|Instantiated
+23:36:55 MDT Mon May 21 2012|0.014235019683838|debug|Application|Instantiated
+23:36:55 MDT Mon May 21 2012|0.014607906341553|debug|Raw URI|
+23:36:55 MDT Mon May 21 2012|0.01495885848999|debug|URI|
+23:38:07 MDT Mon May 21 2012|0.0047621726989746|debug|Logger|Instantiated
+23:38:07 MDT Mon May 21 2012|0.0059959888458252|debug|Application|Instantiated
+23:38:07 MDT Mon May 21 2012|0.0061299800872803|debug|Raw URI|
+23:38:07 MDT Mon May 21 2012|0.0063130855560303|debug|URI|
+23:38:17 MDT Mon May 21 2012|0.011902093887329|debug|Logger|Instantiated
+23:38:28 MDT Mon May 21 2012|0.0042710304260254|debug|Logger|Instantiated
+23:38:28 MDT Mon May 21 2012|0.0053510665893555|debug|Application|Instantiated
+23:38:28 MDT Mon May 21 2012|0.0054900646209717|debug|Raw URI|
+23:38:28 MDT Mon May 21 2012|0.0056149959564209|debug|URI|
+23:38:35 MDT Mon May 21 2012|0.0068128108978271|debug|Logger|Instantiated
+23:38:35 MDT Mon May 21 2012|0.0078458786010742|debug|Application|Instantiated
+23:38:35 MDT Mon May 21 2012|0.0079920291900635|debug|Raw URI|
+23:38:35 MDT Mon May 21 2012|0.0081169605255127|debug|URI|
+23:38:35 MDT Mon May 21 2012|0.010293960571289|debug|Memory Usage|964.908 kb
+23:38:35 MDT Mon May 21 2012|0.010447025299072|debug|Memory Peak Usage|1008.276 kb
+23:38:35 MDT Mon May 21 2012|0.01056981086731|debug|Application|Complete
+23:38:57 MDT Mon May 21 2012|0.011723041534424|debug|Logger|Instantiated
+23:38:57 MDT Mon May 21 2012|0.01280689239502|debug|Application|Instantiated
+23:38:57 MDT Mon May 21 2012|0.01294207572937|debug|Raw URI|
+23:38:57 MDT Mon May 21 2012|0.013067007064819|debug|URI|
+23:39:28 MDT Mon May 21 2012|0.011903047561646|debug|Logger|Instantiated
+23:39:28 MDT Mon May 21 2012|0.014737129211426|debug|Application|Instantiated
+23:39:28 MDT Mon May 21 2012|0.015121221542358|debug|Raw URI|
+23:39:28 MDT Mon May 21 2012|0.015478134155273|debug|URI|
+23:39:29 MDT Mon May 21 2012|0.0041821002960205|debug|Logger|Instantiated
+23:39:29 MDT Mon May 21 2012|0.0052380561828613|debug|Application|Instantiated
+23:39:29 MDT Mon May 21 2012|0.0053739547729492|debug|Raw URI|
+23:39:29 MDT Mon May 21 2012|0.0054991245269775|debug|URI|
+23:39:29 MDT Mon May 21 2012|0.011626005172729|debug|Logger|Instantiated
+23:39:29 MDT Mon May 21 2012|0.013084888458252|debug|Application|Instantiated
+23:39:29 MDT Mon May 21 2012|0.013226985931396|debug|Raw URI|
+23:39:29 MDT Mon May 21 2012|0.013351917266846|debug|URI|
+23:40:05 MDT Mon May 21 2012|0.011843919754028|debug|Logger|Instantiated
+23:40:05 MDT Mon May 21 2012|0.014523029327393|debug|Application|Instantiated
+23:40:05 MDT Mon May 21 2012|0.014925956726074|debug|Raw URI|
+23:40:05 MDT Mon May 21 2012|0.015279054641724|debug|URI|
+23:40:05 MDT Mon May 21 2012|0.019504070281982|debug|Memory Usage|903.164 kb
+23:40:05 MDT Mon May 21 2012|0.019758939743042|debug|Memory Peak Usage|913.48 kb
+23:40:05 MDT Mon May 21 2012|0.019891977310181|debug|Application|Complete
+23:40:22 MDT Mon May 21 2012|0.004241943359375|debug|Logger|Instantiated
+23:40:22 MDT Mon May 21 2012|0.0052468776702881|debug|Application|Instantiated
+23:40:22 MDT Mon May 21 2012|0.0053830146789551|debug|Raw URI|
+23:40:22 MDT Mon May 21 2012|0.0055069923400879|debug|URI|
+23:40:22 MDT Mon May 21 2012|0.005997896194458|debug|Memory Usage|931.48 kb
+23:40:22 MDT Mon May 21 2012|0.0061330795288086|debug|Memory Peak Usage|940.708 kb
+23:40:22 MDT Mon May 21 2012|0.006256103515625|debug|Application|Complete
+23:40:23 MDT Mon May 21 2012|0.0041768550872803|debug|Logger|Instantiated
+23:40:23 MDT Mon May 21 2012|0.005173921585083|debug|Application|Instantiated
+23:40:23 MDT Mon May 21 2012|0.0053069591522217|debug|Raw URI|
+23:40:23 MDT Mon May 21 2012|0.0054299831390381|debug|URI|
+23:40:23 MDT Mon May 21 2012|0.0058948993682861|debug|Memory Usage|931.48 kb
+23:40:23 MDT Mon May 21 2012|0.0060298442840576|debug|Memory Peak Usage|940.708 kb
+23:40:23 MDT Mon May 21 2012|0.0061519145965576|debug|Application|Complete
+23:41:13 MDT Mon May 21 2012|0.0042681694030762|debug|Logger|Instantiated
+23:41:13 MDT Mon May 21 2012|0.0053009986877441|debug|Application|Instantiated
+23:41:13 MDT Mon May 21 2012|0.0054361820220947|debug|Raw URI|
+23:41:13 MDT Mon May 21 2012|0.0055601596832275|debug|URI|
+23:41:13 MDT Mon May 21 2012|0.0077919960021973|debug|Memory Usage|965.776 kb
+23:41:13 MDT Mon May 21 2012|0.0079410076141357|debug|Memory Peak Usage|1016.78 kb
+23:41:13 MDT Mon May 21 2012|0.0080630779266357|debug|Application|Complete
+23:41:13 MDT Mon May 21 2012|0.0052769184112549|debug|Logger|Instantiated
+23:41:13 MDT Mon May 21 2012|0.005756139755249|debug|Application|Instantiated
+23:41:13 MDT Mon May 21 2012|0.0059680938720703|debug|Raw URI|media/js/jquery,bootstrap.js
+23:41:13 MDT Mon May 21 2012|0.0061430931091309|debug|URI|media/js/jquery,bootstrap.js
+23:41:13 MDT Mon May 21 2012|0.0062761306762695|debug|Memory Usage|868.476 kb
+23:41:13 MDT Mon May 21 2012|0.0064029693603516|debug|Memory Peak Usage|874.28 kb
+23:41:13 MDT Mon May 21 2012|0.0065369606018066|debug|Application|Complete
+23:42:01 MDT Mon May 21 2012|0.0042610168457031|debug|Logger|Instantiated
+23:42:01 MDT Mon May 21 2012|0.0053138732910156|debug|Application|Instantiated
+23:42:01 MDT Mon May 21 2012|0.0054559707641602|debug|Raw URI|
+23:42:01 MDT Mon May 21 2012|0.005579948425293|debug|URI|
+23:42:01 MDT Mon May 21 2012|0.0075838565826416|debug|Memory Usage|965.648 kb
+23:42:01 MDT Mon May 21 2012|0.0077309608459473|debug|Memory Peak Usage|1016.78 kb
+23:42:01 MDT Mon May 21 2012|0.0079250335693359|debug|Application|Complete
+23:42:01 MDT Mon May 21 2012|0.0078840255737305|debug|Logger|Instantiated
+23:42:01 MDT Mon May 21 2012|0.0085380077362061|debug|Application|Instantiated
+23:42:01 MDT Mon May 21 2012|0.0086710453033447|debug|Raw URI|media/js/jquery,bootstrap.js
+23:42:01 MDT Mon May 21 2012|0.0087959766387939|debug|URI|media/js/jquery,bootstrap.js
+23:42:01 MDT Mon May 21 2012|0.0089309215545654|debug|Memory Usage|868.476 kb
+23:42:01 MDT Mon May 21 2012|0.0091280937194824|debug|Memory Peak Usage|874.28 kb
+23:42:01 MDT Mon May 21 2012|0.0093119144439697|debug|Application|Complete
+23:44:41 MDT Mon May 21 2012|0.0057699680328369|debug|Logger|Instantiated
+23:44:41 MDT Mon May 21 2012|0.0069220066070557|debug|Application|Instantiated
+23:44:41 MDT Mon May 21 2012|0.0071399211883545|debug|Raw URI|gallery
+23:44:41 MDT Mon May 21 2012|0.0072920322418213|debug|URI|test/gallery
+23:44:41 MDT Mon May 21 2012|0.0081279277801514|debug|PDO Query|SELECT  *  FROM tests 
+23:44:41 MDT Mon May 21 2012|0.0082991123199463|debug|PDO Data|   
+23:44:41 MDT Mon May 21 2012|0.018213987350464|error|PDO Errors|      0:                       0: 00000             1:              2:             
+23:44:41 MDT Mon May 21 2012|0.018871068954468|debug|PDO Query|SELECT  *  FROM tests  LIMIT 0,6
+23:44:41 MDT Mon May 21 2012|0.019304037094116|debug|PDO Data|   
+23:44:41 MDT Mon May 21 2012|0.01998496055603|error|PDO Errors|      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+23:44:41 MDT Mon May 21 2012|0.0090310573577881|debug|Logger|Instantiated
+23:44:41 MDT Mon May 21 2012|0.010131120681763|debug|Application|Instantiated
+23:44:41 MDT Mon May 21 2012|0.010518074035645|debug|Raw URI|media/js/jquery,bootstrap.js
+23:44:41 MDT Mon May 21 2012|0.01067590713501|debug|URI|media/js/jquery,bootstrap.js
+23:44:41 MDT Mon May 21 2012|0.010891914367676|debug|Memory Usage|868.08 kb
+23:44:41 MDT Mon May 21 2012|0.011101961135864|debug|Memory Peak Usage|873.808 kb
+23:44:41 MDT Mon May 21 2012|0.011229991912842|debug|Application|Complete
+23:45:17 MDT Mon May 21 2012|0.0042870044708252|debug|Logger|Instantiated
+23:45:17 MDT Mon May 21 2012|0.0051360130310059|debug|Application|Instantiated
+23:45:17 MDT Mon May 21 2012|0.0052740573883057|debug|Raw URI|gallery
+23:45:17 MDT Mon May 21 2012|0.0053999423980713|debug|URI|test/gallery
+23:45:17 MDT Mon May 21 2012|0.0060029029846191|debug|PDO Query|SELECT  *  FROM tests 
+23:45:17 MDT Mon May 21 2012|0.0061740875244141|debug|PDO Data|   
+23:45:17 MDT Mon May 21 2012|0.0072519779205322|error|PDO Errors|      0:                       0: 00000             1:              2:             
+23:45:17 MDT Mon May 21 2012|0.0076849460601807|debug|PDO Query|SELECT  *  FROM tests  LIMIT 0,6
+23:45:17 MDT Mon May 21 2012|0.0079710483551025|debug|PDO Data|   
+23:45:17 MDT Mon May 21 2012|0.0084960460662842|error|PDO Errors|      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+23:45:17 MDT Mon May 21 2012|0.011676073074341|debug|Memory Usage|978.86 kb
+23:45:17 MDT Mon May 21 2012|0.011955976486206|debug|Memory Peak Usage|1042.288 kb
+23:45:17 MDT Mon May 21 2012|0.012192010879517|debug|Application|Complete
+23:45:17 MDT Mon May 21 2012|0.011521816253662|debug|Logger|Instantiated
+23:45:17 MDT Mon May 21 2012|0.012318849563599|debug|Application|Instantiated
+23:45:17 MDT Mon May 21 2012|0.012562990188599|debug|Raw URI|media/js/jquery,bootstrap.js
+23:45:17 MDT Mon May 21 2012|0.012799024581909|debug|URI|media/js/jquery,bootstrap.js
+23:45:17 MDT Mon May 21 2012|0.013046979904175|debug|Memory Usage|868.464 kb
+23:45:17 MDT Mon May 21 2012|0.01329779624939|debug|Memory Peak Usage|874.2 kb
+23:45:17 MDT Mon May 21 2012|0.013528823852539|debug|Application|Complete
+23:45:23 MDT Mon May 21 2012|0.010283946990967|debug|Logger|Instantiated
+23:45:23 MDT Mon May 21 2012|0.011116981506348|debug|Application|Instantiated
+23:45:23 MDT Mon May 21 2012|0.011339902877808|debug|Raw URI|gallery
+23:45:23 MDT Mon May 21 2012|0.011466026306152|debug|URI|test/gallery
+23:45:23 MDT Mon May 21 2012|0.012124061584473|debug|PDO Query|SELECT  *  FROM tests 
+23:45:23 MDT Mon May 21 2012|0.012295007705688|debug|PDO Data|   
+23:45:23 MDT Mon May 21 2012|0.013753890991211|error|PDO Errors|      0:                       0: 00000             1:              2:             
+23:45:23 MDT Mon May 21 2012|0.014440059661865|debug|PDO Query|SELECT  *  FROM tests  LIMIT 0,6
+23:45:23 MDT Mon May 21 2012|0.014876842498779|debug|PDO Data|   
+23:45:23 MDT Mon May 21 2012|0.015740871429443|error|PDO Errors|      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+23:45:23 MDT Mon May 21 2012|0.020525932312012|debug|Memory Usage|978.556 kb
+23:45:23 MDT Mon May 21 2012|0.020930051803589|debug|Memory Peak Usage|1041.768 kb
+23:45:23 MDT Mon May 21 2012|0.021306991577148|debug|Application|Complete
+23:45:23 MDT Mon May 21 2012|0.011618137359619|debug|Logger|Instantiated
+23:45:23 MDT Mon May 21 2012|0.012717008590698|debug|Application|Instantiated
+23:45:23 MDT Mon May 21 2012|0.013085126876831|debug|Raw URI|media/js/jquery,bootstrap.js
+23:45:23 MDT Mon May 21 2012|0.013437032699585|debug|URI|media/js/jquery,bootstrap.js
+23:45:23 MDT Mon May 21 2012|0.013811111450195|debug|Memory Usage|868.08 kb
+23:45:23 MDT Mon May 21 2012|0.0141761302948|debug|Memory Peak Usage|873.808 kb
+23:45:23 MDT Mon May 21 2012|0.014564037322998|debug|Application|Complete
+23:45:25 MDT Mon May 21 2012|0.011656999588013|debug|Logger|Instantiated
+23:45:25 MDT Mon May 21 2012|0.013735055923462|debug|Application|Instantiated
+23:45:25 MDT Mon May 21 2012|0.014108896255493|debug|Raw URI|form
+23:45:25 MDT Mon May 21 2012|0.014463901519775|debug|URI|test/form
+23:45:25 MDT Mon May 21 2012|0.019139051437378|debug|Memory Usage|967.084 kb
+23:45:25 MDT Mon May 21 2012|0.019584894180298|debug|Memory Peak Usage|1018.176 kb
+23:45:25 MDT Mon May 21 2012|0.019708871841431|debug|Application|Complete
+23:45:25 MDT Mon May 21 2012|0.0065419673919678|debug|Logger|Instantiated
+23:45:25 MDT Mon May 21 2012|0.0073111057281494|debug|Application|Instantiated
+23:45:25 MDT Mon May 21 2012|0.0075571537017822|debug|Raw URI|media/js/jquery,bootstrap.js
+23:45:25 MDT Mon May 21 2012|0.0078151226043701|debug|URI|media/js/jquery,bootstrap.js
+23:45:25 MDT Mon May 21 2012|0.0080671310424805|debug|Memory Usage|868.08 kb
+23:45:25 MDT Mon May 21 2012|0.0083091259002686|debug|Memory Peak Usage|873.808 kb
+23:45:25 MDT Mon May 21 2012|0.008544921875|debug|Application|Complete
+23:45:27 MDT Mon May 21 2012|0.0078468322753906|debug|Logger|Instantiated
+23:45:27 MDT Mon May 21 2012|0.0094649791717529|debug|Application|Instantiated
+23:45:27 MDT Mon May 21 2012|0.009854793548584|debug|Raw URI|about
+23:45:27 MDT Mon May 21 2012|0.010207891464233|debug|URI|test/about
+23:45:27 MDT Mon May 21 2012|0.013796806335449|debug|Memory Usage|967.084 kb
+23:45:27 MDT Mon May 21 2012|0.013949871063232|debug|Memory Peak Usage|1018.176 kb
+23:45:27 MDT Mon May 21 2012|0.014071941375732|debug|Application|Complete
+23:45:27 MDT Mon May 21 2012|0.011851072311401|debug|Logger|Instantiated
+23:45:27 MDT Mon May 21 2012|0.012953996658325|debug|Application|Instantiated
+23:45:27 MDT Mon May 21 2012|0.013320922851562|debug|Raw URI|media/js/jquery,bootstrap.js
+23:45:27 MDT Mon May 21 2012|0.013682126998901|debug|URI|media/js/jquery,bootstrap.js
+23:45:27 MDT Mon May 21 2012|0.014056921005249|debug|Memory Usage|868.08 kb
+23:45:27 MDT Mon May 21 2012|0.014420986175537|debug|Memory Peak Usage|873.808 kb
+23:45:27 MDT Mon May 21 2012|0.014769077301025|debug|Application|Complete
+23:45:51 MDT Mon May 21 2012|0.011883020401001|debug|Logger|Instantiated
+23:45:51 MDT Mon May 21 2012|0.014594078063965|debug|Application|Instantiated
+23:45:51 MDT Mon May 21 2012|0.014967918395996|debug|Raw URI|
+23:45:51 MDT Mon May 21 2012|0.015322923660278|debug|URI|
+23:45:51 MDT Mon May 21 2012|0.01868200302124|debug|Memory Usage|965.764 kb
+23:45:51 MDT Mon May 21 2012|0.018838882446289|debug|Memory Peak Usage|1016.896 kb
+23:45:51 MDT Mon May 21 2012|0.019031047821045|debug|Application|Complete
+23:45:51 MDT Mon May 21 2012|0.010226011276245|debug|Logger|Instantiated
+23:45:51 MDT Mon May 21 2012|0.010893106460571|debug|Application|Instantiated
+23:45:51 MDT Mon May 21 2012|0.011104106903076|debug|Raw URI|media/js/jquery,bootstrap.js
+23:45:51 MDT Mon May 21 2012|0.011306047439575|debug|URI|media/js/jquery,bootstrap.js
+23:45:51 MDT Mon May 21 2012|0.011520147323608|debug|Memory Usage|868.08 kb
+23:45:51 MDT Mon May 21 2012|0.011680126190186|debug|Memory Peak Usage|873.808 kb
+23:45:51 MDT Mon May 21 2012|0.011831998825073|debug|Application|Complete
+23:45:54 MDT Mon May 21 2012|0.011595964431763|debug|Logger|Instantiated
+23:45:54 MDT Mon May 21 2012|0.013686895370483|debug|Application|Instantiated
+23:45:54 MDT Mon May 21 2012|0.01406192779541|debug|Raw URI|form
+23:45:54 MDT Mon May 21 2012|0.01441502571106|debug|URI|test/form
+23:45:54 MDT Mon May 21 2012|0.019078969955444|debug|Memory Usage|967.084 kb
+23:45:54 MDT Mon May 21 2012|0.019475936889648|debug|Memory Peak Usage|1018.176 kb
+23:45:54 MDT Mon May 21 2012|0.019826889038086|debug|Application|Complete
+23:45:54 MDT Mon May 21 2012|0.0058088302612305|debug|Logger|Instantiated
+23:45:54 MDT Mon May 21 2012|0.0063958168029785|debug|Application|Instantiated
+23:45:54 MDT Mon May 21 2012|0.0066080093383789|debug|Raw URI|media/js/jquery,bootstrap.js
+23:45:54 MDT Mon May 21 2012|0.0067470073699951|debug|URI|media/js/jquery,bootstrap.js
+23:45:54 MDT Mon May 21 2012|0.0068848133087158|debug|Memory Usage|868.08 kb
+23:45:54 MDT Mon May 21 2012|0.0070939064025879|debug|Memory Peak Usage|873.808 kb
+23:45:54 MDT Mon May 21 2012|0.0073118209838867|debug|Application|Complete
+23:45:57 MDT Mon May 21 2012|0.0058481693267822|debug|Logger|Instantiated
+23:45:57 MDT Mon May 21 2012|0.0069830417633057|debug|Application|Instantiated
+23:45:57 MDT Mon May 21 2012|0.0071561336517334|debug|Raw URI|about
+23:45:57 MDT Mon May 21 2012|0.0072782039642334|debug|URI|test/about
+23:45:57 MDT Mon May 21 2012|0.0097131729125977|debug|Memory Usage|967.084 kb
+23:45:57 MDT Mon May 21 2012|0.0098631381988525|debug|Memory Peak Usage|1018.176 kb
+23:45:57 MDT Mon May 21 2012|0.010066986083984|debug|Application|Complete
+23:45:57 MDT Mon May 21 2012|0.0057780742645264|debug|Logger|Instantiated
+23:45:57 MDT Mon May 21 2012|0.0064280033111572|debug|Application|Instantiated
+23:45:57 MDT Mon May 21 2012|0.0065579414367676|debug|Raw URI|media/js/jquery,bootstrap.js
+23:45:57 MDT Mon May 21 2012|0.0067179203033447|debug|URI|media/js/jquery,bootstrap.js
+23:45:57 MDT Mon May 21 2012|0.0069320201873779|debug|Memory Usage|868.08 kb
+23:45:57 MDT Mon May 21 2012|0.0071420669555664|debug|Memory Peak Usage|873.808 kb
+23:45:57 MDT Mon May 21 2012|0.0073189735412598|debug|Application|Complete
+23:45:59 MDT Mon May 21 2012|0.0058319568634033|debug|Logger|Instantiated
+23:45:59 MDT Mon May 21 2012|0.0072169303894043|debug|Application|Instantiated
+23:45:59 MDT Mon May 21 2012|0.0074219703674316|debug|Raw URI|
+23:45:59 MDT Mon May 21 2012|0.0075459480285645|debug|URI|
+23:45:59 MDT Mon May 21 2012|0.010248899459839|debug|Memory Usage|965.764 kb
+23:45:59 MDT Mon May 21 2012|0.010504007339478|debug|Memory Peak Usage|1016.896 kb
+23:45:59 MDT Mon May 21 2012|0.01070499420166|debug|Application|Complete
+23:45:59 MDT Mon May 21 2012|0.0068881511688232|debug|Logger|Instantiated
+23:45:59 MDT Mon May 21 2012|0.0080060958862305|debug|Application|Instantiated
+23:45:59 MDT Mon May 21 2012|0.0083751678466797|debug|Raw URI|media/js/jquery,bootstrap.js
+23:45:59 MDT Mon May 21 2012|0.0087502002716064|debug|URI|media/js/jquery,bootstrap.js
+23:45:59 MDT Mon May 21 2012|0.0091531276702881|debug|Memory Usage|868.08 kb
+23:45:59 MDT Mon May 21 2012|0.0095160007476807|debug|Memory Peak Usage|873.808 kb
+23:45:59 MDT Mon May 21 2012|0.0098600387573242|debug|Application|Complete
+23:46:04 MDT Mon May 21 2012|0.012059926986694|debug|Logger|Instantiated
+23:46:05 MDT Mon May 21 2012|0.1886739730835|debug|Application|Instantiated
+23:46:05 MDT Mon May 21 2012|0.18910384178162|debug|Raw URI|gallery
+23:46:05 MDT Mon May 21 2012|0.18946099281311|debug|URI|test/gallery
+23:46:05 MDT Mon May 21 2012|0.19111394882202|debug|PDO Query|SELECT  *  FROM tests 
+23:46:05 MDT Mon May 21 2012|0.19156980514526|debug|PDO Data|   
+23:46:05 MDT Mon May 21 2012|0.19291377067566|error|PDO Errors|      0:                       0: 00000             1:              2:             
+23:46:05 MDT Mon May 21 2012|0.19314980506897|debug|PDO Query|SELECT  *  FROM tests  LIMIT 0,6
+23:46:05 MDT Mon May 21 2012|0.19329881668091|debug|PDO Data|   
+23:46:05 MDT Mon May 21 2012|0.19388389587402|error|PDO Errors|      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+23:46:05 MDT Mon May 21 2012|0.19872879981995|debug|Memory Usage|978.516 kb
+23:46:05 MDT Mon May 21 2012|0.19914293289185|debug|Memory Peak Usage|1041.728 kb
+23:46:05 MDT Mon May 21 2012|0.19949388504028|debug|Application|Complete
+23:46:05 MDT Mon May 21 2012|0.0058019161224365|debug|Logger|Instantiated
+23:46:05 MDT Mon May 21 2012|0.0064868927001953|debug|Application|Instantiated
+23:46:05 MDT Mon May 21 2012|0.0067009925842285|debug|Raw URI|media/js/jquery,bootstrap.js
+23:46:05 MDT Mon May 21 2012|0.0068769454956055|debug|URI|media/js/jquery,bootstrap.js
+23:46:05 MDT Mon May 21 2012|0.0070099830627441|debug|Memory Usage|868.08 kb
+23:46:05 MDT Mon May 21 2012|0.0071840286254883|debug|Memory Peak Usage|873.808 kb
+23:46:05 MDT Mon May 21 2012|0.0073850154876709|debug|Application|Complete
+23:46:08 MDT Mon May 21 2012|0.0057291984558105|debug|Logger|Instantiated
+23:46:08 MDT Mon May 21 2012|0.0068261623382568|debug|Application|Instantiated
+23:46:08 MDT Mon May 21 2012|0.0070409774780273|debug|Raw URI|form
+23:46:08 MDT Mon May 21 2012|0.0072259902954102|debug|URI|test/form
+23:46:08 MDT Mon May 21 2012|0.0095779895782471|debug|Memory Usage|967.084 kb
+23:46:08 MDT Mon May 21 2012|0.0098130702972412|debug|Memory Peak Usage|1018.176 kb
+23:46:08 MDT Mon May 21 2012|0.0099501609802246|debug|Application|Complete
+23:46:08 MDT Mon May 21 2012|0.0080900192260742|debug|Logger|Instantiated
+23:46:08 MDT Mon May 21 2012|0.0086879730224609|debug|Application|Instantiated
+23:46:08 MDT Mon May 21 2012|0.0089020729064941|debug|Raw URI|media/js/jquery,bootstrap.js
+23:46:08 MDT Mon May 21 2012|0.0090370178222656|debug|URI|media/js/jquery,bootstrap.js
+23:46:08 MDT Mon May 21 2012|0.0091769695281982|debug|Memory Usage|868.08 kb
+23:46:08 MDT Mon May 21 2012|0.0093870162963867|debug|Memory Peak Usage|873.808 kb
+23:46:08 MDT Mon May 21 2012|0.0095880031585693|debug|Application|Complete
+23:46:10 MDT Mon May 21 2012|0.0077090263366699|debug|Logger|Instantiated
+23:46:10 MDT Mon May 21 2012|0.0086450576782227|debug|Application|Instantiated
+23:46:10 MDT Mon May 21 2012|0.0087780952453613|debug|Raw URI|about
+23:46:10 MDT Mon May 21 2012|0.0089011192321777|debug|URI|test/about
+23:46:10 MDT Mon May 21 2012|0.011043071746826|debug|Memory Usage|967.084 kb
+23:46:10 MDT Mon May 21 2012|0.011189937591553|debug|Memory Peak Usage|1018.176 kb
+23:46:10 MDT Mon May 21 2012|0.011383056640625|debug|Application|Complete
+23:46:10 MDT Mon May 21 2012|0.0056509971618652|debug|Logger|Instantiated
+23:46:10 MDT Mon May 21 2012|0.010935068130493|debug|Application|Instantiated
+23:46:10 MDT Mon May 21 2012|0.011363983154297|debug|Raw URI|media/js/jquery,bootstrap.js
+23:46:10 MDT Mon May 21 2012|0.011723041534424|debug|URI|media/js/jquery,bootstrap.js
+23:46:10 MDT Mon May 21 2012|0.012099981307983|debug|Memory Usage|868.08 kb
+23:46:10 MDT Mon May 21 2012|0.012495994567871|debug|Memory Peak Usage|873.808 kb
+23:46:10 MDT Mon May 21 2012|0.01286506652832|debug|Application|Complete
+23:46:42 MDT Mon May 21 2012|0.011913061141968|debug|Logger|Instantiated
+23:46:42 MDT Mon May 21 2012|0.030004978179932|debug|Application|Instantiated
+23:46:42 MDT Mon May 21 2012|0.030478000640869|debug|Raw URI|form
+23:46:42 MDT Mon May 21 2012|0.031017065048218|debug|URI|test/form
+23:46:42 MDT Mon May 21 2012|0.035984039306641|debug|Memory Usage|967.084 kb
+23:46:42 MDT Mon May 21 2012|0.036436080932617|debug|Memory Peak Usage|1018.176 kb
+23:46:42 MDT Mon May 21 2012|0.036792993545532|debug|Application|Complete
+23:46:42 MDT Mon May 21 2012|0.0062470436096191|debug|Logger|Instantiated
+23:46:42 MDT Mon May 21 2012|0.0068149566650391|debug|Application|Instantiated
+23:46:42 MDT Mon May 21 2012|0.0070250034332275|debug|Raw URI|media/js/jquery,bootstrap.js
+23:46:42 MDT Mon May 21 2012|0.0071771144866943|debug|URI|media/js/jquery,bootstrap.js
+23:46:42 MDT Mon May 21 2012|0.007317066192627|debug|Memory Usage|868.08 kb
+23:46:42 MDT Mon May 21 2012|0.0075299739837646|debug|Memory Peak Usage|873.808 kb
+23:46:42 MDT Mon May 21 2012|0.0077331066131592|debug|Application|Complete
+23:46:44 MDT Mon May 21 2012|0.011865854263306|debug|Logger|Instantiated
+23:46:44 MDT Mon May 21 2012|0.013481855392456|debug|Application|Instantiated
+23:46:44 MDT Mon May 21 2012|0.013622999191284|debug|Raw URI|gallery
+23:46:44 MDT Mon May 21 2012|0.013746023178101|debug|URI|test/gallery
+23:46:44 MDT Mon May 21 2012|0.014336824417114|debug|PDO Query|SELECT  *  FROM tests 
+23:46:44 MDT Mon May 21 2012|0.014503955841064|debug|PDO Data|   
+23:46:44 MDT Mon May 21 2012|0.015715837478638|error|PDO Errors|      0:                       0: 00000             1:              2:             
+23:46:44 MDT Mon May 21 2012|0.016021013259888|debug|PDO Query|SELECT  *  FROM tests  LIMIT 0,6
+23:46:44 MDT Mon May 21 2012|0.016171932220459|debug|PDO Data|   
+23:46:44 MDT Mon May 21 2012|0.016474962234497|error|PDO Errors|      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+23:46:44 MDT Mon May 21 2012|0.018364906311035|debug|Memory Usage|978.504 kb
+23:46:44 MDT Mon May 21 2012|0.018587827682495|debug|Memory Peak Usage|1041.812 kb
+23:46:44 MDT Mon May 21 2012|0.018774032592773|debug|Application|Complete
+23:46:45 MDT Mon May 21 2012|0.0099139213562012|debug|Logger|Instantiated
+23:46:45 MDT Mon May 21 2012|0.010470867156982|debug|Application|Instantiated
+23:46:45 MDT Mon May 21 2012|0.010682821273804|debug|Raw URI|media/js/jquery,bootstrap.js
+23:46:45 MDT Mon May 21 2012|0.010885000228882|debug|URI|media/js/jquery,bootstrap.js
+23:46:45 MDT Mon May 21 2012|0.011029005050659|debug|Memory Usage|868.08 kb
+23:46:45 MDT Mon May 21 2012|0.011160850524902|debug|Memory Peak Usage|873.808 kb
+23:46:45 MDT Mon May 21 2012|0.011359930038452|debug|Application|Complete
+23:46:46 MDT Mon May 21 2012|0.0068409442901611|debug|Logger|Instantiated
+23:46:46 MDT Mon May 21 2012|0.0088801383972168|debug|Application|Instantiated
+23:46:46 MDT Mon May 21 2012|0.0090200901031494|debug|Raw URI|
+23:46:46 MDT Mon May 21 2012|0.0091431140899658|debug|URI|
+23:46:46 MDT Mon May 21 2012|0.011805057525635|debug|Memory Usage|965.812 kb
+23:46:46 MDT Mon May 21 2012|0.011985063552856|debug|Memory Peak Usage|1016.944 kb
+23:46:46 MDT Mon May 21 2012|0.012105941772461|debug|Application|Complete
+23:46:46 MDT Mon May 21 2012|0.0057580471038818|debug|Logger|Instantiated
+23:46:46 MDT Mon May 21 2012|0.0062949657440186|debug|Application|Instantiated
+23:46:46 MDT Mon May 21 2012|0.006505012512207|debug|Raw URI|media/js/jquery,bootstrap.js
+23:46:46 MDT Mon May 21 2012|0.0067069530487061|debug|URI|media/js/jquery,bootstrap.js
+23:46:46 MDT Mon May 21 2012|0.0069119930267334|debug|Memory Usage|868.08 kb
+23:46:46 MDT Mon May 21 2012|0.0070390701293945|debug|Memory Peak Usage|873.808 kb
+23:46:46 MDT Mon May 21 2012|0.0071799755096436|debug|Application|Complete
+23:46:48 MDT Mon May 21 2012|0.0088541507720947|debug|Logger|Instantiated
+23:46:48 MDT Mon May 21 2012|0.009998083114624|debug|Application|Instantiated
+23:46:48 MDT Mon May 21 2012|0.01015305519104|debug|Raw URI|
+23:46:48 MDT Mon May 21 2012|0.010355949401855|debug|URI|
+23:46:48 MDT Mon May 21 2012|0.012757062911987|debug|Memory Usage|965.764 kb
+23:46:48 MDT Mon May 21 2012|0.012901067733765|debug|Memory Peak Usage|1016.896 kb
+23:46:48 MDT Mon May 21 2012|0.013093948364258|debug|Application|Complete
+23:46:48 MDT Mon May 21 2012|0.011656999588013|debug|Logger|Instantiated
+23:46:48 MDT Mon May 21 2012|0.012753963470459|debug|Application|Instantiated
+23:46:48 MDT Mon May 21 2012|0.013121843338013|debug|Raw URI|media/js/jquery,bootstrap.js
+23:46:48 MDT Mon May 21 2012|0.013474941253662|debug|URI|media/js/jquery,bootstrap.js
+23:46:48 MDT Mon May 21 2012|0.013848781585693|debug|Memory Usage|868.08 kb
+23:46:48 MDT Mon May 21 2012|0.014217853546143|debug|Memory Peak Usage|873.808 kb
+23:46:48 MDT Mon May 21 2012|0.014566898345947|debug|Application|Complete
+23:46:50 MDT Mon May 21 2012|0.011839866638184|debug|Logger|Instantiated
+23:46:50 MDT Mon May 21 2012|0.01404595375061|debug|Application|Instantiated
+23:46:50 MDT Mon May 21 2012|0.014456987380981|debug|Raw URI|form
+23:46:50 MDT Mon May 21 2012|0.014811992645264|debug|URI|test/form
+23:46:50 MDT Mon May 21 2012|0.019589900970459|debug|Memory Usage|967.084 kb
+23:46:50 MDT Mon May 21 2012|0.019994020462036|debug|Memory Peak Usage|1018.176 kb
+23:46:50 MDT Mon May 21 2012|0.020344972610474|debug|Application|Complete
+23:46:51 MDT Mon May 21 2012|0.0057439804077148|debug|Logger|Instantiated
+23:46:51 MDT Mon May 21 2012|0.006342887878418|debug|Application|Instantiated
+23:46:51 MDT Mon May 21 2012|0.006587028503418|debug|Raw URI|media/js/jquery,bootstrap.js
+23:46:51 MDT Mon May 21 2012|0.0067138671875|debug|URI|media/js/jquery,bootstrap.js
+23:46:51 MDT Mon May 21 2012|0.0068960189819336|debug|Memory Usage|868.08 kb
+23:46:51 MDT Mon May 21 2012|0.0071048736572266|debug|Memory Peak Usage|873.808 kb
+23:46:51 MDT Mon May 21 2012|0.0073039531707764|debug|Application|Complete
+23:46:53 MDT Mon May 21 2012|0.010221004486084|debug|Logger|Instantiated
+23:46:53 MDT Mon May 21 2012|0.011017084121704|debug|Application|Instantiated
+23:46:53 MDT Mon May 21 2012|0.011150121688843|debug|Raw URI|about
+23:46:53 MDT Mon May 21 2012|0.011274099349976|debug|URI|test/about
+23:46:53 MDT Mon May 21 2012|0.01328706741333|debug|Memory Usage|967.084 kb
+23:46:53 MDT Mon May 21 2012|0.013517141342163|debug|Memory Peak Usage|1018.176 kb
+23:46:53 MDT Mon May 21 2012|0.013694047927856|debug|Application|Complete
+23:46:53 MDT Mon May 21 2012|0.01178503036499|debug|Logger|Instantiated
+23:46:53 MDT Mon May 21 2012|0.012370824813843|debug|Application|Instantiated
+23:46:53 MDT Mon May 21 2012|0.012581825256348|debug|Raw URI|media/js/jquery,bootstrap.js
+23:46:53 MDT Mon May 21 2012|0.012712955474854|debug|URI|media/js/jquery,bootstrap.js
+23:46:53 MDT Mon May 21 2012|0.012848854064941|debug|Memory Usage|868.08 kb
+23:46:53 MDT Mon May 21 2012|0.012984037399292|debug|Memory Peak Usage|873.808 kb
+23:46:53 MDT Mon May 21 2012|0.013183832168579|debug|Application|Complete
+23:46:56 MDT Mon May 21 2012|0.0092499256134033|debug|Logger|Instantiated
+23:46:56 MDT Mon May 21 2012|0.01004695892334|debug|Application|Instantiated
+23:46:56 MDT Mon May 21 2012|0.010179996490479|debug|Raw URI|gallery
+23:46:56 MDT Mon May 21 2012|0.010305881500244|debug|URI|test/gallery
+23:46:56 MDT Mon May 21 2012|0.011030912399292|debug|PDO Query|SELECT  *  FROM tests 
+23:46:56 MDT Mon May 21 2012|0.011194944381714|debug|PDO Data|   
+23:46:56 MDT Mon May 21 2012|0.012395858764648|error|PDO Errors|      0:                       0: 00000             1:              2:             
+23:46:56 MDT Mon May 21 2012|0.012786865234375|debug|PDO Query|SELECT  *  FROM tests  LIMIT 0,6
+23:46:56 MDT Mon May 21 2012|0.012969970703125|debug|PDO Data|   
+23:46:56 MDT Mon May 21 2012|0.013360977172852|error|PDO Errors|      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+23:46:56 MDT Mon May 21 2012|0.015458822250366|debug|Memory Usage|978.14 kb
+23:46:56 MDT Mon May 21 2012|0.015622854232788|debug|Memory Peak Usage|1041.368 kb
+23:46:56 MDT Mon May 21 2012|0.015936851501465|debug|Application|Complete
+23:46:56 MDT Mon May 21 2012|0.0057761669158936|debug|Logger|Instantiated
+23:46:56 MDT Mon May 21 2012|0.0067431926727295|debug|Application|Instantiated
+23:46:56 MDT Mon May 21 2012|0.0070440769195557|debug|Raw URI|media/js/jquery,bootstrap.js
+23:46:56 MDT Mon May 21 2012|0.007328987121582|debug|URI|media/js/jquery,bootstrap.js
+23:46:56 MDT Mon May 21 2012|0.0076310634613037|debug|Memory Usage|867.764 kb
+23:46:56 MDT Mon May 21 2012|0.0079250335693359|debug|Memory Peak Usage|873.552 kb
+23:46:56 MDT Mon May 21 2012|0.0082051753997803|debug|Application|Complete
+23:46:58 MDT Mon May 21 2012|0.01186203956604|debug|Logger|Instantiated
+23:46:58 MDT Mon May 21 2012|0.013962984085083|debug|Application|Instantiated
+23:46:58 MDT Mon May 21 2012|0.014330863952637|debug|Raw URI|gallery
+23:46:58 MDT Mon May 21 2012|0.014456033706665|debug|URI|test/gallery
+23:46:58 MDT Mon May 21 2012|0.015053033828735|debug|PDO Query|SELECT  *  FROM tests 
+23:46:58 MDT Mon May 21 2012|0.015215873718262|debug|PDO Data|   
+23:46:58 MDT Mon May 21 2012|0.016403913497925|error|PDO Errors|      0:                       0: 00000             1:              2:             
+23:46:58 MDT Mon May 21 2012|0.016710042953491|debug|PDO Query|SELECT  *  FROM tests  LIMIT 0,6
+23:46:58 MDT Mon May 21 2012|0.016860961914062|debug|PDO Data|   
+23:46:58 MDT Mon May 21 2012|0.017562866210938|error|PDO Errors|      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+23:46:58 MDT Mon May 21 2012|0.019572973251343|debug|Memory Usage|978.212 kb
+23:46:58 MDT Mon May 21 2012|0.019726037979126|debug|Memory Peak Usage|1041.504 kb
+23:46:58 MDT Mon May 21 2012|0.019848823547363|debug|Application|Complete
+23:46:58 MDT Mon May 21 2012|0.011679887771606|debug|Logger|Instantiated
+23:46:58 MDT Mon May 21 2012|0.012797832489014|debug|Application|Instantiated
+23:46:58 MDT Mon May 21 2012|0.013168811798096|debug|Raw URI|media/js/jquery,bootstrap.js
+23:46:58 MDT Mon May 21 2012|0.013525009155273|debug|URI|media/js/jquery,bootstrap.js
+23:46:58 MDT Mon May 21 2012|0.013901948928833|debug|Memory Usage|867.764 kb
+23:46:58 MDT Mon May 21 2012|0.014267921447754|debug|Memory Peak Usage|873.552 kb
+23:46:58 MDT Mon May 21 2012|0.014615774154663|debug|Application|Complete
+0:06:35 MDT Tue May 22 2012|0.0042800903320312|debug|Logger|Instantiated
+0:06:35 MDT Tue May 22 2012|0.005094051361084|debug|Application|Instantiated
+0:06:35 MDT Tue May 22 2012|0.0052289962768555|debug|Raw URI|gallery
+0:06:35 MDT Tue May 22 2012|0.0053529739379883|debug|URI|test/gallery
+0:06:35 MDT Tue May 22 2012|0.0059640407562256|debug|PDO Query|SELECT  *  FROM tests 
+0:06:35 MDT Tue May 22 2012|0.0061311721801758|debug|PDO Data|   
+0:06:35 MDT Tue May 22 2012|0.0072481632232666|error|PDO Errors|      0:                       0: 00000             1:              2:             
+0:06:35 MDT Tue May 22 2012|0.0075521469116211|debug|PDO Query|SELECT  *  FROM tests  LIMIT 0,6
+0:06:35 MDT Tue May 22 2012|0.0077030658721924|debug|PDO Data|   
+0:06:35 MDT Tue May 22 2012|0.0080080032348633|error|PDO Errors|      0:                       0: 00000             1:              2:                1:                       0: 00000             1:              2:             
+0:06:35 MDT Tue May 22 2012|0.0097839832305908|debug|Memory Usage|978.804 kb
+0:06:35 MDT Tue May 22 2012|0.0099442005157471|debug|Memory Peak Usage|1042.1 kb
+0:06:35 MDT Tue May 22 2012|0.01006817817688|debug|Application|Complete
+0:06:36 MDT Tue May 22 2012|0.011642932891846|debug|Logger|Instantiated
+0:06:36 MDT Tue May 22 2012|0.012721061706543|debug|Application|Instantiated
+0:06:36 MDT Tue May 22 2012|0.012938022613525|debug|Raw URI|about
+0:06:36 MDT Tue May 22 2012|0.01311993598938|debug|URI|test/about
+0:06:36 MDT Tue May 22 2012|0.015235900878906|debug|Memory Usage|967.26 kb
+0:06:36 MDT Tue May 22 2012|0.015378952026367|debug|Memory Peak Usage|1018.336 kb
+0:06:36 MDT Tue May 22 2012|0.015501022338867|debug|Application|Complete

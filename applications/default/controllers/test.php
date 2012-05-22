@@ -9,8 +9,9 @@ class TestController extends Controller
 	function actionIndex()
 	{
 		$session = new Session();
-		$this -> useController('user') -> setSessionData( $session, $this -> model() );
-		$this -> view();
+		$config  = new Config();
+
+		$this -> view('index', $this -> model() -> data + $session -> data + $config -> load('application') );
 	}
 
 
@@ -20,8 +21,9 @@ class TestController extends Controller
 	function actionForm()
 	{
 		$session = new Session();
-		$this -> useController('user') -> setSessionData( $session, $this -> model() );
-		$this -> view('form');
+		$config  = new Config();
+
+		$this -> view('form', $this -> model() -> data + $session -> data + $config -> load('application') );
 	}
 
 
@@ -58,7 +60,7 @@ class TestController extends Controller
 	function actionEdit($ref, $new, $column_ref = null, $column_new = null)
 	{
 		$session = new Session();
-		$this -> useController('user') -> setSessionData( $session, $this -> model() );
+		$config  = new Config();
 
 		$this -> model() -> editTest($new, $new_column, $ref, $ref_column );
 		$this -> show();
@@ -73,10 +75,11 @@ class TestController extends Controller
 	function actionShow( $id )
 	{
 		$session = new Session();
-		$this -> useController('user') -> setSessionData( $session, $this -> model() );
+		$config  = new Config();
+
 
 		$this -> model() -> getTest($id);
-		$this -> view('gallery');
+		$this -> view('gallery', $this -> model() -> data + $session -> data + $config -> load('application') );
 	}
 
 
@@ -92,10 +95,10 @@ class TestController extends Controller
 	function actionGallery($page = 1, $order_col = null, $order_sort = null)
 	{
 		$session = new Session();
-		$this -> useController('user') -> setSessionData( $session, $this -> model() );
+		$config  = new Config();
 
 		$this -> model() -> galleryTest( $order_col, $order_sort, $page  );
-		$this -> view('gallery');
+		$this -> view('gallery', $this -> model() -> data + $session -> data + $config -> load('application') );
 	}
 
 
@@ -105,9 +108,9 @@ class TestController extends Controller
 	function actionAbout()
 	{
 		$session = new Session();
-		$this -> useController('user') -> setSessionData( $session, $this -> model() );
+		$config  = new Config();
 
-		$this -> view('about');
+		$this -> view('about', $this -> model() -> data + $session -> data + $config -> load('application') );
 	}
 
 }

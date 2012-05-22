@@ -42,17 +42,14 @@ class Router
 	 */
 	function setURI()
 	{
-
-		global $argc, $argv; // argc and argv are not PHP superglobals.
-
-		if ( isset( $argv[1] ) )
-			$this -> uri = $argv[1];
+		if ( isset( $_SERVER['argv'] ) )
+			$this -> raw_uri = $_SERVER['argv'][1];
 
 		elseif ( isset ( $_GET['uri'] ) )
-			$this -> uri = $_GET['uri'];
+			$this -> raw_uri = $_GET['uri'];
 
 		else
-			$this -> uri = null;
+			$this -> raw_uri = null;
 
 		return $this;
 	}
@@ -77,12 +74,18 @@ class Router
 		{
 			if ( ( $parameters > $position ) && ( $this -> uri_parts[$position] !== '' ) )
 				$this -> $type = $this -> uri_parts[ $position ];
-			elseif( $type === 'controller' )
-				$this -> $type = DEFAULT_CONTROLLER;
-			elseif( $type === 'method' )
-				$this -> $type = DEFAULT_METHOD;
 			else
-				$this -> $type = null;
+			{
+				$config = new Config();
+				$settings = $config -> load ('application');
+
+				if( $type === 'controller' )
+					$this -> $type = $settings['default_controller'];
+				elseif( $type === 'method' )
+					$this -> $type = $settings['default_method'];
+				else
+					$this -> $type = null;
+			}
 		}
 		return $this;
 	}
@@ -102,13 +105,15 @@ class Router
 			$routes = $config -> load ('routes');
 		}
 
+		$this -> uri = $this -> raw_uri;
+
 		if( $routes !== null )
 		{
 			foreach ( $routes as $match => $replacement )
 			{
 				$match = str_replace( array(':any',':num'), array( '.+', '[0-9]+' ), $match );
 
-				if ( preg_match( '#^' . $match . '$#', $this -> uri ) )
+				if ( preg_match( '#^' . $match . '$#', $this -> raw_uri ) )
 				{
 					if ( strpos( $replacement, '$' ) ==! false && strpos( $match, '(' ) ==! false )
 						$replacement = preg_replace( '#^' . $match .'$#', $replacement, $this -> uri );
@@ -116,7 +121,6 @@ class Router
 				}
 			}
 		}
-
 
 		return $this;
 

@@ -28,6 +28,12 @@ class QueryBuilder extends DbQuery
 {
 
 	/**
+	 * @var array Holds the names of the table columns. Used by QueryBuilder::getColumns()
+	 */
+	public $table_columns = array();
+
+
+	/**
 	 * @var array Count-keeper for each query builder.
 	 */
 	public $counter = array( 

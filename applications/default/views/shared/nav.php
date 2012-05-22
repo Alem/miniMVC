@@ -6,17 +6,17 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</a>
-			<?php if ( defined('DEFAULT_LOGO_PATH') ): ?>
-			<img class="logo-small brand" src="<?php echo DEFAULT_LOGO_PATH?>"/>
+			<?php if ( isset( $data['default_logo_path'] ) ): ?>
+			<img class="logo-small brand" src="<?php echo $data['default_logo_path']?>"/>
 			<?php endif; ?>
-			<a class="brand" href="<?php echo DEFAULT_CONTROLLER?>"><?php echo SITE_NAME; ?></a>
+			<a class="brand" href="" ><?php echo $data['site_name']; ?></a>
 			<div class="nav-collapse">
 				<ul class="nav">
 					<?php echo $this -> module('base/menu') -> display('nav') ?>
 				</ul>
-				<?php if ( $data -> logged_in ): ?>
+				<?php if ( !empty( $data['logged_in'] ) ): ?>
 				<p class="navbar-text pull-right">
-				Logged in as <a href="user"><?php echo  $data -> username ?></a>
+				Logged in as <a href="user"><?php echo  $data['username'] ?></a>
 				</p>
 				<?php endif; ?>
 			</div><!--/.nav-collapse -->

@@ -12,11 +12,11 @@
 	<div class = "span7">
 		<p>
 		<span class = "label" > User: </span><br/>
-		<?php echo $_SESSION['username'] ?> 
+		<?php echo $data['username'] ?> 
 		</p>
 		<p>
 		<span class = "label" > E-mail: </span><br/>
-		<?php echo $_SESSION['email'] ?> 
+		<?php echo $data['email'] ?> 
 		</p>
 	</div>
 

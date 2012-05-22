@@ -9,13 +9,17 @@ class View extends Template
 	{
 		parent::__construct( $name );
 		$this -> root_path = GIMIMVC_ROOT . 'applications/' . $this -> name . '/views/';
-		$this -> fileCache() -> path = $this -> root_path . 'content/main/';
+		$this -> content_path = $this -> root_path . 'content/';
+		$this -> shared_path = $this -> root_path . 'shared/';
+
+		$this -> fileCache() -> path = $this -> content_path . 'main/';
 	}
 
 
 	public function generate()
 	{
 		mkdir( $this -> fileCache() -> path , 0777 , true );
+		mkdir( $this -> shared_path, 0777 , true );
 		foreach ( $this -> views as $view )
 			$this -> fileCache() -> create( $this -> scaffold( $view ), $view );
 	}
@@ -26,7 +30,10 @@ class View extends Template
 		foreach ( $this -> views as $view )
 			$this -> fileCache() -> clear( $view );
 		rmdir ( $this -> fileCache() -> path );
-		rmdir ( $this -> root_path . 'content/' );
+
+		rmdir ( $this -> content_path );
+		rmdir ( $this -> shared_path );
+
 		rmdir ( $this -> root_path );
 	}
 
@@ -34,7 +41,7 @@ class View extends Template
 	{
 
 		$index = <<<INDEX
-<h1><?php echo SITE_NAME; ?> <small><?php echo SITE_TAG; ?></small></h1>
+<h1><?php echo \$data['site_name']; ?> <small><?php echo \$data['site_tag']; ?></small></h1>
 <hr>
 <br/>
 <p>
@@ -47,11 +54,12 @@ INDEX;
 <hr>
 <br/>
 <p>
-<?php echo SITE_NAME ?> is ...
+<?php echo \$data['site_name']; ?> is ...
 </p>
-Contact <a href = "mailto:<?php echo SITE_EMAIL ?>"> <?php echo SITE_EMAIL ?></a>...
+Contact <a href = "mailto:<?php echo \$data['site_email'] ?>"> <?php echo \$data['site_email'] ?></a>...
 </p>
 ABOUT;
+		return $$type;
 
 	}
 

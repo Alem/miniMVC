@@ -32,26 +32,25 @@ class Templates extends Template
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-
-		<?php if( defined('BASE_HREF') ): ?>
-		<base href = '<?php echo BASE_HREF ?>'>
+		<?php if( isset( \$data['base_href'] ) ): ?>
+		<base href = '<?php echo \$data['base_href'] ?>'>
 		<?php endif; ?>
 
 		<meta charset="utf-8"/>
-		<title><?php echo SITE_NAME ?> - <?php echo ( isset( \$data -> title ) ) ? \$data -> title : SITE_TAG; ?> </title> 
+		<title><?php echo \$data['site_name'] ?> - <?php echo ( isset( \$data['title'] ) ) ? \$data['title'] : \$data['site_tag']; ?> </title> 
 
-		<?php if( defined('META_DESCRIPTION') ): ?>
-		<meta name="description" content="<?php echo META_DESCRIPTION?>"/>
+		<?php if( isset( \$data['meta_description'] ) ): ?>
+		<meta name="description" content="<?php echo \$data['meta_description']?>"/>
 		<?php endif; ?>
 
-		<?php if( defined('META_KEYWORDS') ): ?>
-		<meta name="keywords" content="<?php echo META_KEYWORDS ?>"/>
+		<?php if( isset( \$data['meta_keywords'] ) ): ?>
+		<meta name="keywords" content="<?php echo \$data['meta_keywords'] ?>"/>
 		<?php endif; ?>
 
 		<meta name="author" content="">
 
-		<?php echo element::loadCSS(); ?>
-		<?php echo element::loadJS(); ?>
+		<?php echo element::loadCSS( \$data['default_css'] ); ?>
+		<?php echo element::loadJS( \$data['default_javascript'] ); ?>
 
 		<style type="text/css">
 			body {
@@ -80,7 +79,6 @@ class Templates extends Template
 	</head>
 
 	<body>
-
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container-fluid">
@@ -89,17 +87,17 @@ class Templates extends Template
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</a>
-					<?php if ( defined('DEFAULT_LOGO_PATH') ): ?>
-					<img class="logo-small brand" src="<?php echo DEFAULT_LOGO_PATH?>"/>
+					<?php if ( isset( \$data['default_logo_path'] ) ): ?>
+					<img class="logo-small brand" src="<?php echo \$data['default_logo_path']?>"/>
 					<?php endif; ?>
-					<a class="brand" href="<?php echo DEFAULT_CONTROLLER?>"><?php echo SITE_NAME; ?></a>
+					<a class="brand" href=""><?php echo \$data['site_name']; ?></a>
 					<div class="nav-collapse">
 						<ul class="nav">
-							<li> <a href='main/about'>About</a></li>
+							<li> <a href='about'>About</a></li>
 						</ul>
-						<?php if ( !empty(  \$data -> logged_in ) ): ?>
+						<?php if ( isset( \$data['logged_in']) ): ?>
 						<p class="navbar-text pull-right">
-						Logged in as <a href="user"><?php echo \$data -> username ?></a>
+						Logged in as <a href="user"><?php echo  \$data['username'] ?></a>
 						</p>
 						<?php endif; ?>
 					</div><!--/.nav-collapse -->
@@ -115,13 +113,14 @@ class Templates extends Template
 
 			<hr>
 			<footer>
-			<p>(c) <a href='<?php echo COMPANY_WEBSITE; ?>'><?php echo COMPANY . ' - ' . date("Y"); ?></a></p>
+			<p>(c) <a href='<?php echo \$data['company_website']; ?>'><?php echo \$data['company'] . ' - ' . date("Y"); ?></a></p>
 			</footer>
 
 		</div><!--/.container-->
 
 	</body>
 </html>
+
 bootstrap_single;
 
 		return $bootstrap_single;

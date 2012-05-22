@@ -1,18 +1,18 @@
 <html lang="en"><head>
 
 		<?php if( defined('BASE_HREF') ): ?>
-		<base href = '<?php echo BASE_HREF ?>'>
+		<base href = '<?php echo $data['base_href'] ?>'>
 		<?php endif; ?>
 
 		<meta charset="utf-8"/>
-		<title><?php echo SITE_NAME ?> - <?php echo ( isset($this -> model -> title ) ) ? $this -> model -> title : SITE_TAG; ?> </title> 
+		<title><?php echo $data['site_name'] ?> - <?php echo ( isset($this -> model -> title ) ) ? $this -> model -> title : $data['site_tag']; ?> </title> 
 
 		<?php if( defined('META_DESCRIPTION') ): ?>
-		<meta name="description" content="<?php echo META_DESCRIPTION?>"/>
+		<meta name="description" content="<?php echo $data['meta_description']?>"/>
 		<?php endif; ?>
 
 		<?php if( defined('META_KEYWORDS') ): ?>
-		<meta name="keywords" content="<?php echo META_KEYWORDS ?>"/>
+		<meta name="keywords" content="<?php echo $data['meta_keywords'] ?>"/>
 		<?php endif; ?>
 
 		<meta name="author" content="">
@@ -63,9 +63,9 @@
 						<ul class="nav">
 							<?php echo $this -> helper -> menuLinks('nav') ?>
 						</ul>
-						<?php if ( $data -> logged_in ): ?>
+						<?php if ( $data['logged_in'] ): ?>
 						<p class="navbar-text pull-right">
-						Logged in as <a href="user"><?php echo  $data -> username ?></a>
+						Logged in as <a href="user"><?php echo  $data['username'] ?></a>
 						</p>
 						<?php endif; ?>
 					</div><!--/.nav-collapse -->
@@ -89,7 +89,7 @@
 			<hr>
 
 			<footer>
-			<p>(c) <a href='<?php echo COMPANY_WEBSITE; ?>'><?php echo COMPANY . ' - ' . date("Y"); ?></a></p>
+			<p>(c) <a href='<?php echo $data['company_website']; ?>'><?php echo $data['company'] . ' - ' . date("Y"); ?></a></p>
 			</footer>
 		</div> <!-- /container -->
 

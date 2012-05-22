@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<?php include ( load::Page( 'shared', 'header') ); ?>
+		<?php include ( $this -> load() -> Page( 'shared', 'header') ); ?>
 
 		<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
 		<!--[if lt IE 9]>
@@ -69,7 +69,7 @@
 	</head>
 	<body>
 
-		<?php include ( load::path( 'shared', 'nav') ); ?>
+		<?php include ( $this -> load() -> path( 'shared', 'nav') ); ?>
 
 		<div class="container">
 

@@ -1,17 +1,20 @@
 <?php
 /**
- * RestService class file.
+ * Response class file.
  *
  * @author Z. Alem <info@alemmedia.com>
  */
 
 /**
- * RestService, in combination with the Request class,
- * allows simple RESTful API functionality.
+ * The Response class is used to construct HTTP responses.
+ *
+ *
+ * Response, in combination with the Request class,
+ * also allows simple RESTful API functionality.
  *
  * A controller can determine the request method 
  * and retrieve the relevant parameters using the request class 
- * then deliver a direct HTTP response using the RestService object.
+ * then deliver a direct HTTP response using the Response object.
  *
  * ------------------------------
  * Example:
@@ -20,14 +23,11 @@
  * 	case 'get':
  * 		$requested_data = $model -> getFoo( $request -> getFoo['foo'] );
  * 		$data = json_encode( $requested_data );
- * 		$RestService -> sendResponse ( 200, $data, 'json' );
+ * 		$response -> send( 200, $data, 'json' );
  * 		break;
  * ------------------------------
- *
- * todo Determine if this should remain the RestService object 
- * or become an extension of the Controller class
  */
-class RestService
+class Response
 {
 
 	/**
@@ -99,23 +99,30 @@ class RestService
 
 
 	/**
-	 * sendResponse() - Sends HTTP header and body.
+	 * send() - Sends HTTP header and body.
 	 *
-	 * @param integer $status 	The numeric HTTP status code
+	 * @param integer $status_code 	The numeric HTTP status code
 	 * @param mixed   $body 	The data comprising the response body
 	 * @param string  $content_type The content type of the response data
+	 * @param string  $more_headers Optional additonal headers
 	 */
-	public function sendResponse( $status = 200, $body = '', $content_type = null )
+	public function send( $status_code = 200, $body = '', $content_type = null, $more_headers = array() )
 	{
 		if( !isset( $content_type ) )
 			$content_type = $this -> content_type;
 
-		$http_header = <<<HTTP_HEADER
-HTTP/1.1 $status_code {$this->status_codes[$status_code]}
-Content-type: {$this->supported_formats[$content_type]}
-HTTP_HEADER;
+		$status = 'HTTP/1.1 ' . $status_code . ' ' . $this->status_codes[$status_code];
+		$content = 'Content-type: ' . $this->supported_formats[$content_type];
 
-		header( $http_header );
+		header( $status );
+		header( $content );
+
+		if ( !empty( $more_headers ) )
+		{
+			foreach( $more_headers as $header) 
+				header( $header );
+		}
+
 		echo $body;
 	}
 

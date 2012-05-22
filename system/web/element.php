@@ -17,16 +17,15 @@ class Element extends HTML
 	/**
 	 * loadCSS - Includes all the CSS files listed in DEFAULT_CSS in the application config
 	 *
-	 * @return string 	The CSS stylesheet HTML links
+	 * @param  array  $names 	The array of CSS files to include
+	 * @return string 		The CSS stylesheet HTML links
 	 */
-	public static function loadCSS( )
+	public static function loadCSS( $names )
 	{	
 		$loadedCSS = null;
-		if( defined('DEFAULT_CSS')  )
-		{ 
-			foreach( explode( ",", DEFAULT_CSS ) as $name )
-				$loadedCSS .= self::linkCSS( $name ) . "\n";
-		}
+		foreach( $names as $name )
+			$loadedCSS .= self::linkCSS( $name ) . "\n";
+
 		return $loadedCSS;
 	}
 
@@ -34,16 +33,14 @@ class Element extends HTML
 	/**
 	 * loadJS - Includes all the Javascript files listed in DEFAULT_JAVASCRIPT in the application config
 	 *
-	 * @return string 	The Javascript scripts
+	 * @param  array  $names 	The array of JS files to include
+	 * @return string 		The Javascript scripts
 	 */
-	public static function loadJS( )
+	public static function loadJS( $names )
 	{	
 		$loadedJS = null;
-		if( defined('DEFAULT_JAVASCRIPT')  )
-		{ 
-			foreach( explode( ",", DEFAULT_JAVASCRIPT ) as $name )
-				$loadedJS .= self::linkJS( $name ) . "\n";
-		}
+		foreach( $names as $name )
+			$loadedJS .= self::linkJS( $name ) . "\n";
 		return $loadedJS;
 	}
 
@@ -104,24 +101,24 @@ class Element extends HTML
 	 * Given the model and the name of the controller the pager prints an HTML page listing
 	 * Note: Uses bootstrap styling
 	 *
-	 * @param Model  model 		The model containing the data, order, search string, and current page.
+	 * @param array  settings 	The model containing the data, order, search string, and current page.
 	 * @param string method 	The name of the method that each page link will use.	
 	 * @param string controller	The name of the controller that each page link will use.	
 	 *
 	 * @todo  Complete this.
 	 */
-	public static function pager( Model $model, $method = null , $controller = null)
+	public static function pager( $settings, $method = null , $controller = null)
 	{
 
-		if( empty(  $model->lastpage ))
+		if( empty(  $settings['lastpage'] ))
 			return null;
 
-		$order =& $model -> order;
-		$search =& $model -> search;
-		$page =&  $model -> page;
-		$lastpage =&  $model -> lastpage;
+		$order =& $settings['order'];
+		$search =& $settings['search'];
+		$page =&  $settings['page'];
+		$lastpage =&  $settings['lastpage'];
 
-		$count = count( $model -> data );
+		$count = count( $settings['data'] );
 		$prev_page = $page - 1;
 		$next_page = $page + 1;
 

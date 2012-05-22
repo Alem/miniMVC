@@ -13,7 +13,7 @@
 		<a class = 'btn btn-info' href='<?php echo 'test/gallery/' . $this-> model() -> page .  VAR_SEPARATOR . 'test' . VAR_SEPARATOR . 'ASC' ?>'>Order by Name</a>
 		<?php endif; ?>
 
-		<?php	if( isset( $this -> model() -> data) ):	?>
+		<?php	if( isset( $this -> model() -> data['data']) ):	?>
 	</div>
 </div>
 <br/>
@@ -24,7 +24,7 @@
 		<th> Item </th>
 		<th> Action </th>
 	</tr>
-	<?php foreach( $this -> model() -> data as $row) :	?>
+	<?php foreach( $this -> model() -> data['data'] as $row) :	?>
 	<tr>
 		<td>
 			<?php foreach( $row as $column => $value) :	?>
@@ -40,7 +40,7 @@
 
 </table>
 
-<?php Element::pager( $this -> model() ); ?>
+<?php Element::pager( $data ); ?>
 
 <?php else: ?>
 No results!

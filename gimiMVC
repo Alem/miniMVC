@@ -42,6 +42,7 @@ define( 'GIMIMVC_ROOT', dirname(__FILE__) . '/' );
 
 $required_files = array (
 	'base/load',
+	'base/config',
 	'database/database',		
 	'database/dbQuery', 	
 	'database/queryBuilder', 	
@@ -51,6 +52,7 @@ $required_files = array (
 	'gimimvc/processor', 
 	'gimimvc/core/queryTool', 
 	'gimimvc/core/template',
+	'util/arrayUtility',
 );
 
 foreach ( $required_files as $file )

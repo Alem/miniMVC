@@ -19,17 +19,22 @@ class Model
 	/**
 	 * @var string The name of the Model object's database table.
 	 */
-	public $table;
+	public $table = null;
 
 	/**
 	 * @var string The name of the Model object's epynomous table column.
 	 */
-	public $column;
+	public $column = null;
 
 	/**
 	 * @var object Instance of Query class. Allows building database queries.
 	 */
-	public $sql;
+	public $sql = null;
+
+	/**
+	 * @var array Holds the model data
+	 */
+	public $data = array();
 
 
 	/**
@@ -41,9 +46,9 @@ class Model
 	public function __construct()
 	{
 		$column =  strtolower( get_class($this) );
-		$table = $column . 's';
-		$this -> table = $table;
+
 		$this -> column = $column;
+		$this -> table  = $column . 's';
 	}
 
 
@@ -60,7 +65,7 @@ class Model
 			foreach($property as $single_property => $single_value)
 				$this -> set( $single_property, $single_value);
 		}else
-			$this -> $property = $value;
+			$this -> data[$property] = $value;
 	}
 
 
@@ -78,7 +83,7 @@ class Model
 				$get_array[] = $this -> get( $single_property);
 			return $get_array;
 		}
-		return $this -> $property;
+		return $this -> data[$property];
 	}
 
 

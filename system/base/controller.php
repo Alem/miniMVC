@@ -25,8 +25,13 @@ class Controller
 
 
 	/**
-	 * @var string Stores information about resources. (i.e. paths of Model, Views)
-	 *
+	 * @var object Holds load object.
+	 */
+	public $load = null;
+
+
+	/**
+	 * @var string Stores data related to loaded resources. (i.e. objects of Model, paths of Views)
 	 */
 	public $loaded = array();
 
@@ -50,8 +55,8 @@ class Controller
 		if ( !isset( $controller ) )
 			$controller =& $this;
 
-		if ( !( isset( $method )  &&  method_exists( $controller, $method ) ) )
-			$controller -> { HTTP_ACCESS_PREFIX . DEFAULT_METHOD }();
+		if ( method_exists( $controller, $method ) === false )
+			return false;
 		else
 		{
 			if ( !isset( $variable ) ) 
@@ -72,6 +77,8 @@ class Controller
 					);
 				}
 			}
+
+			return true;
 		} 
 	}
 
@@ -98,8 +105,9 @@ class Controller
 	 * @param string $method 	The controller method to call; the page to redirect to (ex. index)
 	 * @param mixed  $variables 	The variables to be passed to the method.
 	 * @param string $controller 	The controller the method belongs to. Defaults to the URI requested controller if $method is specified.
+	 * @param string $web_root 	The root of the web server 
 	 */
-	public function prg( $method = null, $variables = null, $controller = null )
+	public function prg( $method = null, $variables = null, $controller = null, $web_root = null )
 	{
 		if ( !isset( $controller ) && isset( $method )  )
 			$controller = $this -> fetchName();
@@ -117,23 +125,68 @@ class Controller
 		else
 			$location = $controller;
 
-		header( 'Location: ' . WEB_ROOT . $location, 303 );
+		if ( !isset ($web_root) )
+		{
+			$config = new Config();
+			$settings = $config -> load ('application');
+			$web_root = $settings['web_root'];
+		}
+
+		header( 'Location: ' . $web_root . $location, 303 );
 	}
+
+
+	/*
+	 * Methods below provide convenience wrappers for the factory class 'Load'
+	 */
+
+	/**
+	 * Load - Returns load object or Sets load object as the property 'load'
+	 *
+	 * @param Load $load 	The load object
+	 * @return Load 	The load object
+	 */
+	public function load()
+	{
+		if ( !isset ( $this -> load ) )
+			$this -> load = new Load();
+
+		return $this -> load;
+	}
+
+	/**
+	 * loader - Uses load::component to load an instance of the named class to the controller 
+	 *
+	 * Instantiates the named class if not already assigned to the supplied object and returns the new object property.
+	 * Otherwise it returns the named object property.
+	 *
+	 * @param string $type 		The type of component
+	 * @param string $name 		The name of the component
+	 * @return object 		The instance of the component
+	 */
+	public function loader( $type , $name, $instantiate = true )
+	{
+		if ( !isset ( $this -> loaded[ $type ][$name] ) )
+			$this -> loaded[$type][$name] = $this -> load() -> component( $type , $name, $instantiate );
+
+		return $this -> loaded[$type][$name];
+	}
+
 
 
 	/**
 	 * useController - Loads the named controller as a property of the controller that called it.
 	 *
-	 * Uses the Load::toObject method which uses the Load::component() method to 
+	 * Uses the Controller::loader method which uses the Load::component() method to 
 	 * load an object of the named class to the controller IF not already loaded.
 	 *
 	 * @param  string $name 	The name of the controller to load
 	 * @return Controller 		The loaded controller.
-	 * @uses   load::toObject 	Assigns instance of the named controller to current controller.
+	 * @uses   Controller::loader 	Assigns instance of the named controller to current controller.
 	 */
 	public function useController( $name )
 	{
-		$controller = load::toObject ( $this, 'controller', $name );
+		$controller = $this -> loader( 'controller', $name );
 
 		if ( isset( $controller ) )
 			$controller -> name = $name;
@@ -145,26 +198,26 @@ class Controller
 	/**
 	 * model - Loads the named model as a property of the controller that called it.
 	 *
-	 * Uses the Load::toObject method which uses the Load::component() method to 
+	 * Uses the Controller::loader method which uses the Load::component() method to 
 	 * load an object of the named class to the controller IF not already loaded.
 	 *
 	 * @param  string $name 	The name of the model to load. Defaults to the name of the controller.
 	 * @return Model 		The loaded model.
-	 * @uses   load::toObject 	Assigns the model instance to the controller.
+	 * @uses   Controller::loader 	Assigns the model instance to the controller.
 	 */
 	public function model( $name = null )
 	{
 		if ( !isset( $name ) )
 			$name = $this -> name;
 
-		return load::toObject( $this,  'model', $name );
+		return $this -> loader( 'model', $name );
 	}
 
 
 	/**
 	 * module - Loads the named module as a property of the controller that called it.
 	 *
-	 * Uses the Load::toObject method which uses the Load::component() method to 
+	 * Uses the Controller::loader method which uses the Load::component() method to 
 	 * load an object of the named class to the controller IF not already loaded.
 	 *
 	 * If the class exists in a subdirectory, the name should follow the form: 'subdir/name'
@@ -174,29 +227,29 @@ class Controller
 	 * @param  bool   $instantiate 	If set to true, the module is assumed to be a class by the 
 	 * 					same name and instantiated. Otherwise simply include.
 	 * @return object 		The loaded module.
-	 * @uses   load::toObject 	Assigns the module instance to the controller.
+	 * @uses   Controller::loader 	Assigns the module instance to the controller.
 	 */
 	public function module( $name, $instantiate = true )
 	{
-		return $module = load::toObject( $this, 'module', $name, $instantiate );
+		return $module = $this -> loader( 'module', $name, $instantiate );
 	}
 
 
 	/**
 	 * library - Loads the named library as a property of the controller that called it.
 	 *
-	 * Uses the Load::toObject method which uses the Load::component() method to 
+	 * Uses the Controller::loader method which uses the Load::component() method to 
 	 * load an object of the named class to the controller IF not already loaded.
 	 *
 	 * @param  string $name 	The name of the library to load.
 	 * @param  bool   $instantiate 	If set to true, the module is assumed to be a class by the 
 	 * 					same name and instantiated. Otherwise simply include.
 	 * @return object 		The loaded library.
-	 * @uses   load::toObject 	Assigns the library instance to the controller.
+	 * @uses   Controller::loader 	Assigns the library instance to the controller.
 	 */
 	public function library( $name, $instantiate = true )
 	{
-		return $library = load::toObject( $this, 'library', $name, $instantiate );
+		return $library = $this -> loader( 'library', $name, $instantiate );
 	}
 
 
@@ -205,13 +258,13 @@ class Controller
 	 *
 	 * The template comprises the larger HTML structure the view will be loaded into.
 	 *
-	 * @param string $name 		The name of the template to set. Defaults to the constant DEFAULT_TEMPLATE set in the application config
+	 * @param string $name 		The name of the template to set.
 	 * @return Controller 		The current controller.
 	 * @uses   load::path()		Returns file path for the template.
 	 */
 	public function template( $name )
 	{
-		$this -> loaded['template']['path'] = Load::path('template', $name );
+		$this -> loaded['template']['path'] = $this -> load() -> path('template', $name );
 		return $this;
 	}
 
@@ -222,7 +275,7 @@ class Controller
 	 * The template requires the view path to be set before it is included. Once defined, 
 	 * the template can be included and it will then include the view.
 	 *
-	 * @param sting  $view 			The name of the view to load. Defaults to the value of DEFAULT_METHOD set in the application config.
+	 * @param sting  $view 			The name of the view to load. 
 	 * @param string $controller_name 	The name of the controller the view belongs to. Defaults to the current controller.
 	 * @param Model  $data 			The data to be passed to the view for interaction/reading. Defaults to the current model.
 	 * @param bool 	 $direct_include 	If set to true, includes the view directly, rather than loading the template then view.
@@ -231,19 +284,23 @@ class Controller
 	 *
 	 * @todo Determine if needless object copying/cloning occuring
 	 */
-	public function view($view = DEFAULT_METHOD, $controller_name = null, $data = null, $direct_include = false )
+	public function view( $view, $data = null, $controller_name = null, $direct_include = false )
 	{
 
 		if ( !isset( $controller_name ) )
 			$controller_name = $this -> name;
 
-		if ( !isset( $data ) )
-			$data = $this -> model();
+		if ( !isset( $data ) && isset( $this -> model()-> data ) )
+			$data = $this -> model() -> data;
 
-		$this -> loaded['view']['main']['path'] = Load::path('view', $controller_name . '/'. $view );
+		$this -> loaded['view']['main']['path'] = $this -> load() -> path('view', $controller_name . '/'. $view );
 
 		if (  !isset( $this -> loaded['template']['path'] ) )
-			$this -> template ( DEFAULT_TEMPLATE );
+		{
+			$config = new Config();
+			$settings = $config -> load ('application');
+			$this -> template ( $settings['default_template'] );
+		}
 
 		if ( $direct_include === false )
 			require_once( $this -> loaded['template']['path'] );

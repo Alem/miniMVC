@@ -2,9 +2,9 @@
 
 return array(
 	'components' => array( 
-		'filestructure' , 'config', 'model',
+		'configs', 'model',
 		'templates', 'view', 'controller', 
-		'publicHtml' 
+		'publicHtml', 'filestructure' 
 	)
 );
 

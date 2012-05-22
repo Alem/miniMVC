@@ -8,7 +8,7 @@
 /**
  * The Boot script is required by all application 'index.php' files.
  *
- * It manages the benchmarking, loads the system classes,
+ * It manages the benchmarking, loads the system classes, configures the logger,
  * parses the request, and instantiates the root controller,
  * runs the request and outputs the debug.
  *
@@ -19,7 +19,7 @@
  * Benchmark: Begin Script-timing
  * ----------------------------------------------------------------------
  */
-$timer_start = microtime(true);
+$start_time = microtime(true);
 
 
 /*
@@ -33,14 +33,17 @@ $system_classes = array (
 	'base/load', 	
 	'base/model', 
 	'base/config', 
+	'base/benchmark', 
 	'cache/fileCache',
 	'database/database',
 	'database/dbQuery',
 	'database/queryBuilder', 
 	'log/logger',
 	'server/request',
+	'server/response',
 	'server/router', 		
 	'session/session', 		
+	'util/arrayUtility',
 	'web/html',	
 	'web/element',
 );
@@ -51,28 +54,48 @@ foreach ( $system_classes as $classname )
 
 /*
  * ----------------------------------------------------------------------
- * Initiate Application: Route to appropriate controller based on request.
+ * Load Configs: Loads configuration arrays needed for instantiation
  * ----------------------------------------------------------------------
  */
-
-$router 		= new Router();
-$application 		= new Controller();
-$requested_controller 	= $application -> useController( $router -> controller ); 
-
-if ( empty( $requested_controller ) )
-	$application -> prg( null, null, null );
-
-else
-	$requested_controller ->  useMethod ( HTTP_ACCESS_PREFIX . $router -> method  ,  $router -> variable );
+$config = new Config();
+$logger_settings  = $config -> load('logger');
+$default_settings = $config -> load('application');
 
 
 /*
  * ----------------------------------------------------------------------
- * Benchmarking: Script-timing completion
+ * Logger Settings: Sets configuration for logger.
  * ----------------------------------------------------------------------
  */
-$timer_end = microtime(true);
-$time = $timer_end - $timer_start;
+$load = new Load();
+Logger::setLogFile( $load -> path( 'log', 'application', '.log' ) );
+Logger::setConfig( $logger_settings );
+Logger::setStartTime( $start_time );
+Logger::debug('Logger', 'Instantiated');
+
+
+/*
+ * ----------------------------------------------------------------------
+ * Initiate Application: Route to appropriate controller based on request.
+ * ----------------------------------------------------------------------
+ */
+$router 		= new Router();
+$application 		= new Controller();
+$requested_controller 	= $application -> useController( $router -> controller );
+
+Logger::debug('Application', 'Instantiated');
+Logger::debug('Raw URI', $router -> raw_uri );
+Logger::debug('URI', $router -> uri );
+
+if ( !empty( $requested_controller ) )
+{
+	$success = ( $requested_controller -> useMethod( $default_settings['http_access_prefix'] . $router -> method  ,  $router -> variable )  );
+	if ( $success === false )
+	{
+		$response = new Response();
+		$response -> send( '404', "Could not find requested resource" );
+	}
+}
 
 
 /* 
@@ -80,9 +103,11 @@ $time = $timer_end - $timer_start;
  * Debug: Recording
  * ----------------------------------------------------------------------
  */
-Logger::debug('Script Time', $time );
-Logger::debug('Memory Usage', ( memory_get_usage() / 1000 ) . ' kb' );
-Logger::debug('Memory Peak Usage', ( memory_get_peak_usage() / 1000 ) . ' kb' );
+$benchmark = new Benchmark();
+
+Logger::debug('Memory Usage', $benchmark -> memoryUsage() );
+Logger::debug('Memory Peak Usage', $benchmark -> peakMemoryUsage()  );
+Logger::debug('Application', 'Complete');
 
 
 /*
@@ -90,8 +115,6 @@ Logger::debug('Memory Peak Usage', ( memory_get_peak_usage() / 1000 ) . ' kb' );
  * Debug: Output
  * ----------------------------------------------------------------------
  */
-$session = new Session();
-if( DEBUG_LEVEL === 1 )
 Logger::showDebug();
 
 ?>

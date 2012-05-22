@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<?php include ( load::path( 'shared', 'header') ); ?>
+		<?php include ( $this -> load() -> path( 'shared', 'header') ); ?>
 
 		<style type="text/css">
 			body {
@@ -30,7 +30,7 @@
 
 	<body>
 
-		<?php include ( load::path( 'shared', 'nav') ); ?>
+		<?php include ( $this -> load() -> path( 'shared', 'nav') ); ?>
 
 		<div class="container-fluid">
 			<div class="row-fluid">
@@ -62,7 +62,7 @@
 
 			<hr>
 			<footer>
-			<p>(c) <a href='<?php echo COMPANY_WEBSITE; ?>'><?php echo COMPANY . ' - ' . date("Y"); ?></a></p>
+			<p>(c) <a href='<?php echo $data['company_website']; ?>'><?php echo $data['company'] . ' - ' . date("Y"); ?></a></p>
 			</footer>
 
 		</div><!--/.fluid-container-->

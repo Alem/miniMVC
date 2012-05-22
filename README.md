@@ -21,17 +21,23 @@ It features:
 * Extension by third-party modules/classes, 
 * Built-in bootstrap and jQuery integration for agile front-end development
 
+REQUIREMENTS
+---------------
+* > PHP5
+* Apache mod_rewrite enabled
 
 SETUP
 ---------------
 
 1. Create the database for your application.
 
-2. Generate the application skeleton using gimiMVC.
+2. Generate the application skeleton using gimiMVC.  ( Make sure the logs/ and cache/ directories are writable )
 
 	./gimiMVC.php -a MYAPP --generate
 
-3. Define the relevant information in the new application's config/app.php file.
+3. Define the relevant information in the new application's config/ files.
+	
+	Settings to change at the bare minimum: 'web_root' and 'base_href' ( config/application.php )
 
 4. Use controller by visiting the application's index.php in your browser
 

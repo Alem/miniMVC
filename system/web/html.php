@@ -21,7 +21,7 @@ class HTML
 	 */
 	public static function linkCSS( $name)
 	{	
-		return $css = "<link type='text/css' rel='stylesheet' href='" . WEB_ROOT . DEFAULT_MEDIA_PATH . "css/{$name}.css'/> ";
+		return $css = "<link type='text/css' rel='stylesheet' href='" . DEFAULT_MEDIA_PATH . "css/{$name}.css'/> ";
 	}
 
 
@@ -33,7 +33,7 @@ class HTML
 	 */
 	public static function linkJS( $name )
 	{	
-		return $script = "<script type = 'text/javascript' src ='" . WEB_ROOT . DEFAULT_MEDIA_PATH . "js/{$name}.js'></script> ";
+		return $script = "<script type = 'text/javascript' src ='" . DEFAULT_MEDIA_PATH . "js/{$name}.js'></script> ";
 	}
 
 

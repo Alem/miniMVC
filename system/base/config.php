@@ -35,7 +35,11 @@ class Config
 	public function load( $type, $returns_array = true ) 
 	{
 		$this -> $type = null;
-		$path = load::path('config', $type );
+
+		if( !isset( $this -> load ) )
+			$this -> load = new Load();
+
+		$path = $this -> load -> path('config', $type );
 
 		if ( file_exists( $path ) )
 		{

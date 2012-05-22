@@ -6,7 +6,7 @@ class FileStructure extends Template
 
 	public $dirs = array( 
 		'/data/', 	'/logs/',		'/modules/', 		
-		'/libraries/',  '/views/shared/'
+		'/libraries/', 
 	);
 
 
@@ -22,14 +22,14 @@ class FileStructure extends Template
 
 	public function undo()
 	{
-		foreach ( array_reverse( $this -> dirs ) as $dir )
+		foreach ( $this -> dirs as $dir )
 		{
 			$path = GIMIMVC_ROOT . 'applications/' . $this -> name . $dir;
 			echo 'Removing: ' . $path . "\n";
 			rmdir( $path );
 		}
-		#echo 'Removing: ' .  GIMIMVC_ROOT .'applications/' . $this -> name . "\n";
-		#rmdir( GIMIMVC_ROOT . 'applications/' . $this -> name );
+		echo 'Removing: ' .  GIMIMVC_ROOT .'applications/' . $this -> name . "\n";
+		rmdir( GIMIMVC_ROOT . 'applications/' . $this -> name );
 	}
 
 }

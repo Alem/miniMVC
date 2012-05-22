@@ -90,7 +90,7 @@ VIEW;
 <div class = 'row' >
 
 	<div class = 'span5 well' >
-		<?php if ( \$session -> get('editing_{$name}_id') ): ?>
+		<?php if ( isset( \$data['editing'] ) ): ?>
 			<h1>Edit</h1>
 			<hr>
 			<br/>
@@ -111,7 +111,7 @@ VIEW;
 		<form class = "form-stacked" action = "$name/post/" method = "post">
 				{$this -> inputs}
 			<p>
-				<?php if ( \$session -> get('editing_{$name}_id') ): ?>
+				<?php if ( isset( \$data['editing'] ) ): ?>
 				<input class = "Primary btn large btn-primary btn-large" type = "submit" value = "Update"/>
 				<?php else: ?>
 				<input class = "Primary btn large btn-primary btn-large" type = "submit" value = "Submit"/>
@@ -146,14 +146,14 @@ VIEW;
 <br/>
 <div class =''>
 	<ul class = 'thumbnails' >
-	<?php foreach( \$data -> data as \$row) :	?>
+	<?php foreach( \$data['data'] as \$row) :	?>
 		<li class = 'span5'>
-		<div class ='<?php if ( !isset ( \$data -> show ) ) echo 'thumbnail'; ?> '>
+		<div class ='<?php if ( !isset ( \$data['show'] ) ) echo 'thumbnail'; ?> '>
 			<div class ='caption'>
 				{$this -> thumbnails}
 			<br/>
 			<p>
-			<?php if ( !isset ( \$data -> show ) ): ?>
+			<?php if ( !isset ( \$data['show'] ) ): ?>
 			<a class ='btn btn-success' href='$name/show/<?php echo \$row['id'] ?>'>View</a>
 			<?php else: ?>
 				$edit_delete
@@ -174,15 +174,15 @@ VIEW;
 <table class ='table table-striped'>
 	<tr>
 		{$this -> table_heads}
-		<?php if ( !isset ( \$data -> show )  || (  \$this -> access() -> permission ('u') || \$this -> access() -> permission ('d') ) ): ?>
+		<?php if ( !isset ( \$data['show'] )  || (  \$this -> access() -> permission ('u') || \$this -> access() -> permission ('d') ) ): ?>
 		<th> Action </th>
 		<?php endif; ?>
 	</tr>
-	<?php foreach( \$data -> data as \$row ) :	?>
+	<?php foreach( \$data['data'] as \$row ) :	?>
 	<tr>
 		{$this -> table_cells}
 		<td>
-			<?php if ( !isset ( \$data -> show ) ): ?>
+			<?php if ( !isset ( \$data['show'] ) ): ?>
 			<a class ='btn btn-success' href='$name/show/<?php echo \$row['id'] ?>'>View</a>
 			<?php else: ?>
 				$edit_delete
@@ -207,24 +207,24 @@ VIEW;
 		/*********************** BEGIN HTML ****************************************************************/
 		$gallery_top = <<<VIEW
 <div class = 'row'>
-	<?php if ( isset ( \$data -> show ) ): ?>
+	<?php if ( isset ( \$data['show'] ) ): ?>
 	<h1>$uname</h1>
 	<?php else: ?>
 	<h2>$gallery_title</h2>
 	<?php endif; ?>
 	<hr/>
-<?php	if( !empty( \$data -> data) ):	?>
+<?php	if( !empty( \$data['data']) ):	?>
 	<div class = 'span3'>
-		<?php if ( !isset ( \$data -> show ) && \$this -> access() -> permission('c') ): ?>
+		<?php if ( !isset ( \$data['show'] ) && \$this -> access() -> permission('c') ): ?>
 		<!-- <p><a class ='btn btn-primary btn-large' href='$name/form'><i class = 'icon-plus'></i> Add $uname</a></p> -->
-		<?php elseif ( isset ( \$data -> show ) ): ?>
+		<?php elseif ( isset ( \$data['show'] ) ): ?>
 		<p><a class ='btn-danger btn-large' href='$name/gallery'>Go to $gallery_title</a></p>
 		<?php endif; ?>
 		<br/>
 	</div>
 </div>
 
-<?php if ( isset ( \$data -> search ) ): ?>
+<?php if ( isset ( \$data['search'] ) ): ?>
 <div class = 'well' >
 	<i style ='font-size: 60px' class = 'icon-search'></i> 
 	Seach results for: <?php echo implode ( ', ' , \$_GET ) ?>.
@@ -237,14 +237,14 @@ VIEW;
 
 		/*********************** BEGIN HTML ****************************************************************/
 		$gallery_bottom = <<<VIEW
-	<?php echo \$this -> module('base/helper') -> paginate() ?>
+	<?php echo Element::pager( \$this -> model() ); ?>
 	<br/>
 <?php else: ?>
 	<div class = 'span2'>
 		<br/>
 		<br/>
 		<p>
-		<?php if ( !isset ( \$data -> search ) ): ?>
+		<?php if ( !isset ( \$data['search'] ) ): ?>
 			<i style ='font-size: 700%' class = 'icon-folder-open'></i>
 		<?php else: ?>
 			<i style ='font-size: 700%' class = 'icon-question-sign'></i>
@@ -254,12 +254,12 @@ VIEW;
 	<div class = 'well span6'>
 
 
-	<?php if ( !isset ( \$data -> search ) ): ?>
+	<?php if ( !isset ( \$data['search'] ) ): ?>
 		<h3> Nothing here yet... </h3>
 		<br/>
 		<p>
 			Looks like a $uname has not been created yet. <br/>
-			<?php if ( !isset ( \$data -> show ) && \$this -> access() -> permission('c') ): ?>
+			<?php if ( !isset ( \$data['show'] ) && \$this -> access() -> permission('c') ): ?>
 			<br/>
 			Press the "Add $uname" button to begin creating a $uname.
 				<p>
@@ -279,7 +279,7 @@ VIEW;
 </div>
 <?php endif; ?>
 
-<?php if ( !( !isset ( \$data -> search ) && empty( \$data -> data) ) ): ?>
+<?php if ( !( !isset ( \$data['search'] ) && empty( \$data['data']) ) ): ?>
 $search
 <?php endif; ?>
 VIEW;
@@ -306,7 +306,7 @@ VIEW;
 
 	<br/>
 	<div class = 'well span6' >
-		<?php foreach( \$data -> data as \$row) :	?>
+		<?php foreach( \$data['data'] as \$row) :	?>
 			$show_table
 		<?php endforeach; ?>
 	</div>
@@ -393,16 +393,16 @@ endif;
 /*********************** BEGIN HTML ****************************************************************/
 $this -> inputs .= <<<input
 
-	<label>$uc_column: <?php echo html::$helper ('$column', \$data -> saved_fields['$column'] ) ?> </label>
+	<label>$uc_column: <?php echo html::$helper ('$column', \$data['saved_fields']['$column'] ) ?> </label>
 input;
 ######################## END HTML   #################################################################
 /*********************** BEGIN HTML ****************************************************************/
 $this -> table_heads.= <<<heads
 	<th> 
 	<a href='<?php 
-		echo '$name/gallery/' . \$data -> page .  VAR_SEPARATOR . '$column_id' . VAR_SEPARATOR;
-		echo ( stristr( \$data -> order, '$column_id/ASC' ) ) ? 'DESC' : 'ASC';
-		echo \$data -> search;
+		echo '$name/gallery/' . \$data['page'] .  VAR_SEPARATOR . '$column_id' . VAR_SEPARATOR;
+		echo ( stristr( \$data['order'], '$column_id/ASC' ) ) ? 'DESC' : 'ASC';
+		echo \$data['search'];
 		?>'
 	>
 	$uc_column

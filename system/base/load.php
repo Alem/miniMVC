@@ -6,26 +6,26 @@
  */
 
 /**
- * The Load class provides a configurable factory method that efficently loads the named component
+ * The Load class provides a configurable abstracted factory method that efficently loads the named component
  * as well as the method to assign the component instance as a property of a supplied object.
  *
- * todo Is the Load::toObject safe? difficult to test?
  */
 
 class Load
 {
 
 	/**
-	 * path() - Returns path for application component
-	 * 
-	 * @param string $component 	Type of component
-	 * @param string $name 		Name of component 
-	 * @param string $ext 		Type of extension
-	 * @return string 		The constructed file path of the component
+	 * @var array 	Holds file paths for components
 	 */
-	public static function path( $component , $name , $ext = '.php' )
+	public $paths = array();
+
+
+	/**
+	 * construct - Set defaults
+	 */
+	public function __construct()
 	{
-		$paths = array(
+		$this -> paths = array(
 			'controller' 	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_CONTROLLER_PATH,
 			'config' 	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_APP_CONFIG_PATH,
 			'model' 	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_MODEL_PATH,
@@ -37,7 +37,19 @@ class Load
 			'log'		=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_LOG_PATH,
 			'system'	=> SERVER_ROOT . DEFAULT_SYSTEM_PATH
 		);
-		return $paths[ $component ] . $name . $ext;
+	}
+
+	/**
+	 * path() - Returns path for application component
+	 * 
+	 * @param string $component 	Type of component
+	 * @param string $name 		Name of component 
+	 * @param string $ext 		Type of extension
+	 * @return string 		The constructed file path of the component
+	 */
+	public function path( $component , $name , $ext = '.php' )
+	{
+		return $this -> paths[ $component ] . $name . $ext;
 	}
 
 
@@ -51,9 +63,9 @@ class Load
 	 * @param bool 	 $instantiate 	If true, instantiates the component
 	 * @return object 		The instance of the component
 	 */
-	public static function component( $type, $name , $instantiate = true )
+	public function component( $type, $name , $instantiate = true )
 	{
-		$filepath = load::path ( $type, $name );
+		$filepath = $this -> path ( $type, $name );
 
 		if ( file_exists( $filepath ) ) {
 
@@ -72,26 +84,6 @@ class Load
 			}
 		}else
 			return null;
-	}
-
-
-	/**
-	 * toObject - Uses load::component to load an instance of the named class to the supplied object
-	 *
-	 * Instantiates the named class if not already assigned to the supplied object and returns the new object property.
-	 * Otherwise it returns the named object property.
-	 *
-	 * @param object $object 	The object onwhich the instance will be loaded to
-	 * @param string $type 		The type of component
-	 * @param string $name 		The name of the component
-	 * @return object 		The instance of the component
-	 */
-	public static function toObject( $object, $type , $name, $instantiate = true )
-	{
-		if ( !isset ( $object -> loaded[ $type ][$name] ) )
-			$object -> loaded[$type][$name] = Load::component( $type , $name, $instantiate );
-
-		return $object -> loaded[$type][$name];
 	}
 
 }

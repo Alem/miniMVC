@@ -17,7 +17,6 @@
 class Logger
 {
 
-
 	/**
 	 * @var object 		Holds the single instance of Logger
 	 */
@@ -29,6 +28,13 @@ class Logger
 	 */
 	public $record = array();
 
+
+	/**
+	 * @var string 		Log filepath
+	 */
+	public $log_file = null;
+
+
 	/**
 	 * @var integer 	Tracks the number of lines written per application run
 	 */
@@ -36,15 +42,28 @@ class Logger
 
 
 	/**
-	 * @var array 		Max number of old logs to keep
+	 * @var float 		The start time of the application in microseconds.
 	 */
-	public $max_old_logs = 2;
+	public $start_time = 0;
 
 
 	/**
-	 * @var array Max log size in bytes
+	 * @var string 		The seperator for the csv/tsv log.
 	 */
-	public $max_log_size = 50000;
+	public $seperator = '|';
+
+
+	/**
+	 * @var array 		Holds configuration array
+	 */
+	public $config = array(
+		'error'		=> false,
+		'warn'		=> false,
+		'info'		=> false,
+		'debug'		=> false,
+		'max_log_size'	=> 50000,
+		'max_old_logs'	=> 2,
+	);
 
 
 	/**
@@ -66,6 +85,35 @@ class Logger
 		if ( !isset(self::$instance) )
 			self::$instance = new self();
 		return self::$instance;
+	}
+
+
+	/**
+	 * setStartTime - Sets the start time of the application run
+	 *
+	 * @param float file 	The time
+	 */
+	public static function setStartTime( $start_time )
+	{
+		self::open() -> start_time = $start_time; 
+	}
+
+	/**
+	 * setLogFile - Sets log file path
+	 *
+	 * @param string file 	The log file path
+	 */
+	public static function setLogFile( $file )
+	{
+		self::open() -> log_file = $file; 
+	}
+
+	/**
+	 * setConfig - Sets configuration array
+	 */
+	public static function setConfig( array $config )
+	{
+		self::open() -> config = $config + self::open() -> config;
 	}
 
 
@@ -131,12 +179,18 @@ class Logger
 	public function write( $level, $title, $details ) 
 	{
 
-		if ( constant( 'LOGGER_' . strtoupper( $level) ) )
+		if ( $this -> config[$level] )
 		{
-			$line = date( 'D M j G:i:s T Y' )  . ' - '. $level . ' - ' . $title . ': ' . $details . "\n";
+			if( is_array( $details ) )
+				$details = ArrayUtility::makeReadable( $details, true);
 
-			$log_filepath = load::path( 'log', 'application', '.log' );
-			file_put_contents( $log_filepath, $line, FILE_APPEND );
+			$timer_end = microtime(true);
+			$time = $timer_end - $this -> start_time;
+
+			$line = date( 'G:i:s T D M j Y' )  . $this -> seperator . $time . $this -> seperator . $level . $this -> seperator;
+			$line .= $title . $this -> seperator . $details . "\n";
+
+			file_put_contents( $this -> log_file, $line, FILE_APPEND );
 
 			$this -> lines_written++;
 		}
@@ -152,24 +206,23 @@ class Logger
 	 */
 	public function rotate()
 	{
-		$log_filepath = load::path( 'log', 'application', '.log' );
-		if ( file_exists ( $log_filepath ) )
+		if ( file_exists ( $this -> log_file ) )
 		{
-			$log_size = filesize( $log_filepath );
+			$log_size = filesize( $this -> log_file );
 
-			if ( $log_size > $this -> max_log_size )
+			if ( $log_size > $this -> config['max_log_size'] )
 			{
-				if( !file_exists( $log_filepath . '.' . 1 ) )
-					rename( $log_filepath, $log_filepath . '.' . 1 );
+				if( !file_exists( $this -> log_file . '.' . 1 ) )
+					rename( $this -> log_file, $this -> log_file . '.' . 1 );
 				else
 				{
 
-					for( $i =  $this -> max_old_logs; $i > 0; $i-- )
+					for( $i =  $this -> config['max_old_logs']; $i > 0; $i-- )
 					{
-						if( $i == $this -> max_old_logs )
-							unlink( $log_filepath . '.' . $i );
+						if( $i == $this -> config['max_old_logs'] )
+							unlink( $this -> log_file . '.' . $i );
 						else
-							rename( $log_filepath . '.' . $i, $log_filepath . '.' . ( $i + 1 ) );
+							rename( $this -> log_file . '.' . $i, $this -> log_file . '.' . ( $i + 1 ) );
 					}
 				}
 			}
@@ -184,47 +237,51 @@ class Logger
 	 */
 	public static function showDebug()
 	{
-		$log_filepath 	= load::path( 'log', 'application', '.log' );
-		$log 		= file($log_filepath);
-		$total_lines 	= count( $log );
-		$log_lines 	= null;
+		if( !self::open() -> config['display_debug'] ) 
+			return false;
+		else
+		{
+			$log_lines 	= null;
 
-		for ( $i = ( $total_lines - self::open()->lines_written - 1 ); $i < $total_lines; $i++)  
-			$log_lines .= $log[$i];
+			$log = fopen( self::open() -> log_file, "r");
+			while( ($line = fgetcsv($log, 0 , self::open()->seperator ) ) !== false ) 
+			{
+				$log_lines = "<tr>" . $log_lines;
 
-		$table = <<<TABLE
+				$single_line = null;
+				foreach ($line as $cell) 
+					$single_line .= "<td>" . htmlspecialchars($cell) . "</td>";
+				$log_lines = $single_line . $log_lines;
+				
+				$log_lines.= "<tr>\n";
+			}
+			fclose($log);
+
+			$session 	= new Session( $autostart = false );
+			$session_dump 	= ArrayUtility::makeReadable( print_r( $session -> data, true) );
+
+			if( !empty( $session_dump ) )
+				$session_dump = '<h2> Session Dump </h2><pre>' . $session_dump . '</pre><br/>';
+
+			$table = <<<TABLE
 			<br/>
+			$session_dump
+			<h2>Application Log</h2>
 			<table class="table table-bordered">
 				<thead>
-					<th><h2>Application Log</h2></th>
+					<th>Date</th>
+					<th>Script-Time</th>
+					<th>Level</th>
+					<th>Title</th>
+					<th>Details</th>
 				</thead>
 				<tbody>
-				<tr>
-					<td>
-						<pre>$log_lines</pre>
-					</td>
-				</tr>
+					$log_lines
 				</tbody>
 			</table>
 TABLE;
-		echo $table;
-	}
-
-
-	/**
-	 * formatArray - Formats array for clean and readable debugging output
-	 *
-	 * @return array  $array 	The formatted array.
-	 */
-	public static function formatArray($array)
-	{
-		$printed_array = print_r($array,true);
-
-		$search = array ( 'Array' , '(' , ')' , '[' , ']' , '>' );
-		$formatted_array = str_replace( $search , '' , $printed_array);
-
-		$formatted_array = str_replace(' =',':', $formatted_array);
-		return $formatted_array;
+			echo $table;
+		}
 	}
 
 }

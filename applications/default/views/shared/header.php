@@ -1,20 +1,19 @@
-<?php if( defined('BASE_HREF') ): ?>
-<base href = '<?php echo BASE_HREF ?>'>
+<?php if( isset( $data['base_href'] ) ): ?>
+<base href = '<?php echo $data['base_href'] ?>'>
 <?php endif; ?>
 
 <meta charset="utf-8"/>
-<title><?php echo SITE_NAME ?> - <?php echo ( isset( $data -> title ) ) ? $data -> title : SITE_TAG; ?> </title> 
+<title><?php echo $data['site_name'] ?> - <?php echo ( isset( $data['title'] ) ) ? $data['title'] : $data['site_tag']; ?> </title> 
 
-<?php if( defined('META_DESCRIPTION') ): ?>
-<meta name="description" content="<?php echo META_DESCRIPTION?>"/>
+<?php if( isset( $data['meta_description'] ) ): ?>
+<meta name="description" content="<?php echo $data['meta_description']?>"/>
 <?php endif; ?>
 
-<?php if( defined('META_KEYWORDS') ): ?>
-<meta name="keywords" content="<?php echo META_KEYWORDS ?>"/>
+<?php if( isset( $data['meta_keywords'] ) ): ?>
+<meta name="keywords" content="<?php echo $data['meta_keywords'] ?>"/>
 <?php endif; ?>
 
 <meta name="author" content="">
 
-<?php echo element::loadCSS(); ?>
-<?php echo element::loadJS(); ?>
-<?php if( $this -> module('metrics/analytics') )  echo $this -> module('metrics/analytics') -> track(); ?>
+<?php echo element::loadCSS( $data['default_css'] ); ?>
+<?php echo element::loadJS( $data['default_javascript'] ); ?>

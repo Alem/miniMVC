@@ -106,7 +106,7 @@ class Processor{
 			$path = GIMIMVC_ROOT . $this -> args['useconfig'];
 		elseif ( isset( $this -> args['a'] ) )
 		{
-			$path =  'applications/' . $this -> args['a'] . '/config/app.php';
+			$path =  'applications/' . $this -> args['a'] . '/config/core.php';
 			echo 'Assuming application config path: ' . $path . "\n";
 		}
 

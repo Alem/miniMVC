@@ -73,12 +73,13 @@ class QueryTool extends QueryBuilder
 	public function makeTable($name)
 	{
 		$names = $name . 's';
-		$this -> query( "create table $names ( id integer not null primary key auto_increment, $name varchar(128) not null );");
-		$this -> run();
+		$query = "create table $names ( id integer not null primary key auto_increment, $name varchar(128) not null );";
+		$this -> query( $query );
+		$result = $this -> run();
+		$this -> printResults( $query, $result );
 		echo "===============================================\n";
 		echo " Created $name table.\n";
 		echo "===============================================\n";
-		echo print_r( Logger::formatArray( Logger::open() -> record ), true);
 	}
 
 
@@ -91,12 +92,13 @@ class QueryTool extends QueryBuilder
 	{
 		if( !empty($name) )
 		{
-			$this -> query = "drop table $name".'s'; 
-			$this -> run();
+			$query = "drop table $name".'s'; 
+			$this -> query = $query;
+			$result = $this -> run();
+			$this -> printResults( $query, $result );
 			echo "===============================================\n";
 			echo " Deleted $name table. \n";
 			echo "===============================================\n";
-			echo print_r( Logger::formatArray( Logger::open() -> record ), true);
 		}
 	}
 
@@ -111,18 +113,18 @@ class QueryTool extends QueryBuilder
 	{
 		$table = $name . 's';
 		#ADD CONSTRAINT {$foreign_table}_id 
-		$sql = <<<SQL
+		$query = <<<QUERY
 		ALTER TABLE $table
 			ADD COLUMN {$foreign_name}_id integer(11) UNSIGNED,
 			ADD FOREIGN KEY ( {$foreign_name}_id )
 			REFERENCES  {$foreign_name}s(id)
-SQL;
-		$this -> query( $sql );
-		$this -> run();
+QUERY;
+		$this -> query( $query );
+		$results = $this -> run();
+		$this -> printResults( $query, $result );
 		echo "===============================================\n";
 		echo " Linked $name to $foreign_name.\n";
 		echo "===============================================\n";
-		echo print_r( Logger::formatArray( Logger::open() -> record ), true);
 
 	}
 
@@ -136,17 +138,17 @@ SQL;
 	public function unlinkTables( $table, $foreign_name )
 	{
 		$table = $name . 's';
-		$sql = <<<SQL
+		$query = <<<QUERY
 		ALTER TABLE $table
 			DROP FOREIGN KEY {$foreign_name}_id,
 			DROP {$foreign_name}_id 
-SQL;
-		$this -> query( $sql );
-		$this -> run();
+QUERY;
+		$this -> query( $query );
+		$result = $this -> run();
+		$this -> printResults( $query, $result );
 		echo "===============================================\n";
 		echo " Unlinked $name to $foreign_name.\n";
 		echo "===============================================\n";
-		echo print_r( Logger::formatArray( Logger::open() -> record ), true);
 	}
 
 
@@ -158,14 +160,27 @@ SQL;
 	public function openDB( $query )
 	{
 		echo "=============================================== \n";
-		echo " Connected to database: " . DB_DATABASE . "\n";
+		echo " Connected to database: " . $this -> database -> settings['database'] . "\n";
 		$this -> query ( $query );
-		$this -> run();
+		$result = $this -> run();
+		$this -> printResults( $query, $result );
+	}
+
+	/**
+	 * printResults - Prints query results, original query and errors
+	 */
+	public function printResults( $query, array $result )
+	{
 		echo " Query executed.\n";
 		echo "===============================================\n";
-		echo " Results\n";
-		echo "-----------------------------------------------";
-		echo print_r( Logger::formatArray( Logger::open() -> record ), true);
+		echo " Query: $query \n";
+		echo "-----------------------------------------------\n";
+		echo " Result:\n";
+		echo print_r( ArrayUtility::makeReadable( $result ), true);
+		echo "-----------------------------------------------\n";
+		echo " Errors: \n";
+		echo print_r( ArrayUtility::makeReadable( $this -> query_errors ), true);
+		echo "-----------------------------------------------\n";
 	}
 }
 ?>

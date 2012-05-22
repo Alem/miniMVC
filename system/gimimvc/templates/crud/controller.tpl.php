@@ -33,7 +33,7 @@ class Controller extends Template
 
 			\$this -> model() -> set ( 
 				'$column', 
-				\$this -> model('$column') -> get$uc_column( null, \$session -> user_id' ) ) 
+				\$this -> model('$column') -> get$uc_column( null, \$session -> get('user_id') )
 			);
 fetch;
 		//---------------------------------------HTML END
@@ -53,11 +53,14 @@ endif;
 		$name  =& $this -> name;
 		$uname =& $this -> uname;
 		$external_fetch = $this -> externalModelFetch();
-		$HTTP_ACCESS_PREFIX = HTTP_ACCESS_PREFIX;
+
+		$config = new Config();
+		$settings = $config -> load( 'application' );
+		$HTTP_ACCESS_PREFIX = $settings['http_access_prefix'];
 
 		if ( 1 == 1 )
 		{
-			$user = ", \$session -> user_id' ) ";
+			$user = ", \$session -> get('user_id') ";
 			$user_single = " \$session -> get( 'user_id' ) ";
 		}
 
@@ -114,7 +117,9 @@ class {$uname}Controller extends Controller
 	 */
 	public function {$HTTP_ACCESS_PREFIX}Index()
 	{
-		\$this -> prg('gallery');
+		\$session = new Session();
+		\$config  = new Config();
+
 	}
 
 
@@ -125,11 +130,13 @@ class {$uname}Controller extends Controller
 	public function {$HTTP_ACCESS_PREFIX}Form()
 	{
 		\$session = new Session();
+		\$config  = new Config();
+
 		\$session -> del('editing_{$name}_id');
 		if( \$this -> access() -> action('form') )
 		{
 			$external_fetch
-			\$this -> view('form');
+			\$this -> view('form', \$this -> model() -> data + \$session -> data + \$config->load('application') );
 		}else
 			\$this -> prg('gallery');
 	}
@@ -143,6 +150,7 @@ class {$uname}Controller extends Controller
 	{
 		\$request = new Request();
 		\$session = new Session();
+
 		if ( \$id = \$session -> getThenDel('editing_{$name}_id')  )
 			\$this -> model() -> update$uname(  \$request -> post, \$id $user);
 		elseif( \$this -> access() -> action('post') )
@@ -158,6 +166,8 @@ class {$uname}Controller extends Controller
 	 */
 	public function {$HTTP_ACCESS_PREFIX}Del( \$id )
 	{
+		\$session = new Session();
+		
 		if ( isset( \$id ) && \$this -> access() -> action( 'del') )
 			\$this -> model() -> delete$uname ( \$id $user);
 		\$this -> prg('gallery');
@@ -172,6 +182,8 @@ class {$uname}Controller extends Controller
 	public function {$HTTP_ACCESS_PREFIX}Edit(\$id)
 	{
 		\$session = new Session();
+		\$config  = new Config();
+
 		\$session -> set( 'editing_{$name}_id', \$id );
 		if( 
 			isset( \$id )
@@ -181,7 +193,8 @@ class {$uname}Controller extends Controller
 	{
 			$external_fetch
 			\$this -> model() -> saved_fields	= reset ($$name); 
-			\$this -> view('form');
+			\$this -> model() -> editing = true;
+			\$this -> view('form', \$this -> model() -> data + \$session -> data + \$config -> load('application') );
 		}else
 			\$this -> prg('gallery');
 	}
@@ -195,6 +208,8 @@ class {$uname}Controller extends Controller
 	public function {$HTTP_ACCESS_PREFIX}Show( \$id )
 	{
 		\$session = new Session();
+		\$config  = new Config();
+
 		if( 
 			isset( \$id ) 
 			&& \$this -> model() -> get$uname(\$id $user) 
@@ -202,7 +217,7 @@ class {$uname}Controller extends Controller
 		)
 		{
 			\$this -> model() -> set( 'show', true );
-			\$this -> view('show');
+			\$this -> view('show', \$this -> model() -> data + \$session -> data + \$config -> load('application') );
 		}else
 			\$this -> prg('gallery');
 	}
@@ -218,6 +233,8 @@ class {$uname}Controller extends Controller
 	public function {$HTTP_ACCESS_PREFIX}Gallery(\$page = 1, \$order_col = null, \$order_sort = null )
 	{
 		\$session = new Session();
+		\$config  = new Config();
+
 		if ( \$this -> access() -> action( 'gallery' ) )
 		{
 			\$request = new Request();
@@ -232,7 +249,7 @@ class {$uname}Controller extends Controller
 			}
 
 			\$this -> model() -> gallery$uname( \$order_col, \$order_sort, \$page, \$search $user );
-			\$this -> view('table');
+			\$this -> view('table', \$this -> model() -> data + \$session -> data + \$config -> load('application') );
 		}else
 			\$this -> prg();
 	}

@@ -36,6 +36,12 @@ class DbQuery
 
 
 	/**
+	 * @var string Holds the query errors
+	 */
+	public $query_errors = array();
+
+
+	/**
 	 * @var array Count-keeper.
 	 */
 	public $counter = array( 
@@ -145,14 +151,15 @@ class DbQuery
 	public function run()
 	{
 		Logger::debug('PDO Query', $this -> query );
-		Logger::debug('PDO Data', print_r($this -> query_data,true) );
+		Logger::debug('PDO Data', $this -> query_data );
 
 		$statement = $this -> database -> connection() -> prepare($this -> query);
 		$statement -> execute( $this -> query_data );
 
 		$this -> clearQuery();
+		$this -> query_errors[] = $statement -> errorInfo();
 
-		Logger::error('PDO Errors', print_r($statement -> errorInfo(), true) );
+		Logger::error('PDO Errors', $this -> query_errors );
 
 		if( isset( $this -> counter['insert'] ) )
 			$this -> last_insert_id = $this -> database -> connection() -> lastInsertId();
@@ -160,7 +167,6 @@ class DbQuery
 			$this -> rowcount = $statement -> rowCount();
 
 		$results = $statement -> fetchall( PDO::FETCH_ASSOC );
-		Logger::debug('PDO Results', print_r( $results ,true ) );
 
 		return $results;
 	}

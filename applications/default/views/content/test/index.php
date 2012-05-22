@@ -1,4 +1,4 @@
-<h1><?php echo SITE_NAME; ?> <small><?php echo SITE_TAG; ?></small></h1>
+<h1><?php echo $data['site_name']; ?> <small><?php echo $data['site_tag']; ?></small></h1>
 <hr>
 
 <br/>
@@ -12,9 +12,9 @@
 		<ol>
 			<li>User requests are recieved by index.php and routed to the correct controller and method along with any variables. </li>
 			<br/>
-			<li>Database data is then requested by the controller, which is retrieved and returned by the model, and passed through the view by the controller to the end user.</li>
+			<li>Data is then requested by the controller, which is retrieved from the database and returned by the model, and passed through the view by the controller to the end user.</li>
 			<br/>
-			<li>The controller or its view may incorporate the use of the controllers/applications modules.</li>
+			<li>The controller, or its view, may incorporate the use of the controllers and modules.</li>
 		</ol>
 		</p>
 

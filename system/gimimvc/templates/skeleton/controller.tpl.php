@@ -39,16 +39,18 @@ class MainController extends Controller{
 
 	// index() - Loads default 'index' view
 
-	function actionIndex()
+	public function actionIndex()
 	{
-		\$this -> view();
+		\$config = new Config();
+		\$this -> view('index', \$this -> model() -> data + \$config -> load('application') );
 	}
 
 	// about() - Run of the mill 'about' page
 
-	function actionAbout()
+	public function actionAbout()
 	{
-		\$this -> view('about');
+		\$config = new Config();
+		\$this -> view('about', \$this -> model() -> data + \$config -> load('application') );
 	}
 
 }

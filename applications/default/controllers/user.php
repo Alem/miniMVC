@@ -11,20 +11,6 @@ class UserController extends Controller
 
 
 	/**
-	 * setSessionData - Loads relevant sesion data to model
-	 */
-	function setSessionData( Session $session, Model $model = null )
-	{
-		if ( $model === null )
-			$model = $this -> model();
-
-		$model -> logged_in 	= $session -> get('logged_in');
-		$model -> username 	= $session -> get('username');
-		$model -> email 	= $session -> get('email');
-	}
-
-
-	/**
 	 * actionIndex() - Displays login form or profile page depending on login status
 	 *
 	 * Shows welcome, goodbye and failure message depending on flags set by user::login() 
@@ -34,7 +20,10 @@ class UserController extends Controller
 	public function actionIndex($message = null)
 	{
 		$session = new Session();
-		$this -> setSessionData( $session );
+		$config  = new Config();
+
+		$this -> library('commonData') -> setConfigData( $config, $this -> model() );
+		$this -> library('commonData') -> setSessionData( $session, $this -> model() );
 
 		if( $message == 'goodbye' )
 			$this -> model() -> goodbyeMsg = true;
@@ -52,7 +41,7 @@ class UserController extends Controller
 		{
 			$this -> model() -> title = $session -> get('username');
 			$this -> model() -> getUser( $session -> get('username'));
-			$this -> view();
+			$this -> view('index');
 		}else
 		{
 			$this -> view('login');
@@ -71,7 +60,10 @@ class UserController extends Controller
 	{
 		$request = new Request();
 		$session = new Session();
-		$this -> setSessionData( $session );
+		$config  = new Config();
+
+		$this -> library('commonData') -> setConfigData( $config, $this -> model() );
+		$this -> library('commonData') -> setSessionData( $session, $this -> model() );
 
 		$username = $request -> post['username'];
 		$password = md5( $request -> post['password'] );
@@ -109,7 +101,10 @@ class UserController extends Controller
 	{
 		$request  = new Request();
 		$session = new Session();
-		$this -> setSessionData( $session );
+		$config  = new Config();
+
+		$this -> library('commonData') -> setConfigData( $config, $this -> model() );
+		$this -> library('commonData') -> setSessionData( $session, $this -> model() );
 
 		$username = $request -> post['username'];
 		$password = md5( $request -> post['password'] );
@@ -135,7 +130,10 @@ class UserController extends Controller
 	public function actionSettings()
 	{
 		$session = new Session();
-		$this -> setSessionData( $session );
+		$config  = new Config();
+
+		$this -> library('commonData') -> setConfigData( $config, $this -> model() );
+		$this -> library('commonData') -> setSessionData( $session, $this -> model() );
 
 		if( $session -> get('logged_in') )
 		{
@@ -159,6 +157,9 @@ class UserController extends Controller
 	{
 		$request = new Request();
 		$session = new Session();
+		$config  = new Config();
+
+		$this -> library('commonData') -> setConfigData( $config, $this -> model() );
 		if( $session -> get('logged_in') )
 		{
 			if ( $setting == 'password' )
@@ -206,7 +207,6 @@ class UserController extends Controller
 	public function actionLogout()
 	{
 		$session = new Session();
-		$this -> setSessionData( $session );
 
 		$session -> set('logged_in', null);
 		session_destroy();

@@ -46,13 +46,14 @@ class Database
 	/**
 	 * __construct - Creates default database configuration.
 	 */
-	public function __construct()
+	public function __construct( array $settings = null )
 	{
-		$this -> driver 	= DB_DRIVER;
-		$this -> host 		= DB_SERVER;
-		$this -> username 	= DB_USERNAME;
-		$this -> password 	= DB_PASSWORD;
-		$this -> dbname 	= DB_DATABASE;
+		if ( $settings === null )
+		{
+			$config = new Config();
+			$settings = $config -> load('database');
+			$this -> settings = $settings['default'];
+		}
 		$this -> pdo_connection = null;
 	}
 
@@ -67,7 +68,15 @@ class Database
 	public function connection()
 	{
 		if ( !isset( $this -> pdo_connection ) )
-			$this-> pdo_connection = new PDO( $this -> driver . ':host=' . $this -> host . ';dbname=' . $this -> dbname, $this -> username, $this -> password );
+		{
+			$this-> pdo_connection = new PDO( 
+				$this -> settings['driver'] . ':host=' . 
+				$this -> settings['host'] . ';dbname=' . 
+				$this -> settings['database'], 
+				$this -> settings['username'], 
+				$this -> settings['password'] 
+			);
+		}
 		return $this -> pdo_connection;
 	}
 

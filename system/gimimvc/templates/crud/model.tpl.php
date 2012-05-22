@@ -73,6 +73,9 @@ return array(
 			$table_columns = implode( "','" , $this -> queryTool() -> table_columns );
 		if ( !empty ( $this -> queryTool() -> filtered_columns ) )
 			$form_columns  = implode( "','" , $this -> queryTool() -> filtered_columns );
+		if ( !empty ( $this -> queryTool() -> filtered_columns ) )
+			$saved_fields  = "'" . implode( "' => null,\n'" , $this -> queryTool() -> filtered_columns ) . "' => null \n";
+
 
 		if ( !empty ( $external_table_data ) ):
 
@@ -129,6 +132,9 @@ class $uname extends Model
 		)
 	);
 
+	
+	public \$saved_fields = array( $saved_fields );
+
 
 	public function __construct()
 	{
@@ -170,7 +176,7 @@ class $uname extends Model
 			-> where( \$id, 'id' );
 		if ( isset( \$user_id ) )
 			\$this	-> SQL() -> where(\$user_id, \$this -> columns['ownership'] );
-		\$this -> run();
+		\$this -> SQL() -> run();
 	}
 
 
@@ -182,7 +188,7 @@ class $uname extends Model
 	 */
 	public function update$uname( \$data, \$id = null, \$user_id = null ) 
 	{
-		\$this 	-> update( \$data, \$this -> columns['form'] );
+		\$this 	-> SQL() -> update( \$data, \$this -> columns['form'] );
 
 		if ( isset( \$id ) )
 			\$this	-> SQL() -> where( \$id, 'id' );
