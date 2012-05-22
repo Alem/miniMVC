@@ -87,14 +87,13 @@ Logger::debug('Application', 'Instantiated');
 Logger::debug('Raw URI', $router -> raw_uri );
 Logger::debug('URI', $router -> uri );
 
-if ( !empty( $requested_controller ) )
+if ( 
+	empty( $requested_controller ) 
+	|| ( $requested_controller -> useMethod( $default_settings['http_access_prefix'] . $router -> method  ,  $router -> variable )  ) === false
+)
 {
-	$success = ( $requested_controller -> useMethod( $default_settings['http_access_prefix'] . $router -> method  ,  $router -> variable )  );
-	if ( $success === false )
-	{
 		$response = new Response();
 		$response -> send( '404', "Could not find requested resource" );
-	}
 }
 
 

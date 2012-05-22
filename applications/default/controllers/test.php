@@ -49,24 +49,6 @@ class TestController extends Controller
 	}
 
 
-	/** 
-	 * edit() - Updates specified values
-	 *
-	 * @param string $ref 		Reference value
-	 * @param string $new 		New value to be set
-	 * @param string $ref_column 	Reference column 
-	 * @param string $new_column  	Column of new value
-	 */
-	function actionEdit($ref, $new, $column_ref = null, $column_new = null)
-	{
-		$session = new Session();
-		$config  = new Config();
-
-		$this -> model() -> editTest($new, $new_column, $ref, $ref_column );
-		$this -> show();
-	}
-
-
 	/**
 	 * show() - Display all information for specifed primary Id
 	 *
