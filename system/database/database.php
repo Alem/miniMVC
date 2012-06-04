@@ -3,7 +3,7 @@
 /**
  * Database class file.
  *
- * @author Z. Alem <info@alemmedia.com>
+ * @author Z. Alem <info@alemcode.com>
  */
 
 /**
@@ -18,48 +18,42 @@ class Database
 	 */
 	public $host;
 
-
 	/**
 	 * @var string Holds the database username
 	 */
 	public $username;
-
 
 	/**
 	 * @var string Holds the database password
 	 */
 	public $password;
 
-
 	/**
 	 * @var string Holds the database name.
 	 */
 	public $dbname;
-
 
 	/**
 	 * @var PDO Holds the database connection.
 	 */
 	public $pdo_connection;
 
-
 	/**
 	 * __construct - Creates default database configuration.
 	 */
 	public function __construct( array $settings = null )
 	{
-		if ( $settings === null )
+		if( $settings === null )
 		{
 			$config = new Config();
-			$settings = $config -> load('database');
-			$this -> settings = $settings['default'];
+			$settings = $config->fetch('database');
+			$this->settings = $settings['default'];
 		}
-		$this -> pdo_connection = null;
+		$this->pdo_connection = null;
 	}
 
-
-	/** 
-	 * connection() - Accesses database connection 
+	/**
+	 * connection() - Accesses database connection
 	 *
 	 * Starts connection if model::db not set, otherwise returns model::db
 	 *
@@ -67,17 +61,17 @@ class Database
 	 */
 	public function connection()
 	{
-		if ( !isset( $this -> pdo_connection ) )
+		if( !isset( $this->pdo_connection ) )
 		{
-			$this-> pdo_connection = new PDO( 
-				$this -> settings['driver'] . ':host=' . 
-				$this -> settings['host'] . ';dbname=' . 
-				$this -> settings['database'], 
-				$this -> settings['username'], 
-				$this -> settings['password'] 
+			$this-> pdo_connection = new PDO(
+				$this->settings['driver'] . ':host=' .
+				$this->settings['host'] . ';dbname=' .
+				$this->settings['database'],
+				$this->settings['username'],
+				$this->settings['password']
 			);
 		}
-		return $this -> pdo_connection;
+		return $this->pdo_connection;
 	}
 
 }

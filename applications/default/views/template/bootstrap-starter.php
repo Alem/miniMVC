@@ -1,25 +1,25 @@
 <html lang="en"><head>
 
 		<?php if( defined('BASE_HREF') ): ?>
-		<base href = '<?php echo $data['base_href'] ?>'>
+		<base href = '<?php echo $data['config']['base_href'] ?>'>
 		<?php endif; ?>
 
 		<meta charset="utf-8"/>
-		<title><?php echo $data['site_name'] ?> - <?php echo ( isset($this -> model -> title ) ) ? $this -> model -> title : $data['site_tag']; ?> </title> 
+		<title><?php echo $data['config']['site_name'] ?> - <?php echo ( isset($data['model']['title'] ) ) ? $data['model']['title']: $data['config']['site_tag']; ?> </title>
 
 		<?php if( defined('META_DESCRIPTION') ): ?>
-		<meta name="description" content="<?php echo $data['meta_description']?>"/>
+		<meta name="description" content="<?php echo $data['config']['meta_description']?>"/>
 		<?php endif; ?>
 
 		<?php if( defined('META_KEYWORDS') ): ?>
-		<meta name="keywords" content="<?php echo $data['meta_keywords'] ?>"/>
+		<meta name="keywords" content="<?php echo $data['config']['meta_keywords'] ?>"/>
 		<?php endif; ?>
 
 		<meta name="author" content="">
 
-		<?php if( isset( $this -> helper ) ) echo $this -> helper -> loadCss() ; ?>
-		<?php if( isset( $this -> helper ) ) echo $this -> helper -> loadJs() ; ?>
-		<?php if( isset( $this -> analytics) )  echo ($this -> analytics -> track()); ?>
+		<?php if( isset( $this->helper ) ) echo $this->helper->loadCss() ; ?>
+		<?php if( isset( $this->helper ) ) echo $this->helper->loadJs() ; ?>
+		<?php if( isset( $this->analytics) )  echo ($this->analytics->track()); ?>
 
 		<!-- Le styles -->
 		<link rel="stylesheet" href="../assets/css/bootstrap.css">
@@ -32,17 +32,17 @@
 				max-width: 20px;
 				max-height: 20px;
 			}
-				
+
 			.sec-nav{
 				 background-color: rgba(0, 0, 0, 0.45);
 			}
 		</style>
 
 		<!-- Le fav and touch icons -->
-		<link href="images/favicon.ico" rel="shortcut icon">
-		<link href="images/apple-touch-icon.png" rel="apple-touch-icon">
-		<link href="images/apple-touch-icon-72x72.png" sizes="72x72" rel="apple-touch-icon">
-		<link href="images/apple-touch-icon-114x114.png" sizes="114x114" rel="apple-touch-icon">
+		<link href="" rel="shortcut icon">
+		<link href="" rel="apple-touch-icon">
+		<link href="" sizes="72x72" rel="apple-touch-icon">
+		<link href="" sizes="114x114" rel="apple-touch-icon">
 	</head>
 
 	<body>
@@ -50,7 +50,7 @@
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container-fluid">
-					<a data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar">
+					<a data['config']-target=".nav-collapse" data['config']-toggle="collapse" class="btn btn-navbar">
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
@@ -61,23 +61,23 @@
 					<a class="brand" href="<?php echo DEFAULT_CONTROLLER?>"><?php echo SITE_NAME; ?></a>
 					<div class="nav-collapse">
 						<ul class="nav">
-							<?php echo $this -> helper -> menuLinks('nav') ?>
+							<?php echo $this->helper->menuLinks('nav') ?>
 						</ul>
-						<?php if ( $data['logged_in'] ): ?>
+						<?php if ( $data['config']['logged_in'] ): ?>
 						<p class="navbar-text pull-right">
-						Logged in as <a href="user"><?php echo  $data['username'] ?></a>
+						Logged in as <a href="user"><?php echo  $data['config']['username'] ?></a>
 						</p>
 						<?php endif; ?>
 					</div><!--/.nav-collapse -->
 				</div>
 			</div>
 
-			<?php if ( isset( $this -> menu -> sec_nav ) ): ?>
+			<?php if ( isset( $this->menu->sec_nav ) ): ?>
 			<div class="navbar-inner"  >
 				<div class="container-fluid sec-nav" >
 					<div class="nav-collapse">
 						<ul class="nav">
-							<?php echo $this -> helper -> menuLinks('sec_nav') ?>
+							<?php echo $this->helper->menuLinks('sec_nav') ?>
 						</ul>
 					</div>
 				</div>
@@ -85,11 +85,11 @@
 			<?php endif; ?>
 		</div>
 		<div class="container">
-			<?php require_once( $this -> loaded['view']['main']['path'] ); ?>
+			<?php require_once( $this->loaded['view']['path'] ); ?>
 			<hr>
 
 			<footer>
-			<p>(c) <a href='<?php echo $data['company_website']; ?>'><?php echo $data['company'] . ' - ' . date("Y"); ?></a></p>
+			<p>(c) <a href='<?php echo $data['config']['company_website']; ?>'><?php echo $data['config']['company'] . ' - ' . date("Y"); ?></a></p>
 			</footer>
 		</div> <!-- /container -->
 

@@ -1,9 +1,9 @@
 <div class = 'row' >
 	<div class = 'span4' >
-		<form class = "form-stacked" action = "<?php echo $this -> name ?>/post/" method = "post">
+		<form class = "form-stacked" action = "<?php echo $this->name['unit'] ?>/post/" method = "post">
 			<label>ID: </label>  <input id = "id" name = "id" type="text"> <br/>
 			<label>Entry: </label> <br/>
-			<textarea id = "<?php echo $this -> name ?>-field" name = "<?php echo $this -> name ?>" type="text" rows="10" cols="50" ></textarea>
+			<textarea id = "<?php echo $this->name['unit'] ?>-field" name = "<?php echo $this->name['unit'] ?>" type="text" rows="10" cols="50" ></textarea>
 			<p>
 			<input class = "Primary btn large btn-primary btn-large" type = "submit" value = "Submit"/>
 			</p>

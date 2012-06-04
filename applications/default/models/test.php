@@ -3,11 +3,6 @@
 class Test extends Model
 {
 
-	function __construct()
-	{
-		parent::__construct();
-	}
-
 	/**
 	 * insertTest() - Inserts test data into 'tests' table
 	 *
@@ -17,7 +12,7 @@ class Test extends Model
 	{
 		$form_fields = array_keys( $data );
 		$this	-> SQL()
-			-> insert( $data, $form_fields) 
+			-> insert( $data, $form_fields)
 			-> run();
 	}
 
@@ -28,7 +23,7 @@ class Test extends Model
 	 * @param string $column 	The name of the column
 	 */
 	function deleteTest ( $value, $column ) {
-		$this  -> SQL() -> remove() -> where ( $value, $column ) -> run();
+		$this ->SQL()->remove()->where ( $value, $column )->run();
 	}
 
 	/**
@@ -40,9 +35,8 @@ class Test extends Model
 	 * @param string $ref_column 	The name of the column
 	 */
 	function editTest($new, $new_column, $ref, $ref_column ) {
-		$this  -> SQL() -> update( $new, $new_column) -> where($ref, $ref_column) -> run();
+		$this ->SQL()->update( $new, $new_column)->where($ref, $ref_column)->run();
 	}
-
 
 	/**
 	 * getTest() - Retrieves record from table 'tests' matching the supplied ID value
@@ -51,13 +45,13 @@ class Test extends Model
 	 * @return array 	The select SQL query result.
 	 */
 	function getTest($id ) {
-		$result = $this -> SQL()
-			-> select ('*') 
+		$result = $this->SQL()
+			-> select ('*')
 			-> from()
-			-> where($id,'id') 
+			-> where($id,'id')
 			-> run();
 
-		$this  -> set( 'data',  $result);
+		$this ->set( 'data',  $result);
 
 		return $result;
 	}
@@ -72,19 +66,19 @@ class Test extends Model
 	 */
 	function galleryTest( $order_col, $order_sort, $page)
 	{
-		$result = $this -> SQL()
-			-> select('*') 
+		$result = $this->SQL()
+			-> select('*')
 			-> from()
-			-> order( $order_col, $order_sort) 
+			-> order( $order_col, $order_sort)
 			-> page ($page, 6);
 
 		$order_string = VAR_SEPARATOR . implode( VAR_SEPARATOR, array_filter(array( $order_col, $order_sort )));
 
-		$this  -> set( 
-			array( 
-				'page' => $page, 
+		$this ->set(
+			array(
+				'page' => $page,
 				'order' => $order_string,
-				'lastpage' => $result['pages'], 
+				'lastpage' => $result['pages'],
 				'data' => $result['paged'],
 			)
 		);

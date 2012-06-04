@@ -9,39 +9,36 @@ class User extends Model
 		'profile' 	=> array( 'user', 'email' ),
 	);
 
-
-	function getUser( $username, $password = null) 
+	function getUser( $username, $password = null)
 	{
-		$this -> SQL() -> select('*');
-		$this -> SQL() -> from();
-		$this -> SQL() -> where( $username , 'user');
+		$this->SQL()->select('*');
+		$this->SQL()->from();
+		$this->SQL()->where( $username , 'user');
 
 		if ( isset( $password ) )
-			$this -> SQL() -> where( $password , 'password');
+			$this->SQL()->where( $password , 'password');
 
-		$result = $this -> SQL() -> run();
+		$result = $this->SQL()->run();
 
-		$this -> set( 'data', $result );
+		$this->set( 'data', $result );
 		return $result;
 	}
 
-	function addUser( $username, $password, $email) 
+	function addUser( $username, $password, $email)
 	{
-		return $this -> SQL() 
-			-> insert( array($username, $password,$email), $this -> columns['form'] )
+		return $this->SQL()
+			-> insert( array($username, $password,$email), $this->columns['form'] )
 			-> run();
 	}
 
-
-	function deleteUser ( $username, $password ) 
+	function deleteUser ( $username, $password )
 	{
-		$this -> SQL() -> remove() -> where ( $username, $password )  -> run();
+		$this->SQL()->remove()->where ( $username, $password ) ->run();
 	}
 
-
-	function editUser($new, $new_column, $ref, $ref_column = 'user' ) 
+	function editUser($new, $new_column, $ref, $ref_column = 'user' )
 	{
-		$this  -> SQL() -> update( $new, $new_column) -> where($ref, $ref_column) -> run();
+		$this ->SQL()->update( $new, $new_column)->where($ref, $ref_column)->run();
 	}
 }
 

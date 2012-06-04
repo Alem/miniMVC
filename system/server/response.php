@@ -2,7 +2,7 @@
 /**
  * Response class file.
  *
- * @author Z. Alem <info@alemmedia.com>
+ * @author Z. Alem <info@alemcode.com>
  */
 
 /**
@@ -12,18 +12,18 @@
  * Response, in combination with the Request class,
  * also allows simple RESTful API functionality.
  *
- * A controller can determine the request method 
- * and retrieve the relevant parameters using the request class 
+ * A controller can determine the request method
+ * and retrieve the relevant parameters using the request class
  * then deliver a direct HTTP response using the Response object.
  *
  * ------------------------------
  * Example:
  *
- * switch ( $request -> method )
+ * switch( $request->method )
  * 	case 'get':
- * 		$requested_data = $model -> getFoo( $request -> getFoo['foo'] );
+ * 		$requested_data = $model->getFoo( $request->getFoo['foo'] );
  * 		$data = json_encode( $requested_data );
- * 		$response -> send( 200, $data, 'json' );
+ * 		$response->send( 200, $data, 'json' );
  * 		break;
  * ------------------------------
  */
@@ -33,56 +33,54 @@ class Response
 	/**
 	 * @var array Numeric status code and their respective messages.
 	 */
-	public $status_codes = array(  
-		100 => 'Continue',  
-		101 => 'Switching Protocols',  
-		200 => 'OK',  
-		201 => 'Created',  
-		202 => 'Accepted',  
-		203 => 'Non-Authoritative Information',  
-		204 => 'No Content',  
-		205 => 'Reset Content',  
-		206 => 'Partial Content',  
-		300 => 'Multiple Choices',  
-		301 => 'Moved Permanently',  
-		302 => 'Found',  
-		303 => 'See Other',  
-		304 => 'Not Modified',  
-		305 => 'Use Proxy',  
-		306 => '(Unused)',  
-		307 => 'Temporary Redirect',  
-		400 => 'Bad Request',  
-		401 => 'Unauthorized',  
-		402 => 'Payment Required',  
-		403 => 'Forbidden',  
-		404 => 'Not Found',  
-		405 => 'Method Not Allowed',  
-		406 => 'Not Acceptable',  
-		407 => 'Proxy Authentication Required',  
-		408 => 'Request Timeout',  
-		409 => 'Conflict',  
-		410 => 'Gone',  
-		411 => 'Length Required',  
-		412 => 'Precondition Failed',  
-		413 => 'Request Entity Too Large',  
-		414 => 'Request-URI Too Long',  
-		415 => 'Unsupported Media Type',  
-		416 => 'Requested Range Not Satisfiable',  
-		417 => 'Expectation Failed',  
-		500 => 'Internal Server Error',  
-		501 => 'Not Implemented',  
-		502 => 'Bad Gateway',  
-		503 => 'Service Unavailable',  
-		504 => 'Gateway Timeout',  
-		505 => 'HTTP Version Not Supported'  
-	);  
-
+	public $status_codes = array(
+		100 => 'Continue',
+		101 => 'Switching Protocols',
+		200 => 'OK',
+		201 => 'Created',
+		202 => 'Accepted',
+		203 => 'Non-Authoritative Information',
+		204 => 'No Content',
+		205 => 'Reset Content',
+		206 => 'Partial Content',
+		300 => 'Multiple Choices',
+		301 => 'Moved Permanently',
+		302 => 'Found',
+		303 => 'See Other',
+		304 => 'Not Modified',
+		305 => 'Use Proxy',
+		306 => '(Unused)',
+		307 => 'Temporary Redirect',
+		400 => 'Bad Request',
+		401 => 'Unauthorized',
+		402 => 'Payment Required',
+		403 => 'Forbidden',
+		404 => 'Not Found',
+		405 => 'Method Not Allowed',
+		406 => 'Not Acceptable',
+		407 => 'Proxy Authentication Required',
+		408 => 'Request Timeout',
+		409 => 'Conflict',
+		410 => 'Gone',
+		411 => 'Length Required',
+		412 => 'Precondition Failed',
+		413 => 'Request Entity Too Large',
+		414 => 'Request-URI Too Long',
+		415 => 'Unsupported Media Type',
+		416 => 'Requested Range Not Satisfiable',
+		417 => 'Expectation Failed',
+		500 => 'Internal Server Error',
+		501 => 'Not Implemented',
+		502 => 'Bad Gateway',
+		503 => 'Service Unavailable',
+		504 => 'Gateway Timeout',
+		505 => 'HTTP Version Not Supported'
+	);
 
 	/**
 	 * @var array Chosen  content type for response data
 	 */
 	public $content_type = 'html';
-
 
 	/**
 	 * @var array Avialable content types for response data
@@ -97,7 +95,6 @@ class Response
 		'csv' => 'application/csv'
 	);
 
-
 	/**
 	 * send() - Sends HTTP header and body.
 	 *
@@ -109,7 +106,7 @@ class Response
 	public function send( $status_code = 200, $body = '', $content_type = null, $more_headers = array() )
 	{
 		if( !isset( $content_type ) )
-			$content_type = $this -> content_type;
+			$content_type = $this->content_type;
 
 		$status = 'HTTP/1.1 ' . $status_code . ' ' . $this->status_codes[$status_code];
 		$content = 'Content-type: ' . $this->supported_formats[$content_type];
@@ -117,9 +114,9 @@ class Response
 		header( $status );
 		header( $content );
 
-		if ( !empty( $more_headers ) )
+		if( !empty( $more_headers ) )
 		{
-			foreach( $more_headers as $header) 
+			foreach( $more_headers as $header)
 				header( $header );
 		}
 

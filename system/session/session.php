@@ -2,11 +2,11 @@
 /**
  * Session class file.
  *
- * @author Z. Alem <info@alemmedia.com>
+ * @author Z. Alem <info@alemcode.com>
  */
 
 /**
- * The Session class is a singleton wrapper to aid in the 
+ * The Session class is a singleton wrapper to aid in the
  * accessing and modifying the session
  *
  */
@@ -18,39 +18,35 @@ class Session
 	 */
 	public $id;
 
-
 	/**
 	 * @var array The data to be held in session.
 	 */
 	public $data;
 
-
 	/**
 	 * construct() - Optionally opens session
-	 * 
+	 *
 	 * @param bool $autostart 	If true, opens the session
 	 */
 	public function __construct( $autostart = true )
 	{
 		if ( $autostart )
-			$this -> open();
+			$this->open();
 	}
-
 
 	/**
 	 * open -  Starts session
-	 * 
+	 *
 	 * @return object
 	 */
-	public function open() 
+	public function open()
 	{
 		if ( session_id() == '' )
 			session_start();
-		$this -> id   = session_id();
-		$this -> data =& $_SESSION;
+		$this->id   = session_id();
+		$this->data =& $_SESSION;
 	}
 
-	
 	/**
 	 * handler - Set session handler
 	 *
@@ -60,23 +56,24 @@ class Session
 	 */
 	public function handler( $type )
 	{
-		require( 'handlers/' . $type . '.php');
-		$this -> handler =  new $type;
+		$root = dirname(__FILE__);
+		require( $root . '/handlers/' . $type . '.php');
 
-		session_set_save_handler( 
-			array( $this -> handler, 'open' ),
-			array( $this -> handler, 'close' ),
-			array( $this -> handler, 'read' ),
-			array( $this -> handler, 'write' ),
-			array( $this -> handler, 'destroy' ),
-			array( $this -> handler, 'gc' )
+		$this->handler =  new $type;
+
+		session_set_save_handler(
+			array( $this->handler, 'open' ),
+			array( $this->handler, 'close' ),
+			array( $this->handler, 'read' ),
+			array( $this->handler, 'write' ),
+			array( $this->handler, 'destroy' ),
+			array( $this->handler, 'gc' )
 		);
 
 		// 'prevents unexpected effects when using objects as save handlers'
 		register_shutdown_function('session_write_close');
 
 	}
-
 
 	/**
 	 * set - Recieves variables to set to $_SESSION array
@@ -85,65 +82,71 @@ class Session
 	 * @param mixed  $value      The balue to set to the property
 	 * @param bool   $make_array If set to true the property will be an numeric array
 	 */
-	public function set($property, $value = null, $make_array = false)
+	public function set( $property, $value = null, $make_array = false )
 	{
 		if ( is_array( $property) )
 		{
-			foreach($property as $key => $single_property)
-				$this -> set($key, $single_property);
+			foreach( $property as $key => $single_property )
+				$this->set( $key, $single_property );
 		}
 		else
 		{
 			if ($make_array == false)
-				 $this -> data[$property] = $value;
+				 $this->data[$property] = $value;
 			else
-				 $this -> data[$property][] = $value;
+				 $this->data[$property][] = $value;
 		}
 	}
-
 
 	/**
 	 * del - Recieves variables to delete in $_SESSION array
 	 *
 	 * @param string $property   The property to delete from the session
 	 */
-	public function del($property)
+	public function del( $property )
 	{
 		if ( is_array( $property) )
 		{
-			foreach($property as $key => $single_property)
-				 $this -> del($key);
+			foreach( $property as $key => $single_property )
+				 $this->del( $key );
 		}else
-			unset( $this -> data[$property]);
+			unset( $this->data[$property] );
 	}
-
 
 	/**
 	 * get - Returns variables from $_SESSION array.
-	 * 
+	 *
 	 * @param string $property   The property to retrieve from the session
 	 * @return mixed|bool        The retrieved property or false.
 	 */
-	public function get($property)
+	public function get( $property )
 	{
-		if ( isset( $this -> data[$property] ) )
-			return $this -> data[$property];
-		else 
+		if ( isset( $this->data[$property] ) )
+			return $this->data[$property];
+		else
 			return false;
+	}
+
+	/**
+	 * get - Returns variables from $_SESSION array and subsequently deletes them.
+	 *
+	 * @param string $property   The property to retrieve and delete from the session
+	 * @return mixed             The retrieved property.
+	 */
+	public function getThenDel( $property )
+	{
+		$result = $this->get( $property );
+		$this->del( $property );
+		return $result;
 	}
 
 
 	/**
-	 * get - Returns variables from $_SESSION array and subsequently deletes them.
-	 * 
-	 * @param string $property   The property to retrieve and delete from the session
-	 * @return mixed             The retrieved property.
+	 * destroy() - Destroys session
 	 */
-	public function getThenDel($property)
+	public function destroy()
 	{
-		$result = $this -> get ($property);
-		$this -> del ($property);
-		return $result;
+		session_destroy();
 	}
 
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<?php include ( $this -> load() -> Page( 'shared', 'header') ); ?>
+		<?php include ( $this->load()->Page( 'shared', 'header') ); ?>
 
 		<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
 		<!--[if lt IE 9]>
@@ -58,18 +58,13 @@
 				max-width: 20px;
 				max-height: 20px;
 			}
-				
+
 		</style>
 
-		<!-- Le fav and touch icons -->
-		<link rel="shortcut icon" href="media/img/favicon.ico">
-		<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-		<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-		<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
 	</head>
 	<body>
 
-		<?php include ( $this -> load() -> path( 'shared', 'nav') ); ?>
+		<?php include ( $this->load()->path( 'shared', 'nav') ); ?>
 
 		<div class="container">
 
@@ -79,15 +74,15 @@
 				</div>
 				<div class="row">
 
-					<div class="<?php echo(isset($this -> module('base/menu') -> menus['sidebar'])) ? 'span8' : 'span16' ?>">
-						<?php require_once( $this -> loaded['view']['main']['path'] ); ?>
+					<div class="<?php echo(isset($this->module('base/menu')->menus['sidebar'])) ? 'span8' : 'span16' ?>">
+						<?php require_once( $this->loaded['view']['path'] ); ?>
 					</div>
 
-					<?php if((isset($this -> module('base/menu') -> menus['sidebar']) )): ?>
+					<?php if((isset($this->module('base/menu')->menus['sidebar']) )): ?>
 					<div class="span2 well sidebar-nav">
 						<ul class="nav nav-list">
 						<li class="nav-header"> Navigation </li>
-							<?php echo $this -> module('base/menu') -> display('sidebar') ?>
+							<?php echo $this->module('base/menu')->display('sidebar') ?>
 						</ul>
 					</div><!--/.well -->
 					<? endif;?>

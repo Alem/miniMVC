@@ -9,7 +9,7 @@
  * The Core configuration file is responsible for setting system paths, delimiters.
  */
 
-/* 
+/*
  * ----------------------------------------------------------------------
  * Settings: Path Defaults
  * ----------------------------------------------------------------------
@@ -29,18 +29,19 @@ define( 'DEFAULT_LOG_PATH', 		'logs/' );
 define( 'DEFAULT_MODEL_PATH', 		'models/' );
 define( 'DEFAULT_MODULE_PATH', 		'modules/' );
 define( 'DEFAULT_VIEW_PATH', 		'views/' );
+define( 'DEFAULT_CACHE_PATH', 		'temp/' );
+define( 'DEFAULT_DATA_PATH', 		'data/' );
 
 // Application View paths
 define( 'DEFAULT_CONTENT_PATH',		'content/' );
 define( 'DEFAULT_TEMPLATE_PATH', 	'template/' );
 define( 'DEFAULT_SHARED_PATH', 		'shared/' );
+define( 'DEFAULT_ERROR_PATH', 		'error/' );
 
 // Public_html paths
-define( 'DEFAULT_CACHE_PATH', 		'cache/' );
 define( 'DEFAULT_MEDIA_PATH', 		'media/' );
 
-
-/* 
+/*
  * ----------------------------------------------------------------------
  * Settings: Delimiters for the URI and Variables
  * ----------------------------------------------------------------------
@@ -48,6 +49,5 @@ define( 'DEFAULT_MEDIA_PATH', 		'media/' );
  */
 define( 'URI_SEPARATOR', 		'/' );
 define( 'VAR_SEPARATOR', 		'/' );
-
 
 ?>

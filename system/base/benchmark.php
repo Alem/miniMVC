@@ -2,7 +2,7 @@
 /**
  * Benchmark class file.
  *
- * @author Z. Alem <info@alemmedia.com>
+ * @author Z. Alem <info@alemcode.com>
  */
 
 /**
@@ -16,7 +16,6 @@ class Benchmark
 	 */
 	public $mark = array();
 
-
 	/**
 	 * markTime - Creates a named marker with its time in microseconds
 	 *
@@ -25,9 +24,8 @@ class Benchmark
 	 */
 	public function markTime( $name )
 	{
-		return $this -> mark[$name] = microtime(true);
+		return $this->mark[$name] = microtime(true);
 	}
-
 
 	/**
 	 * timeBetween - Calculates the time elapsed between to named time marks
@@ -38,9 +36,8 @@ class Benchmark
 	 */
 	public function timeBetween( $name_1, $name_2 )
 	{
-		return ($this -> mark[$name_1] - $this -> mark[$name_2] );
+		return $this->mark[$name_1] - $this->mark[$name_2];
 	}
-
 
 	/**
 	 * memoryUsage - Returns memory usage in kb
@@ -49,9 +46,8 @@ class Benchmark
 	 */
 	public function memoryUsage()
 	{
-		return  ( memory_get_usage() / 1000 ) . ' kb';
+		return ( memory_get_usage() / 1000 ) . ' kb';
 	}
-
 
 	/**
 	 * peakMemoryUsage - Returns peak memory usage in kb
@@ -60,11 +56,9 @@ class Benchmark
 	 */
 	public function peakMemoryUsage()
 	{
-		return  ( memory_get_peak_usage() / 1000 ) . ' kb'; 
+		return ( memory_get_peak_usage() / 1000 ) . ' kb';
 	}
 
-
 }
-
 
 ?>

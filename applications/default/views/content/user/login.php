@@ -1,15 +1,15 @@
-<?php if ( isset( $this -> model() -> failMsg ) ): ?>
-		<div class="alert alert-danger"> 
+<?php if ( $data['message'] === 'fail' ): ?>
+		<div class="alert alert-danger">
 		<a class="close" href="user">×</a>
 		<strong>Nope!</strong> Wrong, wrong wrong. Do it again.
 		</div>
-<?php elseif ( isset( $this -> model() -> goodbyeMsg ) ): ?>
-		<div class="alert alert-info"> 
+<?php elseif ( $data['message'] === 'goodbye' ): ?>
+		<div class="alert alert-info">
 		<a class="close" href="user">×</a>
 		You successfully logged out. <strong>Seeya!</strong>
 		</div>
-<?php elseif ( isset( $this -> model() -> takenMsg ) ): ?>
-		<div class="alert alert-danger"> 
+<?php elseif ( $data['message'] === 'taken' ): ?>
+		<div class="alert alert-danger">
 		<a class="close" href="user">×</a>
 		<strong>Sorry</strong>, that name is already registered. Try choosing another.
 		</div>
@@ -49,8 +49,8 @@
 			<label>E-mail:
 			<input name = "email" type = "email" /> </label>
 
-			<span id = 'human' style ='display:none' > 
-				Don't fill, robots only: 
+			<span id = 'human' style ='display:none' >
+				Don't fill, robots only:
 				<input type = "text" name ="address"/>
 			</span>
 

@@ -3,7 +3,6 @@
 class ArrayUtility
 {
 
-
 	/**
 	 * makeReadable - Formats array for clean and readable output
 	 *
@@ -15,7 +14,7 @@ class ArrayUtility
 	{
 		$printed_array = print_r($array,true);
 
-		$search = array ( 'Array' , '(' , ')' , '[' , ']' , '>' );
+		$search = array( 'Array' , '(' , ')' , '[' , ']' , '>' );
 		$formatted_array = str_replace( $search , '' , $printed_array);
 
 		$formatted_array = str_replace(' =',':', $formatted_array);
@@ -25,9 +24,6 @@ class ArrayUtility
 
 		return $formatted_array;
 	}
-
-
-
 
 }
 

@@ -2,7 +2,7 @@
 /**
  * QueryTool class file.
  *
- * @author Z. Alem <info@alemmedia.com>
+ * @author Z. Alem <info@alemcode.com>
  */
 
 /**
@@ -21,18 +21,15 @@ class QueryTool extends QueryBuilder
 	 */
 	public $table_info;
 
-
 	/**
 	 * @var array Holds table column names. Populated by getFormattedColumns().
 	 */
 	public $table_columns;
 
-
 	/**
 	 * @var array Holds table column names excluding id, user_id. Populated by getFormattedColumns().
 	 */
 	public $filtered_columns;
-
 
 	/**
 	 * @var array Holds table column names that exhibit the linked column naming convention.
@@ -40,26 +37,25 @@ class QueryTool extends QueryBuilder
 	 */
 	public $linked_columns;
 
-
 	/**
-	 * getFormattedColumns() - Retrieves and formats information for an MVC unit's table. 
+	 * getFormattedColumns() - Retrieves and formats information for an MVC unit's table.
 	 *
 	 * @param string $name 		The name of the MVC unit.
 	 */
 	public function getFormattedColumns( $name )
 	{
 
-		$this -> table_columns = $this -> getColumns( $name .'s' );
+		$this->table_columns = $this->getColumns( $name .'s' );
 
-		if ( !empty ( $this -> table_columns ) )
+		if ( !empty ( $this->table_columns ) )
 		{
-			foreach( $this -> table_columns as $table_column)
+			foreach( $this->table_columns as $table_column)
 			{
 
 				if (( $table_column != 'id' ) && ( $table_column != 'user_id' ) )
-					$this -> filtered_columns[] = $table_column;
+					$this->filtered_columns[] = $table_column;
 				if ( ( strstr( $table_column, '_id' ) )  !== false  )
-					$this -> linked_columns[] =  str_replace( '_id', '', $table_column);
+					$this->linked_columns[] =  str_replace( '_id', '', $table_column);
 			}
 		}
 	}
@@ -74,12 +70,9 @@ class QueryTool extends QueryBuilder
 	{
 		$names = $name . 's';
 		$query = "create table $names ( id integer not null primary key auto_increment, $name varchar(128) not null );";
-		$this -> query( $query );
-		$result = $this -> run();
-		$this -> printResults( $query, $result );
-		echo "===============================================\n";
+		$this->runAndPrint( $query );
+
 		echo " Created $name table.\n";
-		echo "===============================================\n";
 	}
 
 
@@ -92,13 +85,11 @@ class QueryTool extends QueryBuilder
 	{
 		if( !empty($name) )
 		{
-			$query = "drop table $name".'s'; 
-			$this -> query = $query;
-			$result = $this -> run();
-			$this -> printResults( $query, $result );
-			echo "===============================================\n";
+			$query = "drop table $name".'s';
+
+			$this->runAndPrint( $query );
+
 			echo " Deleted $name table. \n";
-			echo "===============================================\n";
 		}
 	}
 
@@ -112,19 +103,17 @@ class QueryTool extends QueryBuilder
 	public function linkTables( $name, $foreign_name )
 	{
 		$table = $name . 's';
-		#ADD CONSTRAINT {$foreign_table}_id 
+		#ADD CONSTRAINT {$foreign_table}_id
 		$query = <<<QUERY
 		ALTER TABLE $table
 			ADD COLUMN {$foreign_name}_id integer(11) UNSIGNED,
 			ADD FOREIGN KEY ( {$foreign_name}_id )
 			REFERENCES  {$foreign_name}s(id)
 QUERY;
-		$this -> query( $query );
-		$results = $this -> run();
-		$this -> printResults( $query, $result );
-		echo "===============================================\n";
+
+		$this->runAndPrint( $query );
+
 		echo " Linked $name to $foreign_name.\n";
-		echo "===============================================\n";
 
 	}
 
@@ -141,14 +130,12 @@ QUERY;
 		$query = <<<QUERY
 		ALTER TABLE $table
 			DROP FOREIGN KEY {$foreign_name}_id,
-			DROP {$foreign_name}_id 
+			DROP {$foreign_name}_id
 QUERY;
-		$this -> query( $query );
-		$result = $this -> run();
-		$this -> printResults( $query, $result );
-		echo "===============================================\n";
+
+		$this->runAndPrint( $query );
+
 		echo " Unlinked $name to $foreign_name.\n";
-		echo "===============================================\n";
 	}
 
 
@@ -159,19 +146,65 @@ QUERY;
 	 */
 	public function openDB( $query )
 	{
-		echo "=============================================== \n";
-		echo " Connected to database: " . $this -> database -> settings['database'] . "\n";
-		$this -> query ( $query );
-		$result = $this -> run();
-		$this -> printResults( $query, $result );
+		echo " Connected to database: " . $this->database->settings['database'] . "\n";
+		$this->runAndPrint( $query );
 	}
+
+
+	/**
+	 * importData() - Reads specified file in application data/ into database.
+	 *
+	 * @param string $filename 	The name of the file
+	 */
+	public function importData( $filename )
+	{
+		$fullpath = SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_DATA_PATH . $filename;
+
+		if( file_exists( $fullpath ) )
+		{
+			$query = file_get_contents( $fullpath );
+			$this->runAndPrint( $query );
+		}
+		else
+			echo "Error: Schema file '$fullpath' does not exist";
+	}
+
+
+	/**
+	 * exportData() - Exports database data into a file saved in the application data/ directory.
+	 *
+	 * @param string unit 		The name of the unit to export.
+	 * 				If unspecified, exports entire database.
+	 */
+	public function exportData( $unit = null )
+	{
+		// This may not be feasible/practical.
+	}
+
+
+	/**
+	 * runAndPrint() - Runs query and executes printResults()
+	 *
+	 * @param string $query 	The SQL query
+	 */
+	public function runAndPrint( $query )
+	{
+		$this->query( $query );
+		$result = $this->run();
+		$this->printResults( $query, $result );
+	}
+
 
 	/**
 	 * printResults - Prints query results, original query and errors
+	 *
+	 * @param string $query 	The SQL query
+	 * @param array  $result 	The SQL query results
 	 */
 	public function printResults( $query, array $result )
 	{
-		echo " Query executed.\n";
+		echo "===============================================\n";
+		echo " Database Transaction Report.\n";
 		echo "===============================================\n";
 		echo " Query: $query \n";
 		echo "-----------------------------------------------\n";
@@ -179,7 +212,7 @@ QUERY;
 		echo print_r( ArrayUtility::makeReadable( $result ), true);
 		echo "-----------------------------------------------\n";
 		echo " Errors: \n";
-		echo print_r( ArrayUtility::makeReadable( $this -> query_errors ), true);
+		echo print_r( ArrayUtility::makeReadable( $this->query_errors ), true);
 		echo "-----------------------------------------------\n";
 	}
 }

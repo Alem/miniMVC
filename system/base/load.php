@@ -2,7 +2,7 @@
 /**
  * Load class file.
  *
- * @author Z. Alem <info@alemmedia.com>
+ * @author Z. Alem <info@alemcode.com>
  */
 
 /**
@@ -19,17 +19,17 @@ class Load
 	 */
 	public $paths = array();
 
-
 	/**
 	 * construct - Set defaults
 	 */
 	public function __construct()
 	{
-		$this -> paths = array(
+		$this->paths = array(
 			'controller' 	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_CONTROLLER_PATH,
 			'config' 	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_APP_CONFIG_PATH,
 			'model' 	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_MODEL_PATH,
-			'view'		=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_VIEW_PATH . DEFAULT_CONTENT_PATH,
+			'content'	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_VIEW_PATH . DEFAULT_CONTENT_PATH,
+			'error'		=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_VIEW_PATH . DEFAULT_ERROR_PATH,
 			'template'	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_VIEW_PATH . DEFAULT_TEMPLATE_PATH,
 			'shared'	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_VIEW_PATH . DEFAULT_SHARED_PATH,
 			'module'	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_MODULE_PATH,
@@ -41,20 +41,19 @@ class Load
 
 	/**
 	 * path() - Returns path for application component
-	 * 
+	 *
 	 * @param string $component 	Type of component
-	 * @param string $name 		Name of component 
+	 * @param string $name 		Name of component
 	 * @param string $ext 		Type of extension
 	 * @return string 		The constructed file path of the component
 	 */
 	public function path( $component , $name , $ext = '.php' )
 	{
-		return $this -> paths[ $component ] . $name . $ext;
+		return $this->paths[ $component ] . $name . $ext;
 	}
 
-
 	/**
-	 * component - Simple factory method for application components (controllers,models,modules,libraries)
+	 * component - Simple factory method for application components(controllers,models,modules,libraries)
 	 *
 	 * If given in form 'dir/name', the class name will be derived from the portion after the '/'
 	 *
@@ -65,20 +64,20 @@ class Load
 	 */
 	public function component( $type, $name , $instantiate = true )
 	{
-		$filepath = $this -> path ( $type, $name );
+		$filepath = $this->path( $type, $name );
 
-		if ( file_exists( $filepath ) ) {
+		if( file_exists( $filepath ) ) {
 
 			require_once( $filepath );
 
-			if ( $DS = strpos( $name, '/' ) )
-				$classname = substr ( $name, $DS + 1 );
+			if( $DS = strpos( $name, '/' ) )
+				$classname = substr( $name, $DS + 1 );
 			else
 				$classname =& $name;
 
-			if ( $instantiate === true )
+			if( $instantiate === true )
 			{
-				if ( $type === 'controller' )
+				if( $type === 'controller' )
 					$classname =  $classname . 'Controller';
 				return $component = new $classname;
 			}

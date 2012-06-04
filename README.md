@@ -20,6 +20,7 @@ It features:
 * Templating support
 * Extension by third-party modules/classes, 
 * Built-in bootstrap and jQuery integration for agile front-end development
+* CSV Logging
 
 REQUIREMENTS
 ---------------

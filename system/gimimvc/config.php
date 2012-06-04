@@ -2,7 +2,7 @@
 /**
  * Config: GimiMVC configuration file
  *
- * @author Z. Alem <info@alemmedia.com>
+ * @author Z. Alem <info@alemcode.com>
  */
 
 /**
@@ -16,8 +16,7 @@
  *  Path defaults.
  * ----------------------------------------------------------------------
  */
-const SCAFFOLD_DIR =  'templates/';
-
+const SCAFFOLD_DIR =  'scaffolds/';
 
 /*
  * ----------------------------------------------------------------------

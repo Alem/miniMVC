@@ -11,9 +11,12 @@ class TestController extends Controller
 		$session = new Session();
 		$config  = new Config();
 
-		$this -> view('index', $this -> model() -> data + $session -> data + $config -> load('application') );
+		$this->content('index', array(
+			'model'   => $this->model()->data,
+			'session' => $session->data,
+			'config'  => $config->fetch('application')
+		));
 	}
-
 
 	/**
 	 * form() - Loads 'form' view
@@ -23,9 +26,12 @@ class TestController extends Controller
 		$session = new Session();
 		$config  = new Config();
 
-		$this -> view('form', $this -> model() -> data + $session -> data + $config -> load('application') );
+		$this->content( 'form', array(
+			'model'   => $this->model()->data,
+			'session' => $session->data,
+			'config'  => $config->fetch('application')
+		));
 	}
-
 
 	/**
 	 * post() - Recieves POST data and hands it to model for database insertion
@@ -34,20 +40,20 @@ class TestController extends Controller
 	{
 		$request = new Request();
 
-		$this -> model() -> insertTest( $request -> post );
-		$this -> prg('gallery');
+		$this->model()->insertTest( $request->post );
+
+		$this->prg('gallery');
 	}
 
-
 	/**
-	 * del() - Directly remove database data 
+	 * del() - Directly remove database data
 	 */
 	function actionDel($value )
 	{
-		$this -> model() -> deleteTest ( $value, 'id' );
-		$this -> prg('gallery');
-	}
+		$this->model()->deleteTest ( $value, 'id' );
 
+		$this->prg('gallery');
+	}
 
 	/**
 	 * show() - Display all information for specifed primary Id
@@ -59,14 +65,17 @@ class TestController extends Controller
 		$session = new Session();
 		$config  = new Config();
 
+		$this->model()->getTest($id);
 
-		$this -> model() -> getTest($id);
-		$this -> view('gallery', $this -> model() -> data + $session -> data + $config -> load('application') );
+		$this->content( 'gallery', array(
+			'model'   => $this->model()->data,
+			'session' => $session->data,
+			'config'  => $config->fetch('application')
+		));
 	}
 
-
 	/**
-	 * gallery() - A gallery of items 
+	 * gallery() - A gallery of items
 	 *
 	 * Displays items 'tests' in gallery form.
 	 *
@@ -79,10 +88,14 @@ class TestController extends Controller
 		$session = new Session();
 		$config  = new Config();
 
-		$this -> model() -> galleryTest( $order_col, $order_sort, $page  );
-		$this -> view('gallery', $this -> model() -> data + $session -> data + $config -> load('application') );
-	}
+		$this->model()->galleryTest( $order_col, $order_sort, $page  );
 
+		$this->content( 'gallery', array(
+			'model'   => $this->model()->data,
+			'session' => $session->data,
+			'config'  => $config->fetch('application')
+		));
+	}
 
 	/**
 	 * about() - Run of the mill 'about' page
@@ -92,7 +105,11 @@ class TestController extends Controller
 		$session = new Session();
 		$config  = new Config();
 
-		$this -> view('about', $this -> model() -> data + $session -> data + $config -> load('application') );
+		$this->content( 'about', array(
+			'model'   => $this->model()->data,
+			'session' => $session->data,
+			'config'  => $config->fetch('application')
+		));
 	}
 
 }

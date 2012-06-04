@@ -1,4 +1,4 @@
-<h1><?php echo $data['site_name']; ?> <small><?php echo $data['site_tag']; ?></small></h1>
+<h1><?php echo $data['config']['site_name']; ?> <small><?php echo $data['config']['site_tag']; ?></small></h1>
 <hr>
 
 <br/>
@@ -21,17 +21,17 @@
 		<br/>
 		<blockquote>
 			<p>
-			<h3>Add An Item</h3> 
+			<h3>Add An Item</h3>
 			<br/>
 			<form action = "test/post/" method="post">
-				<input name = "<?php echo $this -> name ?>" type="text" />
+				<input name = "<?php echo $this->name['unit'] ?>" type="text" />
 				<input type = "submit" value = "Add"/>
 			</form>
 			</p>
 
-			<?php	echo ( isset( $this -> model() -> data['content'] ) ) ? $this -> model() -> data['content'] : "";	?>
+			<?php echo ( isset( $data['model']['data']['content'] ) ) ? $data['model']['data']['content'] : "";	?>
 		</blockquote>
-	
+
 	</div>
 	<div class ='span4'>
 <p>
@@ -39,5 +39,3 @@
 </p>
 	</div>
 </div>
-
-

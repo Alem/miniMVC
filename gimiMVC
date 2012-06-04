@@ -3,7 +3,7 @@
 /**
  * gimiMVC executable script file.
  *
- * @author Z. Alem <info@alemmedia.com>
+ * @author Z. Alem <info@alemcode.com>
  */
 
 /**
@@ -46,12 +46,12 @@ $required_files = array (
 	'database/database',		
 	'database/dbQuery', 	
 	'database/queryBuilder', 	
-	'cache/fileCache', 
+	'lib/file', 
 	'log/logger',
 	'gimimvc/config', 	
 	'gimimvc/processor', 
 	'gimimvc/core/queryTool', 
-	'gimimvc/core/template',
+	'gimimvc/core/scaffold',
 	'util/arrayUtility',
 );
 
@@ -66,13 +66,14 @@ foreach ( $required_files as $file )
  */
 $args = getopt( 
 
-	'c:m:v:p:u:a:h', 
+	'u::c:m:v:p:u:a:h', 
 
 	array(
 		'useconfig::',	'app:',		'mvc:',	 	'table:', 
 		'undotable:', 	'link:', 	'unlink:', 	'to:', 
 		'user', 	'help', 	'opendb:', 	'redo',	'undo',
-		'scaffold:', 	'component:', 	'unit:', 	'generate'
+		'scaffold:', 	'component:', 	'unit:', 	'generate',
+		'readschema:',
 	) 
 );
 

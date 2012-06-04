@@ -1,7 +1,7 @@
-<?php if ( isset( $this -> model() -> welcomeMsg ) ): ?>
-		<div class="alert alert-success"> 
+<?php if ( $data['message'] = 'welcome' ): ?>
+		<div class="alert alert-success">
 		<a class="close" href="user">×</a>
-		<strong>Welcome!</strong> You are now logged in as <?php echo $this -> model() -> welcomeMsg ?>.
+		<strong>Welcome!</strong> You are now logged in as <?php echo $data['session']['username'] ?>.
 		</div>
 <?php endif; ?>
 
@@ -12,11 +12,11 @@
 	<div class = "span7">
 		<p>
 		<span class = "label" > User: </span><br/>
-		<?php echo $data['username'] ?> 
+		<?php echo $data['session']['username'] ?>
 		</p>
 		<p>
 		<span class = "label" > E-mail: </span><br/>
-		<?php echo $data['email'] ?> 
+		<?php echo $data['session']['email'] ?>
 		</p>
 	</div>
 

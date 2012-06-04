@@ -9,13 +9,12 @@ class CommonData
 	function setSessionData( Session $session, Model $model = null )
 	{
 		if ( $model === null )
-			$model = $this -> model();
+			$model = $this->model();
 
-		$model -> set( 'logged_in', $session -> get('logged_in') );
-		$model -> set( 'username', $session -> get('username') );
-		$model -> set( 'email',	 $session -> get('email') );
+		$model->set( 'logged_in', $session->get('logged_in') );
+		$model->set( 'username', $session->get('username') );
+		$model->set( 'email',	 $session->get('email') );
 	}
-
 
 	/**
 	 * setSessionData - Loads config data to model
@@ -23,9 +22,9 @@ class CommonData
 	function setConfigData( Config $config, Model $model = null )
 	{
 		if ( $model === null )
-			$model = $this -> model();
+			$model = $this->model();
 
-		$model -> set( 'defaults', $config -> load('application') );
+		$model->set( 'defaults', $config->load('application') );
 	}
 
 }
