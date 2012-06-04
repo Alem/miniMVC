@@ -38,7 +38,7 @@ SETUP
 
 3. Define the relevant information in the new application's config/ files.
 	
-	Settings to change at the bare minimum: 'web_root' and 'base_href' ( config/application.php )
+	Config files to modify at the bare minimum: config/database.php and config/application.php.
 
 4. Use controller by visiting the application's index.php in your browser
 
@@ -77,14 +77,22 @@ FILE SYSTEM
 		default/
 			config/			- Contains configuration files for application.
 			controllers/ 		- Contains controllers
+			data/ 			- Contains schemas, xmls, and other relevant data files.
+			docs/ 			- Contains documentation, textfiles and notes.
 			models/			- Contains models
-			views/ 			- Contains views and templates
-			libs/			- Contains library classes defining reusable methods.
 			modules/  		- Contains modules for extending the application
+			libraries/		- Contains library classes defining reusable methods.
 			public_html/		- Contains index.php and other publicly-viewable files.
 				media/ 		- Holds css, js, and imgs.
 				index.php	- The "boot strapping" script
+			views/ 			- Contains views of various types
+				content/	- Contains views used to present content
+				error/		- Contains views used for errors
+				template/	- Contains views used for layouts and templates 
+				shared/		- Contains views shared among multiple views
+			temp/  			- Contains temporary files
 	system/ 				- Contains essential system classes.
+	tests/ 					- Contains tests for system classes.
 	gimiMVC 				- Generates MVC scaffolds
 	README.md 				- You're reading it.
 	.htaccess 				- Rewrites the url.

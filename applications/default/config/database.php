@@ -6,7 +6,7 @@ return array(
 		'host' 		=>  'localhost',
 		'username'	=>  'test',
 		'password'	=>  'test',
-		'database'	=>  'test',
+		'database'	=>  'default_test',
 	)
 );
 
