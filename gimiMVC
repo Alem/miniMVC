@@ -41,18 +41,18 @@
 define( 'GIMIMVC_ROOT', dirname(__FILE__) . '/' );
 
 $required_files = array (
-	'base/load',
-	'base/config',
-	'database/database',		
-	'database/dbQuery', 	
-	'database/queryBuilder', 	
-	'lib/file', 
-	'log/logger',
-	'gimimvc/config', 	
-	'gimimvc/processor', 
-	'gimimvc/core/queryTool', 
-	'gimimvc/core/scaffold',
-	'util/arrayUtility',
+	'base/Load',
+	'base/Config',
+	'database/Database',		
+	'database/DbQuery', 	
+	'database/QueryBuilder', 	
+	'lib/File', 
+	'log/Logger',
+	'gimimvc/Config', 	
+	'gimimvc/Processor', 
+	'gimimvc/core/QueryTool', 
+	'gimimvc/core/Scaffold',
+	'util/ArrayUtil',
 );
 
 foreach ( $required_files as $file )
@@ -66,14 +66,14 @@ foreach ( $required_files as $file )
  */
 $args = getopt( 
 
-	'u::c:m:v:p:u:a:h', 
+	'u::c:m:v:p:u:a:q:h', 
 
 	array(
 		'useconfig::',	'app:',		'mvc:',	 	'table:', 
 		'undotable:', 	'link:', 	'unlink:', 	'to:', 
-		'user', 	'help', 	'opendb:', 	'redo',	'undo',
+		'user', 	'help', 	'sql:', 	'redo',	'undo',
 		'scaffold:', 	'component:', 	'unit:', 	'generate',
-		'readschema:',
+		'readschema:', 
 	) 
 );
 

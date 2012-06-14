@@ -53,21 +53,21 @@ CONVENTIONS
 To make best use of the automatic loading methods and pre-defined parameters, 
 it is highly recommended to adhere to these conventions.
 
-For the MVC units 'foo' and 'foo bar': 
+For the miniMVC units 'foo' and 'foo bar': 
 ###### Controller
-* Class Name: FooController 		FooBarController
-* File Name: controllers/foo.php 	controllers/fooBar.php
+* Class Name: FooController 			FooBarController
+* File Name: controllers/FooController.php 	controllers/FooBarController.php
 
 ###### Model
-* Class Name: Foo 			FooBar
-* File Name: models/foo.php 		models/fooBar.php
+* Class Name: Foo 				FooBar
+* File Name: models/Foo.php 			models/FooBar.php
 
 ###### View
-* File Name: views/foo/index.php	view/fooBar/index.php
+* File Name: views/foo/index.php		view/foobar/index.php
 
 ###### Table and Column
-* Table: foos 				foo_bars
-* Column: foo 				foo_bar
+* Table: foos 					foobars
+* Column: foo 					foobar
 
 
 FILE SYSTEM
@@ -85,6 +85,7 @@ FILE SYSTEM
 			public_html/		- Contains index.php and other publicly-viewable files.
 				media/ 		- Holds css, js, and imgs.
 				index.php	- The "boot strapping" script
+			require/		- Contains required classes, scripts or files.
 			views/ 			- Contains views of various types
 				content/	- Contains views used to present content
 				error/		- Contains views used for errors
