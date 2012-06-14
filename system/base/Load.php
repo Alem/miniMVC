@@ -21,20 +21,24 @@ class Load
 
 	/**
 	 * construct - Set defaults
+	 *
+	 * @param bool $use_defaults 	If set to true, uses config/core.php constants to construct default paths.
 	 */
-	public function __construct()
+	public function __construct( $use_defaults = true )
 	{
 		$this->paths = array(
-			'controller' 	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_CONTROLLER_PATH,
 			'config' 	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_APP_CONFIG_PATH,
+			'controller' 	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_CONTROLLER_PATH,
 			'model' 	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_MODEL_PATH,
 			'content'	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_VIEW_PATH . DEFAULT_CONTENT_PATH,
 			'error'		=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_VIEW_PATH . DEFAULT_ERROR_PATH,
+			'message'	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_VIEW_PATH . DEFAULT_MESSAGE_PATH,
 			'template'	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_VIEW_PATH . DEFAULT_TEMPLATE_PATH,
 			'shared'	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_VIEW_PATH . DEFAULT_SHARED_PATH,
 			'module'	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_MODULE_PATH,
 			'library'	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_LIBRARY_PATH,
 			'log'		=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_LOG_PATH,
+			'require'	=> SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_REQUIRE_PATH,
 			'system'	=> SERVER_ROOT . DEFAULT_SYSTEM_PATH
 		);
 	}
@@ -76,11 +80,7 @@ class Load
 				$classname =& $name;
 
 			if( $instantiate === true )
-			{
-				if( $type === 'controller' )
-					$classname =  $classname . 'Controller';
 				return $component = new $classname;
-			}
 		}else
 			return null;
 	}

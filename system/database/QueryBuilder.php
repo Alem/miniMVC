@@ -31,6 +31,11 @@ class QueryBuilder extends DbQuery
 	public $table_columns = array();
 
 	/**
+	 * @var array Holds the whitelists for database tables
+	 */
+	public $custom_whitelist = array();
+
+	/**
 	 * @var array Count-keeper for each query builder.
 	 */
 	public $counter = array(
@@ -43,7 +48,8 @@ class QueryBuilder extends DbQuery
 		'where'  => 0,
 		'order'  => 0,
 		'limit'  => 0,
-		'show' 	 => 0
+		'show' 	 => 0,
+		'whitelist_fail'  => 0
 	);
 
 	/**
@@ -82,6 +88,19 @@ class QueryBuilder extends DbQuery
 		);
 	}
 
+
+	/**
+	 * setWhitelist() - Sets the list of acceptable columns in SQL queries
+	 *
+	 * @param string $table 	The table the whitelist applies to
+	 * @param array $whitelist 	The whitelist, a numerically indexed array of accepted values.
+	 */
+	public function setWhitelist( $table, $whitelist )
+	{
+		$this->custom_whitelist[$table] = $whitelist;
+	}
+	
+
 	/**
 	 * whitelist() - Checks if value is a valid column.
 	 *
@@ -110,9 +129,16 @@ class QueryBuilder extends DbQuery
 		elseif( empty( $table ) )
 			$table =& $this->table;
 
-		$this->saveQuery()->clearQuery();
-		$list = $this->getColumns( $table );
-		$this->restoreQuery();
+		if( isset( $this->custom_whitelist[$table] ) )
+		{
+			$list = $this->custom_whitelist[$table];
+		}
+		else
+		{
+			$this->saveQuery()->clearQuery();
+			$list = $this->getColumns( $table );
+			$this->restoreQuery();
+		}
 
 		if( is_array( $column ) )
 		{
@@ -126,8 +152,8 @@ class QueryBuilder extends DbQuery
 			else
 			{
 				Logger::error('Whitelist',"Column '$column' not found in table '$table'");
-				$this->clearQuery();
-				$this->query(' -- ' );
+				Logger::error('Whitelist',"Query Construct: {$this->query_construct}" );
+				$this->cancelQuery();
 			}
 		}
 	}
@@ -227,6 +253,8 @@ class QueryBuilder extends DbQuery
 	 * alias - Aliases column names
 	 *
 	 * Uses the form: PREFIX_column
+	 * If column is prefixed with table name (table.column), 
+	 * calculates the un-prefixed name.
 	 *
 	 * @param $column The column to alias
 	 * @param $prefix The prefix to use.( Typically a table )
@@ -240,7 +268,7 @@ class QueryBuilder extends DbQuery
 		}
 		else
 		{
-			$position = strpos( $column, '.' ); // If prefixed, gets the un-prefixed column name
+			$position = strpos( $column, '.' );
 			if( $position !== false )
 				return $column = $column . ' AS ' . $prefix . '_' . substr( $column,($position + 1));
 			else
@@ -250,11 +278,12 @@ class QueryBuilder extends DbQuery
 
 	/*
 	 *
-	 * Partial query generators below
+	 * Partial Query Generators
+	 * ------------------------------
 	 *
 	 * @todo Consider making each partial query database agnostic.
-	 * As several constructors will not work with all database types.
-	 *	Possible solution: An array mapping the appropriate syntax for diff. tech
+	 * Several constructs will not work with all database types.
+	 *	Possible solution: An array mapping the appropriate syntax for diff. vendors
 	 *		array(
 	 *			'mysql' => array(
 	 *				'select' => 'SELECT FROM'
@@ -264,8 +293,7 @@ class QueryBuilder extends DbQuery
 	 *			),
 	 *		);
 	 *
-	 *
-	 * Also consider separating these into their own classes. (?)
+	 *  or separating these into their own classes. (?)
 	 */
 
 	/**
@@ -338,7 +366,7 @@ class QueryBuilder extends DbQuery
 	 * @return QueryBuilder 	The current QueryBuilder object.
 	 * @uses 	 QueryBuilder::whitelist() 	Whitelists column to ensure it is a valid table column
 	 * @uses 	 QueryBuilder::query() 		Holds partial query
-	 * @uses 	 QueryBuilder::query_data() 	Holds the partial query's data
+	 * @uses 	 QueryBuilder::queryData() 	Holds the partial query's data
 	 */
 	public function insert( $value, $column = null, $table =  null)
 	{
@@ -358,13 +386,15 @@ class QueryBuilder extends DbQuery
 				if($i >  1)
 					$value_string .= ", ? ";
 			}
-			$column_string = implode(',', $column );
 		}
+
+		if( is_array($column) )
+			$column_string = implode(',', $column );
 		else
 			$column_string =& $column;
 
 		$this->query("INSERT INTO $table($column_string) VALUES( $value_string )");
-		$this->query_data($value);
+		$this->queryData($value);
 
 		return $this;
 	}
@@ -379,7 +409,7 @@ class QueryBuilder extends DbQuery
 	 * @return QueryBuilder 	The current QueryBuilder object.
 	 * @uses 	 QueryBuilder::whitelist() 	Whitelists column to ensure it is a valid table column
 	 * @uses 	 QueryBuilder::query() 		Holds partial query
-	 * @uses 	 QueryBuilder::query_data() 	Holds the partial query's data
+	 * @uses 	 QueryBuilder::queryData() 	Holds the partial query's data
 	 */
 	public function update($new, $new_column = null, $table = null )
 	{
@@ -396,7 +426,7 @@ class QueryBuilder extends DbQuery
 			$values = $new_column . ' = ? ';
 
 		$this->query("UPDATE $table SET $values");
-		$this->query_data( $new );
+		$this->queryData( $new );
 
 		return $this;
 	}
@@ -436,9 +466,9 @@ class QueryBuilder extends DbQuery
 	 * @uses 	 QueryBuilder::setPrefix() 	Prefixes table columns
 	 * @uses 	 QueryBuilder::seperator() 	Correctly formats multiple columns
 	 * @uses 	 QueryBuilder::query() 		Holds partial query
-	 * @uses 	 QueryBuilder::query_data() 	Holds the partial query's data
+	 * @uses 	 QueryBuilder::queryData() 	Holds the partial query's data
 	 */
-	public function where( $ref, $ref_column = null, $is_like = false, $table = null )
+	public function where( $ref, $ref_column = null, $table = null, $is_like = false )
 	{
 		$this->counter['where']++;
 
@@ -449,8 +479,12 @@ class QueryBuilder extends DbQuery
 		$this->setPrefix( $ref_column, $table );
 
 		if( isset($ref) && !is_array($ref) )
-			$where = $ref_column . " = ? ";
-
+		{
+			if( is_array( $ref_column ) )
+				$where = reset( $ref_column ) . ' = ?';
+			else
+				$where = $ref_column . " = ? ";
+		}
 		elseif( is_array($ref) )
 			$where = $this->seperator( $ref_column, ' AND ');
 
@@ -462,7 +496,7 @@ class QueryBuilder extends DbQuery
 				$statement = ' WHERE ' .$where;
 
 			$this->query( $statement );
-			$this->query_data($ref);
+			$this->queryData($ref);
 		}
 
 		return $this;

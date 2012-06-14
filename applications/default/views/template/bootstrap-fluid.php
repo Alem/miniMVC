@@ -55,7 +55,7 @@
 						<? endif;?>
 
 						<br/>
-						<?php require_once( $this->loaded['view']['path'] ); ?>
+						<?php $this->renderLoaded( $data ); ?>
 					</div><!--/row-->
 				</div><!--/span-->
 			</div><!--/row-->

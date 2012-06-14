@@ -69,7 +69,7 @@ class QueryTool extends QueryBuilder
 	public function makeTable($name)
 	{
 		$names = $name . 's';
-		$query = "create table $names ( id integer not null primary key auto_increment, $name varchar(128) not null );";
+		$query = "create table $names ( id integer unsigned not null primary key auto_increment, $name varchar(128) not null );";
 		$this->runAndPrint( $query );
 
 		echo " Created $name table.\n";
@@ -152,7 +152,28 @@ QUERY;
 
 
 	/**
+	 * todo
+	 *
+	 * @param string $table 
+	 */
+	public function getTableReferences( $table )
+	{
+		$query = <<<SELECT
+		SELECT $table 
+		from information_schema.KEY_COLUMN_USAGE
+		where table_schema = '{$this->database->settings['database']}'
+		and referenced_table_name = $table
+SELECT;
+		$this->runAndPrint( $query );
+	}
+
+
+	/**
 	 * importData() - Reads specified file in application data/ into database.
+	 *
+	 * Note that files containing multiple queries will not complete or produce their intended effects.
+	 * The database abstraction is built around PDO which seemingly does not permit 
+	 * multiple in-line queries.
 	 *
 	 * @param string $filename 	The name of the file
 	 */
@@ -203,16 +224,17 @@ QUERY;
 	 */
 	public function printResults( $query, array $result )
 	{
+		echo "\n";
 		echo "===============================================\n";
-		echo " Database Transaction Report.\n";
+		echo " Database Query Report.\n";
 		echo "===============================================\n";
 		echo " Query: $query \n";
 		echo "-----------------------------------------------\n";
 		echo " Result:\n";
-		echo print_r( ArrayUtility::makeReadable( $result ), true);
+		echo ArrayUtil::makeReadable( $result );
 		echo "-----------------------------------------------\n";
 		echo " Errors: \n";
-		echo print_r( ArrayUtility::makeReadable( $this->query_errors ), true);
+		echo ArrayUtil::makeReadable( $this->query_errors );
 		echo "-----------------------------------------------\n";
 	}
 }

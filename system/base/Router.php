@@ -15,10 +15,10 @@ class Router
 	 * @var array 	The position of each URI type in the query string.
 	 *
 	 * This array maps where the controller, method, and variables are expected to be in.
-	 * 	ie: example.com/controller/method/variable
+	 * 	ie: example.com/controller_unitname/method/variable
 	 */
 	public $uri_map = array(
-		0 => 'controller',
+		0 => 'controller_unitname',
 		1 => 'method',
 		2 => 'variable'
 	);
@@ -32,6 +32,13 @@ class Router
 	 * @var string 	The requested unmapped uri
 	 */
 	public $raw_uri = null;
+
+	/**
+	 * @var string 	The unit name of the controller.
+	 *
+	 * ex: For /foo/method/var, foo 
+	 */
+	public $controller_unitname = null;
 
 	/**
 	 * @var string 	The controller to be routed to
@@ -158,9 +165,11 @@ class Router
 				else
 					$this->$type = null;
 			}
+
+			$this->controller = ucwords( $this->controller_unitname ) . 'Controller';
 		}
 
-		if( $this->controller === null || $this->method === null )
+		if( $this->controller_unitname === null || $this->method === null )
 		{
 			$config = new Config();
 			$settings = $config->fetch('application');
@@ -171,6 +180,7 @@ class Router
 			if( $this->method === null )
 				$this->method = $settings['default_method'];
 		}
+
 
 		return $this;
 	}

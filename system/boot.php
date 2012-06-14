@@ -27,26 +27,26 @@ $start_time = microtime(true);
  * ----------------------------------------------------------------------
  */
 $system_classes = array (
-	'auth/accessControl',
-	'base/benchmark',
-	'base/config',
-	'base/load',
-	'base/router',
-	'components/controller',
-	'components/model',
-	'lib/file',
-	'cache/icache',
-	'cache/fileCache',
-	'database/database',
-	'database/dbQuery',
-	'database/queryBuilder',
-	'log/logger',
-	'server/request',
-	'server/response',
-	'session/session',
-	'util/arrayUtility',
-	'web/html',
-	'web/element',
+	'auth/AccessControl',
+	'base/Benchmark',
+	'base/Config',
+	'base/Load',
+	'base/Router',
+	'components/Controller',
+	'components/Model',
+	'lib/File',
+	'cache/ICache',
+	'cache/FileCache',
+	'database/Database',
+	'database/DbQuery',
+	'database/QueryBuilder',
+	'log/Logger',
+	'server/Request',
+	'server/Response',
+	'session/Session',
+	'util/ArrayUtil',
+	'web/Html',
+	'web/Element',
 );
 
 foreach ( $system_classes as $classname )
@@ -67,10 +67,34 @@ $default_settings = $config->fetch('application');
  * ----------------------------------------------------------------------
  */
 $load = new Load();
+
 Logger::setLogFile( $load->path( 'log', 'application', '.log' ) );
 Logger::setConfig( $logger_settings );
 Logger::setStartTime( $start_time );
+
 Logger::debug('Logger', 'Instantiated');
+
+/*
+ * ----------------------------------------------------------------------
+ * Load Application Requirements: Load required files based on config/require.php
+ * ----------------------------------------------------------------------
+ */
+$requirements = $config->fetch('require');
+
+if ( !empty( $requirements ) )
+{
+	$path = $load->path( 'require', null, null );
+	if( isset($requirements['require_all']) && ($requirements['require_all'] === true ) )
+	{
+		foreach( glob( $path . '*' ) as $file)
+			require_once( $file );	
+	}
+	else
+	{
+		foreach ( $requirements['files'] as $file )
+			require_once( $path . $file );
+	}
+}
 
 /*
  * ----------------------------------------------------------------------
@@ -103,7 +127,9 @@ if (
 {
 	$response = new Response();
 	$response->send( '404' );
-	$application->error( '404', array( 'config' => $default_settings) );
+	$application
+		->error( '404')
+		->render( array( 'config' => $default_settings) );
 }
 
 /*
@@ -112,9 +138,14 @@ if (
  * ----------------------------------------------------------------------
  */
 $benchmark = new Benchmark();
+$session   = new Session();
+$request   = new Request();
 
 Logger::debug('Memory Usage', $benchmark->memoryUsage() );
 Logger::debug('Memory Peak Usage', $benchmark->peakMemoryUsage()  );
+Logger::debug('Request Dump', get_object_vars( $request ) );
+Logger::debug('Router Dump',  get_object_vars( $router ) );
+Logger::debug('Session Dump', get_object_vars( $session ) );
 Logger::debug('Application', 'Complete');
 
 /*

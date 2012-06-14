@@ -11,11 +11,12 @@ class TestController extends Controller
 		$session = new Session();
 		$config  = new Config();
 
-		$this->content('index', array(
-			'model'   => $this->model()->data,
-			'session' => $session->data,
-			'config'  => $config->fetch('application')
-		));
+		$this->content('index' )
+			->render( array(
+				'model'   => $this->model()->data,
+				'session' => $session->data,
+				'config'  => $config->fetch('application')
+			));
 	}
 
 	/**
@@ -26,11 +27,12 @@ class TestController extends Controller
 		$session = new Session();
 		$config  = new Config();
 
-		$this->content( 'form', array(
-			'model'   => $this->model()->data,
-			'session' => $session->data,
-			'config'  => $config->fetch('application')
-		));
+		$this->content( 'form' )
+			->render( array(
+				'model'   => $this->model()->data,
+				'session' => $session->data,
+				'config'  => $config->fetch('application')
+			));
 	}
 
 	/**
@@ -67,11 +69,12 @@ class TestController extends Controller
 
 		$this->model()->getTest($id);
 
-		$this->content( 'gallery', array(
-			'model'   => $this->model()->data,
-			'session' => $session->data,
-			'config'  => $config->fetch('application')
-		));
+		$this->content( 'gallery' )
+			->render( array(
+				'model'   => $this->model()->data,
+				'session' => $session->data,
+				'config'  => $config->fetch('application')
+			));
 	}
 
 	/**
@@ -90,11 +93,12 @@ class TestController extends Controller
 
 		$this->model()->galleryTest( $order_col, $order_sort, $page  );
 
-		$this->content( 'gallery', array(
-			'model'   => $this->model()->data,
-			'session' => $session->data,
-			'config'  => $config->fetch('application')
-		));
+		$this->content( 'gallery' )
+			->render( array(
+				'model'   => $this->model()->data,
+				'session' => $session->data,
+				'config'  => $config->fetch('application')
+			));
 	}
 
 	/**
@@ -105,11 +109,12 @@ class TestController extends Controller
 		$session = new Session();
 		$config  = new Config();
 
-		$this->content( 'about', array(
-			'model'   => $this->model()->data,
-			'session' => $session->data,
-			'config'  => $config->fetch('application')
-		));
+		$this->content( 'about' )
+			->render( array(
+				'model'   => $this->model()->data,
+				'session' => $session->data,
+				'config'  => $config->fetch('application')
+			));
 	}
 
 }

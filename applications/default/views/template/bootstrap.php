@@ -75,7 +75,7 @@
 				<div class="row">
 
 					<div class="<?php echo(isset($this->module('base/menu')->menus['sidebar'])) ? 'span8' : 'span16' ?>">
-						<?php require_once( $this->loaded['view']['path'] ); ?>
+						<?php $this->renderLoaded( $data ); ?>
 					</div>
 
 					<?php if((isset($this->module('base/menu')->menus['sidebar']) )): ?>

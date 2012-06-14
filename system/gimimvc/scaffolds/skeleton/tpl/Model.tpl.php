@@ -8,7 +8,7 @@ class Model extends Scaffold
 	public function initialize( )
 	{
 		$path = GIMIMVC_ROOT . $this->config['apps_path'] . $this->name . '/models/';
-		$this->file( 'main', $path );
+		$this->file( 'Main', $path );
 	}
 
 	public function getContent()

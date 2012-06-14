@@ -14,6 +14,7 @@ class View extends Scaffold
 		$this->root_path = GIMIMVC_ROOT . $this->config['apps_path'] . $this->name . '/views/';
 		$this->content_path = $this->root_path . 'content/';
 		$this->shared_path = $this->root_path . 'shared/';
+		$this->message_path = $this->root_path . 'message/';
 
 		$this->error_path = $this->root_path . 'error/';
 		$this->file( $this->errors, $this->error_path );
@@ -27,6 +28,7 @@ class View extends Scaffold
 	{
 		mkdir( $this->content_path, 0777 , true );
 		mkdir( $this->shared_path, 0777 , true );
+		mkdir( $this->message_path, 0777 , true );
 		parent::generate();
 	}
 
@@ -36,6 +38,7 @@ class View extends Scaffold
 		parent::undo();
 		rmdir( $this->content_path );
 		rmdir( $this->shared_path );
+		rmdir( $this->message_path );
 		rmdir( $this->root_path );
 	}
 

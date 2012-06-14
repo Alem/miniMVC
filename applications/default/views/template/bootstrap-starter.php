@@ -85,7 +85,7 @@
 			<?php endif; ?>
 		</div>
 		<div class="container">
-			<?php require_once( $this->loaded['view']['path'] ); ?>
+			<?php $this->renderLoaded( $data ); ?>
 			<hr>
 
 			<footer>

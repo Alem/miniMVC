@@ -15,7 +15,7 @@ return array (
  * Application defaults
  * ----------------------------------------------------------------------
  */
-	'default_controller'	=> 'test',
+	'default_controller'	=> 'TestController',
 	'default_method' 	=> 'index',
 	'default_template' 	=> 'bootstrap-single',
 	'base_href' 		=> 'http://localhost/miniMVC/applications/default/public_html/',
@@ -26,8 +26,13 @@ return array (
  * ----------------------------------------------------------------------
  */
 	'default_template' 	=> 'bootstrap-single',
-	'default_javascript'	=>  array( 'jquery,bootstrap' ),
-	'default_css' 		=>  array( 'bs/bootstrap-superhero' ),
+	'default_javascript'	=>  array( 
+		'js/js/jquery.js',
+		'js/js/bootstrap.js',
+	),
+	'default_css' 		=>  array( 
+		'css/bs/bootstrap-superhero.css',
+	),
 	'site_name' 		=> 'minimvc',
 	'site_tag' 		=> 'an upstart app-starter',
 	'site_email' 		=> 'info@alemmedia.com',

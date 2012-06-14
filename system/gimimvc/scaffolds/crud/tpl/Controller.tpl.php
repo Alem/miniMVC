@@ -17,7 +17,7 @@ class Controller extends Scaffold
 	public function initialize()
 	{
 		$path =  SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_CONTROLLER_PATH;
-		$this->file( $this->name, $path );
+		$this->file( ucwords( $this->name ) . 'Controller', $path );
 	}
 
 
@@ -35,7 +35,7 @@ class Controller extends Scaffold
 
 			\$this->model()->set(
 				'$column',
-				\$this->model('$column')->get$uc_column( null $user )
+				\$this->model('$uc_column')->get$uc_column( null $user )
 			);
 fetch;
 		//---------------------------------------CODE END
@@ -139,7 +139,8 @@ class {$uname}Controller extends Controller
 		if( \$this->access()->action('form') )
 		{
 			$external_fetch
-			\$this->content('form', array(
+			\$this->content('form' )
+				->render( array(
 				'model' => \$this->model()->data,
 				'session' => \$session->data,
 				'config' => \$config->fetch('application'),
@@ -204,7 +205,8 @@ class {$uname}Controller extends Controller
 			$external_fetch
 			\$this->model()->set( 'saved_fields', reset ($$name) );
 
-			\$this->content('form', array(
+			\$this->content('form' )
+				->render( array(
 				'model' => \$this->model()->data,
 				'session' => \$session->data,
 				'config' => \$config->fetch('application'),
@@ -232,7 +234,8 @@ class {$uname}Controller extends Controller
 			&& ( \$this->access()->action( 'show' ) )
 		)
 		{
-			\$this->content('show', array(
+			\$this->content('show' )
+				->render( array(
 				'model' => \$this->model()->data,
 				'session' => \$session->data,
 				'config' => \$config->fetch('application'),
@@ -269,7 +272,8 @@ class {$uname}Controller extends Controller
 
 			\$this->model()->gallery$uname( \$order_col, \$order_sort, \$page, \$search $user );
 
-			\$this->content('table', array(
+			\$this->content('table' )
+				->render( array(
 				'model' => \$this->model()->data,
 				'session' => \$session->data,
 				'config' => \$config->fetch('application'),

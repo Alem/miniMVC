@@ -2,7 +2,7 @@
 
 class Configs extends Scaffold{
 
-	public $configs = array( 'core', 'application', 'database', 'logger', 'routes' );
+	public $configs = array( 'core', 'application', 'database', 'logger', 'routes', 'require' );
 
 	public $undo_directory = true;
 
@@ -39,7 +39,7 @@ class Configs extends Scaffold{
 // Framework paths
 define('SERVER_ROOT', dirname( dirname( dirname( dirname(__FILE__) )  ) ) .'/');
 define( 'DEFAULT_SYSTEM_PATH', 'system/' );
-define( 'DEFAULT_APPS_PATH', $this->config['apps_path'] );
+define( 'DEFAULT_APPS_PATH', '{$this->config['apps_path']}' );
 
 // Application Paths
 define( 'APP_PATH', '$name/' );
@@ -53,9 +53,11 @@ define( 'DEFAULT_MODULE_PATH', 'modules/' );
 define( 'DEFAULT_VIEW_PATH', 'views/' );
 define( 'DEFAULT_CACHE_PATH', 'temp/' );
 define( 'DEFAULT_DATA_PATH', 'data/' );
+define( 'DEFAULT_REQUIRE_PATH', 'require/' );
 
 // Application View paths
 define( 'DEFAULT_CONTENT_PATH', 'content/' );
+define( 'DEFAULT_MESSAGE_PATH', 'message/' );
 define( 'DEFAULT_TEMPLATE_PATH', 'template/' );
 define( 'DEFAULT_SHARED_PATH', 'shared/' );
 define( 'DEFAULT_ERROR_PATH','error/' );
@@ -99,7 +101,7 @@ return array (
  */
 	'base_href' 		=> 'http://localhost/miniMVC/applications/$name/public_html/',
 	'web_root' 		=> 'http://localhost/miniMVC/applications/$name/public_html/',
-	'default_controller'	=> 'main',
+	'default_controller'	=> 'MainController',
 	'default_method' 	=> 'index',
 	'default_template' 	=> 'bootstrap-single',
 /*
@@ -108,8 +110,8 @@ return array (
  * ----------------------------------------------------------------------
  */
 	'default_template' 	=> 'bootstrap-single',
-	'default_javascript'	=>  array( 'jquery,bootstrap' ),
-	'default_css' 		=>  array( 'bs/bootstrap-superhero' ),
+	'default_javascript'	=>  array( 'js/jquery/jquery.js', 'js/bs/bootstrap.js' ),
+	'default_css' 		=>  array( 'css/bs/bootstrap-superhero.css' ),
 	'site_name' 		=> '$name',
 	'site_tag' 		=> 'A miniMVC application',
 	'site_email' 		=> 'admin@localhost',
@@ -161,6 +163,14 @@ LOGGER;
 ?>
 
 ROUTES;
+
+		$require = <<<REQUIRE
+<?php
+	return array(
+ 	);
+?>
+
+REQUIRE;
 		return $$type;
 
 	}

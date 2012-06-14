@@ -14,7 +14,7 @@ class Model extends Scaffold
 	public function initialize()
 	{
 		$path =  SERVER_ROOT . DEFAULT_APPS_PATH . APP_PATH . DEFAULT_MODEL_PATH;
-		$this->file( $this->name, $path );
+		$this->file( ucwords($this->name), $path );
 	}
 
 	public function manageExternalLinks()
@@ -34,7 +34,7 @@ external;
 		//--------------------------------------START CODE
 		$external_select .= <<<select
 
-		\$this->SQL()->select ( \$this->columns['external']['{$stripped_column}'], '{$stripped_column}s' );
+		\$this->SQL()->select ( \$this->fields['external']['{$stripped_column}'], '{$stripped_column}s' );
 
 select;
 		//--------------------------------------END CODE
@@ -62,6 +62,7 @@ JOINING;
 		$table_columns = null;
 		$form_columns = null;
 		$getBlankForX = null;
+		$saved_fields = null;
 
 		$external_table_data = $this->manageExternalLinks();
 		$joining 		= $external_table_data['joining'];
@@ -77,7 +78,7 @@ JOINING;
 			$array = $this->queryTool()->filtered_columns;
 		        #if( isset( $this->queryTool()->linked_columns ) )
 			#	$array = $array + $this->queryTool()->linked_columns;
-			$saved_fields  = "'" . implode( "' => null,\n'" , $array ) . "' => null \n";
+			$saved_fields  = "'" . implode( "' => null,\n\t\t\t'" , $array ) . "' => null \n";
 		}
 
 
@@ -90,7 +91,7 @@ JOINING;
 	 * get{$uname}sByX - Retrieves $uname(s) and orders them by the specified external column
 	 *
 	 * @param string  \$external_column  The name of the external column
-	 * @param integer \$id               The primary ID of the $uname to delete.
+	 * @param integer \$id               The primary ID of the $uname 
 	 * @param mixed   \$user_id          The value that matches the row's value for the 'ownership' column.
 	 * @return array  \$x                The array of table values organized for each external column value
 	 */
@@ -121,9 +122,9 @@ class $uname extends Model
 {
 
 	/**
-	 * @var array The columns array identifies and classifies the columns of the tables the Model interacts with.
+	 * @var array The fields array identifies and classifies the fields of the tables the Model interacts with.
 	 */
-	public \$columns = array(
+	public \$fields = array(
 
 		'table' => array ( '$table_columns' ),
 
@@ -159,12 +160,12 @@ class $uname extends Model
 	{
 		if ( isset( \$user_id ) )
 		{
-			\$data[ \$this->columns['ownership'] ] = \$user_id;
-			\$this->columns['form'][] = \$this->columns['ownership'];
+			\$data[ \$this->fields['ownership'] ] = \$user_id;
+			\$this->fields['form'][] = \$this->fields['ownership'];
 		}
 
 		\$this	-> SQL()
-			-> insert( \$data, \$this->columns['form'] )
+			-> insert( \$data, \$this->fields['form'] )
 			-> run();
 
 		return \$this->SQL()->last_insert_id;
@@ -183,7 +184,7 @@ class $uname extends Model
 			-> remove()
 			-> where( \$id, 'id' );
 		if ( isset( \$user_id ) )
-			\$this	-> SQL()->where(\$user_id, \$this->columns['ownership'] );
+			\$this	-> SQL()->where(\$user_id, \$this->fields['ownership'] );
 		\$this->SQL()->run();
 	}
 
@@ -196,12 +197,12 @@ class $uname extends Model
 	 */
 	public function update$uname( \$data, \$id = null, \$user_id = null )
 	{
-		\$this 	-> SQL()->update( \$data, \$this->columns['form'] );
+		\$this 	-> SQL()->update( \$data, \$this->fields['form'] );
 
 		if ( isset( \$id ) )
 			\$this	-> SQL()->where( \$id, 'id' );
 		if ( isset( \$user_id ) )
-			\$this	-> SQL()->where(\$user_id, \$this->columns['ownership'] );
+			\$this	-> SQL()->where(\$user_id, \$this->fields['ownership'] );
 
 		\$this->SQL()->run();
 	}
@@ -216,7 +217,7 @@ class $uname extends Model
 	 */
 	public function get$uname(\$id = null, \$user_id = null )
 	{
-		\$this->SQL()->select ( \$this->columns['table'] );
+		\$this->SQL()->select ( \$this->fields['table'] );
 		$external_select
 		\$this->SQL()->from();
 		$joining
@@ -224,7 +225,7 @@ class $uname extends Model
 		if ( isset( \$id ) )
 			\$this	-> SQL()->where( \$id,'id' );
 		if ( isset( \$user_id ) )
-			\$this	-> SQL()->where(\$user_id, \$this->columns['ownership'] );
+			\$this	-> SQL()->where(\$user_id, \$this->fields['ownership'] );
 
 		\$result = \$this->SQL()->run();
 
@@ -246,7 +247,7 @@ class $uname extends Model
 	 */
 	public function gallery$uname( \$order_col, \$order_sort, \$page, \$search = null, \$user_id = null)
 	{
-		\$this->SQL()->select ( \$this->columns['table'] );
+		\$this->SQL()->select ( \$this->fields['table'] );
 		$external_select
 		\$this->SQL()->from();
 		$joining
@@ -259,7 +260,7 @@ class $uname extends Model
 			\$search_string = null;
 
 		if ( isset( \$user_id ) )
-			\$this	-> SQL()->where(\$user_id, \$this->columns['ownership'] );
+			\$this	-> SQL()->where(\$user_id, \$this->fields['ownership'] );
 
 		\$result = \$this
 			-> SQL()

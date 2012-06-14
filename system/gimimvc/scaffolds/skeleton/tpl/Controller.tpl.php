@@ -7,7 +7,7 @@ class Controller extends Scaffold{
 	public function initialize()
 	{
 		$path = GIMIMVC_ROOT . $this->config['apps_path'] . $this->name . '/controllers/';
-		$this->file( 'main', $path );
+		$this->file( 'MainController', $path );
 	}
 
 	public function getContent()
@@ -25,7 +25,8 @@ class MainController extends Controller{
 	{
 		\$config = new Config();
 		\$session = new Session();
-		\$this->content( 'index', array(
+		\$this->content( 'index' )
+			->render( array(
 			'config' => \$config->fetch('application'),
 			'model'  => \$this->model()->data,
 			'session'  => \$session->data,
@@ -38,7 +39,8 @@ class MainController extends Controller{
 	{
 		\$config = new Config();
 		\$session = new Session();
-		\$this->content( 'about', array(
+		\$this->content( 'about' )
+			->render( array(
 			'config' => \$config->fetch('application'),
 			'model'  => \$this->model()->data,
 			'session'  => \$session->data,

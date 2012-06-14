@@ -96,7 +96,7 @@ class Templates extends Scaffold
 
 		<div class="container">
 			<div class="hero-unit">
-				<?php require_once( \$this->loaded['view']['path'] ); ?>
+				<?php \$this->renderLoaded( \$data ); ?>
 			</div><!--/row-->
 
 			<hr>

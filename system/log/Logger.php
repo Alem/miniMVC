@@ -186,7 +186,7 @@ class Logger
 		if( $this->config[$level] )
 		{
 			if( is_array( $details ) )
-				$details = ArrayUtility::makeReadable( $details, true);
+				$details = ArrayUtil::makeReadable( $details, true);
 
 			$timer_end = microtime(true);
 			$time = $timer_end - $this->start_time;
@@ -194,9 +194,17 @@ class Logger
 			$line = date( 'G:i:s T D M j Y' )  . $this->seperator . $time . $this->seperator . $level . $this->seperator;
 			$line .= $title . $this->seperator . $details . "\n";
 
-			file_put_contents( $this->log_file, $line, FILE_APPEND );
+			if( 
+				( file_exists( $this->log_file ) && is_writable( $this->log_file ) )
+				|| ( !file_exists( $this->log_file) && is_writable( dirname( $this->log_file ) ) )
+			)
+			{
+				file_put_contents( $this->log_file, $line, FILE_APPEND );
+				$this->lines_written++;
+			}
+			else
+				throw new Exception( "Logger could not write to '$this->log_file'. Please check write permissions for the file and directory" );
 
-			$this->lines_written++;
 		}
 	}
 
@@ -269,15 +277,8 @@ class Logger
 
 			fclose($log);
 
-			$session 	= new Session( $autostart = false );
-			$session_dump 	= ArrayUtility::makeReadable( print_r( $session->data, true) );
-
-			if( !empty( $session_dump ) )
-				$session_dump = '<h2> Session Dump </h2><pre>' . $session_dump . '</pre><br/>';
-
 			$table = <<<TABLE
 			<br/>
-			$session_dump
 			<h2>Application Log</h2>
 			<table class="table table-bordered">
 				<thead>

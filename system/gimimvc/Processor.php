@@ -74,8 +74,11 @@ class Processor{
 		if( isset($this->args['readschema']) )
 			$this->queryTool()->importData( $this->args['readschema'] );
 
-		if( isset($this->args['opendb']) )
-			$this->queryTool()->openDB( $this->args['opendb'] );
+		if( isset($this->args['sql']) )
+			$this->queryTool()->openDB( $this->args['sql'] );
+
+		if( isset($this->args['q']) )
+			$this->queryTool()->openDB( $this->args['q'] );
 	}
 
 	/**
@@ -157,7 +160,7 @@ class Processor{
 		else
 			$scaffold['name'] = DEFAULT_SCAFFOLD;
 
-		$scaffold['config'] = require_once( SCAFFOLD_DIR . $scaffold['name'] . '/' . 'config.php' );
+		$scaffold['config'] = require_once( SCAFFOLD_DIR . $scaffold['name'] . '/' . 'Config.php' );
 
 		if( isset( $scaffold ) )
 		{
@@ -262,7 +265,8 @@ class Processor{
 		--unlink X 		Removes linking of X's table to another by dropping foreign key + column. Requires --to
 
 		Instant Query:
-		--opendb '<SQL QUERY>'	Provides one-line execution of SQL queries using config/database.php settings.
+		--sql '<QUERY>'		Provides cli execution of SQL queries using config/database.php settings.
+			or -q '<QUERY>'	
 
 		Help:
 		-h or --help 		Displays this help text.

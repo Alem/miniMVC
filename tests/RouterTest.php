@@ -1,6 +1,6 @@
 <?php
 
-require_once('../system/base/router.php');
+require_once('../system/base/Router.php');
 
 define( 'URI_SEPARATOR', '/' );
 
@@ -8,7 +8,7 @@ class RouterTest extends PHPUnit_Framework_TestCase
 {
 
 	public $mock_routes = array(
-		'foo/(:any)' => 'controller/method/$1'
+		'foo/(:any)' => 'controller_unit/method/$1'
 	);
 
 	public $uri_override = 'foo/4';
@@ -28,17 +28,17 @@ class RouterTest extends PHPUnit_Framework_TestCase
 		$router -> getRawURI( $this->uri_override );
 		$router -> route( $this->mock_routes );
 
-		$this->assertTrue( $router->uri === 'controller/method/4' );
+		$this->assertTrue( $router->uri === 'controller_unit/method/4' );
 	}
 
-	public function testParseUr()
+	public function testParseUri()
 	{
 		$router = new Router( null, null, false );
 		$router -> getRawURI( $this->uri_override );
 		$router -> route( $this->mock_routes );
 		$router -> parseURI();
 
-		$this->assertTrue( $router->controller 	=== 'controller' );
+		$this->assertTrue( $router->controller 	=== 'Controller_unitController' );
 		$this->assertTrue( $router->method 	=== 'method' );
 		$this->assertTrue( $router->variable 	=== '4' );
 	}

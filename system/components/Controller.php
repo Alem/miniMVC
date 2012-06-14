@@ -157,15 +157,22 @@ class Controller
 	 */
 
 	/**
-	 * Load - Returns load object or Sets load object as the property 'load'
+	 * Load - Returns load object 
 	 *
-	 * @param Load $load 	The load object
+	 * Returns single instance of Load object for a controller.
+	 * Optionally receives the parameter $paths to override
+	 * default path settings for the Load object.
+	 *
+	 * @param array $paths 	The array of default file paths
 	 * @return Load 	The load object
 	 */
-	public function load()
+	public function load( $paths = null )
 	{
 		if( !isset( $this->load ) )
 			$this->load = new Load();
+
+		if( $paths !== null )
+			$this->load->paths = $paths + $this->load->paths;
 
 		return $this->load;
 	}
@@ -220,7 +227,7 @@ class Controller
 	public function model( $name = null )
 	{
 		if( !isset( $name ) )
-			$name = $this->name['unit'];
+			$name = ucwords($this->name['unit']);
 
 		return $this->loadToSelf( 'model', $name );
 	}
@@ -300,46 +307,109 @@ class Controller
 	 * @param bool 	 $direct_include 	If set to true, includes the view directly, rather than loading the template then view.
 	 * @return object 			The current object.
 	 * @uses   load::path()			Returns file path for the view.
-	 *
 	 */
-	public function view( $type, $path = null, $data = null, $direct_include = false )
+	public function view( $type, $view = null, $data = null, $direct_include = false )
 	{
-		$this->loaded['view']['path'] = $this->load()->path( $type , $path );
-
-		if( !isset( $this->loaded['template']['path'] ) )
-			$this->template();
-
-		if( $direct_include === false )
-			require_once( $this->loaded['template']['path'] );
+		if( $direct_include === true )
+			require( $this->loaded['view'][$type][$view]['path'] );
 		else
-			require( $this->loaded['view']['path'] );
+			$this->loaded['view'][$type][$view]['path'] = $this->load()->path( $type , $view );
 
 		return $this;
 	}
 
 
 	/**
+	 * content() - Uses controller:view() to load content view type
 	 *
+	 * @param sting  $content 		The name of the content to load.
+	 * @param string $unit_name 		The name of the unit the view belongs to. Defaults to the current controller.
+	 * @param Model  $data 			The data to be passed to the view for interaction/reading. Defaults to the current model.
+	 * @param bool 	 $direct_include 	If set to true, includes the view directly, rather than loading the template then view.
 	 */
-	public function content( $view, $data = null, $unit_name = null, $direct_include = false )
+	public function content( $content, $data = null, $unit_name = null, $direct_include = false )
 	{
 		if( !isset( $unit_name ) )
 			$unit_name = $this->name['unit'];
-		$path = $unit_name . '/' . $view;
 
-		if ( $data === null )
-			$data = $this->model()->data;
+		$path = $unit_name . '/' . $content;
+
 		$this->view( 'content', $path, $data, $direct_include );
+
+		return $this;
 	}
 
 
 	/**
+	 * error() - Uses controller:view() to load error view type
 	 *
+	 * @param sting  $error 		The name of the error to load.
+	 * @param string $unit_name 		The name of the unit the view belongs to. Defaults to the current controller.
+	 * @param Model  $data 			The data to be passed to the view for interaction/reading. Defaults to the current model.
+	 * @param bool 	 $direct_include 	If set to true, includes the view directly, rather than loading the template then view.
 	 */
 	public function error( $error, $data = null, $direct_include = false )
 	{
 		$this->view( 'error', $error, $data, $direct_include );
+
+		return $this;
 	}
+
+
+	/**
+	 * message() - Uses controller:view() to load message view type
+	 *
+	 * @param sting  $message 		The name of the message to load.
+	 * @param string $unit_name 		The name of the unit the view belongs to. Defaults to the current controller.
+	 * @param Model  $data 			The data to be passed to the view for interaction/reading. Defaults to the current model.
+	 * @param bool 	 $direct_include 	If set to true, includes the view directly, rather than loading the template then view.
+	 */
+	public function message( $message, $data = null, $direct_include = false )
+	{
+		$this->view( 'message', $message, $data, $direct_include );
+
+		return $this;
+	}
+
+
+	/**
+	 * renderLoaded() - Includes files whose files are registered in Controller::loaded[view]
+	 *
+	 */
+	public function renderLoaded( $data = null, $type = null, $view = null )
+	{
+		foreach( $this->loaded['view'] as $type => $views )
+		{
+			foreach( $views as $view )
+			{
+				require( $view['path'] );
+			}
+		}
+
+		return $this;
+	}
+
+
+	/**
+	 * render() - Outputs template
+	 *
+	 * Render includes the template which typically uses
+	 * renderLoaded to include views set by the controller.
+	 * Or it may directly include views by calling the a view setting function
+	 * with the $direct_include directive set to true.
+	 */		
+	public function render( $data = null ){
+		if( !isset( $this->loaded['template']['path'] ) )
+			$this->template();
+
+		if ( $data === null )
+			$data = $this->model()->data;
+
+		require_once( $this->loaded['template']['path'] );
+
+		return $this;
+	}
+
 
 }
 

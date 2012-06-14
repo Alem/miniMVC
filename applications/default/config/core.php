@@ -31,9 +31,11 @@ define( 'DEFAULT_MODULE_PATH', 		'modules/' );
 define( 'DEFAULT_VIEW_PATH', 		'views/' );
 define( 'DEFAULT_CACHE_PATH', 		'temp/' );
 define( 'DEFAULT_DATA_PATH', 		'data/' );
+define( 'DEFAULT_REQUIRE_PATH', 	'require/' );
 
 // Application View paths
 define( 'DEFAULT_CONTENT_PATH',		'content/' );
+define( 'DEFAULT_MESSAGE_PATH', 	'message/' );
 define( 'DEFAULT_TEMPLATE_PATH', 	'template/' );
 define( 'DEFAULT_SHARED_PATH', 		'shared/' );
 define( 'DEFAULT_ERROR_PATH', 		'error/' );

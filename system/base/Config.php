@@ -13,12 +13,11 @@
  * fetched by their filename.
  *
  * ------------------------------
- * Example: To fetch the file config/foo.php
+ * Example: To fetch the configuration array file config/foo.php
  *
  * 	$config = new Config();
  *
- * 	$config->fetch('foo');
- * 	echo $config->foo['default']['setting'];
+ * 	$foo_settings = $config->fetch('foo');
  * ------------------------------
  *
  */
@@ -26,17 +25,48 @@ class Config
 {
 
 	/**
-	 * @var Load 	Holds instance of the Load class
+	 * @var string The directory holding configuration arrays.
 	 */
-	public $load = null;
+	public $config_dir = null;
+
 
 	/**
 	 * @var array  Holds the loaded configuration arrays
 	 */
 	public $loaded = array();
 
+
+	/**
+	 * basePath() - Returns or sets config directory
+	 *
+	 * If the Config::config_dir property is not defined,
+	 * it is set using the $path parameter. Otherwise the Load
+	 * object is instantiated and the default value, Load::paths['config'] is used.
+	 * 
+	 * $param string $path
+	 */
+	public function basePath( $path = null )
+	{
+		if( $this->config_dir === null )
+		{
+			if( $path !== null )
+				$this->config_dir = $path;
+			else
+			{
+				$load = new Load();
+				$this->config_dir = $load->path( 'config', null, null );
+			}
+		}
+		return $this->config_dir;
+	}
+
+
 	/**
 	 * fetch() - fetchs the specified configuration file
+	 *
+	 * Returns the configuration type if found in Config::loaded array
+	 * otherwise loads it by constructing the path using the Config::basePath 
+	 * and the config type name appended with a '.php'
 	 *
 	 * @param string $type 		The name of the configuration file.
 	 * @param bool 	 $returns_array True if the configuration file returns an array.
@@ -49,10 +79,7 @@ class Config
 		else
 			$this->loaded[$type] = null;
 
-		if( !isset( $this->load ) )
-			$this->load = new Load();
-
-		$path = $this->load->path( 'config', $type );
+		$path = $this->basePath() . $type . '.php';
 
 		if( file_exists( $path ) )
 		{

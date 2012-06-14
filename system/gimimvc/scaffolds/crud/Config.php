@@ -2,7 +2,7 @@
 
 return array(
 	'scaffold_dir'  => 'tpl/',
-	'components' => array( 'controller','model','view'),
+	'components' => array( 'Controller','Model','View'),
 	'ownership_id'  => 'user_id',
 );
 

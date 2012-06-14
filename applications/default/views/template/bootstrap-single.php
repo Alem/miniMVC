@@ -41,7 +41,7 @@
 				<br/>
 				<?php endif; ?>
 
-				<?php require_once( $this->loaded['view']['path'] ); ?>
+				<?php $this->renderLoaded( $data ); ?>
 			</div><!--/row-->
 
 			<hr>
