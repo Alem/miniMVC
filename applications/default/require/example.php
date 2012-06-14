@@ -14,7 +14,7 @@
  *
  * } 
  *
- * 	Then in controllers/foo.php:
+ * 	Then in controllers/FooController.php:
  *
  * class FooController extends Enhanced_Controller{
  *

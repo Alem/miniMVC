@@ -74,7 +74,7 @@
 				</div>
 				<div class="row">
 
-					<div class="<?php echo(isset($this->module('base/menu')->menus['sidebar'])) ? 'span8' : 'span16' ?>">
+					<div class="<?php echo(isset($this->module('base/Menu')->menus['sidebar'])) ? 'span8' : 'span16' ?>">
 						<?php $this->renderLoaded( $data ); ?>
 					</div>
 

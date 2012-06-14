@@ -34,9 +34,9 @@
 		<div class="container">
 			<div class="hero-unit">
 
-				<?php if ( isset( $this->module('base/menu')->menus['breadcrumb'] ) ): ?>
+				<?php if ( isset( $this->module('base/Menu')->menus['breadcrumb'] ) ): ?>
 				<ul class="breadcrumb">
-					<?php echo $this->module('base/menu')->display('breadcrumb') ?>
+					<?php echo $this->module('base/Menu')->display('breadcrumb') ?>
 				</ul>
 				<br/>
 				<?php endif; ?>

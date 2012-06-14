@@ -12,7 +12,7 @@
 			<a class="brand" href="" ><?php echo $data['config']['site_name']; ?></a>
 			<div class="nav-collapse">
 				<ul class="nav">
-					<?php echo $this->module('base/menu')->display('nav') ?>
+					<?php echo $this->module('base/Menu')->display('nav') ?>
 				</ul>
 				<?php if ( !empty( $data['session']['logged_in'] ) ): ?>
 				<p class="navbar-text pull-right">
@@ -23,12 +23,12 @@
 		</div>
 	</div>
 
-	<?php if ( isset( $this->module('base/menu')->menus['sec_nav'] ) ): ?>
+	<?php if ( isset( $this->module('base/Menu')->menus['sec_nav'] ) ): ?>
 	<div class="navbar-inner"  >
 		<div class="container-fluid sec-nav" >
 			<div class="nav-collapse">
 				<ul class="nav">
-					<?php echo $this->module('base/menu')->display('sec_nav') ?>
+					<?php echo $this->module('base/Menu')->display('sec_nav') ?>
 				</ul>
 			</div>
 		</div>

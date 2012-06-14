@@ -25,7 +25,7 @@ class UserController extends Controller
 			'model'    => $this->model()->data,
 			'session'  => $session->data,
 			'config'   => $config->fetch('application'),
-			'message' => $message,
+			'message'  => $message,
 		);
 
 		if( $session->get('logged_in') )
@@ -33,10 +33,12 @@ class UserController extends Controller
 			$this->model()->set( 'title', $session->get('username') );
 			$this->model()->getUser( $session->get('username') );
 
-			$this->content('index', $data);
+			$this->content('index' )
+				->render( $data );
 		}
 		else
-			$this->content('login', $data);
+			$this->content('login' )
+			->render( $data );
 	}
 
 	/**
@@ -126,7 +128,8 @@ class UserController extends Controller
 				'config'  => $config->fetch('application')
 			);
 
-			$this->content( 'settings', $data );
+			$this->content( 'settings' )
+				->render( $data  );
 		}
 	}
 

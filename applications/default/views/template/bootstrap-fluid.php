@@ -34,23 +34,23 @@
 
 		<div class="container-fluid">
 			<div class="row-fluid">
-				<?php if((isset($this->module('base/menu')->menus['sidebar']) )): ?>
+				<?php if((isset($this->module('base/Menu')->menus['sidebar']) )): ?>
 				<div class="span2">
 					<br/>
 					<div class="well sidebar-nav">
 						<ul class="nav nav-list">
 						<li class="nav-header"> Navigation </li>
-							<?php echo $this->module('base/menu')->display('sidebar') ?>
+							<?php echo $this->module('base/Menu')->display('sidebar') ?>
 						</ul>
 					</div><!--/.well -->
 				</div><!--/span-->
 				<? endif;?>
-				<div class="<?php echo ((isset($this->module('base/menu')->menus['sidebar']) )) ? 'span9' : 'span12' ?>">
+				<div class="<?php echo ((isset($this->module('base/Menu')->menus['sidebar']) )) ? 'span9' : 'span12' ?>">
 					<div class="hero-unit">
 
-						<?php if ( isset( $this->module('base/menu')->menus['breadcrumb'] ) ): ?>
+						<?php if ( isset( $this->module('base/Menu')->menus['breadcrumb'] ) ): ?>
 						<ul class="breadcrumb">
-							<?php echo $this->module('base/menu')->display('breadcrumb') ?>
+							<?php echo $this->module('base/Menu')->display('breadcrumb') ?>
 						</ul>
 						<? endif;?>
 
