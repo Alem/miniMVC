@@ -42,7 +42,7 @@ class TestController extends Controller
 	{
 		$request = new Request();
 
-		$this->model()->insertTest( $request->post );
+		$this->model()->create( $request->post );
 
 		$this->prg('gallery');
 	}
@@ -52,7 +52,7 @@ class TestController extends Controller
 	 */
 	function actionDel($value )
 	{
-		$this->model()->deleteTest ( $value, 'id' );
+		$this->model()->delete( $value, 'id' );
 
 		$this->prg('gallery');
 	}
@@ -67,7 +67,7 @@ class TestController extends Controller
 		$session = new Session();
 		$config  = new Config();
 
-		$this->model()->getTest($id);
+		$this->model()->retrieve($id);
 
 		$this->content( 'gallery' )
 			->render( array(
@@ -91,7 +91,7 @@ class TestController extends Controller
 		$session = new Session();
 		$config  = new Config();
 
-		$this->model()->galleryTest( $order_col, $order_sort, $page  );
+		$this->model()->listing( $order_col, $order_sort, $page  );
 
 		$this->content( 'gallery' )
 			->render( array(

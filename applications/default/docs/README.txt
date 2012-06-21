@@ -11,7 +11,7 @@ SETUP
 	Install the database schema 'default_setup.sql' found in data/ using gimiMVC:
 		./gimiMVC -a default --useconfig --readschema default_setup.sql
 
-	Make sure logs/ is writable.
+	Make sure logs/ is writable by the application.
 	
 	And that should be it.	
 

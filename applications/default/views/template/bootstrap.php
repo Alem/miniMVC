@@ -64,7 +64,7 @@
 	</head>
 	<body>
 
-		<?php include ( $this->load()->path( 'shared', 'nav') ); ?>
+		<?php include ( $this->load()->path( 'shared', 'nav.php' ) ); ?>
 
 		<div class="container">
 

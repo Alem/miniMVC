@@ -9,7 +9,7 @@ class User extends Model
 		'profile' 	=> array( 'user', 'email' ),
 	);
 
-	function getUser( $username, $password = null)
+	function retrieve( $username, $password = null)
 	{
 		$this->SQL()->select('*');
 		$this->SQL()->from();
@@ -24,21 +24,21 @@ class User extends Model
 		return $result;
 	}
 
-	function addUser( $username, $password, $email)
+	function create( $username, $password, $email)
 	{
 		return $this->SQL()
 			-> insert( array($username, $password,$email), $this->columns['form'] )
 			-> run();
 	}
 
-	function deleteUser ( $username, $password )
+	function delete( $username, $password )
 	{
 		$this->SQL()->remove()->where ( $username, $password ) ->run();
 	}
 
-	function editUser($new, $new_column, $ref, $ref_column = 'user' )
+	function update($new, $new_column, $ref, $ref_column = 'user' )
 	{
-		$this ->SQL()->update( $new, $new_column)->where($ref, $ref_column)->run();
+		$this ->SQL()->update();
 	}
 }
 

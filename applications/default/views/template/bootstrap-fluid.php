@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<?php include ( $this->load()->path( 'shared', 'header') ); ?>
+		<?php include ( $this->load()->path( 'shared', 'header.php' ) ); ?>
 
 		<style type="text/css">
 			body {
@@ -30,7 +30,7 @@
 
 	<body>
 
-		<?php include ( $this->load()->path( 'shared', 'nav') ); ?>
+		<?php include ( $this->load()->path( 'shared', 'nav.php' ) ); ?>
 
 		<div class="container-fluid">
 			<div class="row-fluid">

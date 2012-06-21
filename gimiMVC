@@ -4,6 +4,9 @@
  * gimiMVC executable script file.
  *
  * @author Z. Alem <info@alemcode.com>
+ * @link http://alemcode.com
+ * @copyright Copyright 2012, Z.Alem
+ * @license http://opensource.org/licenses/bsd-license.php The BSD License
  */
 
 /**
@@ -14,7 +17,7 @@
  * 
  * SCAFFOLDING
  *
- * 	 Scaffold templates are placed in system/gimiMVC/templates/.
+ * 	 Scaffold templates are placed in minimvc/gimiMVC/templates/.
  * 	 Each template folder consists of a template file for each component to be scaffolded.
  * 	 	ex. template/theManager/model.php  generates a model scaffold
  *
@@ -23,12 +26,15 @@
  *
  * DATABASE ACCESS
  *
- * 	gimiMVC utilizes the QueryTool class, an extension of the QueryBuilder and Database system/db/ classes,
+ * 	gimiMVC utilizes the QueryTool class, an extension of the QueryBuilder and Database minimvc/db/ classes,
  * 	to provide direct, simplified access to an application's database.
  *
  * 	Using the available commands, gimiMVC uses the QueryTool to create a direct query console 
  * 	communication-line to an application database, creation and deletion of tables,
  * 	and linking and unlinking of tables.
+ *
+ * @author Z. Alem <info@alemcode.com>
+ * @package minimvc
  */
 
 
@@ -56,7 +62,7 @@ $required_files = array (
 );
 
 foreach ( $required_files as $file )
-	require_once ( GIMIMVC_ROOT . 'system/' . $file . '.php' );
+	require_once ( GIMIMVC_ROOT . 'minimvc/' . $file . '.php' );
 
 
 /**
@@ -66,14 +72,14 @@ foreach ( $required_files as $file )
  */
 $args = getopt( 
 
-	'u::c:m:v:p:u:a:q:h', 
+	'c:m:v:p:u:a:q:x::h',
 
 	array(
-		'useconfig::',	'app:',		'mvc:',	 	'table:', 
+		'useconfig:',	'app:',		'mvc:',	 	'table:', 
 		'undotable:', 	'link:', 	'unlink:', 	'to:', 
 		'user', 	'help', 	'sql:', 	'redo',	'undo',
 		'scaffold:', 	'component:', 	'unit:', 	'generate',
-		'readschema:', 
+		'readschema:', 'run::',
 	) 
 );
 

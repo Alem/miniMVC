@@ -24,8 +24,8 @@ It features:
 
 REQUIREMENTS
 ---------------
-* > PHP5
-* Apache mod_rewrite enabled
+* PHP 5.3.0 or >
+* Apache mod_rewrite and .htaccess override enabled.
 
 SETUP
 ---------------

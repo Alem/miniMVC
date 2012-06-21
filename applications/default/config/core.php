@@ -16,7 +16,7 @@
  */
 // Framework paths
 define( 'SERVER_ROOT', 			dirname( dirname( dirname( dirname(__FILE__) )  ) ) .'/' );
-define( 'DEFAULT_SYSTEM_PATH', 		'system/' );
+define( 'DEFAULT_SYSTEM_PATH', 		'minimvc/' );
 define( 'DEFAULT_APPS_PATH', 		'applications/' );
 
 // Application Paths

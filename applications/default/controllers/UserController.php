@@ -31,7 +31,7 @@ class UserController extends Controller
 		if( $session->get('logged_in') )
 		{
 			$this->model()->set( 'title', $session->get('username') );
-			$this->model()->getUser( $session->get('username') );
+			$this->model()->retrieve( $session->get('username') );
 
 			$this->content('index' )
 				->render( $data );
@@ -59,7 +59,7 @@ class UserController extends Controller
 
 		if ( isset( $username ) && isset( $password ) )
 		{
-			$user_data = $this->model()->getUser($username,$password);
+			$user_data = $this->model()->retrieve($username,$password);
 		}
 
 		if( !empty( $user_data ) )
@@ -82,7 +82,7 @@ class UserController extends Controller
 	 * actionRegister() - Registers and logs in user if information valid
 	 *
 	 * gets POST data from registration HTML form and verifies standards met.
-	 * If successfull insert sets logged_in to true and runs user::login()
+	 * If successfull create()
 	 * If fails, directs to index with failure flag
 	 */
 	public function actionRegister()
@@ -95,9 +95,9 @@ class UserController extends Controller
 		$password = md5( $request->post['password'] );
 		if( $this->validates( $request->post ) )
 		{
-			if( !( $this->model()->getUser( $username , $password ) ) )
+			if( !( $this->model()->retrieve( $username , $password ) ) )
 			{
-				$insert = $this->model()->addUser($username, $password, $request->post['email'] );
+				$create($username, $password, $request->post['email'] );
 				if ( $insert )
 					$this->logged_in = true;
 				$session->set('logged_in', $this->logged_in);
@@ -120,7 +120,7 @@ class UserController extends Controller
 
 		if( $session->get('logged_in') )
 		{
-			$this->model()->getUser( $session->get('username'));
+			$this->model()->retrieve( $session->get('username'));
 
 			$data = array( 
 				'model'   => $this->model()->data,
@@ -157,11 +157,11 @@ class UserController extends Controller
 					&& ( $request->post['password_repeat'] == $request->post['password_new'] )
 				)
 				$password_new =  md5( $request->post['password_new'] );
-				$this->model()->editUser( $password_new, 'password', $session->get('username') );
+				$this->model()->update( $password_new, 'password', $session->get('username') );
 			}
 			elseif ( $setting == 'email' )
 			{
-				$this->model()->editUser( $request->post['email_new'] , 'email', $session->get('username') );
+				$this->model()->update( $request->post['email_new'] , 'email', $session->get('username') );
 				$session->set( 'email', $request->post['email_new'] );
 			}
 		}

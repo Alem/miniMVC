@@ -1,6 +1,6 @@
 <?php
 
-require_once('../system/base/Router.php');
+require_once('../minimvc/base/Router.php');
 
 define( 'URI_SEPARATOR', '/' );
 

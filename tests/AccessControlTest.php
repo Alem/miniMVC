@@ -1,6 +1,6 @@
 <?php
 
-require_once('../system/auth/AccessControl.php');
+require_once('../minimvc/auth/AccessControl.php');
 
 class AccessControlTest extends PHPUnit_Framework_TestCase 
 {

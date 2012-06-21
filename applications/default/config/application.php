@@ -12,17 +12,21 @@ return array (
 
 /*
  * ----------------------------------------------------------------------
- * Application defaults
+ * Resource Loading
  * ----------------------------------------------------------------------
+ * Set the default resource to load if no particular request is made.
+ * Set the base_href to provide the absolute href root for relative href attributes. 
+ * 	For use with HTML base tag. ( ex. 'http://localhost/') 
+ * Set the web_root to provide the web server root for relative redirects. 
+ * 	( ex: '/applications/YOURAPP/public_html/'  or '/' )
  */
 	'default_controller'	=> 'TestController',
 	'default_method' 	=> 'index',
-	'default_template' 	=> 'bootstrap-single',
-	'base_href' 		=> 'http://localhost/miniMVC/applications/default/public_html/',
-	'web_root' 		=> 'http://localhost/miniMVC/applications/default/public_html/',
+	'base_href' 		=> '',
+	'web_root' 		=> '',
 /*
  * ----------------------------------------------------------------------
- * Site information
+ * Application Defaults
  * ----------------------------------------------------------------------
  */
 	'default_template' 	=> 'bootstrap-single',
@@ -33,11 +37,15 @@ return array (
 	'default_css' 		=>  array( 
 		'css/bs/bootstrap-superhero.css',
 	),
+/*
+ * ----------------------------------------------------------------------
+ * Site information
+ * ----------------------------------------------------------------------
+ */
 	'site_name' 		=> 'minimvc',
 	'site_tag' 		=> 'an upstart app-starter',
 	'site_email' 		=> 'info@alemmedia.com',
 	'site_admin' 		=> 'admin',
-	#default_logo_path =>  'media/img/logo.png',
 	'meta_description' 	=> 'minimvc is a super lightweight mvc framework written in php.',
 	'meta_keywords' 	=> 'minimvc, php mvc',
 	'company' 		=> 'alemmedia',
