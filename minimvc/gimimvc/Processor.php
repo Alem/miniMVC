@@ -256,7 +256,8 @@ class Processor{
 		if( !isset( $this->query_tool ) )
 		{
 			$database = new Database();
-			$this->query_tool = new QueryTool( $database );
+			$dbquery  = new DbQuery( $database );
+			$this->query_tool = new QueryTool( $dbquery );
 		}
 		return $this->query_tool;
 	}
@@ -269,19 +270,19 @@ class Processor{
 
 		$help = <<<HELP
 
-NAME
+ NAME
     gimiMVC - A command-line multi-tool for miniMVC
 
-DESCRIPTION
+ DESCRIPTION
     gimiMVC allows the generation of MVC scaffolds, or simple command
     line execution of the application specified. It also provides 
     database management functions using the 'default' settings
     in config/database.php.
 
-USAGE
+ USAGE
     gimiMVC -a [application] [option]
 
-OPTIONS
+ OPTIONS
     
     Required:
     -a [application]          Sets the application to use. 
@@ -311,7 +312,7 @@ OPTIONS
                               by dropping foreign key + column. 
                               Requires --to.
     --to Y                    Establishes endpoint for link/unlink
-    --sql, -q '<QUERY>'       Provides cli execution of SQL queries.
+    --sql, -q '<QUERY>'       Provides CLI execution of SQL queries.
                               Uses config/database.php 'default' values.
 
 

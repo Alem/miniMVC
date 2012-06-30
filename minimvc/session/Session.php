@@ -14,8 +14,9 @@
  *
  * @author Z. Alem <info@alemcode.com>
  * @package minimvc.session
+ * @todo Implement ISession, create adapters
  */
-class Session
+class Session 
 {
 
 	/**
@@ -132,13 +133,16 @@ class Session
 	}
 
 	/**
-	 * get - Returns variables from $_SESSION array.
+	 * get - Returns variables from $_SESSION array. Returns all session data if no specific property requested.
 	 *
 	 * @param string $property   The property to retrieve from the session
 	 * @return mixed|bool        The retrieved property or false.
 	 */
-	public function get( $property )
+	public function get( $property = null )
 	{
+		if( $property === null )
+			return $this->data;
+
 		if ( isset( $this->data[$property] ) )
 			return $this->data[$property];
 		else

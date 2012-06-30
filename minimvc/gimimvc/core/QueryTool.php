@@ -150,7 +150,7 @@ QUERY;
 	 */
 	public function openDB( $query )
 	{
-		echo " Connected to database: " . $this->database->settings['database'] . "\n";
+		echo " Connected to database: " . $this->adapter()->activeDbquery()->database->settings['database'] . "\n";
 		$this->runAndPrint( $query );
 	}
 
@@ -165,7 +165,7 @@ QUERY;
 		$query = <<<SELECT
 		SELECT $table 
 		from information_schema.KEY_COLUMN_USAGE
-		where table_schema = '{$this->database->settings['database']}'
+		where table_schema = '{$this->adapter()->activeDbquery()->database->settings['database']}'
 		and referenced_table_name = $table
 SELECT;
 		$this->runAndPrint( $query );
@@ -238,7 +238,7 @@ SELECT;
 		echo ArrayUtil::makeReadable( $result );
 		echo "-----------------------------------------------\n";
 		echo " Errors: \n";
-		echo ArrayUtil::makeReadable( $this->query_errors );
+		echo ArrayUtil::makeReadable( $this->adapter()->activeDbquery()->database->errors );
 		echo "-----------------------------------------------\n";
 	}
 }

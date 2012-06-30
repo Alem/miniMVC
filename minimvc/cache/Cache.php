@@ -11,7 +11,7 @@
 /**
  *
  */
-class Cache extends Adaptable
+class Cache extends Adaptable implements ICache
 {
 
 	/**

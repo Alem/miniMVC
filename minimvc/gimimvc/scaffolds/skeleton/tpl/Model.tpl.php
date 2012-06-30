@@ -20,10 +20,6 @@ class Model extends Scaffold
 class Main extends Model
 {
 
-	function __construct()
-	{
-		parent::__construct();
-	}
 }
 
 ?>

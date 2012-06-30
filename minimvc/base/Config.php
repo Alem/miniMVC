@@ -74,11 +74,14 @@ class Config
 	 *
 	 * Returns the configuration type if found in Config::loaded array
 	 * otherwise loads it by constructing the path using the Config::basePath 
-	 * and the config type name appended with a '.php'
+	 * and the config type name appended with '.php','.yml',
+	 * or '.yaml'
 	 *
 	 * @param string $type 		The name of the configuration file.
 	 * @param bool 	 $returns_array True if the configuration file returns an array.
 	 * @return Config 		The current Config object
+	 *
+	 * @todo Transition to content-type determination of lang vs extension-based?
 	 */
 	public function fetch( $type, $returns_array = true )
 	{
@@ -87,14 +90,24 @@ class Config
 		else
 			$this->loaded[$type] = null;
 
-		$path = $this->basePath() . $type . '.php';
+		$name_path  = $this->basePath() . $type;
 
-		if( file_exists( $path ) )
+		foreach( array('.php','.yml','.yaml') as $ext )
 		{
-			if( $returns_array )
-				$this->loaded[$type] = require( $path );
-			else
-				require( $path );
+			if( file_exists( $name_path . $ext ) )
+			{
+				if( $returns_array )
+				{
+					if( $ext === '.php' )
+						$this->loaded[$type] = require( $name_path . $ext );
+					elseif( function_exists( 'yaml_parse_file' ) )
+						$this->loaded[$type] = yaml_parse_file( $name_path . $ext );
+					else
+						throw new Exception('Could not parse YAML file "'. $name_path . $ext . '", yaml_parse_file() method requires the YAML package of the PECL extension');
+				}
+				else
+					require( $name_path . $ext );
+			}
 		}
 
 		return $this->loaded[$type];

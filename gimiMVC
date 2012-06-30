@@ -49,9 +49,12 @@ define( 'GIMIMVC_ROOT', dirname(__FILE__) . '/' );
 $required_files = array (
 	'base/Load',
 	'base/Config',
+	'components/Adaptable',
 	'database/Database',		
 	'database/DbQuery', 	
-	'database/QueryBuilder', 	
+	'database/querybuilder/IQueryBuilder', 	
+	'database/querybuilder/QueryBuilder', 	
+	'database/querybuilder/adapter/QBAdapter', 	
 	'lib/File', 
 	'log/Logger',
 	'gimimvc/Config', 	

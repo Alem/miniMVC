@@ -15,7 +15,7 @@
  * @author Z. Alem <info@alemcode.com>
  * @package minimvc.cache
  */
-class FileCacheAdapter extends File implements ICacheAdapter
+class FileCacheAdapter extends File implements ICache
 {
 
 	/**

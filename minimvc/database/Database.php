@@ -11,47 +11,35 @@
 
 /**
  * The Database class serves to hold the database connection.
+ * In essence, it is a simplified convenience wrapper/abstracted interface for 
+ * the PDO object, which is held in Database::PDO.
  *
  * @author Z. Alem <info@alemcode.com>
  * @package minimvc.database
  */
 class Database
 {
-
 	/**
-	 * Holds the database host
+	 * Holds the database connection settings.
 	 *
 	 * @var string
 	 */
-	public $host;
-
-	/**
-	 * Holds the database username
-	 *
-	 * @var string
-	 */
-	public $username;
-
-	/**
-	 * Holds the database password
-	 *
-	 * @var string
-	 */
-	public $password;
-
-	/**
-	 * Holds the database name.
-	 *
-	 * @var string
-	 */
-	public $dbname;
+	public $settings;
 
 	/**
 	 * Holds the database connection.
 	 *
 	 * @var PDO
 	 */
-	public $pdo_connection;
+	public $PDO;
+
+	/**
+	 * Holds the database errors.
+	 *
+	 * @var array
+	 */
+	public $errors;
+
 
 	/**
 	 * __construct - Creates default database configuration.
@@ -66,21 +54,21 @@ class Database
 			$settings = $config->fetch('database');
 			$this->settings = $settings['default'];
 		}
-		$this->pdo_connection = null;
+		$this->PDO = null;
 	}
 
 	/**
-	 * connection() - Accesses database connection
+	 * PDOConnection() - Accesses database connection
 	 *
 	 * Starts connection if model::db not set, otherwise returns model::db
 	 *
 	 * @return PDO 			The PDO object as a property of the current object
 	 */
-	public function connection()
+	public function PDOConnection()
 	{
-		if( !isset( $this->pdo_connection ) )
+		if( !isset( $this->PDO ) )
 		{
-			$this-> pdo_connection = new PDO(
+			$this-> PDO = new PDO(
 				$this->settings['driver'] . ':host=' .
 				$this->settings['host'] . ';dbname=' .
 				$this->settings['database'],
@@ -88,7 +76,40 @@ class Database
 				$this->settings['password']
 			);
 		}
-		return $this->pdo_connection;
+		return $this->PDO;
+	}
+
+
+	/**
+	 * runStatement - Prepares and executes PDO statement, returns result profile
+	 *
+	 * @param string query 		The parameterized query to execute.
+	 * @param array  query_data 	The parameterized data.
+	 * @return array 		The result profile.
+	 */
+	public function runStatement( $query, $query_data )
+	{
+		$this->PDO_statement = $this->PDOConnection()->prepare( $query );
+		$this->PDO_statement->execute( $query_data );
+		$this->errors = array(
+			'Database'  => $this->PDO->errorInfo(),
+			'Statement' => $this->PDO_statement->errorInfo(),
+		);
+
+		Logger::debug('PDO Query', $query );
+		Logger::debug('PDO Data',  $query_data );
+		if( 
+			$this->errors['Database'][0] != '00000'
+			|| $this->errors['Statement'][0] != '00000'  
+		)
+		Logger::error('PDO Errors', $this->errors );
+
+		return array(
+			'fetched' 	 => $this->PDO_statement->fetchall( PDO::FETCH_ASSOC ),
+			'row_count'	 => $this->PDO_statement->rowCount(),
+			'last_insert_id' => $this->PDO->lastInsertId(),
+		);
+
 	}
 
 }

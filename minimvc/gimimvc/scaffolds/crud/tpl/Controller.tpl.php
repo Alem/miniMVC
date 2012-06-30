@@ -142,8 +142,8 @@ class {$uname}Controller extends Controller
 			$external_fetch
 			\$this->content('form' )
 				->render( array(
-				'model' => \$this->model()->data,
-				'session' => \$session->data,
+				'model' => \$this->model()->get(),
+				'session' => \$session->get(),
 				'config' => \$config->fetch('application'),
 			));
 		}else
@@ -208,8 +208,8 @@ class {$uname}Controller extends Controller
 
 			\$this->content('form' )
 				->render( array(
-				'model' => \$this->model()->data,
-				'session' => \$session->data,
+				'model' => \$this->model()->get(),
+				'session' => \$session->get(),
 				'config' => \$config->fetch('application'),
 				'settings' => array( 'editing' => true ),
 			));
@@ -237,8 +237,8 @@ class {$uname}Controller extends Controller
 		{
 			\$this->content('show' )
 				->render( array(
-				'model' => \$this->model()->data,
-				'session' => \$session->data,
+				'model' => \$this->model()->get(),
+				'session' => \$session->get(),
 				'config' => \$config->fetch('application'),
 				'settings' => array('show' => true ),
 			));
@@ -275,8 +275,8 @@ class {$uname}Controller extends Controller
 
 			\$this->content('table' )
 				->render( array(
-				'model' => \$this->model()->data,
-				'session' => \$session->data,
+				'model' => \$this->model()->get(),
+				'session' => \$session->get(),
 				'config' => \$config->fetch('application'),
 			));
 		}else

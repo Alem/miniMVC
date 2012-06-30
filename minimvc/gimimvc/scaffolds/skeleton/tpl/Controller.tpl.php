@@ -28,8 +28,8 @@ class MainController extends Controller{
 		\$this->content( 'index' )
 			->render( array(
 			'config' => \$config->fetch('application'),
-			'model'  => \$this->model()->data,
-			'session'  => \$session->data,
+			'model'  => \$this->model()->get(),
+			'session'  => \$session->get(),
 		));
 	}
 
@@ -42,8 +42,8 @@ class MainController extends Controller{
 		\$this->content( 'about' )
 			->render( array(
 			'config' => \$config->fetch('application'),
-			'model'  => \$this->model()->data,
-			'session'  => \$session->data,
+			'model'  => \$this->model()->get(),
+			'session'  => \$session->get(),
 		));
 	}
 
@@ -56,7 +56,7 @@ class MainController extends Controller{
 		\$this->error( '404' )
 			->render( array(
 			'config' => \$config->fetch('application'),
-			'session'  => \$session->data,
+			'session'  => \$session->get(),
 		));
 	}
 

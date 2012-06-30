@@ -23,7 +23,7 @@ class Model extends Scaffold
 		$external_select = null;
 		$external_table_arrays = null;
 
-		if ( isset( $this->queryTool()->linked_columns ) ):
+		if( isset( $this->queryTool()->linked_columns ) ):
 			foreach ( $this->queryTool()->linked_columns  as $stripped_column ):
 				//--------------------------------------START CODE
 				$external_table_arrays .= <<<external
@@ -54,7 +54,7 @@ JOINING;
 	}
 
 
-	public function retrieve()
+	public function getContent()
 	{
 
 		$uname = $this->uname;
@@ -117,30 +117,16 @@ class $uname extends Model implements ICRUD
 	);
 
 
-	public function __construct()
-	{
-		parent::__construct();
-	}
-
-
 	/**
 	 * create - Inserts $uname data into table.
 	 *
 	 * @return integer The Primary ID of the last/recently inserted row.
 	 */
-	public function create( \$data, \$user_id = null )
+	public function create( \$data )
 	{
-		if ( isset( \$user_id ) )
-		{
-			\$data[ \$this->fields['ownership'] ] = \$user_id;
-			\$this->fields['form'][] = \$this->fields['ownership'];
-		}
-
-		\$this	-> SQL()
-			-> insert( \$data, \$this->fields['form'] )
-			-> run();
-
-		return \$this->SQL()->last_insert_id;
+		return \$this-> SQL()
+				-> insert( \$data, \$this->fields['form'] )
+				-> fetch( FETCH::LAST_INSERT_ID );
 	}
 
 
@@ -150,14 +136,15 @@ class $uname extends Model implements ICRUD
 	 * @param integer \$id      The primary ID of the $uname to delete.
 	 * @param mixed   \$user_id The value that matches the row's value for the 'ownership' column.
 	 */
-	public function delete( \$id, \$user_id = null)
+	public function delete( \$where = null)
 	{
 		\$this 	-> SQL()
-			-> remove()
-			-> where( \$id, 'id' );
-		if ( isset( \$user_id ) )
-			\$this	-> SQL()->where(\$user_id, \$this->fields['ownership'] );
-		\$this->SQL()->run();
+			-> remove();
+
+		if ( isset( \$where ) )
+			\$this->SQL()->where( array_values( \$where) , array_keys( \$where ) );
+
+		return \$this->SQL()->fetch( FETCH::ROW_COUNT );
 	}
 
 
@@ -167,16 +154,14 @@ class $uname extends Model implements ICRUD
 	 * @param integer \$id      The primary ID of the $uname to update.
 	 * @param mixed   \$user_id The value that matches the row's value for the 'ownership' column.
 	 */
-	public function update( \$data, \$id = null, \$user_id = null )
+	public function update( \$data, \$where = null )
 	{
 		\$this 	-> SQL()->update( \$data, \$this->fields['form'] );
 
-		if ( isset( \$id ) )
-			\$this	-> SQL()->where( \$id, 'id' );
-		if ( isset( \$user_id ) )
-			\$this	-> SQL()->where(\$user_id, \$this->fields['ownership'] );
+		if ( isset( \$where ) )
+			\$this->SQL()->where( array_values( \$where) , array_keys( \$where ) );
 
-		\$this->SQL()->run();
+		return \$this->SQL()->fetch( FETCH::ROW_COUNT );
 	}
 
 
@@ -187,19 +172,17 @@ class $uname extends Model implements ICRUD
 	 * @param  mixed   \$user_id The value that matches the row's value for the 'ownership' column.
 	 * @return array             The array of matching table rows returned by the SQL query.
 	 */
-	public function retrieve(\$id = null, \$user_id = null )
+	public function retrieve(\$id = null, \$where = null )
 	{
 		\$this->SQL()->select ( \$this->fields['table'] );
 		$external_select
 		\$this->SQL()->from();
 		$joining
 
-		if ( isset( \$id ) )
-			\$this	-> SQL()->where( \$id,'id' );
-		if ( isset( \$user_id ) )
-			\$this	-> SQL()->where(\$user_id, \$this->fields['ownership'] );
+		if ( isset( \$where ) )
+			\$this->SQL()->where( array_values( \$where) , array_keys( \$where ) );
 
-		\$result = \$this->SQL()->run();
+		\$result = \$this->SQL()->fetch();
 
 		\$this->set( 'data',  \$result);
 
@@ -217,7 +200,7 @@ class $uname extends Model implements ICRUD
 	 * @param array   \$search      An array containing search columns and search values.
 	 * @return array                The 'pagination-friendly' array returned by the Model::page method.
 	 */
-	public function listing( \$order_col, \$order_sort, \$page, \$search = null, \$user_id = null)
+	public function listing( \$order_col, \$order_sort, \$page, \$search = null, \$where = null)
 	{
 		\$this->SQL()->select ( \$this->fields['table'] );
 		$external_select
@@ -228,11 +211,12 @@ class $uname extends Model implements ICRUD
 		{
 			\$this	-> SQL()->where(\$search['values'], \$search['columns'] );
 			\$search_string = '?' . \$search['query_string'];
-		}else
+		}
+		else
 			\$search_string = null;
 
-		if ( isset( \$user_id ) )
-			\$this	-> SQL()->where(\$user_id, \$this->fields['ownership'] );
+		if ( isset( \$where ) )
+			\$this->SQL()->where( array_values( \$where) , array_keys( \$where ) );
 
 		\$result = \$this
 			-> SQL()

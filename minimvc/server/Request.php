@@ -45,6 +45,15 @@ class Request
 	public $post 	= array();
 
 	/**
+	 * Holds array of variables passed as command line arguments
+	 *
+	 * @see Request::populate
+	 * @var array
+	 */
+	public $argv 	= array();
+
+
+	/**
 	 * Holds array of variables passed by the HTTP PUT method; Populated by Request::populate.
 	 * @var array
 	 *
@@ -95,7 +104,8 @@ class Request
 	 * Request::put,Request::delete, and Request::options do not have 
 	 * PHP superglobals and must be read directly from the php://input stream of raw request body data.
 	 */
-	public function populate() {
+	public function populate() 
+	{
 		$this->post = $_POST;
 
 		$this->get  = $_GET;
@@ -107,6 +117,8 @@ class Request
 			if( $ampersand_pos !== false )
 				$this->query_string = substr($_SERVER['QUERY_STRING'], $ampersand_pos + 1 );
 		}
+		if( isset( $_SERVER['argv'] )  )
+			$this->argv = $_SERVER['argv'];
 
 		if( isset( $_SERVER['REQUEST_METHOD'] ) )
 		{
@@ -186,17 +198,30 @@ class Request
 	}
 
 	/**
-	 * isAjax() - Check if request was made via AJAX
+	 * isAJAX() - Check if request was made via AJAX
 	 *
 	 * Determines if request was made via AJAX by
 	 * checking the request header for HTTP_X_REQUESTED_WITH
 	 *
 	 * @return bool 	Returns true if AJAX request, otherwise false.
 	 */
-	public function isAjax()
+	public function isAJAX()
 	{
 		return( !empty( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
 	}
+
+	/**
+	 * isCLI() - Check if request was made via cli
+	 *
+	 * Determines if request was made via cl
+	 *
+	 * @return bool 	Returns true if cli request, otherwise false.
+	 */
+	public function isCLI()
+	{
+		return( php_sapi_name() === 'cli' );
+	}
+
 
 	/**
 	 * userIP() - Determines the user's IP address

@@ -14,16 +14,16 @@ class CRUDLibrary extends Scaffold
 		$CRUDLibrary = <<<CRUDLibrary
 
 	/**
-	 * model() - Sets and retrieves Model
+	 * SQL() - Sets and retrieves QueryBuilder
 	 *
-	 * @param Model \$model 	The model object to utilize in crud methods.
+	 * @param QueryBuilder \$QueryBuilder 	The QueryBuilder object to utilize in crud methods.
 	 */
-	public function model( \$model )
+	public function SQL( \$SQL )
 	{
-		if( !isset( \$model  ) )
-			\$this->model = \$model;
+		if( !isset( \$SQL  ) )
+			\$this->SQL = \$SQL;
 
-		return \$this->model;
+		return \$this->SQL;
 	}
 
 	/**
@@ -33,12 +33,11 @@ class CRUDLibrary extends Scaffold
 	 */
 	public function insert( \$data, \$columns )
 	{
-		\$this->model()
-			->SQL()
+		\$this->SQL()
 			->insert( \$data, \$columns )
 			->run();
 
-		return \$this->model()->SQL()->last_insert_id;
+		return \$this->SQL()->last_insert_id;
 	}
 
 
@@ -50,59 +49,50 @@ class CRUDLibrary extends Scaffold
 	 */
 	public function delete( \$id, \$where = null)
 	{
-		\$this->model()
-			->SQL()
+		\$this->SQL()
 			->remove()
 			->where( \$id, 'id' );
 
 		if ( isset( \$where ) )
-			\$this->model()->SQL()->where( array_values( \$where) , array_keys( \$where ) );
+			\$this->SQL()->where( array_values( \$where) , array_keys( \$where ) );
 
-		\$this->model()->SQL()->run();
+		\$this->SQL()->run();
 	}
 
 
 	/**
 	 * update - Updates the specified 
 	 *
-	 * @param integer \$id      The primary ID of the  to update.
 	 * @param array   \$where   The array of column => value key pairs to match with WHERE clause
 	 */
-	public function update( \$data, \$id = null, \$where = null )
+	public function update( \$data, \$where = null )
 	{
-		\$this->model()-> SQL()->update( \$data, \$['form'] );
-
-		if ( isset( \$id ) )
-			\$this->model()-> SQL()->where( \$id, 'id' );
+		\$this->SQL()->update( \$data, \$['form'] );
 
 		if ( isset( \$where ) )
-			\$this->model()-> SQL()->where( array_values( \$where) , array_keys( \$where ) );
-
-		\$this->model()
-			->SQL()->run();
+			\$this-> SQL()->where( array_values( \$where) , array_keys( \$where ) );
+		\$this->SQL()->run();
 	}
 
 
 	/**
 	 * get - Retrieves the  from table
 	 *
-	 * @param  integer \$id      The primary ID of the  to retrieve.
+	 * @param mixed   \$columns  The column values to retrieve
 	 * @param array   \$where    The array of column => value key pairs to match with WHERE clause
 	 * @return array             The array of matching table rows returned by the SQL query.
 	 */
-	public function get(\$id = null, \$columns = '*',  \$where = null )
+	public function get( \$columns = '*',  \$where = null )
 	{
-		\$this->model()->SQL()->select( \$columns );
-		\$this->model()->SQL()->from();
+		\$this->SQL()->select( \$columns );
+		\$this->SQL()->from();
 
-		if ( isset( \$id ) )
-			\$this->model()->SQL()->where( \$id,'id' );
 		if ( isset( \$where ) )
-			\$this->model()->SQL()->where( array_values( \$where ) , array_keys( \$where ) );
+			\$this->SQL()->where( array_values( \$where ) , array_keys( \$where ) );
 
-		\$result = \$this->model()->SQL()->run();
+		\$result = \$this->SQL()->run();
 
-		\$this->model()->set( 'data',  \$result);
+		\$this->set( 'data',  \$result);
 
 		return \$result;
 	}
@@ -120,16 +110,16 @@ class CRUDLibrary extends Scaffold
 	 */
 	public function listing( \$order, \$page, \$search = null, \$where = null)
 	{
-		\$this->model()->SQL()->select ( \$this->model->fields['table'] );
-		\$this->model()->SQL()->from();
+		\$this->SQL()->select ( \$this->model->fields['table'] );
+		\$this->SQL()->from();
 
 		if ( !empty( \$search ) )
-			\$this->model()->SQL()->where(\$search['values'], \$search['columns'] );
+			\$this->SQL()->where(\$search['values'], \$search['columns'] );
 
 		if ( isset( \$where ) )
-			\$this->model()->SQL()->where( array_values( \$where ) , array_keys( \$where ) );
+			\$this->SQL()->where( array_values( \$where ) , array_keys( \$where ) );
 
-		\$result = \$this->model()
+		\$result = \$this
 			-> SQL()
 			-> order( \$order['column'], \$order['sort'] )
 			-> page( \$page, 6);
@@ -139,14 +129,14 @@ class CRUDLibrary extends Scaffold
 
 
 	/**
-	 * setPaginatedData() - Sets the results formatted for pagination by Element::pager
+	 * paginateData() - Sets the results formatted for pagination by Element::pager
 	 *
 	 * @param integer \$page 		The page number
 	 * @param array   \$order  		The column to order by, array key 'column', and its sort, array key 'sort'.
 	 * @param array   \$search      	An array containing search columns and search values.
 	 * @param integer \$results 		The results returned by QueryBuilder::page
 	 */ 
-	public function setPaginatedData( \$page, \$order, \$search = null, \$result = null )
+	public function paginateData( \$page, \$order, \$search = null, \$result = null )
 	{
 		if ( !empty( \$search ) )
 			\$order_string = VAR_SEPARATOR . implode( VAR_SEPARATOR, array_filter(array( \$order_col, \$order_sort )));
@@ -158,8 +148,7 @@ class CRUDLibrary extends Scaffold
 		else
 			\search_string = null;
 
-		\$this->model()->set(
-			array(
+		return array(
 				'page' 	 => \$page,
 				'order'  => \$order_string,
 				'search' => \$search_string,

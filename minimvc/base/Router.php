@@ -96,7 +96,7 @@ class Router
 	 * @param string $uri_override 		Used to manually set the raw_uri
 	 * @return string The URI/Query String
 	 */
-	function getRawURI( $uri_override = null )
+public function getRawURI( $uri_override = null )
 	{
 		if(  isset( $uri_override ) )
 			$this->raw_uri = $uri_override;

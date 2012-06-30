@@ -13,7 +13,7 @@ class Test extends Model
 		$form_fields = array_keys( $data );
 		$this	-> SQL()
 			-> insert( $data, $form_fields)
-			-> run();
+			-> fetch();
 	}
 
 	/**
@@ -27,7 +27,7 @@ class Test extends Model
 			-> select ('*')
 			-> from()
 			-> where($id,'id')
-			-> run();
+			-> fetch();
 
 		$this ->set( 'data',  $result);
 
@@ -54,7 +54,7 @@ class Test extends Model
 	 * @param string $column 	The name of the column
 	 */
 	function delete( $value, $column ) {
-		$this ->SQL()->remove()->where ( $value, $column )->run();
+		$this ->SQL()->remove()->where ( $value, $column )->fetch();
 	}
 
 	/**

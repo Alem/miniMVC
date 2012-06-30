@@ -87,8 +87,9 @@ abstract class Scaffold
 	{
 		if ( !isset( $this->query_tool ) )
 		{
-			$database =  new Database();
-			$this->query_tool = new QueryTool( $database );
+			$database = new Database();
+			$dbquery  = new DbQuery( $database );
+			$this->query_tool = new QueryTool( $dbquery );
 			$this->query_tool->getFormattedColumns( $this->name );
 		}
 		return $this->query_tool;

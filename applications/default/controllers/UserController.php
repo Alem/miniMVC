@@ -22,8 +22,8 @@ class UserController extends Controller
 		$config  = new Config();
 
 		$data = array( 
-			'model'    => $this->model()->data,
-			'session'  => $session->data,
+			'model'    => $this->model()->get(),
+			'session'  => $session->get(),
 			'config'   => $config->fetch('application'),
 			'message'  => $message,
 		);
@@ -123,8 +123,8 @@ class UserController extends Controller
 			$this->model()->retrieve( $session->get('username'));
 
 			$data = array( 
-				'model'   => $this->model()->data,
-				'session' => $session->data,
+				'model'   => $this->model()->get(),
+				'session' => $session->get(),
 				'config'  => $config->fetch('application')
 			);
 

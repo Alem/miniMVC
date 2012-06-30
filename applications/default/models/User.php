@@ -18,7 +18,7 @@ class User extends Model
 		if ( isset( $password ) )
 			$this->SQL()->where( $password , 'password');
 
-		$result = $this->SQL()->run();
+		$result = $this->SQL()->fetch();
 
 		$this->set( 'data', $result );
 		return $result;
@@ -28,12 +28,12 @@ class User extends Model
 	{
 		return $this->SQL()
 			-> insert( array($username, $password,$email), $this->columns['form'] )
-			-> run();
+			-> fetch();
 	}
 
 	function delete( $username, $password )
 	{
-		$this->SQL()->remove()->where ( $username, $password ) ->run();
+		$this->SQL()->remove()->where ( $username, $password ) ->fetch();
 	}
 
 	function update($new, $new_column, $ref, $ref_column = 'user' )

@@ -27,6 +27,18 @@ abstract class Adaptable
 		'adapting_dir' => __DIR__,
 	);
 
+
+	/**
+	 * Holds the base name of the active adapter
+	 * @var string
+	 */
+	public $adapter_active = null;
+
+
+	/**
+	 * Holds adapter instances
+	 * @var array
+	 */
 	public $adapter_collection = array();
 
 	/**
@@ -38,20 +50,34 @@ abstract class Adaptable
 	 */
 	public function useAdapter( $name )
 	{
-		if( !isset( $this->adapter[$name] ) )
-		{
-			$class = $name . $this->adapter_info['package'] . $this->adapter_info['type'];
-			$path  = $this->adapter_info['adapting_dir'] . '/' . strtolower( $this->adapter_info['type'] ) . '/' . $class . '.php';
+		if( $name === null && $this->adapter_active !== null  )
+			$name = $this->adapter_active;
+		else
+			$this->adapter_active = $name;
 
-			if( file_exists( $path ) )
-			{
-				require( $path );
-				$this->adapterinstances[$name] = new $class();
-			}
-			else
-				return null;
+		if( !isset( $this->adapter_collection[$name] ) )
+			$this->adapter_collection[$name] = $this->adapterFactory( $name );
+
+		return 	$this->adapter_collection[$name];
+	}
+
+	/**
+	 * adapterFactory() - Instantiates adapter, constructing path and class name from base name
+	 *
+	 * @param string $name 	
+	 */
+	public function adapterFactory( $name )
+	{
+		$class = $name . $this->adapter_info['package'] . $this->adapter_info['type'];
+		$path  = $this->adapter_info['adapting_dir'] . '/' . strtolower( $this->adapter_info['type'] ) . '/' . $class . '.php';
+
+		if( file_exists( $path ) )
+		{
+			require_once( $path );
+			return new $class();
 		}
-		return 	$this->adapterinstances[$name];
+		else
+			return null;
 	}
 
 }

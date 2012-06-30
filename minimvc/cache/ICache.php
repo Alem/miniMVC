@@ -1,6 +1,6 @@
 <?php
 /**
- * ICacheAdapter interface file.
+ * ICache interface file.
  *
  * @author Z. Alem <info@alemcode.com>
  * @link http://alemcode.com
@@ -9,9 +9,9 @@
  */
 
 /**
- * The ICacheAdapter interface establishes the expected interface of cache adapter classes.
+ * The ICache interface establishes the expected interface of cache adapter classes.
  */
-interface ICacheAdapter
+interface ICache
 {
 
 	/**

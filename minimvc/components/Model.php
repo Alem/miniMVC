@@ -43,20 +43,11 @@ abstract class Model
 	 */
 	public $data = array();
 
-	/**
-	 * __construct
-	 *
-	 * Runs defineName, defining the Model::name property.
-	 */
-	public function __construct()
-	{
-		$this->defineName();
-	}
 
 	/**
-	 * defineName() - Returns unit name of controller
+	 * defineName() - Returns unit name of model
 	 *
-	 * @return string 	Unit name of controller ( Basename, without 'Controller' )
+	 * @return string 	Unit name of model ( Basename )
 	 */
 	public function defineName()
 	{
@@ -82,13 +73,16 @@ abstract class Model
 	}
 
 	/**
-	 * get - Returns the named data property of the model
+	 * get - Returns the named data property of the model, or the data array if no particular property requested
 	 *
 	 * @param  mixed $property 	The name of the property to be returned OR array containing multiple properties who's values are to be returned
 	 * @return mixed 		The requested property.
 	 */
-	public function get( $property )
+	public function get( $property = null )
 	{
+		if( $property === null )
+			return $this->data;
+
 		if( is_array( $property) )
 		{
 			foreach($property as $single_property)
@@ -115,7 +109,11 @@ abstract class Model
 		{
 			if( !isset( $database ) )
 				$database = new Database();
-			$this->sql = new QueryBuilder( $database, $table = $this->name['collection']  );
+
+			$this->defineName();
+
+			$dbquery = new DbQuery( $database, $table = $this->name['collection']  );
+			$this->sql = new QueryBuilder( $dbquery );
 		}
 		return $this->sql;
 	}

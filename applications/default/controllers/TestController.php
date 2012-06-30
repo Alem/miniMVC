@@ -13,8 +13,8 @@ class TestController extends Controller
 
 		$this->content('index' )
 			->render( array(
-				'model'   => $this->model()->data,
-				'session' => $session->data,
+				'model'   => $this->model()->get(),
+				'session' => $session->get(),
 				'config'  => $config->fetch('application')
 			));
 	}
@@ -29,8 +29,8 @@ class TestController extends Controller
 
 		$this->content( 'form' )
 			->render( array(
-				'model'   => $this->model()->data,
-				'session' => $session->data,
+				'model'   => $this->model()->get(),
+				'session' => $session->get(),
 				'config'  => $config->fetch('application')
 			));
 	}
@@ -71,8 +71,8 @@ class TestController extends Controller
 
 		$this->content( 'gallery' )
 			->render( array(
-				'model'   => $this->model()->data,
-				'session' => $session->data,
+				'model'   => $this->model()->get(),
+				'session' => $session->get(),
 				'config'  => $config->fetch('application')
 			));
 	}
@@ -95,8 +95,8 @@ class TestController extends Controller
 
 		$this->content( 'gallery' )
 			->render( array(
-				'model'   => $this->model()->data,
-				'session' => $session->data,
+				'model'   => $this->model()->get(),
+				'session' => $session->get(),
 				'config'  => $config->fetch('application')
 			));
 	}
@@ -111,8 +111,8 @@ class TestController extends Controller
 
 		$this->content( 'about' )
 			->render( array(
-				'model'   => $this->model()->data,
-				'session' => $session->data,
+				'model'   => $this->model()->get(),
+				'session' => $session->get(),
 				'config'  => $config->fetch('application')
 			));
 	}

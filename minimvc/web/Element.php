@@ -114,6 +114,12 @@ SELECT;
 		if( empty( $settings['lastpage'] ) )
 			return null;
 
+		$base_href = null;
+		if( $controller !== null )
+			$base_href = $controller .'/';
+		if( $method !== null )
+			$base_href .= $method .'/';
+
 		$count = count( $settings['data'] );
 		$prev_page = $settings['page'] - 1;
 		$next_page = $settings['page'] + 1;
@@ -125,7 +131,7 @@ top;
 		if( $settings['page'] != 1 )
 		{
 			$pagination .= <<<previous
-			<li class="prev"><a href="$controller/gallery/{$prev_page}{$settings['order']}
+			<li class="prev"><a href="$base_href{$prev_page}{$settings['order']}
 			{$settings['search']}">&larr; Previous</a></li>
 previous;
 		}
@@ -133,14 +139,14 @@ previous;
 		for( $i = $settings['page'], $pages = null; $i <= $settings['lastpage']; $i++)
 		{
 			$pagination .= <<<pages
-			<li><a href="$controller/gallery/$i{$settings['order']}{$settings['search']}">$i</a></li>
+			<li><a href="$base_href$i{$settings['order']}{$settings['search']}">$i</a></li>
 pages;
 		}
 
 		if( $settings['page'] != $settings['lastpage'] )
 		{
 			$pagination .= <<<nextpage
-			<li class="prev"><a href="$controller/gallery/{$next_page}{$settings['order']}
+			<li class="prev"><a href="$base_href{$next_page}{$settings['order']}
 			{$settings['search']}">Next &rarr;</a></li>
 nextpage;
 		}
